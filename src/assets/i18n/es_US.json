@@ -1,0 +1,7 @@
+{
+    "welcomeMessage": "Bienvenidas, {{ firstName }}!",
+    "login": {
+      "username": "Ingrese su nombre de usuario",
+      "password": "Ingresa tu contraseña"
+    }
+  }

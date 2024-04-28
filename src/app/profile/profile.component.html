@@ -1,0 +1,368 @@
+
+<div class="sds-product__admin">
+    <section class="layout__wrapper">
+        <div class="container">
+
+            <main class="layout-page-content mt-3">
+                <div class="profile fl-left w-100">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="card-1 border-0">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="d-flex flex-wrap justify-content-center">
+                                            <div>
+                                                <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative profile_overvw_img"><img 
+                                                        [src]="profileDetails?.profile_image?profileDetails?.profile_image:'assets/img/profile.jpg'"  onerror="this.onerror=null;this.src='assets/img/profile.jpg'"alt="profile_image">
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center flex-wrap justify-content-center mt-1">
+                                                    <div class="d-flex flex-column flow-rootx">
+                                                        <div class="d-flex align-items-center justify-content-center text-center">
+                                                            <a class="text-gray-800 fs-5 fw-bold">{{profileDetails?.first_name}} {{profileDetails?.last_name}}</a>
+                                                        </div>
+                                                        <div class="d-flex flex-wrap fw-semobold fs-8 mb-4 pe-2 profile_list">
+                                                            <!-- <a *ngIf="profileDetails?.address1" class="d-flex align-items-center text-gray-600 text-hover-primary me-3 detl_list"><i class="pi pi-map-marker fs-6 me-3"><span class="path1"></span><span class="path2"></span></i>{{profileDetails?.address1}} </a> -->
+                                                            <a class="d-flex align-items-center text-gray-600 text-hover-primary w-100 list_wrp" [href]="'mailto:' + profileDetails?.email">
+                                                                <i class="pi pi-envelope fs-6 me-3 detl_list">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i> 
+                                                                {{profileDetails?.email}}  
+                                                                <span class="badge fw-semibold radius:tiny bg-light-success text-success ml-1">Verified</span> 
+                                                            </a>
+                                                            <a class="d-flex align-items-center text-gray-600 text-hover-primary w-100 list_wrp" [href]="'tel:' + profileDetails?.mobile">
+                                                                <i class="pi pi-phone fs-6 me-3 detl_list" data-bs-toggle="tooltip" title="Phone number must be active">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i>
+                                                                {{profileDetails?.mobile|phoneUsFormat}}
+                                                            </a>
+                                                            <div class="d-flex align-items-center text-gray-600 text-hover-primary w-100 list_wrp">
+                                                                <i class="pi pi-building fs-6 me-3 detl_list"><span class="path1">
+                                                                    </span><span class="path2"></span>
+                                                                </i>
+                                                                 {{profileDetails?.department_details?.department_name}} 
+                                                            </div>
+                                                            <a class="d-flex align-items-center text-gray-600 text-hover-primary w-100 list_wrp">
+                                                                <i class="pi pi-user fs-6 me-3 detl_list">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i> {{profileDetails?.user_role_details?.role_type}} 
+                                                            </a>
+                                                            <!-- <div *ngIf="profileDetails.gender" class="d-flex align-items-center text-gray-600 text-hover-primary w-100 list_wrp">
+                                                                <i class="pi pi-user fs-6 me-3 detl_list">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i> {{profileDetails.gender==1?'Male':profileDetails.gender==2?'Female':'Other'}} 
+                                                            </div> -->
+                                                            <!-- <div class="d-flex align-items-center text-gray-600 text-hover-primary w-100 list_wrp">
+                                                                <i class="pi pi-building fs-6 me-3 detl_list">
+                                                                    <span class="path1"></span><span class="path2"></span>
+                                                                </i> {{profileDetails?.organization_details?.org_name}} 
+                                                            </div> -->
+                                                            <div *ngIf="profileDetails.joining_date" class="d-flex align-items-center text-gray-600 text-hover-primary w-100 list_wrp">
+                                                                <i class="pi pi-calendar fs-6 me-3 detl_list">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i>{{profileDetails.joining_date|date:'MM-dd-YYYY'}} 
+                                                            </div>
+                                                            <div class="d-flex align-items-center text-gray-600 text-hover-primary w-100 list_wrp">
+                                                                <i class="pi pi-map-marker fs-6 me-3 detl_list">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i> 
+                                                                {{profileDetails.address1?profileDetails.address1:''}} {{profileDetails.address2?",  "+profileDetails.address2:''}}{{profileDetails.state?', '+profileDetails.state:''}}{{profileDetails.city?', '+profileDetails.city:''}}{{profileDetails.zip?', '+profileDetails.zip:''}} 
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                              
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="card--padding profile_card  h-100">
+                                
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="wrapper flow-rootX tab_list">
+                                            <ul class="nav nav-tabs tab-navs" id="ex1" role="tablist">
+                                                <!-- <li class="nav-item tab-button" role="presentation">
+                                                    <a class="nav-link " id="ex3-tab-1" data-bs-toggle="tab"
+                                                        href="#ex3-tabs-1" role="tab" aria-controls="ex3-tabs-1"
+                                                        aria-selected="true">Overview</a>
+                                                </li> -->
+                                                <li class="nav-item tab-button" role="presentation">
+                                                    <a class="nav-link active" id="ex3-tab-2" data-bs-toggle="tab"
+                                                        href="#ex3-tabs-2" role="tab" aria-controls="ex3-tabs-2"
+                                                        aria-selected="false">Edit Profile</a>
+                                                </li>
+                                                <li class="nav-item tab-button" role="presentation">
+                                                    <a class="nav-link" id="ex3-tab-3" data-bs-toggle="tab"
+                                                        href="#ex3-tabs-3" role="tab" aria-controls="ex3-tabs-2"
+                                                        aria-selected="false">Change Password</a>
+                                                </li>
+                                            </ul>
+    
+                                            <div class="tab-content contentWrapper p-0 fl-left w-100 bg--transparent mt-2" id="ex2-content">
+                                               
+                                                <div class="tab-pane fade  show active" id="ex3-tabs-2" role="tabpanel" aria-labelledby="ex3-tab-2">
+                                                    <div class="card-block h-100 fl-left w-100 border-0 bg--transparent">
+                                                        <div class="card-body p-0">
+
+                                                            <div class="card-body fl-left w-100 form-style">
+                                                                <form [formGroup]="editProfileForm" (ngSubmit)="onSubmitUpdateProfile()">
+
+                                                                <div class="row edit_prof_form">
+                                                                    <div class="col-lg-3">
+                                                                        <div class="uploadProfileImgInputArea">
+                                                                            <div class="image-input image-input-outline" data-kt-image-input="true">
+                                                                                <label class="btn-icon btn-circle" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                                                                <i class="pi pi-camera fs-6"></i>
+                                                                                <input type="file" name="avatar" id="proImage" accept="image/*"  (change)="fileChangeEvent($event,'proImage')" accept=".png, .jpg, .jpeg">
+                                                                                <input type="hidden" name="avatar_remove"></label>
+                                                                            </div>
+                                                                            <div class="form-text">
+                                                                                <p>Allowed file types: png, jpg, jpeg.</p>
+                                                                                <p>[Max size: 2MB]</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                        <div class="col-lg-9">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6">
+                                                                                    <div class="form-floating">
+                                                                                        <input type="text" class="form-control" [minlength]="3" [maxlength]="25"  formControlName="first_name"
+                                                                                        [ngClass]="{ 'is-invalid': submitteEditProfile && p['first_name'].errors }">
+                                                                                        <label class="form-label">First Name <span class="c--error">*</span></label>
+                                                                                        <app-validation-error [control]="p['first_name']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <div class="form-floating">
+                                                                                        <input type="text" class="form-control" formControlName="last_name"[minlength]="3" [maxlength]="25"
+                                                                                        [ngClass]="{ 'is-invalid': submitteEditProfile && p['last_name'].errors }">
+                                                                                        <label class="form-label">Last Name <span class="c--error">*</span></label>
+                                                                                        <app-validation-error [control]="p['last_name']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-6">
+                                                                                    <div class="form-floating">
+                                                                                        <input type="text" class="form-control" formControlName="mobile" [appInputLimit]="10" [appInputType]="'number'"
+                                                                                        [ngClass]="{ 'is-invalid': submitteEditProfile && p['mobile'].errors }" (input)="changePhoneFormat($event)">
+                                                                                        <label class="form-label">Mobile <span class="c--error">*</span></label>
+                                                                                        <app-validation-error [control]="p['mobile']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                                
+                                                                                <div class="col-lg-6">
+                                                                                    <div class="form-floating">
+                                                                                        <input type="text" class="form-control" formControlName="residential_phone"[appInputLimit]="10" [appInputType]="'number'"
+                                                                                        [ngClass]="{ 'is-invalid': submitteEditProfile && p['residential_phone'].errors }"
+                                                                                        (input)="changeResidancePhoneFormat($event)">
+                                                                                        <label class="form-label">Residential Phone</label>
+                                                                                        <app-validation-error [control]="p['residential_phone']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-12 mb-0">
+                                                                            <div class="row">
+                                                                                <div class="col-lg-5">
+                                                                                    <div class="form-floating">
+                                                                                        <input type="text" class="form-control" formControlName="email" [readonly]="true"
+                                                                                            [ngClass]="{ 'is-invalid': submitteEditProfile && p['email'].errors }">
+                                                                                        <label class="form-label">Email Address <span class="c--error">*</span></label>
+                                                                                        <app-validation-error [control]="p['email']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-3">
+                                                                                    <div class="form-floating">
+                                                                                        <input type="text" [readonly]="true" placeholder="Datepicker" class="form-control" id="dateOfBirth"  onkeydown="return false"
+                                                                                            formControlName="date_of_birth" bsDatepicker   (bsValueChange)="bsValueChange($event)"
+
+                                                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'MM-DD-YYYY',showWeekNumbers: false  }" [maxDate]="maxDate"[minDate]="minDate"
+                                                                                            autocomplete="off" [ngClass]="{ 'is-invalid': submitted && p['date_of_birth'].errors }">
+                                                                                        <label class="form-label">Date Of Birth </label>
+                                                                                        <app-validation-error [control]="p['date_of_birth']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-4">
+                                                                                    <label class="required me-4 radio-label" for="gender">Gender <span class="c--error">*</span></label>
+                                                                                    <br/>
+                                                                                    <div class="form-check form-check-inline">
+                                                                                        <input class="form-check-input" type="radio" id="gender_male" [value]="'1'" formControlName="gender">
+                                                                                        <label class="form-check-label" for="gender_male">Male</label>
+                                                                                    </div>
+                                                                                    <div class="form-check form-check-inline">
+                                                                                        <input class="form-check-input" type="radio" id="gender_female" [value]="'2'" formControlName="gender">
+                                                                                        <label class="form-check-label" for="gender_female">Female</label>
+                                                                                    </div>
+                                                      
+                                                                                    <div class="form-check form-check-inline">
+                                                                                        <input class="form-check-input" type="radio" id="gender_other" [value]="'3'" formControlName="gender">
+                                                                                        <label class="form-check-label" for="gender_other">Others</label>
+                                                                                    </div>
+                                                                                    <app-validation-error [control]="p['gender']"></app-validation-error>
+                                                                                </div>
+                                                                                <div class="col-4">
+                                                                                    <div class="form-floating">
+                                                                                        <input type="text" class="form-control" formControlName="zip"maxlength="5" [appInputLimit]="5" [appInputType]="'number'"
+                                                                                        [ngClass]="{ 'is-invalid': submitteEditProfile && p['zip'].errors }" (input)="changeZip($event)">
+                                                                                        <label class="form-label">ZIP</label>
+                                                                                        <app-validation-error [control]="p['zip']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-4">
+                                                                                    <div class="form-floating">
+                                                                                        <input type="text" class="form-control" formControlName="city"
+                                                                                        [ngClass]="{ 'is-invalid': submitteEditProfile && p['city'].errors }">
+                                                                                        <label class="form-label">City</label>
+                                                                                        <app-validation-error [control]="p['city']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-4">
+                                                                                    <div class="form-floating">
+                                                                                        <input type="text" class="form-control" formControlName="state"
+                                                                                        [ngClass]="{ 'is-invalid': submitteEditProfile && p['state'].errors }">
+                                                                                        <label class="form-label">State</label>
+                                                                                        <app-validation-error [control]="p['state']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <div class="form-floating">
+                                                                                        <textarea type="text" rows="3" cols="3" class="form-control" formControlName="address1"
+                                                                                        [ngClass]="{ 'is-invalid': submitteEditProfile && p['address1'].errors }"></textarea>
+                                                                                        <label class="form-label">Address 1 <span class="c--error">*</span></label>
+                                                                                        <app-validation-error [control]="p['address1']"></app-validation-error>
+                                                                                    </div>
+                                                                                    </div>
+                                                                                    <div class="col-6">
+                                                                                    <div class="form-floating">
+                                                                                        <textarea type="text" class="form-control" formControlName="address2"
+                                                                                        [ngClass]="{ 'is-invalid': submitteEditProfile && p['address2'].errors }"></textarea>
+                                                                                        <label class="form-label">Address 2</label>
+                                                                                        <app-validation-error [control]="p['address2']"></app-validation-error>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="d-flex justify-content-end">
+                                                                    <button type="reset" class="btn btn-secondary btn-active-light-primary me-2" (click)="resetEditProfile()">Reset</button>
+                                                                    <button type="submit" class="btn btn-success">Save Changes</button>
+                                                                </div>
+                                                            </form>                                                       
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="ex3-tabs-3" role="tabpanel" aria-labelledby="ex3-tab-3">
+                                                    <div class="card-block h-100 fl-left w-100 border-0 bg--transparent">
+                                                        <div class="card-body p-0">
+                                                            <div class="card-body fl-left w-100 form-style">
+                                                                <form [formGroup]="changePasswordForm"  class="form-style app-form unauth-form-max-w" (ngSubmit)="onSubmitChangePassword()">
+                                                                    <div class="change-passw-grid">
+                                                                        <div class="passw-grid-col">
+                                                                            <div class="form-floating">
+                                                                                <input type="{{oldPasswordType?'text':'password'}}" id="oldPassword"
+                                                                                    class="form-control" formControlName="oldPassword"
+                                                                                    [ngClass]="{ 'is-invalid': submitted && f['oldPassword'].errors }">
+                                                                                <label for="oldPassword" class="form-label">Old Password <span
+                                                                                    class="c--error">*</span></label>
+                                                                                <div class="password-eye">
+                                                                                    <i class="pi pi-eye text-2xl text-color-secondary" *ngIf="!oldPasswordType"
+                                                                                        (click)="oldPasswordType=!oldPasswordType"></i>
+                                                                                    <i class="pi pi-eye-slash text-2xl text-color-secondary"
+                                                                                        *ngIf="oldPasswordType"
+                                                                                        (click)="oldPasswordType=!oldPasswordType"></i>
+                                                                                </div>
+                                                                                <app-validation-error [control]="f['oldPassword']"></app-validation-error>
+                                                                            </div>
+                                                                         
+                                                          
+                                                                            <div class="form-floating">
+                                                                                <input type="{{newPasswordType?'text':'password'}}" id="pass" name="pass"
+                                                                                    class="form-control" formControlName="newPassword"
+                                                                                    [ngClass]="{ 'is-invalid': submitted && f['newPassword'].errors }"
+                                                                                    autocomplete="off" (keyup)="checkPassword()">
+                                                                                <label for="newPassword" class="form-label">New Password <span
+                                                                                    class="c--error">*</span></label>
+                                                                                <div class="password-eye">
+                                                                                    <i class="pi pi-eye text-2xl text-color-secondary" *ngIf="!newPasswordType"
+                                                                                        (click)="newPasswordType=!newPasswordType"></i>
+                                                                                    <i class="pi pi-eye-slash text-2xl text-color-secondary" *ngIf="newPasswordType"
+                                                                                        (click)="newPasswordType=!newPasswordType"></i>
+                                                                                </div>
+                                                                                <app-validation-error [control]="f['newPassword']"></app-validation-error>
+                                                                                
+                                                                            </div>
+                                                                     
+                                                                            <div class="form-floating">
+                                                                                <input type="{{confirmPasswordType?'text':'password'}}" id="confirmPassword"
+                                                                                    class="form-control" formControlName="confirmPassword"
+                                                                                    [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }">
+                                                                                <label for="confirmPassword" class="form-label">Re-enter New Password <span
+                                                                                    class="c--error">*</span></label>
+                                                                                <div class="password-eye">
+                                                                                    <i class="pi pi-eye text-2xl text-color-secondary" *ngIf="!confirmPasswordType"
+                                                                                        (click)="confirmPasswordType=!confirmPasswordType"></i>
+                                                                                    <i class="pi pi-eye-slash text-2xl text-color-secondary"
+                                                                                        *ngIf="confirmPasswordType"
+                                                                                        (click)="confirmPasswordType=!confirmPasswordType"></i>
+                                                                                </div>
+                                                                                <app-validation-error [control]="f['confirmPassword']"></app-validation-error>
+                                                                            </div>
+
+                                                                            <div class="form-element mb-0 text-right pt-lg-0 pt-xl-2">
+                                                                                <button type="reset" class="btn btn-secondary btn-active-light-primary me-2" (click)="resetpassForm()">Reset</button>
+                                                                                <button type="submit" class="btn btn-primary" [disabled]="loading">
+                                                                                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                                                                                    Update Password
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        
+
+                                                                        <div class="cpassw-grid-col pl-3 valid-pass ">
+                                                                            <h6>The Password Must Contain:</h6>
+                                                                            <ul class="mt-0">
+                                                                                <li class="passfailSix">8 Characters  <span class="{{isEightDigitsValid=='Pass'?'pass':'fail'}}"> {{isEightDigitsValid }}</span></li>
+                                                                                <li class="passfailLower" >1 LowerCase <span class="{{isLowercaseValid=='Pass'?'pass':'fail'}}">{{isLowercaseValid}}</span></li>
+                                                                                <li class="passfailUpper" >1 Uppercase <span class="{{isUppercaseValid=='Pass'?'pass':'fail'}}">{{isUppercaseValid}}</span> </li>
+                                                                                <li class="passfailNum" >1 Number <span class="{{isNumberValid=='Pass'?'pass':'fail'}}">{{isNumberValid}}</span> </li>
+                                                                                <li class="passfailSpecial" >1 Special Character <span class="{{isSpecialValid=='Pass'?'pass':'fail'}}">{{isSpecialValid}}</span> </li>
+                                                                            </ul>
+                                                                            <div *ngIf="f['newPassword'].value" class="badge bg-secondary badge_inside mt-1">
+                                                                                <div class="passfailAll" *ngIf="isAllValid">Good Password <span class="ml-1 badge text-white bg-{{isAllValid=='Pass'?'success':'danger'}}">{{isAllValid }}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                            </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </main>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,282 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Sub Modules</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 mb-0 align-items-center">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="col-auto mb-0">
+                                                <select class="form-control form-select w-100" [(ngModel)]="selectedModule"
+                                                    (change)="changeModule()">
+                                                    <option value="">Please select module</option>
+                                                    <ng-container *ngFor="let item of systemAdminModuleList">
+                                                        <option value="{{item.module_id}}">{{item.module_name}}</option>
+                                                    </ng-container>
+                                                </select>
+                                            </div>
+
+                                                <div class="col-auto mb-0">
+                                                <button class="btn btn-sm btn-primary"
+                                                    (click)="openaddEditSubModuleModal(addEditSubModules,'')"> Add
+                                                    Sub Module</button>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="w40">#</th>
+                                                    <th scope="col" class="w180">Actions</th>
+                                                    <th scope="col">Module Name</th>
+                                                    <th>Sub Module Name</th>
+                                                    <th scope="col">Icon</th>
+                                                    <th scope="col">Sequence</th>
+                                                    <th scope="col">Route Name</th>
+                                                    <th scope="col" class="w80">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="systemAdminSubModuleList?.length>0">
+                                                <tr
+                                                    *ngFor="let item of systemAdminSubModuleList | orderBy: sortBy: sortDirection; let i=index">
+                                                    <td>{{i+1}}</td>
+                                                    <td>
+                                                        <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit" class="btn btn-sm h-1"
+                                                            (click)="openViewSubModuleModal(viewSubModules,item)"><i
+                                                                class="pi pi-eye"></i>
+                                                        </button>
+                                                        <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit" class="btn btn-sm h-1"
+                                                            (click)="openaddEditSubModuleModal(addEditSubModules,item)"><i
+                                                                class="pi pi-file-edit"></i>
+                                                        </button>
+                                                      <!--   <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title=""
+                                                            data-bs-original-title="Delete" class="btn btn-sm h-1"
+                                                            (click)="deleteSubModule(item)"><i
+                                                                class="pi pi-trash"></i></button> -->
+                                                    </td>
+                                                    <td>{{item?.module_details.module_name}}</td>
+                                                    <td>{{item?.sub_module_name}}</td>
+                                                    <td><i class="pi {{item?.icon}} text-2xl text-color-secondary"></i>
+                                                    </td>
+                                                    <td>{{item?.sequence}}</td>
+                                                    <td>{{item?.route_path}}</td>
+
+                                                    <td>
+                                                        <div class="form-check form-switch form-switch-sm">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="{{item.module_id}}-status"
+                                                                (change)="changeActivationStatus($event,item.sub_module_id)"
+                                                                [checked]="item.active_status">
+                                                        </div>
+                                                        <!-- <span *ngIf="item.active_status==1" class="badge success">Active</span>
+                              <span *ngIf="item.active_status==0" class="badge danger">Inactive</span> -->
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="systemAdminSubModuleList?.length==0">
+                                                <tr>
+                                                    <td colspan="7" class="text-center">No data found</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <span *ngIf="totalRecords>10">
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="first"
+                                            [rows]="itemPerPage" [totalRecords]="totalRecords"
+                                            [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ ADD/EDIT SUB MODULES  ==================== -->
+
+<ng-template #addEditSubModules>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Sub Module</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditSubModuleModal() ">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="subModuleForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="moduleId"
+                                [ngClass]="{ 'is-invalid': submitted && f['moduleId'].errors }">
+                                <ng-container *ngFor="let item of systemAdminModuleList">
+                                    <option value="{{item.module_id}}">{{item.module_name}}</option>
+                                </ng-container>
+
+                            </select>
+                            <label class="form-label">Module Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['moduleId']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="subModuleName" (keypress)="preventSpace($event)"
+                                [ngClass]="{ 'is-invalid': submitted && f['subModuleName'].errors }">
+                            <label class="form-label">Sub Module Name<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['subModuleName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" formControlName="descriptions"
+                                [ngClass]="{ 'is-invalid': submitted && f['descriptions'].errors }"></textarea>
+                            <label class="form-label">Descriptions</label>
+                            <app-validation-error [control]="f['descriptions']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="icon"
+                                [ngClass]="{ 'is-invalid': submitted && f['icon'].errors }"
+                                (focus)="openViewIconsModal(viewIcons)">
+                            <label class="form-label">Icon<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['icon']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" min="0" max="999" formControlName="sequence"
+                                [ngClass]="{ 'is-invalid': submitted && f['sequence'].errors }">
+                            <label class="form-label">Sequence</label>
+                            <app-validation-error [control]="f['sequence']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="route_path" 
+                                [ngClass]="{ 'is-invalid': submitted && f['route_path'].errors }"  (keypress)="preventSpace($event)">
+                            <label class="form-label">Route Name<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['route_path']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1" checked><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditSubModuleModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary">{{isEdit?'Update':'Add'}} Sub Module</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW SUB MODULES  ==================== -->
+
+<ng-template #viewSubModules>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Sub Module Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="row">
+                <div class="col-12">
+                    <p> <b>Module Name</b>: {{viewObj?.module_details?.module_name}}</p>
+                </div>
+                <div class="col-12">
+                    <p> <b>Sub Module Name</b>: {{viewObj?.sub_module_name}}</p>
+                </div>
+                <div class="col-12">
+                    <p><b>Description</b>: {{viewObj?.descriptions}}</p>
+                </div>
+                <div class="col-12">
+                    <p><b>Icon</b>: <i class="pi {{viewObj?.icon}} text-2xl text-color-secondary"></i></p>
+                </div>
+                <div class="col-12">
+                    <p><b>Sequence</b>: {{viewObj?.sequence}}</p>
+                </div>
+                <div class="col-12">
+                    <p><b>Route Name</b>: {{viewObj?.route_path}}</p>
+                </div>
+                <div class="col-12">
+                    <p><b>Status</b>: <span class="badge success" *ngIf="viewObj.active_status==1">Active</span> <span
+                            class="badge danger" *ngIf="viewObj.active_status!==1">Inactive</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary"
+            (click)="openEditSubModuleModal(addEditSubModules,viewObj)"><i class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>
+
+
+<!-- ================ VIEW ICONS  ==================== -->
+<ng-template #viewIcons>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Select Icon</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeIconModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="card">
+            <div class="grid text-center">
+                <ng-container *ngFor="let item of primeIcons.icons">
+                    <div class="col-3 md:col-2" (click)="selectIcon(item)"><i
+                            class="pi  pt-1 pi-{{item.properties.name}} text-2xl text-color-secondary"></i>
+                        <div>pi-{{item.properties.name}}</div>
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="closeIconModal()">Close</button>
+
+    </div>
+</ng-template>

@@ -1,0 +1,269 @@
+<div class="row mb-4">
+  <div class="col card_wrapper">
+    <div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card-1" id="table">
+              <div class="card__head d-block">
+                <div class="row d-flex align-items-center flex-wrap">
+                  <!-- TOP SEPAREATE DIV FROM HERE -->
+                  <div class="col-lg-4 mb-0">
+                    <div class="card-heading">
+                      <p class="h4 c--drkgry">Customers</p>
+                    </div>
+                  </div>
+                  <div class="align-items-center col-lg-8 mb-0">
+                    <div class="d-flex justify-content-end">
+                      <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                        [placeHolderText]="'Search...'"></app-search-input>
+                      <div class="col-auto mb-0 ml-1">
+                        <div class="btns-grp">
+                          <button class="btn bg--extradrkb text-white btn-advnc" data-bs-toggle="collapse" href="#searchDiv"
+                          role="button">Advanced Search</button>
+                          <button class="btn btn-info" role="button"
+                            (click)="exportCustomerList('export_csv')">Export</button>
+                          <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                            routerLink="/policy-management/create-policy">Add Policy</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- MIDDLE SEPAREATE DIV START HERE -->
+                  <app-advanced-search [advancedSearchConfig]="advancedSearchConfig"
+                    (inputValueChange)="advancedSearchInputValueChange($event)"></app-advanced-search>
+                  <!-- MIDDLE SEPAREATE DIV END HERE -->
+                </div>
+              </div>
+              <div class="card__body">
+                <div class="card__body__container">
+                  <div class="table-style table-style-1 table-layout-fixed">
+                    <div class="table-responsive more-data-table">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="w80" (click)="updateSorting('customer_id')"># <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <!--    <th scope="col" (click)="updateSorting('active_status')">Active/Inactive <span class="pi pi-sort short-icon"></span></th>
+-->
+                            <th scope="col">Actions</th>
+                            <th scope="col" (click)="updateSorting('first_name')">Customer Name<span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col">Address </th>
+                            <th scope="col" (click)="updateSorting('city')">City <span
+                              class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('state')">State <span
+                              class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('zip')">Zip Code <span
+                              class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('created_by')">Sale By<span
+                              class="pi pi-sort short-icon"></span></th>
+                            <th scope="col">Policy Count </th>
+                            <th scope="col">Claims </th>
+                            <th scope="col" (click)="updateSorting('email')">Email <span
+                                class="pi pi-sort short-icon"></span></th>
+
+                            <th scope="col" (click)="updateSorting('mobile')">Phone <span
+                                class="pi pi-sort short-icon"></span></th>
+                            
+                            
+                           
+                            
+                            <th scope="col" (click)="updateSorting('created_at')">Created On <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('updated_at')">Updated On <span
+                                class="pi pi-sort short-icon"></span></th>
+                          </tr>
+                        </thead>
+                        <tbody *ngIf="customerList?.length>0">
+                          <tr *ngFor="let item of customerList; let i=index">
+                            <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                            <!-- <td class="text-center">
+                                        <div class="form-check form-switch form-switch-sm d-inline-grid">
+                                          <input class="form-check-input" type="checkbox" id="{{item.customer_id}}-status" (click)="changeActivationStatus($event,item)" [checked]="item.active_status==1">
+                                        </div>
+                                      </td> -->
+                            <td>
+                              <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                data-bs-original-title="View" class="btn btn-sm h-1 btn-view"
+                                (click)="navigateToCustomerDetails(item?.customer_id)">View</button>
+                              <!-- <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                *ngIf="permissionObj?.edit" data-bs-original-title="Edit"
+                                class="btn btn-sm h-1 btn-edit"
+                                (click)="openAddEditCustomerModal(addEditCustomer,item)">Edit</button> -->
+                            </td>
+                            <td>
+                              <div class="pro_name">
+                                <b> {{item?.first_name}} {{item?.last_name}}</b>
+                              </div>
+                            </td>
+                            <td> {{item?.address1}}</td>
+                            <td> {{item?.city}}</td>
+                            <td> {{item?.state}}</td>
+                            <td> {{item?.zip}}</td>
+                            <!-- <td>{{item?.created_user_info?.first_name+' '+item?.created_user_info?.last_name}} ({{item.source==1?'Backend Team':'Self Customer'}})</td> -->
+                            <td *ngIf="item.create_user_type!=3">{{item?.created_user_info?.first_name+' '+item?.created_user_info?.last_name}} ({{item?.source_details}})</td>
+                            <td *ngIf="item.create_user_type==3">{{item?.created_user_info?.contact_name}} ({{item?.source_details}})</td>
+                            <td>{{item?.policy_list?.length}} </td>
+                            <td>{{item?.claim_list?.length}}</td>
+                            <td> {{item?.email}}</td>
+                            <td> {{item?.mobile|phoneUsFormat}}</td>
+                            
+                            <td> {{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                            <td> {{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+
+                          </tr>
+
+                        </tbody>
+                        <tbody *ngIf="customerList?.length==0">
+                          <tr>
+                            <td colspan="12" class="text-center">No data found</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <span>
+                    <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                      [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                      [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================ ADD/EDIT Customer  ==================== -->
+
+  <ng-template #addEditCustomer>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Customer</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditCustomerModal()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <form [formGroup]="customerForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <div class="form-style">
+          <div class="row">
+
+
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="first_name"
+                  [ngClass]="{ 'is-invalid': submitted && f['first_name'].errors }">
+                <label class="form-label">First Name <span class="c--error">*</span></label>
+                <app-validation-error [control]="f['first_name']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="last_name"
+                  [ngClass]="{ 'is-invalid': submitted && f['last_name'].errors }">
+                <label class="form-label">Last Name <span class="c--error">*</span></label>
+                <app-validation-error [control]="f['last_name']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="email" [readonly]="isEdit?true:false"
+                  [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                <label class="form-label">Email Address <span class="c--error">*</span></label>
+                <app-validation-error [control]="f['email']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="mobile" [appInputLimit]="10"
+                  [appInputType]="'number'" [ngClass]="{ 'is-invalid': submitted && f['mobile'].errors }"
+                  (input)="changePhoneFormat($event)">
+                <label class="form-label">Mobile <span class="c--error">*</span></label>
+                <app-validation-error [control]="f['mobile']"></app-validation-error>
+              </div>
+            </div>
+
+
+            <div class="col-12 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="alternate_phone" [appInputLimit]="10"
+                  [appInputType]="'number'" [ngClass]="{ 'is-invalid': submitted && f['alternate_phone'].errors }"
+                  (input)="changeResidancePhoneFormat($event)">
+                <label class="form-label">Alternate Mobile</label>
+                <app-validation-error [control]="f['alternate_phone']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-4 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="zip"
+                  [ngClass]="{ 'is-invalid': submitted && f['zip'].errors }" (input)="changeZip($event)" [max]="5"
+                  maxlength="5">
+                <label class="form-label">Zip</label>
+                <app-validation-error [control]="f['zip']"></app-validation-error>
+                <div class="my-1 py-2 alert alert-danger" *ngIf="validZipMessage">
+                  <i aria-hidden="true" class="pi pi-exclamation-circle me-2"></i>
+                  <span>{{validZipMessage}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="city" onkeydown="return false"
+                  [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
+                <label class="form-label"> City </label>
+                <app-validation-error [control]="f['city']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-4 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="state" onkeydown="return false"
+                  [ngClass]="{ 'is-invalid': submitted && f['state'].errors }">
+                <label class="form-label">State</label>
+                <app-validation-error [control]="f['state']"></app-validation-error>
+              </div>
+            </div>
+
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <textarea type="text" class="form-control" formControlName="address1"
+                  [ngClass]="{ 'is-invalid': submitted && f['address1'].errors }"></textarea>
+                <label class="form-label">Address 1 <span class="c--error">*</span></label>
+                <app-validation-error [control]="f['address1']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <textarea type="text" class="form-control" formControlName="address2"
+                  [ngClass]="{ 'is-invalid': submitted && f['address2'].errors }"></textarea>
+                <label class="form-label">Address 2</label>
+                <app-validation-error [control]="f['address2']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-12 mb-0">
+              <p>Account Status <span class="c--error">*</span></p>
+              <div class="form-radio inline-style"><label><input type="radio" name="active_status"
+                    formControlName="active_status" value="1"><span class="checkmark"></span>
+                  <p>Active</p>
+                </label><label><input type="radio" name="active_status" formControlName="active_status" value="0"><span
+                    class="checkmark"></span>
+                  <p>Inactive</p>
+                </label></div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditCustomerModal()">Close</button>
+        <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}
+          User</button>
+      </div>
+    </form>
+  </ng-template>

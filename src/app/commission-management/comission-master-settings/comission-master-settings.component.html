@@ -1,0 +1,403 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Commissions Master</p>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="col-auto mb-0 pr-0">
+                                                <button *ngIf="permissionObj?.add" class="btn btn-success h-100"
+                                                    (click)="openAddEditCommisionTypeModal(addEditCommisionType,'')">Add  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="w80" (click)="updateSorting('blog_id')">#
+                                                                <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" class="w180">Actions</th>
+                                                            <th scope="col" (click)="updateSorting('commission_type')">
+                                                                Commission Type <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('policy_term')">
+                                                                Policy Term <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col" (click)="updateSorting('upper_limit')">
+                                                                Upper Limit <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col" (click)="updateSorting('lower_limit')">
+                                                                Lower Limit <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col" (click)="updateSorting('commission_value')">
+                                                                Commission Value <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col" (click)="updateSorting('created_at')">Created On
+                                                                <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('updated_at')">Updated On
+                                                                <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" class="w80"
+                                                                (click)="updateSorting('active_status')">
+                                                                Status <span class="pi pi-sort short-icon"></span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="commissionTypeList?.length>0">
+                                                        <tr *ngFor="let item of commissionTypeList; let i=index">
+                                                            <td>{{i+1}}</td>
+                                                            <td>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="View"
+                                                                    data-bs-original-title="View"
+                                                                    class="btn btn-sm h-1 btn-view"
+                                                                    (click)="openViewOrgModal(viewOrg,item)">View
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Edit"
+                                                                    data-bs-original-title="Edit"
+                                                                    class="btn btn-sm h-1 btn-edit"
+                                                                    (click)="openAddEditCommisionTypeModal(addEditCommisionType,item)">Edit
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Delete"
+                                                                    data-bs-original-title="Delete"
+                                                                    (click)="deleteCommissionType(item)"
+                                                                    class="btn btn-sm h-1 btn-del">Delete</button>
+                                                            </td>
+                                                            <td> <span *ngIf="item.commission_type==1">Policy</span> <span
+                                                                    *ngIf="item.commission_type==2">SPIFF</span><span
+                                                                    *ngIf="item.commission_type==3">One Day Sale</span></td>
+                                                            <td> 
+                                                                <span *ngIf="item.commission_type!=2">{{ item?.policy_term }}</span>
+                                                                <span *ngIf="item.commission_type==2">N/A</span>
+                                                            </td>
+                                                            <td> 
+                                                                <span *ngIf="item.commission_type!=2">{{ item?.upper_limit }}</span>
+                                                                <span *ngIf="item.commission_type==2">N/A</span>
+                                                            </td>
+                                                            <td> 
+                                                                <span *ngIf="item.commission_type!=2">{{ item?.lower_limit }}</span>
+                                                                <span *ngIf="item.commission_type==2">N/A</span>
+                                                            </td>
+                                                            <td> {{ item?.commission_value | currency:'USD' }}</td>
+        
+        
+                                                            <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+        
+                                                            <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                            <td>
+                                                                <div class="form-check form-switch form-switch-sm">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="{{item.org_id}}-status"
+                                                                        (click)="changeActivationStatus($event,item)"
+                                                                        [checked]="item.active_status">
+                                                                </div>
+        
+                                                            </td>
+                                                        </tr>
+        
+                                                    </tbody>
+                                                    <tbody *ngIf="commissionTypeList?.length==0">
+                                                        <tr>
+                                                            <td colspan="7" class="text-center">No data found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <span>
+    
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                                [rows]="paginationObj.limit" [totalRecords]="paginationObj.totalPages"
+                                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ================ ADD/EDIT ORGANIZATIONS  ==================== -->
+
+<ng-template #addEditCommisionType>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Commission Type</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="closeAddEditCommisionTypeModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="commissionTypeForm" class="form-style flow-rootX app-form unauth-form-max-w"
+        (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <select id="commissionType" class="form-control form-select" formControlName="commissionType"
+                                (ngModelChange)="changeCommissionType()"
+                                [ngClass]="{ 'is-invalid': submitted && f['commissionType'].errors }">
+                                <option value="1">Policy</option>
+                                <option value="2">SPIFF</option>
+                                <option value="3">One Day Sale Value</option>
+                            </select>
+                            <label class="form-label">Commision Type<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['commissionType']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                       
+                            <div class="form-floating">
+                                <select class="form-control form-select" formControlName="pricePercentage"
+                                    [ngClass]="{ 'is-invalid': submitted && f['pricePercentage'].errors }">
+                                    <option [ngValue]="0">Price</option>
+                                    <option [ngValue]="1">Percentage</option>
+                                </select>
+                                <label class="form-label">Price / Percentage<span class="c--error">*</span></label>
+                                <span *ngIf="submitted"> <app-validation-error [control]="f['pricePercentage']"></app-validation-error></span>
+
+                                
+                            </div>
+                       
+                    </div>
+                    <ng-container *ngIf="f['commissionType']?.value==1">
+                        <div class="col-lg-12 pb-1 mb-1 border-bottom"><h5>Commission On Policy </h5></div>
+                  
+                        <div class="col-4 mb-0">
+                            <div class="form-floating">
+                                <select class="form-control form-select" formControlName="policyTerm" id="pTerm"
+                                    [ngClass]="{ 'is-invalid': submitted && f['policyTerm'].errors }">
+                                    <ng-container *ngFor="let item of policyTermList">
+                                        <option value="{{item.plan_term_month}}">
+                                            {{item.plan_term}}</option>
+                                    </ng-container>
+                                </select>
+                                <label class="form-label">Policy Term<span class="c--error">*</span></label>
+                                <span *ngIf="submitted">  <app-validation-error [control]="f['policyTerm']"></app-validation-error> </span>
+                            </div>
+                        </div>
+
+                        <div class="col-4 mb-0">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" formControlName="lowerLimit"
+                                    [ngClass]="{ 'is-invalid': submitted && f['lowerLimit'].errors }" min="0" />
+                                <label class="form-label">Lower Limit<span class="c--error">*</span></label>
+                                <span *ngIf="submitted">  <app-validation-error [control]="f['lowerLimit']"></app-validation-error> </span>
+                            </div>
+                        </div>
+                        <div class="col-4 mb-0">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" formControlName="upperLimit"
+                                    [ngClass]="{ 'is-invalid': submitted && f['upperLimit'].errors }" min="0" />
+                                <label class="form-label">Upper Limit<span class="c--error">*</span></label>
+                                <span *ngIf="submitted"> <app-validation-error [control]="f['upperLimit']"></app-validation-error> </span>
+                            </div>
+                        </div>
+                      
+                        <div class="col-4 mb-0">
+                            <div class="form-floating">
+                                <input type="number" class="form-control " formControlName="commissionValue"
+                                    [ngClass]="{ 'is-invalid': submitted && f['commissionValue'].errors }" min="0" />
+                                <label class="form-label">Commission Value<span class="c--error">*</span></label>
+                                <span *ngIf="submitted">  <app-validation-error [control]="f['commissionValue']"></app-validation-error> </span>
+                            </div>
+                        </div>
+                        <div class="col-4 mb-0">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" formControlName="commissionTimes"
+                                    [ngClass]="{ 'is-invalid': submitted && f['commissionTimes'].errors }" min="0" />
+                                <label class="form-label">Commission on Full Paid<span class="c--error">*</span></label>
+                                <span *ngIf="submitted">   <app-validation-error [control]="f['commissionTimes']"></app-validation-error> </span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="f['commissionType']?.value==2">
+                        <h5>Commission On SPIFF </h5>
+                        <hr>
+                       
+                        <div class="col-4 mb-0">
+                            <div class="form-floating">
+                                <input type="number" class="form-control " formControlName="commissionValue"
+                                    [ngClass]="{ 'is-invalid': submitted && f['commissionValue'].errors }" min="0" />
+                                <label class="form-label">Commission Value<span class="c--error">*</span></label>
+                               <span *ngIf="submitted"> <app-validation-error [control]="f['commissionValue']"></app-validation-error> </span>                               
+                            </div>
+                        </div>
+                        <div class="col-4 mb-0">
+                            <div class="form-floating">
+                                <input type="number" class="form-control " formControlName="spiffAmount"
+                                    [ngClass]="{ 'is-invalid': submitted && f['spiffAmount'].errors }" min="0" />
+                                <label class="form-label">Spiff Amount<span class="c--error">*</span></label>
+                                <span *ngIf="submitted">  <app-validation-error [control]="f['spiffAmount']"></app-validation-error> </span>
+                            </div>
+                        </div>
+
+                    </ng-container>
+                    <ng-container *ngIf="f['commissionType']?.value==3">
+                        <h5>Commision On One Day Sale </h5>
+                        <hr>
+                       
+                        <div class="col-4">
+                            <div class="form-floating">
+                                <input type="number" class="form-control " formControlName="oneDaySaleAmount"
+                                    [ngClass]="{ 'is-invalid': submitted && f['oneDaySaleAmount'].errors }" min="0" />
+                                <label class="form-label">One Day Sale Amount<span class="c--error">*</span></label>
+                                <span *ngIf="submitted">  <app-validation-error [control]="f['oneDaySaleAmount']"></app-validation-error> </span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-floating">
+                                <input type="number" class="form-control " formControlName="commissionValue"
+                                    [ngClass]="{ 'is-invalid': submitted && f['commissionValue'].errors }" min="0" />
+                                <label class="form-label">Commission Value<span class="c--error">*</span></label>
+                                <span *ngIf="submitted">   <app-validation-error [control]="f['commissionValue']"></app-validation-error> </span>
+                            </div>
+                        </div>
+
+                    </ng-container>
+                    <div class="col-md-12">
+                        <label class="required me-4 radio-label" for="role">Status </label>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="activeStatus_yes" value="1"
+                                formControlName="activeStatus">
+                            <label class="form-check-label" for="activeStatus_yes">Active</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="activeStatus_no" value="0"
+                                formControlName="activeStatus">
+                            <label class="form-check-label" for="activeStatus_no">Inactive</label>
+                        </div>
+
+                        <app-validation-error [control]="f['activeStatus']"></app-validation-error>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="modal-footer w-100 fl-left">
+            <button type="button" class="btn btn-sm btn-secondary"
+                (click)="closeAddEditCommisionTypeModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading"
+                    class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW ORGANIZATIONS  ==================== -->
+
+<ng-template #viewOrg>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Commission Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-6 px-0">
+                <div class="fee-details">
+                    <ul>
+                        <li>Commission Type :</li>
+                        <li> <span *ngIf="viewObj.commission_type==1">Policy</span> <span
+                                *ngIf="viewObj.commission_type==2">SPIFF</span><span *ngIf="viewObj.commission_type==3">One
+                                Day Sale</span></li>
+                    </ul>
+                    <ul *ngIf="viewObj.policy_term">
+                        <li>Policy Term :</li>
+                        <li>{{viewObj.policy_term}}</li>
+                    </ul>
+                    <ul *ngIf="viewObj.upper_limit">
+                        <li>Upper Limit :</li>
+                        <li>{{viewObj.upper_limit | currency:'USD'}}</li>
+                    </ul>
+                    <ul *ngIf="viewObj.one_day_sale_amount">
+                        <li>One Day Sale Amount :</li>
+                        <li>{{viewObj.one_day_sale_amount | currency:'USD'}}</li>
+                    </ul>
+                    <ul>
+                        <li>Created By :</li>
+                        <li><span *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                                {{viewObj?.create_info?.last_name}}</span> <span *ngIf="!viewObj?.create_info">N/A</span></li>
+                    </ul>
+                    <ul>
+                        <li>Updated By :</li>
+                        <li> <span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}}
+                                {{viewObj?.update_info?.last_name}}</span>
+                            <span *ngIf="!viewObj?.update_info">N/A</span>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>Status :</li>
+                        <li><span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+                                class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 pl-1 pr-0">
+                <div class="fee-details">
+                    <ul>
+                        <li>Commission Value :</li>
+                        <li>{{viewObj.commission_value | currency:'USD'}}</li>
+                    </ul>
+                    
+                    <ul *ngIf="viewObj.lower_limit">
+                        <li>Lower Limit :</li>
+                        <li> {{viewObj.lower_limit | currency:'USD'}}</li>
+                    </ul>
+                    <ul *ngIf="viewObj.spiff_amount">
+                        <li>Spiff Amount :</li>
+                        <li>{{viewObj.spiff_amount | currency:'USD'}}</li>
+                    </ul>
+                    <ul>
+                        <li>Price/Percentage :</li>
+                        <li> <span *ngIf="viewObj.price_percentage==0">Price</span><span
+                                *ngIf="viewObj.price_percentage==1">Percentage</span></li>
+                    </ul>
+                    <ul>
+                        <li>Created On :</li>
+                        <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                    </ul>
+                    <ul>
+                        <li>Updated On :</li>
+                        <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditOrgModal(addEditCommisionType,viewObj)"><i
+                class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>

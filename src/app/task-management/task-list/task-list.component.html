@@ -1,0 +1,179 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Policy Tasks</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end"> 
+                                            <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                            [placeHolderText]="'Search...'"></app-search-input>    
+                                            <div class="col-auto mb-0 pr-0 ml-1">
+                                                <div class="form--search d-flex">
+                                                    <!-- <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                                                    (click)="openaddEditPlanModal(addEditPlanTerms,'')">Add</button> -->
+                                                </div>
+                                            </div>                                 
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body mt-1">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <div class="">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="w80">#</th>
+                                                            <th scope="col">Policy No.</th>
+                                                            <th scope="col">Policy Status</th>
+                                                            <th scope="col">Assign To</th>
+                                                            <th scope="col">Note</th>
+                                                            <th scope="col">Created By</th>                                               
+                                                            <th scope="col">Created On</th>
+                                                            <th scope="col">Updated On</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="taskList?.length>0">
+                                                        <tr *ngFor="let item of taskList; let i=index">
+                                                            <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                            <td><span (click)="navigateToCustomerDetails(item?.policy_details?.customer_id)" class="py-1 c--mdSky" role="button">{{item?.policy_details?.policy_number}}</span></td>
+                                                            <td>
+                                                                <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.policy_status_details?.status_color }">{{item?.policy_status_details?.status_name}}</span>
+                                                            </td>
+                                                            <td>{{item?.assignee_user_info?.first_name}}
+                                                                {{item?.assignee_user_info?.last_name}}</td>
+                                                            <td>{{item?.notes}}</td>
+                                                            <td>{{item?.created_user_info?.first_name}}
+                                                                {{item?.created_user_info?.last_name}}</td>
+                                                            <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                           
+                                                            <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td> 
+                                                        </tr>
+                            
+                                                    </tbody>
+                                                    <tbody *ngIf="taskList?.length==0">
+                                                        <tr>
+                                                            <td colspan="14" class="text-center">No data found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table> 
+                                            </div>
+                                        </div>
+                                        <span>
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                                [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ VIEW SUB USERS  ==================== -->
+
+<ng-template #viewUser>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Payment Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="row"> 
+                    <div class="row no-gutter">
+                        <div class="col-6">
+                            <p><b>Name</b>: {{viewObj?.customer_details?.first_name}} {{viewObj?.customer_details?.last_name}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Policy Number</b>: {{viewObj?.policy_details?.policy_number}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Payment Type</b>: <span>{{viewObj.payment_type_details}}</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Amount</b>:{{viewObj.amount | number : '1.2-2'| currency:'USD'}} </p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Payment Date</b>:{{viewObj.payment_date | date:'MM-dd-YYYY'}} </p>
+                        </div>
+                        <!-- <div class="col-12"></div> -->
+                        <div class="col-6">
+                            <p><b>Created User Type :</b><span *ngIf="viewObj.create_user_type==1">Customer</span>
+                                <span *ngIf="viewObj.create_user_type==2">User</span>
+                                <span *ngIf="viewObj.create_user_type==3">Realtor</span>
+                                <span *ngIf="viewObj.create_user_type==null">NA</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Created By :</b> <span
+                                *ngIf="viewObj.create_user_type==1">{{viewObj?.customer_details?.first_name}}
+                                {{viewObj?.customer_details?.last_name}}</span>
+                            <span
+                                *ngIf="viewObj.create_user_type!=1 && viewObj.create_user_type!=null">{{viewObj?.created_user_info?.first_name}}
+                                {{viewObj?.created_user_info?.last_name}}</span>
+                                <span
+                                *ngIf="viewObj.create_user_type==null">NA</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Created On :</b> {{viewObj?.created_at|date:'MM-dd-YYYY'}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Updated By :</b> <span
+                                *ngIf="viewObj.update_user_type==1">{{viewObj?.customer_details.first_name}}
+                                {{viewObj?.customer_details.last_name}}</span>
+                            <span
+                                *ngIf="viewObj.update_user_type!=1 && viewObj.update_user_type!=null">{{viewObj?.updated_user_info.first_name}}
+                                {{viewObj?.updated_user_info.last_name}}</span>
+                                <span
+                                *ngIf="viewObj.update_user_type==null">NA</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Updated On :</b> {{viewObj?.updated_at|date:'MM-dd-YYYY'}}</p>
+                        </div>                      
+                        
+                        <div class="col-6">
+                            <p><b>Schedule Payment :</b> {{viewObj?.schedule_payment_details}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Recurring Type :</b> {{viewObj?.recurring_type_details}}</p>
+                        </div>
+
+                        <div class="col-6">
+                            <p><b>Manual Payment Type :</b> {{viewObj?.manual_payment_type_details}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Payment Status</b>:
+                                <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':viewObj?.payment_status_details?.status_color }">{{viewObj.payment_status_details?.status_name}}</span>
+                            </p>
+                            
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>    
+</ng-template>
+
+
+
+

@@ -1,0 +1,1780 @@
+<div class="sidebar left__navbar" [ngClass]="status ? 'minimized' : ''">
+    <div class="left__inner_container" id="panel">
+        <div class="nav-header">
+            <a class="sds-product__logo max"><img src="./assets/img/logo.webp"></a>
+            <a class="sds-product__logo min"><img src="./assets/img/logo-sm.webp"></a>
+            <button class="collapse__button ham__menu" id="contentMenu" tabindex="0" type="button">
+                <a id="mobileMenu" class="my_class" (click)="clickEvent()">
+                    <i class="pi pi-arrow-left"></i>
+                </a>
+            </button>
+
+        </div>
+        <div class="sidebar-body nav-links">
+            <ul class="side-menu nav-sidebar">
+                <li class="nav-item active">
+                    <a href="javacript:void">
+                        <i class="pi pi-th-large"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item nav-item-cat-head">Management Tools</li>
+                <li class="nav-item">
+                    <a class="nav-link with-sub" href="javacript:void" data-bs-toggle="collapse"
+                        data-bs-target="#collapse1" aria-expanded="false">
+                        <i class="pi pi-list"></i>
+                        <p>Dropdown</p>
+                    </a>
+                    <div class="collapse first-level" id="collapse1">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal small">
+                            <li>
+                                <a href="javacript:void" class="link-light with-sub-sub" href="javacript:void"
+                                    data-bs-toggle="collapse" data-bs-target="#collapse1-sub"
+                                    aria-expanded="false">Overview</a>
+                                <div class="collapse second-level" id="collapse1-sub">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal small">
+                                        <li><a href="javacript:void" class="link-light">Sub Menu 1</a></li>
+                                        <li><a href="javacript:void" class="link-light">Sub Menu 2</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="javacript:void" class="link-light">Updates</a></li>
+                            <li><a href="javacript:void" class="link-light">Reports</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a routerLink="/user-management" class="nav-link">
+                        <i class="pi pi-users"></i>
+                        <p>User Management</p>
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a routerLink="/plan-management" class="nav-link">
+                        <i class="pi pi-calendar-plus"></i>
+                        <p>Plan Management</p>
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a routerLink="/item-management" class="nav-link">
+                        <i class="pi pi-list"></i>
+                        <p>Item Management</p>
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a routerLink="/addon-category-management" class="nav-link">
+                        <i class="pi pi-clone"></i>
+                        <p>Addon Category Management</p>
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a routerLink="/customer-management" class="nav-link">
+                        <i class="pi pi-shield"></i>
+                        <p>Customer Management</p>
+                    </a>
+                </li>
+                <li class="nav-item nav-item-cat-head">Activities</li>
+                <li class="nav-item">
+                    <a class="nav-link">
+                        <i class="pi pi-power-off"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="sds-product__admin">
+    <section class="layout__wrapper">
+        <div class="container">
+
+            <main class="layout-page-content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Widgets</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="col-2 mb-0">
+                                        <div class="widget-1 violet_widget">
+                                            <div class="icon">
+                                                <i class="pi pi-user"></i>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">8,458</p>
+                                                <p class="h7">Customers</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 mb-0">
+                                        <div class="widget-1 yellow_widget">
+                                            <div class="icon">
+                                                <i class="pi pi-shopping-bag"></i>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">$ 28.5k</p>
+                                                <p class="h7">Total Profit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 mb-0">
+                                        <div class="widget-1 blue_widget">
+                                            <div class="icon">
+                                                <i class="pi pi-credit-card"></i>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">2,450k</p>
+                                                <p class="h7">Transactions</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 mb-0">
+                                        <div class="widget-1 green_widget">
+                                            <div class="icon">
+                                                <i class="pi pi-users"></i>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">8,458</p>
+                                                <p class="h7">Customers</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 mb-0">
+                                        <div class="widget-1 red_widget">
+                                            <div class="icon">
+                                                <i class="pi pi-dollar"></i>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">$ 28.5k</p>
+                                                <p class="h7">Total Profit</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 mb-0">
+                                        <div class="widget-1 gray_widget">
+                                            <div class="icon">
+                                                <i class="pi pi-credit-card"></i>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">2,450k</p>
+                                                <p class="h7">Transactions</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Columns with icons</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container" style="display: grid; gap: 1rem;">
+                                    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4">
+                                        <div class="col">
+                                            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                                                style="background-image: url('https://getbootstrap.com/docs/5.0/examples/features/unsplash-photo-1.jpg');">
+                                                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                                                    <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long
+                                                        jacket</h2>
+                                                    <ul class="d-flex list-unstyled mt-auto">
+                                                        <li class="me-auto">
+                                                            <img src="https://github.com/twbs.png" alt="Bootstrap"
+                                                                class="rounded-circle border border-white" width="32"
+                                                                height="32">
+                                                        </li>
+                                                        <li class="d-flex align-items-center me-3">
+                                                            <svg class="bi me-2" width="1em" height="1em">
+                                                                <use xlink:href="#geo-fill"></use>
+                                                            </svg>
+                                                            <small>Earth</small>
+                                                        </li>
+                                                        <li class="d-flex align-items-center">
+                                                            <svg class="bi me-2" width="1em" height="1em">
+                                                                <use xlink:href="#calendar3"></use>
+                                                            </svg>
+                                                            <small>3d</small>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                                                style="background-image: url('https://getbootstrap.com/docs/5.0/examples/features/unsplash-photo-2.jpg');">
+                                                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                                                    <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Much longer title
+                                                        that wraps to multiple lines</h2>
+                                                    <ul class="d-flex list-unstyled mt-auto">
+                                                        <li class="me-auto">
+                                                            <img src="https://github.com/twbs.png" alt="Bootstrap"
+                                                                class="rounded-circle border border-white" width="32"
+                                                                height="32">
+                                                        </li>
+                                                        <li class="d-flex align-items-center me-3">
+                                                            <svg class="bi me-2" width="1em" height="1em">
+                                                                <use xlink:href="#geo-fill"></use>
+                                                            </svg>
+                                                            <small>Pakistan</small>
+                                                        </li>
+                                                        <li class="d-flex align-items-center">
+                                                            <svg class="bi me-2" width="1em" height="1em">
+                                                                <use xlink:href="#calendar3"></use>
+                                                            </svg>
+                                                            <small>4d</small>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+                                                style="background-image: url('https://getbootstrap.com/docs/5.0/examples/features/unsplash-photo-3.jpg');">
+                                                <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                                                    <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Another longer
+                                                        title belongs here</h2>
+                                                    <ul class="d-flex list-unstyled mt-auto">
+                                                        <li class="me-auto">
+                                                            <img src="https://github.com/twbs.png" alt="Bootstrap"
+                                                                class="rounded-circle border border-white" width="32"
+                                                                height="32">
+                                                        </li>
+                                                        <li class="d-flex align-items-center me-3">
+                                                            <svg class="bi me-2" width="1em" height="1em">
+                                                                <use xlink:href="#geo-fill"></use>
+                                                            </svg>
+                                                            <small>California</small>
+                                                        </li>
+                                                        <li class="d-flex align-items-center">
+                                                            <svg class="bi me-2" width="1em" height="1em">
+                                                                <use xlink:href="#calendar3"></use>
+                                                            </svg>
+                                                            <small>5d</small>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Cards Alternate</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container" style="display: grid; gap: 1rem;">
+                                    <div class="row align-items-md-stretch">
+                                        <div class="col-lg-4">
+                                            <div class="card-block h-100">
+                                                <div class="card-body flow-rootx">
+                                                    <div class="text-center flow-rootx">
+                                                        <img src="../../assets/img/icon-launch.webp"
+                                                            class="theme-filter" alt="launch">
+                                                        <div class="d-flex flex-column sh-5">
+                                                            <p class="h4 fw--b c--blak">Application Launch</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-muted h6">Chocolate cake marshmallow bear claw
+                                                        sweet. Apple pie
+                                                        macaroon sesame snaps candy
+                                                        jelly pudding.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card-block h-100">
+                                                <div class="card-body flow-rootx">
+                                                    <div class="text-center flow-rootx">
+                                                        <img src="../../assets/img/icon-performance.webp"
+                                                            class="theme-filter" alt="launch">
+                                                        <div class="d-flex flex-column sh-5">
+                                                            <p class="h4 fw--b c--blak">Performance Tweaks</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-muted h6">Chocolate cake marshmallow bear claw
+                                                        sweet. Apple pie
+                                                        macaroon sesame snaps candy
+                                                        jelly pudding.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card-block h-100">
+                                                <div class="card-body flow-rootx">
+                                                    <div class="text-center flow-rootx">
+                                                        <img src="../../assets/img/icon-configure.webp"
+                                                            class="theme-filter" alt="launch">
+                                                        <div class="d-flex flex-column sh-5">
+                                                            <p class="h4 fw--b c--blak">Advanced Configuration</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-muted h6">Chocolate cake marshmallow bear claw
+                                                        sweet. Apple pie
+                                                        macaroon sesame snaps candy
+                                                        jelly pudding.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Headings</p>
+
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container" style="display: grid; gap: 1rem;">
+                                    <div style="display: grid; grid-template-columns: 200px auto; align-items: center;">
+                                        <p class="h5">class="h1"</p>
+                                        <div>
+                                            <h1 class="h1">Heading 1</h1>
+                                        </div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 200px auto; align-items: center;">
+                                        <p class="h5">class="h2"</p>
+                                        <div>
+                                            <h1 class="h2">Heading 2</h1>
+                                        </div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 200px auto; align-items: center;">
+                                        <p class="h5">class="h3"</p>
+                                        <div>
+                                            <h1 class="h3">Heading 3</h1>
+                                        </div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 200px auto; align-items: center;">
+                                        <p class="h5">class="h4"</p>
+                                        <div>
+                                            <h1 class="h4">Heading 4</h1>
+                                        </div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 200px auto; align-items: center;">
+                                        <p class="h5">class="h5"</p>
+                                        <div>
+                                            <h1 class="h5">Heading 5</h1>
+                                        </div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 200px auto; align-items: center;">
+                                        <p class="h5">class="h6"</p>
+                                        <div>
+                                            <h1 class="h6">Heading 6</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Badges</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container"
+                                    style="display: grid; grid-auto-flow: column; align-items: center; justify-content: start; gap: 10px;">
+                                    <span class="badge primary">class="badge primary"</span>
+                                    <span class="badge secondary">class="badge secondary"</span>
+                                    <span class="badge success">class="badge success"</span>
+                                    <span class="badge danger">class="badge danger"</span>
+                                    <span class="badge warning">class="badge warning"</span>
+                                    <span class="badge info">class="badge info"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Alert</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container" style="display: grid; gap: 10px;">
+                                    <div class="bd-example">
+
+                                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                            A simple primary alert with <a href="#" class="alert-link">an example
+                                                link</a>. Give it a click if you like.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                                            A simple secondary alert with <a href="#" class="alert-link">an example
+                                                link</a>. Give it a click if you like.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            A simple success alert with <a href="#" class="alert-link">an example
+                                                link</a>. Give it a click if you like.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            A simple danger alert with <a href="#" class="alert-link">an example
+                                                link</a>. Give it a click if you like.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            A simple warning alert with <a href="#" class="alert-link">an example
+                                                link</a>. Give it a click if you like.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                            A simple info alert with <a href="#" class="alert-link">an example link</a>.
+                                            Give it a click if you like.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="alert alert-light alert-dismissible fade show" role="alert">
+                                            A simple light alert with <a href="#" class="alert-link">an example
+                                                link</a>. Give it a click if you like.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                                            A simple dark alert with <a href="#" class="alert-link">an example link</a>.
+                                            Give it a click if you like.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Buttons</p>
+                                </div>
+                            </div>
+                            <div class="card__body flow-rootX">
+                                <div class="card__body__container"
+                                    style="display: grid; grid-auto-flow: column; justify-content: start; gap: 10px;">
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-outline-primary">Button</a>
+                                        <p style="font-size: 12px;">class="btn btn-sm btn-outline-primary"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-outline-secondary">Button</a>
+                                        <p style="font-size: 12px;">class="btn btn-outline-secondary"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-outline-info">Button</a>
+                                        <p style="font-size: 12px;">class="btn btn-outline-info"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-outline-success">Button</a>
+                                        <p style="font-size: 12px;">class="btn btn-outline-success"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-outline-warning">Button</a>
+                                        <p style="font-size: 12px;">class="btn btn-outline-warning"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-outline-danger">Button</a>
+                                        <p style="font-size: 12px;">class="btn btn-outline-danger"</p>
+                                    </div>
+                                </div>
+                                <div class="card__body__container"
+                                    style="display: grid; grid-auto-flow: column; justify-content: start; gap: 10px;">
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-primary">Button</a>
+                                        <p class="h7">class="btn btn-primary"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-secondary">Button</a>
+                                        <p class="h7">class="btn btn-secondary"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-info">Button</a>
+                                        <p class="h7">class="btn btn-info"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-success">Button</a>
+                                        <p class="h7">class="btn btn-success"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-warning">Button</a>
+                                        <p class="h7">class="btn btn-warning"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="btn btn-danger">Button</a>
+                                        <p class="h7">class="btn btn-danger"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Dropdowns</p>
+                                </div>
+                            </div>
+                            <div class="card__body flow-rootX">
+                                <div class="card__body__container"
+                                    style="display: grid; grid-auto-flow: column; justify-content: start; gap: 10px;">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary">Primary</button>
+                                        <button type="button"
+                                            class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                        </ul>
+                                    </div><!-- /btn-group -->
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-secondary">Secondary</button>
+                                        <button type="button"
+                                            class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                        </ul>
+                                    </div><!-- /btn-group -->
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success">Success</button>
+                                        <button type="button"
+                                            class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                        </ul>
+                                    </div><!-- /btn-group -->
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info">Info</button>
+                                        <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                        </ul>
+                                    </div><!-- /btn-group -->
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-warning">Warning</button>
+                                        <button type="button"
+                                            class="btn btn-warning dropdown-toggle dropdown-toggle-split"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                        </ul>
+                                    </div><!-- /btn-group -->
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-danger">Danger</button>
+                                        <button type="button"
+                                            class="btn btn-danger dropdown-toggle dropdown-toggle-split"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                        </ul>
+                                    </div><!-- /btn-group -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Accordion</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container jumbotron">
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingOne">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                                    aria-expanded="false" aria-controls="flush-collapseOne">
+                                                    Accordion Item #1
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                                aria-labelledby="flush-headingOne"
+                                                data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">Placeholder content for this accordion,
+                                                    which is intended to demonstrate
+                                                    the <code>.accordion-flush</code> class. This is the first item's
+                                                    accordion body.</div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingTwo">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                                                    aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                    Accordion Item #2
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                                aria-labelledby="flush-headingTwo"
+                                                data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">Placeholder content for this accordion,
+                                                    which is intended to demonstrate
+                                                    the <code>.accordion-flush</code> class. This is the second item's
+                                                    accordion body. Let's imagine
+                                                    this being filled with some actual content.</div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingThree">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                                                    aria-expanded="false" aria-controls="flush-collapseThree">
+                                                    Accordion Item #3
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                                aria-labelledby="flush-headingThree"
+                                                data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">Placeholder content for this accordion,
+                                                    which is intended to demonstrate
+                                                    the <code>.accordion-flush</code> class. This is the third item's
+                                                    accordion body. Nothing more
+                                                    exciting happening here in terms of content, but just filling up the
+                                                    space to make it look, at
+                                                    least at first glance, a bit more representative of how this would
+                                                    look in a real-world
+                                                    application.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Form</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <form class="form-style">
+
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control">
+                                                    <label class="form-label">Email Address</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-floating">
+                                                    <input type="password" class="form-control">
+                                                    <label class="form-label">Password</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-floating">
+                                                    <select class="form-control form-select">
+                                                        <option>Dropdown 1</option>
+                                                        <option>Dropdown 2</option>
+                                                        <option>Dropdown 3</option>
+                                                    </select>
+                                                    <label class="form-label">Dropdown</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="form-floating">
+                                                    <select id="categories" class="form-control selectpicker" multiple
+                                                        aria-label="Default select example" data-live-search="true">
+                                                        <option value="a">Abandoned vehicles</option>
+                                                        <option value="b">Bus stops</option>
+                                                        <option value="c">Car parking</option>
+                                                        <option value="d">Dog fouling</option>
+                                                    </select>
+                                                    <label class="form-label">Multi Select</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-element">
+                                                    <label class="form-label" for="customFile">Upload</label>
+                                                    <input type="file" class="form-control" id="customFile">
+                                                </div>
+                                                <div class="form-element mb-0">
+                                                    <label for="customRange3" class="form-label">Example range</label>
+                                                    <input type="range" class="form-range" min="0" max="5" step="0.5"
+                                                        id="customRange3">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-floating">
+                                                    <textarea class="form-control"></textarea>
+                                                    <label class="form-label">Message</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-element forgot-password">
+                                                    <div class="form-checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="callback_request" value="1">
+                                                            <span class="checkmark"></span>
+                                                            <p>Remember Me</p>
+                                                        </label>
+                                                    </div>
+                                                    <a class="c2a-underline" href="javascript:void">Forgot Password?</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-element mb-0">
+                                                    <button type="button" class="c2a primary w-100p">Login</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Validate Form</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="bd-example">
+                                        <form class="row g-3 form-style">
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control is-valid"
+                                                        id="validationServer01" value="Mark" required="">
+                                                    <label for="validationServer01" class="form-label">First
+                                                        name</label>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+
+                                                    <input type="text" class="form-control is-valid"
+                                                        id="validationServer02" value="Otto" required="">
+                                                    <label for="validationServer02" class="form-label">Last name</label>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control is-invalid"
+                                                        id="validationServerUsername"
+                                                        aria-describedby="inputGroupPrepend3" required="">
+                                                    <label for="validationServerUsername"
+                                                        class="form-label">Username</label>
+                                                    <div class="invalid-feedback">
+                                                        Please choose a username.
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control is-invalid"
+                                                        id="validationServer03" required="">
+                                                    <label for="validationServer03" class="form-label">City</label>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid city.
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <select class="form-control form-select is-invalid"
+                                                        id="validationServer04" required="">
+                                                        <option selected="" disabled="" value="">Choose...</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                    <label for="validationServer04" class="form-label">State</label>
+                                                    <div class="invalid-feedback">
+                                                        Please select a valid state.
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control is-invalid"
+                                                        id="validationServer05" required="">
+                                                    <label for="validationServer05" class="form-label">Zip</label>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid zip.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-check">
+                                                    <input class="form-check-input is-invalid" type="checkbox" value=""
+                                                        id="invalidCheck3" required="">
+                                                    <label class="form-check-label" for="invalidCheck3">
+                                                        Agree to terms and conditions
+                                                    </label>
+                                                    <div class="invalid-feedback">
+                                                        You must agree before submitting.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button class="btn btn-primary" type="submit">Submit form</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Switches</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="form-check form-switch form-switch-md">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch
+                                            checkbox input</label>
+                                    </div>
+
+                                    <div class="form-check form-switch form-switch-sm">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                                            checked>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch
+                                            checkbox input</label>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Popovers</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="flow-rootX">
+                                        <div class="bd-example">
+                                            <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover"
+                                                title=""
+                                                data-bs-content="And here's some amazing content. It's very engaging. Right?"
+                                                data-bs-original-title="Popover title">Click to toggle popover</button>
+                                        </div>
+
+                                        <div class="bd-example">
+                                            <button type="button" class="btn btn-secondary me-2"
+                                                data-bs-container="body" data-bs-toggle="popover"
+                                                data-bs-placement="top"
+                                                data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                                                data-bs-original-title="" title="">
+                                                Popover on top
+                                            </button>
+                                            <button type="button" class="btn btn-secondary me-2"
+                                                data-bs-container="body" data-bs-toggle="popover"
+                                                data-bs-placement="right"
+                                                data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                                                data-bs-original-title="" title="">
+                                                Popover on end
+                                            </button>
+                                            <button type="button" class="btn btn-secondary me-2"
+                                                data-bs-container="body" data-bs-toggle="popover"
+                                                data-bs-placement="bottom"
+                                                data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                                                data-bs-original-title="" title="">
+                                                Popover on bottom
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" data-bs-container="body"
+                                                data-bs-toggle="popover" data-bs-placement="left"
+                                                data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                                                data-bs-original-title="" title="">
+                                                Popover on start
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Tooltips</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="flow-rootX">
+                                        <div class="bd-example tooltip-demo">
+                                            <button type="button" class="btn btn-success me-2" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title=""
+                                                data-bs-original-title="Tooltip on top">Tooltip on top</button>
+                                            <button type="button" class="btn btn-success me-2" data-bs-toggle="tooltip"
+                                                data-bs-placement="right" title=""
+                                                data-bs-original-title="Tooltip on end">Tooltip on end</button>
+                                            <button type="button" class="btn btn-success me-2" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title=""
+                                                data-bs-original-title="Tooltip on bottom">Tooltip on bottom</button>
+                                            <button type="button" class="btn btn-success me-2" data-bs-toggle="tooltip"
+                                                data-bs-placement="left" title="Tooltip on start">Tooltip on
+                                                start</button>
+                                            <button type="button" class="btn btn-success me-2" data-bs-toggle="tooltip"
+                                                data-bs-html="true"
+                                                title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">Tooltip with
+                                                HTML</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Toaster</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="bd-example bg-dark p-5 align-items-center d-grid"
+                                        style="display: grid; grid-auto-flow: column; gap: 1rem; justify-content: center;">
+                                        <div class="toast fade show align-items-center text-bg-success border-0"
+                                            role="alert" aria-live="assertive" aria-atomic="true">
+                                            <div class="toast-header">
+                                                <div class="bd-placeholder-img rounded me-1" style="font-size: 18px;">😁
+                                                </div>
+
+                                                <strong class="me-auto">Success</strong>
+                                                <small class="text-muted">11 mins ago</small>
+                                                <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="toast-body">
+                                                Hello, world! This is a Success toast message.
+                                            </div>
+                                        </div>
+                                        <div class="toast fade show align-items-center text-bg-warning border-0"
+                                            role="alert" aria-live="assertive" aria-atomic="true">
+                                            <div class="toast-header">
+                                                <div class="bd-placeholder-img rounded me-1" style="font-size: 18px;">😓
+                                                </div>
+
+                                                <strong class="me-auto">Warning</strong>
+                                                <small class="text-muted">11 mins ago</small>
+                                                <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="toast-body">
+                                                Hello, world! This is a Warning toast message.
+                                            </div>
+                                        </div>
+                                        <div class="toast fade show align-items-center text-bg-danger border-0"
+                                            role="alert" aria-live="assertive" aria-atomic="true">
+                                            <div class="toast-header">
+                                                <div class="bd-placeholder-img rounded me-1" style="font-size: 18px;">😡
+                                                </div>
+
+                                                <strong class="me-auto">Error</strong>
+                                                <small class="text-muted">11 mins ago</small>
+                                                <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="toast-body">
+                                                Hello, world! This is an Error toast message.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                                        <div id="liveToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                            <div class="toast-header">
+                                                <svg class="bd-placeholder-img rounded me-2" width="20" height="20"
+                                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                                    preserveAspectRatio="xMidYMid slice" focusable="false">
+                                                    <rect width="100%" height="100%" fill="#007aff"></rect>
+                                                </svg>
+                
+                                                <strong class="me-auto">Bootstrap</strong>
+                                                <small class="text-muted">11 mins ago</small>
+                                                <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="toast-body">
+                                                Hello, world! This is a toast message.
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Pagination</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Radio Button & Checkbox Inline</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="form-style"
+                                        style="display: grid; grid-auto-flow: column; justify-content: start; gap: 3rem;">
+                                        <div class="form-checkbox inline-style">
+                                            <label>
+                                                <input type="checkbox" name="callback_request" value="1">
+                                                <span class="checkmark"></span>
+                                                <p>Checkbox 1</p>
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" name="callback_request" value="1">
+                                                <span class="checkmark"></span>
+                                                <p>Checkbox 2</p>
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" name="callback_request" value="1">
+                                                <span class="checkmark"></span>
+                                                <p>Checkbox 3</p>
+                                            </label>
+                                        </div>
+
+                                        <div class="form-radio inline-style">
+                                            <label>
+                                                <input type="radio" name="radio2" value="radio4">
+                                                <span class="checkmark"></span>
+                                                <p>Radio 1</p>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="radio2" value="radio5">
+                                                <span class="checkmark"></span>
+                                                <p>Radio 2</p>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="radio2" value="radio6">
+                                                <span class="checkmark"></span>
+                                                <p>Radio 3</p>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Tab</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="wrapper flow-rootX">
+                                        <ul class="nav nav-tabs tab-navs" id="ex1" role="tablist">
+                                            <li class="nav-item tab-button" role="presentation">
+                                                <a class="nav-link active" id="ex3-tab-1" data-bs-toggle="tab"
+                                                    href="#ex3-tabs-1" role="tab" aria-controls="ex3-tabs-1"
+                                                    aria-selected="true">Link</a>
+                                            </li>
+                                            <li class="nav-item tab-button" role="presentation">
+                                                <a class="nav-link" id="ex3-tab-2" data-bs-toggle="tab"
+                                                    href="#ex3-tabs-2" role="tab" aria-controls="ex3-tabs-2"
+                                                    aria-selected="false">Very very very very long link</a>
+                                            </li>
+                                            <li class="nav-item tab-button" role="presentation">
+                                                <a class="nav-link" id="ex3-tab-3" data-bs-toggle="tab"
+                                                    href="#ex3-tabs-3" role="tab" aria-controls="ex3-tabs-3"
+                                                    aria-selected="false">Another link</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content contentWrapper" id="ex2-content">
+                                            <div class="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel"
+                                                aria-labelledby="ex3-tab-1">
+                                                Tab 1 content Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                Voluptates, doloremque
+                                                minima mollitia sapiente illo ut harum fugit explicabo error
+                                                perspiciatis at cumque nisi eaque
+                                                commodi culpa est sed ad amet.
+                                            </div>
+                                            <div class="tab-pane fade" id="ex3-tabs-2" role="tabpanel"
+                                                aria-labelledby="ex3-tab-2">
+                                                Tab 2 content Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                Voluptates, doloremque
+                                                minima mollitia sapiente illo ut harum fugit explicabo error
+                                                perspiciatis at cumque nisi eaque
+                                                commodi culpa est sed ad amet.
+                                            </div>
+                                            <div class="tab-pane fade" id="ex3-tabs-3" role="tabpanel"
+                                                aria-labelledby="ex3-tab-3">
+                                                Tab 3 content Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                                                Voluptates, doloremque
+                                                minima mollitia sapiente illo ut harum fugit explicabo error
+                                                perspiciatis at cumque nisi eaque
+                                                commodi culpa est sed ad amet.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Modals</p>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container"
+                                    style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;">
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <button type="button" class="c2a primary size:minimal" style="font-size: 16px;"
+                                            data-bs-toggle="modal" data-bs-target="#modal-center">Modal Center</button>
+                                        <p class="h7">data-bs-toggle="modal" data-bs-target="#modal-center"</p>
+                                    </div>
+                                    <div style="display: grid; gap: 0.5rem;">
+                                        <a class="c2a secondary size:minimal" style="font-size: 16px;"
+                                            data-bs-toggle="modal" data-bs-target="#modal-right">Modal Right</a>
+                                        <p class="h7">data-bs-toggle="modal" data-bs-target="#modal-right"</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Static Table</p>
+                                </div>
+                                <div class="bd-example">
+                                    <a class="btn btn-outline-primary btn-sm me-2">Button</a>
+                                    <a class="btn btn-outline-secondary btn-sm me-2">Button</a>
+                                    <a class="btn btn-outline-info btn-sm me-2">Button</a>
+                                    <a class="btn btn-outline-success btn-sm me-2">Button</a>
+                                </div>
+                                <div class="card-action dropdown">
+                                    <a class="button" id="edit" data-bs-toggle="dropdown" aria-expanded="false"
+                                        href="javacript:"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-more-vertical">
+                                            <circle cx="12" cy="12" r="1"></circle>
+                                            <circle cx="12" cy="5" r="1"></circle>
+                                            <circle cx="12" cy="19" r="1"></circle>
+                                        </svg>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="edit">
+                                        <li><a href="javascript:void" class="dropdown-item"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-edit">
+                                                    <path
+                                                        d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                    </path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                    </path>
+                                                </svg> Edit</a></li>
+                                        <li><a href="javascript:void" class="dropdown-item"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-plus">
+                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg> Add</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Actions</th>
+                                                    <th scope="col" class="w20">Sl</th>
+                                                    <th scope="col" class="w160">Order No.</th>
+                                                    <th scope="col" class="w160">Name</th>
+                                                    <th scope="col" class="w120">Email</th>
+                                                    <th scope="col" class="w100">Order Date</th>
+                                                    <th scope="col" class="w140">Order Value</th>
+                                                    <th scope="col" class="w160">Name</th>
+                                                    <th scope="col" class="w140">Email</th>
+                                                    <th scope="col" class="w140">Order Date</th>
+                                                    <th scope="col" class="w140">Order Value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="View"><i
+                                                                class="pi pi-eye"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit"><i
+                                                                class="pi pi-file-edit"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Delete"><i
+                                                                class="pi pi-trash"></i></button>
+                                                    </td>
+                                                    <td>1</td>
+                                                    <td>SYSZA0BK7LT6NWUPR1</td>
+                                                    <td>John</td>
+                                                    <td>john@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                    <td><span
+                                                            class="badge fw-semibold radius:tiny py-1  bg-light-primary text-primary">John</span>
+                                                    </td>
+                                                    <td>john@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="View"><i
+                                                                class="pi pi-eye"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit"><i
+                                                                class="pi pi-file-edit"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Delete"><i
+                                                                class="pi pi-trash"></i></button>
+                                                    </td>
+                                                    <td>2</td>
+                                                    <td>SYSZA0BK7LT6NWUPR1</td>
+                                                    <td>Cristina</td>
+                                                    <td>mary@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                    <td><span
+                                                            class="badge fw-semibold radius:tiny py-1  bg-light-secondary text-secondary">Cristina</span>
+                                                    </td>
+                                                    <td>mary@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="View"><i
+                                                                class="pi pi-eye"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit"><i
+                                                                class="pi pi-file-edit"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Delete"><i
+                                                                class="pi pi-trash"></i></button>
+                                                    </td>
+                                                    <td>3</td>
+                                                    <td>SYSZA0BK7LT6NWUPR1</td>
+                                                    <td>July</td>
+                                                    <td>july@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                    <td><span
+                                                            class="badge fw-semibold radius:tiny py-1  bg-light-info text-info">July</span>
+                                                    </td>
+                                                    <td>july@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="View"><i
+                                                                class="pi pi-eye"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit"><i
+                                                                class="pi pi-file-edit"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Delete"><i
+                                                                class="pi pi-trash"></i></button>
+                                                    </td>
+                                                    <td>1</td>
+                                                    <td>SYSZA0BK7LT6NWUPR1</td>
+                                                    <td>John</td>
+                                                    <td>john@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                    <td><span
+                                                            class="badge fw-semibold radius:tiny py-1  bg-light-success text-success">John</span>
+                                                    </td>
+                                                    <td>john@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="View"><i
+                                                                class="pi pi-eye"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit"><i
+                                                                class="pi pi-file-edit"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Delete"><i
+                                                                class="pi pi-trash"></i></button>
+                                                    </td>
+                                                    <td>2</td>
+                                                    <td>SYSZA0BK7LT6NWUPR1</td>
+                                                    <td>Cristina</td>
+                                                    <td>mary@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                    <td><span
+                                                            class="badge fw-semibold radius:tiny bg-light-warning text-warning">Cristina</span>
+                                                    </td>
+                                                    <td>mary@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="View"><i
+                                                                class="pi pi-eye"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit"><i
+                                                                class="pi pi-file-edit"></i></button>
+                                                        <button type="button" class="btn btn-sm h-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="Delete"><i
+                                                                class="pi pi-trash"></i></button>
+                                                    </td>
+                                                    <td>3</td>
+                                                    <td>SYSZA0BK7LT6NWUPR1</td>
+                                                    <td>July</td>
+                                                    <td>july@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                    <td><span
+                                                            class="badge fw-semibold radius:tiny py-1  bg-light-danger text-danger">July</span>
+                                                    </td>
+                                                    <td>july@example.com</td>
+                                                    <td>09/11/2022</td>
+                                                    <td>$499.00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Badge</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="badge fw-semibold radius:tiny py-1 bg-light-primary text-primary">John</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="badge fw-semibold radius:tiny py-1 bg-light-secondary text-secondary">Cristina</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="badge fw-semibold radius:tiny py-1 bg-light-info text-info">July</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="badge fw-semibold radius:tiny py-1 bg-light-success text-success">John</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="badge fw-semibold radius:tiny py-1 bg-light-warning text-warning">Cristina</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="badge fw-semibold radius:tiny py-1 bg-light-danger text-danger">July</span> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-1">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Data Table</p>
+                                </div>
+                                <div class="bd-example">
+                                    <a class="btn btn-outline-primary btn-sm me-2">Button</a>
+                                    <a class="btn btn-outline-secondary btn-sm me-2">Button</a>
+                                    <a class="btn btn-outline-info btn-sm me-2">Button</a>
+                                    <a class="btn btn-outline-success btn-sm me-2">Button</a>
+                                </div>
+                                <div class="card-action dropdown">
+                                    <a class="button" id="edit" data-bs-toggle="dropdown" aria-expanded="false"
+                                        href="javacript:"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-more-vertical">
+                                            <circle cx="12" cy="12" r="1"></circle>
+                                            <circle cx="12" cy="5" r="1"></circle>
+                                            <circle cx="12" cy="19" r="1"></circle>
+                                        </svg>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="edit">
+                                        <li><a href="javascript:void" class="dropdown-item"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-edit">
+                                                    <path  d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                    </path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                    </path>
+                                                </svg> Edit</a></li>
+                                        <li><a href="javascript:void" class="dropdown-item">
+                                            <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-plus">
+                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                            </svg> Add</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="datatable flow-rootX2">
+                                        <div class="d-flex justify-content-between gap-3">
+                                            <select class="dataTable-selector">
+                                                <option value="5">5</option>
+                                                <option value="10" selected="">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                            </select>
+                                            <input type="text" class="search--filter"placeholder="Type to filter the name column..." (keyup)="updateFilter($event)" />
+                                            
+                                        </div>
+                                        <ngx-datatable #table class="material " [rows]="rows" [loadingIndicator]="loadingIndicator"
+                                        [columns]="columns" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50"
+                                        rowHeight="auto" [reorderable]="reorderable"  [externalPaging]="true"
+                                        [count]="20" [offset]="0" [limit]="10" [selected]="selected" [scrollbarH]="true"
+                                        [selectionType]="SelectionType.checkbox" [selectAllRowsOnPage]="false"
+                                        [displayCheck]="displayCheck" (activate)="onActivate($event)" (select)="onSelect($event)">
+                                        
+                                            <!-- Row Detail Template -->
+                                            <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow
+                                                (toggle)="onDetailToggle($event)">
+                                                <ng-template let-row="row" let-expanded="expanded"
+                                                    ngx-datatable-row-detail-template>
+                                                    <div style="padding-left:35px;">
+                                                        <div><strong>Address</strong></div>
+                                                        <div>{{ row.address.city }}, {{ row.address.state }}</div>
+                                                    </div>
+                                                </ng-template>
+                                            </ngx-datatable-row-detail>
+                                            <!-- Column Templates -->
+                                            <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false"
+                                                [draggable]="false" [canAutoResize]="false">
+                                                <ng-template let-row="row" let-expanded="expanded"
+                                                    ngx-datatable-cell-template>
+                                                    <a href="javascript:void(0)"
+                                                        [class.datatable-icon-right]="!expanded"
+                                                        [class.datatable-icon-down]="expanded"
+                                                        title="Expand/Collapse Row" (click)="toggleExpandRow(row)">
+                                                    </a>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+
+                                            <ngx-datatable-column [width]="40" [sortable]="false"
+                                                [canAutoResize]="false" [draggable]="false" [resizeable]="false"
+                                                [headerCheckboxable]="true" [checkboxable]="true">
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Action" [width]="120" [resizeable]="false"
+                                                [sortable]="false" [draggable]="false" [canAutoResize]="false">
+                                                <ng-template let-row="row" let-expanded="expanded"
+                                                    ngx-datatable-cell-template>
+                                                    <div class="d-flex justify-content-start">
+                                                        <button (click)="action(row)" type="button" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="" data-bs-original-title="View"
+                                                        class="btn btn-sm h-1"><i (click)="action(row)"
+                                                            class="pi pi-eye"></i></button>
+                                                        <button (click)="action(row)"
+                                                            type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="" data-bs-original-title="Edit" class="btn btn-sm h-1"><i
+                                                                (click)="action(row)"
+                                                                class="pi pi-file-edit"></i></button>
+                                                        <button
+                                                            (click)="action(row)" type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="" data-bs-original-title="Delete"
+                                                            class="btn btn-sm h-1"><i (click)="action(row)"
+                                                                class="pi pi-trash"></i></button>
+                                                    </div>
+
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Name" [width]="220">
+                                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                                    let-value="value" let-row="row">
+                                                    <img src="../../assets/img/profile.jpg" class="profile-img" alt="Profile">
+                                                    <span title="Double click to edit"
+                                                        (dblclick)="editing[rowIndex + '-name'] = true"
+                                                        *ngIf="!editing[rowIndex + '-name']">
+                                                        {{ value }}
+                                                    </span>
+                                                    <input autofocus (blur)="updateValue($event, 'name', rowIndex)"
+                                                        *ngIf="editing[rowIndex + '-name']" type="text"
+                                                        [value]="value" />
+                                                </ng-template>
+                                            </ngx-datatable-column>
+
+                                            <ngx-datatable-column name="Gender">
+                                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"
+                                                    let-row="row" let-value="value">
+                                                    <span class="badge fw-semibold radius:tiny py-1 bg-light-primary text-primary" title="Double click to edit"
+                                                        (dblclick)="editing[rowIndex + '-gender'] = true"
+                                                        *ngIf="!editing[rowIndex + '-gender']">
+                                                        {{ value }}
+                                                    </span>
+                                                    <select *ngIf="editing[rowIndex + '-gender']"
+                                                        (blur)="editing[rowIndex + '-gender'] = false"
+                                                        (change)="updateValue($event, 'gender', rowIndex)"
+                                                        [value]="value">
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Action"></ngx-datatable-column>
+                                            <ngx-datatable-column name="Age"></ngx-datatable-column>
+                                            <ngx-datatable-column name="Completion"></ngx-datatable-column>
+                                        </ngx-datatable>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </main>
+
+        </div>
+    </section>
+</div>

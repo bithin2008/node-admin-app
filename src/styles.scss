@@ -1,0 +1,458 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+// Include any default variable overrides here (though functions won't be available)
+@import "./styles/variables";
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Then add additional custom code here (this need to remove as we are using primeNG)
+@import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
+@import 'ag-grid-community/styles/ag-theme-alpine.css'; // Optional theme CSS
+
+// PrimgNG Brand Theme
+@import "./styles/prime-ng-theme/theme";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  //font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.invalid-feedback,
+.validation-error-message {
+  font-size: 90%;
+  color: $red;
+}
+
+label {
+  margin-bottom: .5rem;
+
+  &.required {
+    &::after {
+      content: '*';
+      margin-left: 5px;
+      color: rgb(255, 0, 0);
+    }
+  }
+
+  // &.optional {
+  //   &::after {
+  //     margin-left: 5px;
+  //     color: $gray-500;
+  //   }
+  // }
+}
+
+.server-alert {
+  top: 4rem;
+  position: sticky;
+}
+
+
+// Sidebar & Main Content wrapper
+#sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0;
+  box-shadow: inset -1px 0 0 rgb(0 0 0 / 10%);
+  width: 275px;
+  margin-left: 0px;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+
+  .sidebar-sticky {
+    //position: -webkit-sticky;
+    //position: fixed;
+    //top: 48px;
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &.toggled-nav {
+    margin-left: -275px;
+  }
+}
+
+#main-content-wrapper {
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+  padding-top: 80px;
+  margin-left: 275px;
+  &.toggled-nav {
+    margin-left: 0px;
+  }
+}
+
+// desktop
+@media (max-width: 991px) {
+  #sidebar-wrapper {
+    margin-left: -275px;
+    &.toggled-nav {
+      margin-left: 0px;
+    }
+  }
+  #main-content-wrapper {
+    margin-left: 0px;
+    &.toggled-nav {
+      //margin-left: 275px;
+      opacity: .5;
+    }
+  }
+}
+
+@include color-mode(light) {
+  #sidebar-wrapper {
+    background-color: darken($white, 2%);
+  }
+}
+
+@include color-mode(dark) {
+  #sidebar-wrapper {
+    background-color: darken(#212529, 2%);
+  }
+}
+
+.sbar-links {
+  .btn {
+    padding: 0.5rem 0.5rem;
+    font-weight: 600;
+    //color: rgba(0, 0, 0, 0.65);
+    //background-color: transparent;
+    border: 0;
+
+    &:hover {
+      //color: rgba(0, 0, 0, 0.85);
+      //background-color: rgba(121, 82, 179, 0.1);
+    }
+
+    &:focus {
+      //color: rgba(0, 0, 0, 0.85);
+      //background-color: rgba(121, 82, 179, 0.1);
+      //box-shadow: 0 0 0 1px rgb(121 82 179 / 70%);
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: 0;
+    }
+
+    // &::before {
+    //     width: 1.25em;
+    //     line-height: 0;
+    //     content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    //     transition: transform 0.35s ease;
+    //     transform-origin: 0.5em 50%;
+    // }
+
+    // &[aria-expanded="true"]::before {
+    //     transform: rotate(90deg);
+    // }
+  }
+
+  li {
+    a {
+      padding: 0.25rem 0.5rem;
+      margin: 0.25rem 1.25rem;
+
+      &:hover {
+        //color: $white;
+        background-color: rgba($primary, 0.1);
+        //background-color: rgba(13, 110, 253, 0.1);
+      }
+    }
+
+    a.active-nav-link {
+      //color: $white;
+      background-color: rgba($primary, .2);
+    }
+  }
+}
+
+// End of Sidebar & Main Content wrapper
+
+.card-top-border {
+  border-top: 4px solid $primary;
+}
+
+.card-header {
+  font-weight: bold;
+}
+
+@mixin linear-gradient($from, $to) {
+  background: $to;
+  background: -moz-linear-gradient(top, $from 0%, $to 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $from), color-stop(100%, $to));
+  background: -webkit-linear-gradient(top, $from 0%, $to 100%);
+  background: -o-linear-gradient(top, $from 0%, $to 100%);
+  background: linear-gradient(to bottom, $from 0%, $to 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#{$from}, endColorstr=#{$to})
+}
+
+.colorgraph-navbar::after {
+  content: "";
+  height: 5px;
+  background: -webkit-gradient(linear, left top, right top, from ($from_color), to ($to_color));
+  background: linear-gradient(to right, $from_color, $to_color);
+  width: 100%;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+}
+
+.ag-theme-alpine {
+  /* disable all borders */
+  --ag-borders: none;
+  /* then add back a border between rows */
+  --ag-borders-row: solid 1px;
+  --ag-row-border-color: #dee2e6;
+}
+
+
+//Fix for Bootstrap Icon alignment
+// .bi {
+//   vertical-align: -0.125em;
+//   margin-bottom: calc(-0.125em / 2);
+// }
+
+.fw-sbold {
+  font-weight: 500 !important;
+}
+
+.p-datepicker table td>span.p-highlight,
+.p-datepicker table td.p-datepicker-today>span.p-highlight {
+  background: lighten($primaryColor, 40%);
+  &:hover {
+    background: lighten($primaryColor, 40%);
+  }
+}
+
+.p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):hover {
+  background: lighten($primaryColor, 40%);
+}
+
+.datetimepicker {
+  z-index: 100;
+}
+
+.table-font-sm {
+  font-size: 14px;
+}
+
+
+.box-shadow {
+  box-shadow: 0px 2px 20px rgb(126 126 126 / 25%);
+  border-radius: 8px;
+}
+
+.card {
+  border: 0;
+
+  .card-header {
+    border: 0;
+  }
+}
+
+.navbar {
+  .navbar-nav {
+    .nav-item {
+      margin-right: .5rem;
+    }
+
+    .nav-link {
+
+      //color: rgba(255,255,255,0.85);
+      &:hover {
+        //color: $white;
+      }
+    }
+  }
+}
+
+// Font Size
+.f-10 {
+  font-size: 10px;
+}
+
+.f-12 {
+  font-size: 12px;
+}
+
+.f-14 {
+  font-size: 14px;
+}
+
+.f-18 {
+  font-size: 18px;
+}
+
+.f-20 {
+  font-size: 20px;
+}
+
+.f-24 {
+  font-size: 24px;
+}
+
+.f-28 {
+  font-size: 28px;
+}
+
+.f-32 {
+  font-size: 32px;
+}
+
+.f-48 {
+  font-size: 48px;
+}
+
+.fc.fc-theme-standard a {
+  text-decoration: none;
+}
+
+.navbar-toggler {
+  &:hover {
+    color: $white;
+  }
+}
+
+
+// ############################################
+// Light Mode UI fix
+// ############################################
+[data-bs-theme="light"] {
+  .bg-login {
+    background: url(../src/assets/img/subtle-prism.svg) transparent;
+    background-size: 100%;
+  }
+
+  .signin-wrapper {
+    max-width: 890px;
+
+    .signin-container {
+      background: $white;
+    }
+
+    .signin-form-container {
+      padding: 30px;
+      border-right: 2px solid #f1f1f1;
+    }
+  }
+
+  .badge-cms-type {
+    color: $gray-800;
+    background-color: $gray-100;
+  }
+}
+
+// ############################################
+// End of Light Mode UI fix
+// ############################################
+
+
+// ############################################
+// Dark Mode UI fix
+// ############################################
+[data-bs-theme="dark"] {
+
+  .bg-login {
+    background: url(../src/assets/img/subtle-prism-dark.svg) transparent;
+    background-size: 100%;
+  }
+
+  .signin-wrapper {
+    max-width: 890px;
+
+    .signin-container {
+      background: $gray-900;
+    }
+
+    .signin-form-container {
+      padding: 30px;
+      border-right: 2px solid $gray-900;
+    }
+  }
+
+  .p-datatable .p-datatable-thead>tr>th,
+  .p-datatable .p-datatable-header,
+  .p-datatable .p-datatable-tbody>tr>td {
+    border-color: var(--bs-light-border-subtle);
+  }
+
+  .p-datatable .p-sortable-column:not(.p-highlight):hover,
+  .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody>tr:not(.p-highlight):hover {
+    background: var(--bs-light-bg-subtle);
+  }
+
+  .p-datepicker table td.p-datepicker-today>span {
+    color: $gray-900;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight,
+  .p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover,
+  .p-paginator .p-paginator-first:not(.p-disabled):not(.p-highlight):hover,
+  .p-paginator .p-paginator-prev:not(.p-disabled):not(.p-highlight):hover,
+  .p-paginator .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
+  .p-paginator .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
+    background: $gray-800;
+    border-color: $gray-800;
+    color: $gray-200;
+  }
+
+  .p-button.p-button-text.p-button-plain:enabled:hover {
+    background: $gray-800;
+    color: $gray-200;
+  }
+
+  .p-divider {
+    .p-divider-content {
+      background-color: $gray-900;
+    }
+  }
+
+  // tinyMCE Editor dark mode
+  .tox .tox-menubar, 
+  .tox .tox-statusbar,
+  .tox .tox-toolbar, 
+  .tox .tox-toolbar__overflow, 
+  .tox .tox-toolbar__primary, 
+  .tox .tox-edit-area__iframe,
+  .tox:not(.tox-tinymce-inline) .tox-editor-header,
+  .tox .tox-toolbar-overlord {
+    background-color: $gray-900;
+  }
+  .tox .tox-mbtn, 
+  .tox .tox-statusbar a, .tox .tox-statusbar__path-item, .tox .tox-statusbar__wordcount {
+    color: $gray-500;
+  }
+  
+  .tox .tox-tbtn svg, .tox .tox-statusbar__branding svg, .tox .tox-statusbar__resize-handle svg {
+    fill: $gray-500;
+  }
+  .tox-tinymce {
+    border-color: $gray-500;
+  }
+  .mce-content-body {
+    color: $gray-500;
+  }
+}
+
+
+
+
+
+
+// ############################################
+// End of Dark Mode UI fix
+// ############################################

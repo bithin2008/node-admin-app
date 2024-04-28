@@ -1,0 +1,591 @@
+<div id="dashboard-wrap" class="nomainlayout">
+    <div class="section-heading">
+        <p>Welcome to {{loggedInUserObj?.user_role_details?.role_type}} dashboard</p>
+    </div>
+    <div class="row my-4">
+        <div class="col-{{roleBasedView.totalPolicy && !roleBasedView.totalServiceRequest ?'12':'8'}}" *ngIf="roleBasedView?.totalPolicy">
+            <div class="card__body card--padding">
+                <div class="card-stack-hr">
+                    <h6 class="icard_heading"><strong><i class="pi pi-th-large"></i>&nbsp; Total Policy(s)</strong> </h6>
+                    <h6 class="icard_heading"><strong>{{policyCountDetails.totalPolicyCount}}</strong></h6>
+                </div>
+
+                <div class="cardss">
+                    <div class="row">
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.sales_manager || loggedInUserObj?.user_role_id==userRole?.sales_representative) ? '3':'4'}} mb-1">
+                            <div class="icard flow-rootx3 bg--dfebff">
+                                <p class="icard_fig-heading">Active </p>
+                                <h5 class="icard_fig">{{policyCountDetails.totalActivePolicy}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.sales_manager || loggedInUserObj?.user_role_id==userRole?.sales_representative) ? '3':'4'}} mb-1">
+                            <div class="icard flow-rootx3 bg--ffe6d7">
+                                <p class="icard_fig-heading">30 Days Wait </p>
+                                <h5 class="icard_fig">{{policyCountDetails.totalHoldPolicy}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.sales_manager || loggedInUserObj?.user_role_id==userRole?.sales_representative) ? '3':'4'}} mb-1">
+                            <div class="icard flow-rootx2 bg--65385a2b">
+                                <p class="icard_fig-heading">Escrow-Pending</p>
+                                <h5 class="icard_fig">{{policyCountDetails.totalAwaitingEscrowPolicy}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.sales_manager || loggedInUserObj?.user_role_id==userRole?.sales_representative) ? '3':'4'}}">
+                            <div class="icard flow-rootx2 bg--d9a25c52">
+                                <p class="icard_fig-heading">Do Not Charge</p>
+                                <h5 class="icard_fig">{{policyCountDetails.totalDoNotChargePolicy}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.sales_manager || loggedInUserObj?.user_role_id==userRole?.sales_representative) ? '3':'4'}}">
+                            <div class="icard flow-rootx2 bg--ffb30070">
+                                <p class="icard_fig-heading">Hold (Failed Payment)</p>
+                                <h5 class="icard_fig">{{policyCountDetails.totalFailedPaymentPolicy}}</h5>
+                            </div>
+                        </div>
+
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.sales_manager || loggedInUserObj?.user_role_id==userRole?.sales_representative) ? '3':'4'}}">
+                            <div class="icard flow-rootx2 bg--ffd7d9">
+                                <p class="icard_fig-heading">Cancelled </p>
+                                <h5 class="icard_fig">{{policyCountDetails.totalCancelledPolicy}}</h5>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.claim_representative || loggedInUserObj?.user_role_id==userRole?.claim_representative) ? '12':'4'}}" *ngIf="roleBasedView?.totalServiceRequest">
+            <div class="card__body card--padding">
+                <div class="card-stack-hr">
+                    <h6 class="icard_heading"><strong><i class="pi pi-cog"></i>&nbsp; Total Service Request(s) </strong> </h6>
+                    <h6 class="icard_heading"><strong>{{policyCountDetails?.totalServiceData?.total}}</strong></h6>
+                </div>
+
+                <div class="cardss">
+                    <div class="row">
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.claim_representative || loggedInUserObj?.user_role_id==userRole?.claim_representative) ? '3':'6'}} mb-1">
+                            <div class="icard flow-rootx2 bg--dfebff">
+                                <p class="icard_fig-heading">Active</p>
+                                <h5 class="icard_fig">{{policyCountDetails?.totalServiceData?.pending+policyCountDetails?.totalServiceData?.inProgress}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.claim_representative || loggedInUserObj?.user_role_id==userRole?.claim_representative) ? '3':'6'}} mb-1">
+                            <div class="icard flow-rootx2 bg--fff1d7">
+                                <p class="icard_fig-heading">Pending</p>
+                                <h5 class="icard_fig">{{policyCountDetails?.totalServiceData?.pending}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.claim_representative || loggedInUserObj?.user_role_id==userRole?.claim_representative) ? '3':'6'}}">
+                            <div class="icard flow-rootx2 bg--d7fffc">
+                                <p class="icard_fig-heading">In Progress</p>
+                                <h5 class="icard_fig">{{policyCountDetails?.totalServiceData?.inProgress}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.claim_representative || loggedInUserObj?.user_role_id==userRole?.claim_representative) ? '3':'6'}}">
+                            <div class="icard flow-rootx2 bg--daffd7">
+                                <p class="icard_fig-heading">Completed</p>
+                                <h5 class="icard_fig">{{policyCountDetails?.totalServiceData?.completed}}</h5>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-4" *ngIf="roleBasedView?.latestSalesReport">
+        <div class="col-12">
+            <div class="card--padding flow-rootY">
+                <div class="card__head d-flex justify-content-between align-items-center">
+                    <div class="card-heading">
+                        <p class="icard_heading c--drkgry"><i class="pi pi-shopping-cart"></i>&nbsp; <strong>{{loggedInUserObj?.user_role_id==userRole.sales_representative?'Today(s) 10 Sales Report':'Latest 10 Sales Report'}}</strong></p>
+                    </div>
+                    <div class="card-action"*ngIf="loggedInUserObj?.user_role_id==userRole.admin ||loggedInUserObj?.user_role_id==userRole.sales_manager">
+                        <ul class="nav nav-tabs nav-tabs--style-2"  role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="online-tab" data-bs-toggle="tab" data-bs-target="#online" type="button" role="tab" aria-controls="online" aria-selected="true" (click)="getLatest10(0)">Online (website) Sales</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="salerepresentative-tab" data-bs-toggle="tab" data-bs-target="#salerepresentative" type="button" role="tab" aria-controls="salerepresentative" aria-selected="false" (click)="getLatest10(1)">Salesman Sales</button>
+                            </li>
+                            <!-- <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="realestate-tab" data-bs-toggle="tab" data-bs-target="#realestate" type="button" role="tab" aria-controls="realestate" aria-selected="false">Real Estate Agent</button>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+               
+                <div class="card__body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tab-content" >
+                                <div class="tab-pane fade" id="online" role="tabpanel" aria-labelledby="online-tab" *ngIf="loggedInUserObj?.user_role_id==userRole.admin ||loggedInUserObj?.user_role_id==userRole.sales_manager">
+                                    <div class="table-style table-style-1">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sl. No.</th>
+                                                    <th>Policy No.</th>
+                                                    <th>Order Date</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone No.</th>
+                                                    <th>Amount</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="policyList?.length>0">
+                                                <tr *ngFor="let item of policyList; let i=index" [ngClass]="item.is_anamaly==1 ? 'anamaly': ''">
+                                                    <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                    <td>
+                                                        <span (click)="navigateToCustomerDetails(item?.customer_id)"
+                                                            class="py-1 c--mdSky" role="button">{{item?.policy_number}}
+                                                        </span>
+                                                    </td>
+                                                    <td>{{item?.order_date}}</td>
+                                                    <td>{{item?.first_name+' '+item?.last_name}}</td>
+                                                    <td>{{item?.email}}</td>
+                                                    <td>{{item?.mobile|phoneUsFormat}}</td>
+                                                    <td>${{item?.net_amount}}</td>
+                                                    <td class="order__status">
+                                                        <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item.policy_status_details>{{item.policy_status_details}}</span> -->
+                                                        <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.policy_status_details?.status_color }">{{item?.policy_status_details?.status_name}}</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="policyList?.length==0">
+                                                <tr>
+                                                    <td colspan="14" class="text-center">No data found</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                    </div>
+                                    <!-- <div class="text-center">
+                                        <a class="btn btn-mid text-white bg--dblu-1 hvr:bg--expDt mt-1">View All Sales Report</a>
+                                    </div> -->
+                                    
+                                </div>
+                                <div class="tab-pane fade show active" id="salerepresentative" role="tabpanel" aria-labelledby="salerepresentative-tab" *ngIf="loggedInUserObj?.user_role_id==userRole.admin ||loggedInUserObj?.user_role_id==userRole.sales_manager ||loggedInUserObj?.user_role_id==userRole.sales_representative">
+                                    <div class="table-style table-style-1">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sl. No.</th>
+                                                    <th>Policy No.</th>
+                                                    <th>Order Date</th>
+                                                    <th>Sales Representative</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone No.</th>
+                                                    <th>Amount</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="policyList?.length>0">
+                                                <tr *ngFor="let item of policyList; let i=index" [ngClass]="item.is_anamaly==1 ? 'anamaly': ''">
+                                                    <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                    <td>
+                                                        <span (click)="navigateToCustomerDetails(item?.customer_id)"
+                                                            class="py-1 c--mdSky" role="button">{{item?.policy_number}}
+                                                        </span>
+                                                    </td>
+                                                    <td>{{item?.order_date}}</td>
+                                                    <td>{{item.created_user_info?.first_name+' '+item.created_user_info?.last_name}}</td>
+                                                    <td>{{item?.first_name+' '+item?.last_name}}</td>
+                                                    <td>{{item?.email}}</td>
+                                                    <td>{{item?.mobile |phoneUsFormat}}</td>
+                                                    <td>${{item?.net_amount}}</td>
+                                                    <td>
+                                                        <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item?.policy_status_details>{{item?.policy_status_details}}</span> -->
+                                                        <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.policy_status_details?.status_color }">{{item?.policy_status_details?.status_name}}</span>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="policyList?.length==0">
+                                                <tr>
+                                                    <td colspan="14" class="text-center">No data found</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+                                <div class="text-center">
+                                    <a class="btn btn-mid text-white bg--dblu-1 hvr:bg--expDt mt-1" routerLink="/policy-management">View All Sales Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-4"*ngIf="roleBasedView?.cockpitView">
+        <div class="col-12">
+            <div class="card--padding flow-rootY">
+                <div class="card__head d-flex justify-content-between align-items-center">
+                    <div class="card-heading">
+                        <p class="icard_heading c--drkgry"><strong>Cockpit Overview</strong></p>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col-auto dash-col">
+                                <div class="form-group datepickform form-floating mb-0 mr-0 mb-0">
+                                    <!-- <input type="text" placeholder="Daterangepicker" id="floatingSelect" class="form-control" bsDaterangepicker [bsConfig]="{ adaptivePosition: true }"  onkeydown="return false">  -->
+                                    <div class="form-floating datepickform mr-0 mb-0 not-empty has-value">
+                                         <!-- minMode:'month',  -->
+                                        <input type="text"
+                                            class="form-control" 
+                                            bsDaterangepicker 
+                                            name="taskdate"
+                                            [maxDate]="modelDate"  
+                                           
+                                            [bsConfig]="{ 
+                                                isAnimated: true,
+                                                showWeekNumbers:false,
+                                                rangeInputFormat: 'MM-DD-YYYY',
+                                                dateInputFormat: 'MM-DD-YYYY',
+                                                minMode:'day',
+                                                
+                                                adaptivePosition: true 
+                                            }"
+                                            onkeydown="return false"
+                                            (bsValueChange)="selectCockpitDateRange($event)"
+                                            [(ngModel)]="defaultCockpitDateRange"
+                                        >
+                                        <label class="form-label">From   -     To </label> 
+                                    </div>
+                                    <!-- <label class="form-label" for="floatingSelect">Datewise Filter</label> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card__body overvw_card_body">
+                    <div class="row">
+                        <div class="col-3" *ngIf="roleBasedView?.totalPolicy">
+                            <div class="h-100 bg--sblu-1">
+                                <div class="card-1 h-100">
+                                    <div class="card__head min-h-auto">
+                                        <div class="card-heading">
+                                            <p class="icard_heading"><i class="pi pi-th-large"></i>&nbsp; <strong>Policy(s)</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="card__body card-stacks-hr">
+                                        <div class="card-stack-hr">
+                                            <h6>Total</h6>
+                                            <p>{{cockPitData.totalPolicyCount}}</p>
+                                        </div>
+
+                                        <div class="card-stack-hr">
+                                            <h6>Active</h6>
+                                            <p>{{cockPitData.totalActivePolicy}}</p>
+                                        </div>
+
+                                        <div class="card-stack-hr">
+                                            <h6>30 Days Wait</h6>
+                                            <p>{{cockPitData.totalHoldPolicy}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>Awaiting Escrow Payment</h6>
+                                            <p>{{cockPitData.totalAwaitingEscrowPolicy}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>Do Not Charge</h6>
+                                            <p>{{cockPitData.totalDoNotChargePolicy}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>Expired</h6>
+                                            <p>{{cockPitData.totalInActivePolicy}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>Hold (Failed Payment)</h6>
+                                            <p>{{cockPitData.totalFailedPaymentPolicy}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>Cancelled</h6>
+                                            <p>{{cockPitData.totalCancelledPolicy}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3" *ngIf="roleBasedView?.totalServiceRequest">
+                            <div class="h-100 bg--grn-1 ">
+                                <div class="card-1 h-100">
+                                    <div class="card__head min-h-auto">
+                                        <div class="card-heading">
+                                            <p class="icard_heading"><i class="pi pi-users"></i>&nbsp; <strong>Technician(s)</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="card__body card-stacks-hr">
+                                        <div class="card-stack-hr">
+                                            <h6>Total</h6>
+                                            <p>{{cockPitData.technicianTotal}}</p>
+                                        </div>
+
+                                        <div class="card-stack-hr">
+                                            <h6>Verified</h6>
+                                            <p>{{cockPitData.technicianVerified}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>Unverified</h6>
+                                            <p>{{cockPitData.technicianUnverified}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>Black listed</h6>
+                                            <p>{{cockPitData.technicianBlacklist}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3" *ngIf="roleBasedView?.revenueChart">
+                            <div class="h-100 bg--blu-1 ">
+                                <div class="card-1 h-100">
+                                    <div class="card__head min-h-auto">
+                                        <div class="card-heading">
+                                            <p class="icard_heading"><i class="pi pi-money-bill"></i>&nbsp;  <strong>Revenue(s)</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="card__body card-stacks-hr">
+                                        <div class="card-stack-hr">
+                                            <h6>Total Revenue</h6>
+                                            <p>{{cockPitData?.revenueTotal?.toFixed(2)}}</p>
+                                        </div>
+
+                                        <div class="card-stack-hr">
+                                            <h6>Recieved Revenue</h6>
+                                            <p>{{cockPitData?.revenueRecieved?.toFixed(2)}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>Schedule Revenue</h6>
+                                            <p>{{cockPitData?.revenueSchedule?.toFixed(2)}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3" *ngIf="roleBasedView?.totalServiceRequest">
+                            <div class="h-100 bg--ylw-1 ">
+                                <div class="card-1 h-100">
+                                    <div class="card__head min-h-auto">
+                                        <div class="card-heading">
+                                            <p class="icard_heading"><i class="pi pi-file"></i>&nbsp; <strong>Claim(s)</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="card__body card-stacks-hr">
+                                        <div class="card-stack-hr">
+                                            <h6>Total Claim(s)</h6>
+                                            <p>{{cockPitData?.totalServiceData?.total}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>Not Assigned</h6>
+                                            <p>{{cockPitData?.totalServiceData?.pending}}</p>
+                                        </div>
+                                        <div class="card-stack-hr">
+                                            <h6>In Progress</h6>
+                                            <p>{{cockPitData?.totalServiceData?.inProgress}}</p>
+                                        </div>
+
+                                        <div class="card-stack-hr">
+                                            <h6>Completed</h6>
+                                            <p>{{cockPitData?.totalServiceData?.completed}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+    <div class="row mt-4">
+        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.sales_manager) || loggedInUserObj?.user_role_id==userRole?.admin ? '6':'12'}} my-4"*ngIf="roleBasedView?.revenueChart">
+            <div class="card--padding flow-rootY">
+                <div class="card__head d-flex justify-content-between align-items-center">
+                    <div class="card-heading">
+                        <p class="h4 c--drkgry"><i class="pi pi-money-bill"></i>&nbsp; <strong> Revenue(s)</strong></p>
+                    </div>
+                    <div class="card-action">
+                        <div class="row select-l">
+                            <div class="col-auto">
+                                <!-- <div class="form-floating mb-0 select_sm mb-0">
+                                    <select class="form-control form-select">
+                                        <option value="Daily">Daily</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Quarterly">Quarterly</option>
+                                    </select>
+                                    <label class="form-label">Filter by</label>
+                                </div> -->
+                            </div>
+                            <div class="col-auto  dash-col form-style">
+                                <div class="form-floating datepickform mr-0 mb-0 not-empty has-value">
+                                    <input type="text"
+                                        class="form-control" 
+                                        bsDaterangepicker 
+                                        name="taskdate"  
+                                        [maxDate]="modelDate"
+                                        [bsConfig]="{ 
+                                            isAnimated: true,
+                                            showWeekNumbers:false,
+                                            rangeInputFormat: 'MMM YYYY',
+                                            minMode:'month', 
+                                            dateInputFormat: 'MMM YYYY',
+                                            adaptivePosition: true 
+                                        }"
+                                        onkeydown="return false"
+                                        (bsValueChange)="selectCustomDateRange($event)"
+                                        [(ngModel)]="defaultDateRange"
+                                    >
+                                    <label class="form-label">From   -     To </label> 
+                                </div>
+                            </div>
+                            <!-- <div class="col-auto">
+                                <button type="button" class="btn btn-primary">Export</button>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <p-chart type="bar" [data]="data" [options]="options" height="400"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="col-{{loggedInUserObj?.user_role_id==userRole?.admin ? '6':'12'}} my-4"  *ngIf="roleBasedView?.serviceRequestChart">
+            <div class="card--padding flow-rootY">
+                <div class="card__head d-flex justify-content-between align-items-center">
+                    <div class="card-heading">
+                        <p class="h4 c--drkgry"><strong>Service Request(s)</strong></p>
+                    </div>
+                    <div class="card-action">
+                        <div class="row select-l">
+                            <div class="col-auto  dash-col">
+                                <div class="form-floating mb-0 select_sm mb-0">
+                                    <select class="form-control form-select" [(ngModel)]="serviceYear" (ngModelChange)="serviceYearChange($event)" >
+                                        <option [value]="currentYear-1">{{currentYear-1}}</option>
+                                        <option [value]="currentYear">{{currentYear}}</option>
+                                        <option [value]="currentYear+1">{{currentYear+1}}</option>
+                                        <!-- <option value="Daily">Daily</option>
+                                        <option value="Weekly">Weekly</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Quarterly">Quarterly</option> -->
+                                    </select>
+                                    <label class="form-label">Filter by</label>
+                                </div>
+                            </div>
+                       
+                            <!-- <div class="col-auto">
+                                <button type="button" class="btn btn-primary">Export</button>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <p-chart type="line" [data]="linedata" [options]="lineoptions" height="400"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="col-{{(loggedInUserObj?.user_role_id==userRole?.sales_manager) ? '6':'12'}} my-4"  *ngIf="roleBasedView?.sateWiseSalesChart">
+            <div class="card--padding flow-rootY">
+                <div class="card__head d-flex justify-content-between align-items-center">
+                    <div class="card-heading">
+                        <p class="h4 c--drkgry"><i class="pi pi-globe"></i>&nbsp; <strong>Top 5 State-wise Sales</strong></p>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col-auto  dash-col">
+                                <div class="form-floating datepickform mr-0 mb-0 has-value">
+                                    <input type="text"
+                                       
+                                        class="form-control" 
+                                        bsDaterangepicker 
+                                        name="taskdate" 
+                                        [maxDate]="modelDate" 
+                                        [bsConfig]="{ 
+                                            isAnimated: true,
+                                            showWeekNumbers:false,
+                                            rangeInputFormat: 'MMM YYYY',
+                                            adaptivePosition: true,
+                                            minMode:'month', 
+                                            dateInputFormat: 'MMM YYYY'
+                                        }"
+                                        (bsValueChange)="topFiveStateDateRange($event)"
+                                        [(ngModel)]="topFiveStateRange"
+                                    >
+                                    <label class="form-label">From   -     To </label>    
+                                </div>
+                            </div>
+                       
+                            <!--<div class="col-auto">
+                                 <button type="button" class="btn btn-small btn-primary">Export</button> 
+                            </div>-->
+
+                             <!--<div class="col-auto">
+                                <a href="javascript:" class="btn btn-small btn-success">View All</a> 
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <p-chart type="bar" [data]="data2" [options]="options2" height="400"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 my-4"  *ngIf="roleBasedView?.onlineVsSalesManSalesChart">
+            <div class="card--padding flow-rootY">
+                <div class="card__head d-flex justify-content-between align-items-center">
+                    <div class="card-heading">
+                        <p class="h4 c--drkgry"><i class="pi pi-user"></i>&nbsp; <strong>Online sales(website) vs Salesman(sales)</strong></p>
+                    </div>
+                    <div class="card-action">
+                        <div class="row select-l">
+                            <div class="col-auto  dash-col">
+                                <div class="form-floating mb-0 select_sm mb-0">
+                                    <select class="form-control form-select" [(ngModel)]="selectedYear" (ngModelChange)="webVsBackendChange($event)" >
+                                        <option [value]="currentYear-1">{{currentYear-1}}</option>
+                                        <option [value]="currentYear">{{currentYear}}</option>
+                                        <option [value]="currentYear+1">{{currentYear+1}}</option>
+                                    </select>
+                                    <label class="form-label">Filter by</label>
+                                </div>
+                            </div>
+                            <!-- <div class="col-auto">
+                                <button type="button" class="btn btn-small btn-primary">Export</button>
+                            </div>
+                            <div class="col-auto">
+                                <a href="javascript:" class="btn btn-small btn-success">View Sales Report</a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <p-chart type="line" [data]="linedata2" [options]="lineoptions2" height="400"></p-chart>
+                </div>
+            </div>
+        </div>
+     
+      <!-- <div class="row my-4"  *ngIf="roleBasedView?.serviceRequestChart"> 
+        
+      </div>
+
+    <div class="row my-4"  *ngIf="roleBasedView?.sateWiseSalesChart">
+        
+    </div>
+
+    <div class="row mt-4"  *ngIf="roleBasedView?.onlineVsSalesManSalesChart">
+    </div> -->
+
+    </div> 
+
+</div>

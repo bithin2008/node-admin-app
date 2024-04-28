@@ -1,0 +1,513 @@
+@use './mixin' as *;
+@use './../project/colors' as *;
+@use './../project/typo' as *;
+
+
+
+
+//-- GENERTAE BACKGROUND AND TEXT COLOR --//
+@each $colorName, $colorValue in $allColors{
+    .bg--#{$colorName}{
+        background-color: $colorValue !important;
+    }
+    .c--#{$colorName}{
+      color: $colorValue !important;
+    }
+    
+    .hvr\:bg--#{$colorName}{
+        &:hover, &:focus{
+            background-color: $colorValue !important;
+        }
+    }
+    .hvr\:c--#{$colorName}{
+        &:hover, &:focus{
+            color: $colorValue !important;
+        }
+    }
+}
+
+
+//-- DISPLAY --//
+$displays: (
+    none,
+    inline,
+    block,
+    inline-block,
+    flex,
+    inline-flex,
+    grid,
+    inline-grid
+);
+
+@each $display in $displays {
+    .d-#{$display}{
+        display: $display !important;
+    }
+}
+
+
+
+//-- MARGIN AND PADDING --//
+$gaps:(
+    auto, 0, 1, 2, 3
+);
+
+$gap-dir:(
+    'l': left,
+    'r': right,
+    't': top,
+    'b': bottom
+);
+
+
+.m-0{
+    margin: 0 !important;
+}
+.p-0.p-0.p-0.p-0{
+    padding: 0 !important;
+}
+
+@each $pos, $dir in $gap-dir{
+    @each $gap in $gaps{
+        @if($gap == 'auto'){
+            // 'auto' applies for margin only
+            .m#{$pos}-#{$gap}{ 
+                margin-#{$dir}: $gap !important;
+            }
+        }
+        @else if($gap == 0){
+            .m#{$pos}-#{$gap}{ 
+                margin-#{$dir}: $gap !important;
+            }
+            .p#{$pos}-#{$gap}.p#{$pos}-#{$gap}.p#{$pos}-#{$gap}{ 
+                padding-#{$dir}: $gap !important;
+            }
+        }
+        @else{
+            // other value for both margin and padding
+            .m#{$pos}-#{$gap}{ 
+                margin-#{$dir}: #{$gap}rem !important;
+            }
+            .p#{$pos}-#{$gap}{
+                padding-#{$dir}: #{$gap}rem !important;
+            }
+        }
+    }
+}
+
+//-- WIDTH CLASSES --//
+$widths:(
+    auto, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200
+);
+
+
+@each $width in $widths{
+    @if($width == 'auto'){
+        // 'auto' applies for margin only
+        .w#{$width}{ 
+            width: $width !important;
+        }
+    }
+    @else if($width == 0){
+        .w#{$width}{ 
+            width: $width !important;
+        }
+    }
+    @else{
+        // other value for both margin and padding
+        .w#{$width}{ 
+            width: #{$width}px !important;
+        }
+    }
+}
+
+
+// BORDER
+@each $pos, $dir in $gap-dir{
+    .b#{$pos}-0{ 
+        border-#{$dir}: none !important;
+    }
+}
+
+.hvr\:b-0:hover{
+    border-color: transparent !important;
+}
+
+
+// ASPECT RATIO
+@mixin aspect-ratio($ar: '16:9') {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    & > *{
+        position: absolute !important;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    & > img{
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    & > *:not(img){
+        width: 100%;
+        height: 100%;
+        // object-fit: cover;
+    }
+  
+    @if($ar == '16:9'){
+      padding-top: 56.25%;
+    }
+    @else if($ar == '4:3'){
+      padding-bottom: 75%;
+    }
+    @else if($ar == '3:4'){
+      padding-top: 133.33%;
+    }
+  }
+  
+  
+  .ar-16\/9{
+    @include aspect-ratio('16:9');
+  }
+  
+  .ar-4\/3{
+    @include aspect-ratio('4:3');
+  }
+  
+  .ar-3\/4{
+    @include aspect-ratio('3:4');
+  }
+  
+
+
+// FLOAT AND CLEAR
+.fl-left{
+    float: left;
+}
+.fl-right{
+    float: right;
+}
+.cfix{
+    @include clearfix();
+} 
+
+
+
+
+//-- VERTICAL ALIGN --//
+$vertical-align:(
+    // baseline,
+    // length,
+    // sub,
+    // super,
+    top,
+    //text-top,
+    middle,
+    bottom
+    // text-bottom
+);
+
+
+@each $va in $vertical-align{
+    .va-#{$va}{ 
+        vertical-align: $va;
+    }
+}
+
+
+//-- TEXT ALIGN --//
+$text-align:(
+    left,
+    right,
+    center,
+    justify
+);
+
+
+@each $ta in $text-align{
+    .text-#{$ta}{ 
+        text-align: $ta;
+    }
+}
+
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.mw-100p{
+    max-width: 100%;
+}
+
+.w-100{
+    width: 100%;
+    flex: 0 0 100%;
+}
+
+.w-100p{
+    width: 100%;
+}
+
+.w-50p{
+    width: 50%;
+}
+
+.w-1\/2{
+    width: 48% !important;
+    flex: 0 0 48% !important;
+}
+
+.fullH{
+    @include fullH();
+}
+
+.rounded{
+    border-radius: 50%;
+}
+
+.radius-0{
+    border-radius: 0 !important;
+}
+
+.colspan-2{
+    max-width: 100%;
+    grid-column: 1/-1;
+}
+
+.posiR{
+    position: relative;
+}
+
+.posiA{
+    position: absolute;
+}
+
+.posi-left{
+    left: 0;
+}
+.posi-top{
+    top: 0;
+}
+.posi-bottom{
+    bottom: 0;
+}
+.posi-right{
+    right: 0;
+}
+
+
+// [class="flow-root"],
+// [class*="flow-rootx"],
+// [class*="flow-rootX"]{
+//     [style*="display: none"] + *{
+//         margin-top: 0 !important;
+//     }
+// }
+
+[class*="flow-root"]{
+    & > p{
+        transform: translateY(-0.3em);
+    }
+
+    & > .dashed__list{
+        transform: translateY(-0.3em);
+    }
+}
+
+.flow-rootx4 > * + * {
+    margin-top: 0.15rem;
+}
+
+.flow-rootx3 > * + * {
+    margin-top: 0.25rem;
+}
+
+.flow-rootx2 > * + * {
+    margin-top: 0.5rem;
+}
+
+.flow-rootx > * + * {
+    margin-top: 0.75rem;
+}
+
+.flow-root > * + * {
+    margin-top: 1rem;
+}
+
+.flow-rootX > * + * {
+    margin-top: 1.25rem;
+}
+
+.flow-rootX2 > * + * {
+    margin-top: 1.5rem;
+    @media(max-width: 759px){
+        margin-top: 1.25rem;
+    }
+}
+
+.flow-rootX3 > * + * {
+    margin-top: 1.75rem;
+    @media(max-width: 759px){
+        margin-top: 1.25rem;
+    }
+}
+
+.flow-rootX4 > * + * {
+    margin-top: 2rem;
+    @media(max-width: 759px){
+        margin-top: 1.25rem;
+    }
+}
+
+.flow-rootX5 > * + * {
+    margin-top: 2.5rem;
+    @media(max-width: 759px){
+        margin-top: 1.25rem;
+    }
+}
+
+.flow-rootX6 > * + * {
+    margin-top: 2.75rem;
+}
+
+.flow-rootX7 > * + * {
+    margin-top: 3rem;
+}
+
+.flow-rootX8 > * + * {
+    margin-top: 3.5rem;
+}
+
+.flow-rootX9 > * + * {
+    margin-top: 4rem;
+}
+
+// .flow-rootX3 > * + * {
+//     margin-top: 3rem;
+//     @media (max-width: 575px) {
+//         margin-top: 2rem;
+//     }
+// }
+
+// .flow-rootX4 > * + * {
+//     margin-top: 4rem;
+//     @media (max-width: 575px) {
+//       margin-top: 2rem;
+//     }
+// }
+
+// .flow-rootX5 > * + * {
+//     margin-top: 5rem;
+//     @media (max-width: 575px) {
+//       margin-top: 2.5rem;
+//     }
+// }
+
+// .flow-rootX6 > * + * {
+//     margin-top: 6rem;
+//     @media (max-width: 575px) {
+//       margin-top: 3rem;
+//     }
+// }
+
+
+// .flow-rootRx2 > * + * {
+//     margin-right: 0.8rem;
+// }
+
+// .flow-rootRx > * + * {
+//     margin-right: 1rem;
+// }
+  
+
+// .flow-rootR > * + * {
+//     margin-right: 1.5rem;
+// }
+
+// .flow-rootRX2 > * + * {
+//     margin-right: 2rem;
+// }
+
+// .flow-rootRX3 > * + * {
+//     margin-right: 3rem;
+// }
+
+// .flow-rootP > * + * {
+//     padding-bottom: 1.5rem;
+// }
+
+// .flow-rootPX2 > * + * {
+//     padding-bottom: 2rem;
+// }
+
+// .flow-rootPX3 > * + * {
+//     padding-bottom: 3rem;
+// }
+
+.inline-block{
+    display: inline-block;
+}
+.img-hover-zoom{overflow:hidden}
+.img-hover-zoom img{-webkit-transition:6s linear;transition:6s linear}
+.img-hover-zoom:hover img{-webkit-transform:scale(1.8);transform:scale(1.8)}
+
+
+.of-hidden{
+    overflow: hidden;
+}
+
+.of-auto{
+    overflow: auto;
+    margin-bottom: var(--spacer);
+  }
+  
+
+.filter--grey{
+    @include imgG();
+}
+
+.gap-0{
+    grid-gap: 0 !important;
+    gap: 0 !important;
+}
+
+
+.border-txt{
+    border: 2px solid currentColor;
+}
+.select-l{
+    .form-floating{
+        width: 150px;
+    }
+    .btn{
+        --bs-btn-font-size: 1.15rem;
+        --bs-btn-padding-x: 1.3em;
+        --bs-btn-padding-y: 0.7em;
+    }
+}
+
+.min-h-auto{
+    min-height: auto !important;
+}
+
+.table-radio{
+    .form-check-input {
+        width: 1.25em;
+        height: 1.25em;
+    }
+    
+}

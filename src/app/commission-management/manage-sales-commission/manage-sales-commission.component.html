@@ -1,0 +1,482 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Sales Commission</p>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end">
+                                            <app-search-input (inputValue)="getSearchInputVal($event)"
+                                                [resetInput]="resetSearchInput"
+                                                [placeHolderText]="'Search...'"></app-search-input>
+                                            <div class="col-auto mb-0 pr-0">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="row">
+                                            <div class="col-6 mb-0" *ngIf="this.loggedInUserObj.user_role_id==userRole.admin || this.loggedInUserObj.user_role_id==userRole.sales_manager">
+                                                <div class="row align-items-center">
+                                                    <div class="col-6">
+                                                        <div class="form-floating has-value" >
+                                                            <select class="form-control form-select" [(ngModel)]="selectedSalesman"  (ngModelChange)="changeSalesman()">
+                                                                <option *ngFor="let item of salesmanList; let i=index"
+                                                                    [value]="item?.org_user_id">{{item?.first_name}}
+                                                                    {{item?.last_name}}</option>
+                                                            </select>
+                                                            <label for="" class="form-label">Select User</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- <div class="col-6">
+                                                        <div class="form-floating has-value" >
+                                                            <select class="form-control form-select" [(ngModel)]="payment_status"  (ngModelChange)="statusChange()">
+                                                                <option value="">Select</option>
+                                                                <option *ngFor="let item of paymentStatusList; let i=index"
+                                                                    [value]="item?.id">{{item?.label}}</option>
+                                                            </select>
+                                                            <label for="" class="form-label">Payment Status</label>
+                                                        </div>
+                                                    </div> -->
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="col-auto ml-auto">
+                                                <h3 class="mb-0">
+                                                    Total Commision: <span class="c--mdSky">{{commissionTotal.toFixed(2)  |
+                                                        currency:'USD'}}</span>
+                                                </h3>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="w80"
+                                                                (click)="updateSorting('blog_id')">#
+                                                                <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col" class="w180">Actions</th>
+                                                            <th scope="col"
+                                                                (click)="updateSorting('policy_info.order_date')">
+                                                                Order Date <span class="pi pi-sort short-icon"></span>
+                                                            </th>                                                            
+                                                            <th scope="col"
+                                                                (click)="updateSorting('policy_info.first_name')">
+                                                                Policy Holder Name <span class="pi pi-sort short-icon"></span>
+                                                            </th>                                                            
+                                                            <th scope="col"
+                                                                (click)="updateSorting('policy_info.policy_number')">
+                                                                Policy Number <span
+                                                                    class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col"
+                                                                (click)="updateSorting('policy_info.policy_term_month')">
+                                                                Policy Term <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th>Payment Type </th>
+                                                            <th>Payment Status</th>
+                                                            <th scope="col" (click)="updateSorting('commission_value')">
+                                                                Commission <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col"
+                                                                (click)="updateSorting('policy_info.net_amount')">
+                                                                Plan Total <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col" (click)="updateSorting('policy_info.pcf')">
+                                                                SCF <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col" (click)="updateSorting('commission_type')">
+                                                                Commission Type <span
+                                                                    class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            
+                                                            <th scope="col" (click)="updateSorting('created_at')">
+                                                                Created On
+                                                                <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col" (click)="updateSorting('updated_at')">
+                                                                Updated On
+                                                                <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col" class="w80"
+                                                                (click)="updateSorting('active_status')">
+                                                                Status <span class="pi pi-sort short-icon"></span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="commissionTypeList?.length>0">
+                                                        <tr *ngFor="let item of commissionData; let i=index" [ngClass]="item?.policy_info?.is_anamaly==1 ? 'anamaly': ''">
+                                                            <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                            <td>
+
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="View"
+                                                                    data-bs-original-title="View"
+                                                                    class="btn btn-sm h-1 btn-view"
+                                                                    (click)="openViewOrgModal(viewOrg,item)">View
+                                                                </button>
+                                                                <button type="button" *ngIf="permissionObj?.edit && item?.commission_type!=2"
+                                                                    class="btn btn-sm h-1 btn-edit"
+                                                                    (click)="openaddEditPlanModal(editSalesCommission,item)">Edit</button>
+
+                                                                <span class="ml-1" *ngIf="permissionObj?.edit && item?.commission_type==2"> N/A</span>
+                                                            </td>
+                                                            <td> {{item?.commission_type==2?'N/A':item?.policy_info?.order_date |date:'MM-dd-YYYY'}}</td>  
+                                                            <td> {{item?.commission_type==2?'N/A':item?.policy_info?.first_name+' '+item?.policy_info?.last_name}}</td>                                                        
+                                                            <td class="c--mdSky" *ngIf="item?.commission_type!=2" (click)="navigateToCustomerDetails(item)">
+                                                                <span class="ng-star-inserted">{{item?.policy_info?.policy_number }}</span>
+                                                            </td>
+                                                            <td *ngIf="item?.commission_type==2">N/A</td>
+                                                            <td *ngIf="item?.policy_info">
+                                                                <span *ngIf="item?.policy_info?.policy_term_month==1">{{item?.commission_type==2?'N/A':'Monthly'}}</span>
+                                                                <span *ngIf="item?.policy_info?.policy_term_month==12">{{item?.commission_type==2?'N/A':'1 Year'}}</span>
+                                                                <span *ngIf="item?.policy_info?.policy_term_month>12">{{item?.commission_type==2?'N/A':(item?.policy_info?.policy_term_month/12)+' Years'}}</span>
+                                                            </td>
+                                                            <td *ngIf="item?.commission_type==2">N/A</td>
+                                                    
+                                                            <td>
+                                                                <span *ngIf="item?.commission_type==2">N/A</span>
+                                                                <span *ngIf="item?.commission_type!=2">{{item?.policy_info?.payment_details?.payment_type_name}}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span *ngIf="item?.commission_type==2">N/A</span>
+                                                                <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item?.policy_info?.payment_details?.payment_status_name>{{item?.policy_info?.payment_details?.payment_status_name}}</span> 
+                                                            </td>
+                                                            <td> <span class="badge radius:tiny size:tiny padding:tiny"
+                                                                data-status="Data Value">{{item?.commission_value |
+                                                                currency:'USD'}}</span></td>
+                                                            <!-- <td *ngIf="!item?.policy_info">N/A</td> -->
+
+                                                            <td> {{item?.commission_type==2?'N/A':item?.policy_info?.net_amount | currency:'USD'}}</td>
+
+                                                            <td> {{item?.commission_type==2?'N/A':item?.policy_info?.pcf | currency:'USD'}}</td>
+                                                            <td> <span *ngIf="item?.commission_type==1">Policy
+                                                                    Wise</span>
+                                                                <span *ngIf="item?.commission_type==2">SPIFF</span>
+                                                                <span *ngIf="item?.commission_type==3">One Day
+                                                                    Sale</span>
+                                                                <span *ngIf="item?.commission_type==4">On Full
+                                                                    Paid</span>
+                                                            </td>
+
+                                                            
+                                                            <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+
+                                                            <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                            <td>
+                                                                <div class="form-check form-switch form-switch-sm {{permissionObj?.edit?'':'disabled'}}">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="{{item.org_id}}-status"
+                                                                        (click)="changeActivationStatus($event,item)"
+                                                                        [checked]="item.active_status">
+                                                                </div>
+
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                    <tbody *ngIf="commissionTypeList?.length==0">
+                                                        <tr>
+                                                            <td colspan="11" class="text-center">No data found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <span>
+
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                                [rows]="paginationObj.limit" [totalRecords]="commissionTypeList?.length"
+                                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ================ ADD/EDIT Plan Terms  ==================== -->
+
+<ng-template #editSalesCommission>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Edit Sales Commission </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="salesCommissionForm" class="form-style flow-rootX app-form unauth-form-max-w"
+        (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-6">
+                        <p> <b>Salesman Name :</b> {{editObj?.create_info?.first_name}}
+                            {{editObj?.create_info?.last_name}}</p>
+                    </div>
+                    <div class="col-6">
+                        <p> <b>Customer Name :</b> {{editObj?.customer_info?.first_name}}
+                            {{editObj?.customer_info?.last_name}}</p>
+                    </div>
+                    <div class="col-6">
+                        <p> <b>Policy No :</b> {{editObj.policy_info?.policy_number }}</p>
+                    </div>
+                    <div class="col-6">
+                        <p> <b>Policy Term :</b> <span
+                                *ngIf="editObj?.policy_info?.policy_term_month==1">Monthly</span><span
+                                *ngIf="editObj?.policy_info?.policy_term_month==12">1 Year</span><span
+                                *ngIf="editObj?.policy_info?.policy_term_month>12">{{editObj?.policy_info?.policy_term_month/12}}
+                                Years</span></p>
+                    </div>
+                    <div class="col-6">
+                        <p> <b>Amount :</b> {{editObj?.policy_info?.net_amount | currency:'USD'}}</p>
+                    </div>
+                    <div class="col-6">
+                        <p> <b>Commission Type :</b> <span *ngIf="editObj?.commission_type==1">Policy
+                                Wise</span>
+                            <span *ngIf="editObj?.commission_type==2">SPIFF</span>
+                            <span *ngIf="editObj?.commission_type==3">One Day
+                                Sale</span>
+                            <span *ngIf="editObj?.commission_type==4">On Full
+                                Paid</span>
+                        </p>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="number" class="form-control " formControlName="commissionValue"
+                                [ngClass]="{ 'is-invalid': submitted && f['commissionValue'].errors }" min="0" />
+                            <label class="form-label">Commission Value<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['commissionValue']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" formControlName="commissionNotes"
+                                [ngClass]="{ 'is-invalid': submitted && f['commissionNotes'].errors }"></textarea>
+                            <label class="form-label">Notes<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['commissionNotes']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1" checked><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="modalRef?.hide()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- ================ VIEW ORGANIZATIONS  ==================== -->
+
+<ng-template #viewOrg>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Commission Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body" *ngIf="viewObj?.commission_type==2">
+        <div class="row">
+            <div class="col-lg-6 px-0">
+                <div class="fee-details">
+                    <ul>
+                        <li>Salesman Name : </li>
+                        <li>{{viewObj?.create_info?.first_name}}
+                            {{viewObj?.create_info?.last_name}}</li>
+                    </ul>
+
+                    <ul>
+                        <li>Policy No : </li>
+                        <li>N/A</li>
+                    </ul>
+                    <ul>
+                        <li>Amount : </li>
+                        <li>N/A</li>
+                    </ul>
+                    <ul>
+                        <li>Commission Value :</li>
+                        <li><span class="badge radius:tiny size:tiny padding:tiny" data-status="Data Value">
+                                {{viewObj?.commission_value | currency:'USD'}}</span></li>
+                    </ul>
+                    <ul>
+                        <li>Created By :</li>
+                        <li> N/A</li>
+                    </ul>
+                    <ul>
+                        <li>Updated By :</li>
+                        <li> N/A</li>
+                    </ul>
+                    <ul>
+                        <li>Status :</li>
+                        <li><span class="badge st-actv radius:tiny size:tiny padding:tiny"
+                                *ngIf="viewObj.active_status==1">Active</span> <span
+                                class="badge st-inactv radius:tiny size:tiny padding:tiny"
+                                *ngIf="viewObj.active_status!==1">Inactive</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 pr-0 pl-1">
+                <div class="fee-details">                    
+                    <ul>
+                        <li>Policy Term : </li>
+                        <li> N/A</li>
+                    </ul>
+                    <ul>
+                        <li>Commission Type : </li>
+                        <li><span *ngIf="viewObj?.commission_type==1">Policy
+                                Wise</span>
+                            <span *ngIf="viewObj?.commission_type==2">SPIFF</span>
+                            <span *ngIf="viewObj?.commission_type==3">One Day
+                                Sale</span>
+                            <span *ngIf="viewObj?.commission_type==4">On Full
+                                Paid</span>
+                        </li>
+                    </ul>
+
+                    <ul *ngIf="viewObj?.notes">
+                        <li>Note :</li>
+                        <li>N/A</li>
+                    </ul>
+                    <ul>
+                        <li>Created On :</li>
+                        <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                    </ul>
+                    <ul>
+                        <li>Updated On :</li>
+                        <li>N/A</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-body" *ngIf="viewObj?.commission_type!=2">
+        <div class="row">
+            <div class="col-lg-6 px-0">
+                <div class="fee-details">
+                    <ul>
+                        <li>Salesman Name : </li>
+                        <li>{{viewObj?.create_info?.first_name}}
+                            {{viewObj?.create_info?.last_name}}</li>
+                    </ul>
+
+                    <ul>
+                        <li>Policy No : </li>
+                        <li class="c--mdSky">{{viewObj.policy_info?.policy_number }}</li>
+                    </ul>
+                    <ul>
+                        <li>Amount : </li>
+                        <li> {{viewObj?.policy_info?.net_amount | currency:'USD'}}</li>
+                    </ul>
+                    <ul>
+                        <li>Commission Value :</li>
+                        <li><span class="badge radius:tiny size:tiny padding:tiny" data-status="Data Value">
+                                {{viewObj?.commission_value | currency:'USD'}}</span></li>
+                    </ul>
+                    <ul>
+                        <li>Created By :</li>
+                        <li> <span *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                                {{viewObj?.create_info?.last_name}}</span> <span
+                                *ngIf="!viewObj?.create_info">N/A</span></li>
+                    </ul>
+                    <ul>
+                        <li>Updated By :</li>
+                        <li> <span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}}
+                                {{viewObj?.update_info?.last_name}}</span>
+                            <span *ngIf="!viewObj?.update_info">N/A</span>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>Status :</li>
+                        <li><span class="badge st-actv radius:tiny size:tiny padding:tiny"
+                                *ngIf="viewObj.active_status==1">Active</span> <span
+                                class="badge st-inactv radius:tiny size:tiny padding:tiny"
+                                *ngIf="viewObj.active_status!==1">Inactive</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 pr-0 pl-1">
+                <div class="fee-details">                    
+                    <ul>
+                        <li>Policy Term : </li>
+                        <li> <span *ngIf="viewObj?.policy_info?.policy_term_month==1">Monthly</span><span
+                                *ngIf="viewObj?.policy_info?.policy_term_month==12">1 Year</span><span
+                                *ngIf="viewObj?.policy_info?.policy_term_month>12">{{viewObj?.policy_info?.policy_term_month/12}}
+                                Years</span></li>
+                    </ul>
+                    <ul>
+                        <li>Commission Type : </li>
+                        <li><span *ngIf="viewObj?.commission_type==1">Policy
+                                Wise</span>
+                            <span *ngIf="viewObj?.commission_type==2">SPIFF</span>
+                            <span *ngIf="viewObj?.commission_type==3">One Day
+                                Sale</span>
+                            <span *ngIf="viewObj?.commission_type==4">On Full
+                                Paid</span>
+                        </li>
+                    </ul>
+
+                    <ul *ngIf="viewObj?.notes">
+                        <li>Note :</li>
+                        <li>{{viewObj?.notes}}</li>
+                    </ul>
+                    <ul>
+                        <li>Created On :</li>
+                        <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                    </ul>
+                    <ul>
+                        <li>Updated On :</li>
+                        <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" *ngIf="permissionObj?.edit" (click)="openEditOrgModal(editSalesCommission,viewObj)"><i
+                class="pi pi-pencil"></i> Edit</button>
+    </div>
+</ng-template>

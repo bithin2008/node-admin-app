@@ -1,0 +1,489 @@
+<div class="row mb-4">
+    <div class="col">
+        <div class="card box-shadow">
+            <div class="card-header"></div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Organization</p>
+                                </div>
+                                <div class="bd-example text-end">
+                                    <button class="btn btn-sm btn-primary"
+                                        (click)="openaddEditOrgModal(addEditOrg,'')"> Add
+                                        Organization</button>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="w80">#</th>
+                                                    <th scope="col" class="w180">Actions</th>
+
+                                                    <th scope="col">Organization</th>
+                                                    <th scope="col">Title</th>
+                                                    <th scope="col">Contact Email</th>
+                                                    <th scope="col">Contact Phone</th>
+                                                    <th scope="col">Support Email</th>
+                                                    <th scope="col">Support Phone</th>
+
+                                                    <th scope="col" class="w80">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="orgList?.length>0">
+                                                <tr
+                                                    *ngFor="let item of orgList | orderBy: sortBy: sortDirection; let i=index">
+                                                    <td>{{i+1}}</td>
+                                                    <td>
+                                                        <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit" class="btn btn-sm h-1"
+                                                            (click)="openViewOrgModal(viewOrg,item)"><i
+                                                                class="pi pi-eye"></i>
+                                                        </button>
+                                                        <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title=""
+                                                            data-bs-original-title="Edit" class="btn btn-sm h-1"
+                                                            (click)="openaddEditOrgModal(addEditOrg,item)"><i
+                                                                class="pi pi-file-edit"></i>
+                                                        </button>
+                                                        <!-- <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title=""
+                                                            data-bs-original-title="Delete" class="btn btn-sm h-1"
+                                                            (click)="deleteModule(item)"><i class="pi pi-trash"></i></button> -->
+                                                        <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title=""
+                                                            data-bs-original-title="Set module submodule permission"
+                                                            class="btn btn-sm h-1"
+                                                            (click)="openModuleSubmodulePermissionModal(orgModuleSubmodulePermission,item)"><i
+                                                                class="pi pi-key "></i></button>
+                                                    </td>
+
+                                                    <td>{{item?.org_name}}</td>
+                                                    <td>{{item?.org_title}}</td>
+                                                    <td>{{item?.contact_email}}</td>
+                                                    <td>{{item?.contact_phone|phoneUsFormat}}</td>
+                                                    <td>{{item?.support_email}}</td>
+                                                    <td>{{item?.support_phone|phoneUsFormat}}</td>
+
+                                                    <td>
+                                                        <div class="form-check form-switch form-switch-sm">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="{{item.org_id}}-status"
+                                                                (click)="changeActivationStatus($event,item)"
+                                                                [checked]="item.active_status">
+                                                        </div>
+                                                        <!-- <span *ngIf="item.active_status==1" class="badge success">Active</span>
+                                <span *ngIf="item.active_status==0" class="badge danger">Inactive</span> -->
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                            <tbody *ngIf="orgList?.length==0">
+                                                <tr>
+                                                    <td colspan="7" class="text-center">No data found</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <span *ngIf="totalRecords>10">
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="first"
+                                            [rows]="itemPerPage" [totalRecords]="totalRecords"
+                                            [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ================ ADD/EDIT ORGANIZATIONS  ==================== -->
+
+<ng-template #addEditOrg>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Organization</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeOrgAddEditModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="orgForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-floating">
+
+                            <input type="text" class="form-control" formControlName="orgName"
+                                [ngClass]="{ 'is-invalid': submitted && f['orgName'].errors }"
+                                (keyup)="duplicateValueCheck(f['orgName'],'organizationsModel','org_name')">
+                            <label class="form-label">Organizations Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['orgName']"></app-validation-error>
+                            <app-duplicate-value-check *ngIf="duplicateCheckArr.length>0" [control]="f['orgName']"
+                                [data]="duplicateCheckArr" [field_text]="'Organization name'"
+                                [field]="'org_name'"></app-duplicate-value-check>
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="orgTitle"
+                                [ngClass]="{ 'is-invalid': submitted && f['orgTitle'].errors }">
+                            <label class="form-label">Organizations Title </label>
+                            <app-validation-error [control]="f['orgTitle']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="contactEmail"
+                                [ngClass]="{ 'is-invalid': submitted && f['contactEmail'].errors }"
+                                (keyup)="duplicateValueCheck(f['contactEmail'],'organizationsModel','contact_email')">
+                            <label class="form-label">Contact Email <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['contactEmail']"></app-validation-error>
+                            <app-duplicate-value-check *ngIf="duplicateCheckArr.length>0" [control]="f['orgName']"
+                                [data]="duplicateCheckArr" [field]="'contact_email'"></app-duplicate-value-check>
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" (input)="changeOrgContactPhoneFormat($event)"
+                                formControlName="contactPhone"
+                                [ngClass]="{ 'is-invalid': submitted && f['contactPhone'].errors }"
+                                (keyup)="duplicateValueCheck(f['contactPhone'],'organizationsModel','contact_phone')">
+                            <label class="form-label">Contact Phone <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['contactPhone']"></app-validation-error>
+                            <app-duplicate-value-check *ngIf="duplicateCheckArr.length>0" [control]="f['orgName']"
+                                [data]="duplicateCheckArr" [field]="'contact_phone'"></app-duplicate-value-check>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="supportEmail"
+                                [ngClass]="{ 'is-invalid': submitted && f['supportEmail'].errors }"
+                                (keyup)="duplicateValueCheck(f['supportEmail'],'organizationsModel','support_email')">
+                            <label class="form-label">Support Email </label>
+                            <app-validation-error [control]="f['supportEmail']"></app-validation-error>
+                            <app-duplicate-value-check *ngIf="duplicateCheckArr.length>0" [control]="f['orgName']"
+                                [data]="duplicateCheckArr" [field]="'support_email'"></app-duplicate-value-check>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" (input)="changeOrgSupportPhoneFormat($event)"
+                                formControlName="supportPhone"
+                                [ngClass]="{ 'is-invalid': submitted && f['supportPhone'].errors }"
+                                (keyup)="duplicateValueCheck(f['supportPhone'],'organizationsModel','support_phone')">
+                            <label class="form-label">Support Phone </label>
+                            <app-validation-error [control]="f['supportPhone']"></app-validation-error>
+                            <app-duplicate-value-check *ngIf="duplicateCheckArr.length>0" [control]="f['orgName']"
+                                [data]="duplicateCheckArr" [field]="'support_phone'"></app-duplicate-value-check>
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-element">
+                             <label class="form-label" for="logo">Organization Logo</label>
+                            <div class="drag-area">
+                                <div class="icon"><i class="pi pi-cloud-upload icon"></i></div>
+                                <p>Upload File</p>
+                                <img *ngIf="orgLogo?.objectUrl" class="drop-zoon__preview-image" src="{{orgLogo?.objectUrl}}" alt="logo">
+                                <img *ngIf="!orgLogo?.objectUrl&& isEdit&& editObj?.logo " class="drop-zoon__preview-image" src="{{editObj?.logo}}" alt="logo">
+
+                                <input type="file" class="drop-zoon__file-input" id="orgLogo" accept="image/*" (change)="fileChangeEvent($event,'orgLogo')">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-6">
+                        <div class="form-element">
+                            <label class="form-label" for="orgTinylogo">Organization Tiny-Logo</label>
+                            <div class="drag-area">
+                                <div class="icon"><i class="pi pi-cloud-upload icon"></i></div>
+                                <p>Upload File</p>
+                                <img *ngIf="orgTinylogo?.objectUrl" src="{{orgTinylogo?.objectUrl}}" class="drop-zoon__preview-image" alt="tinylogo">
+                                <img *ngIf="!orgTinylogo?.objectUrl && isEdit&& editObj?.tiny_logo" class="drop-zoon__preview-image" src="{{editObj?.tiny_logo}}"
+                            alt="tinylogo">
+                                <input type="file" class="drop-zoon__file-input" id="orgTinylogo" accept="image/*" (change)="fileChangeEvent($event,'orgTinylogo')">
+                            </div>   
+                        </div>
+                        
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="fbLink"
+                                [ngClass]="{ 'is-invalid': submitted && f['fbLink'].errors }">
+                            <label class="form-label">Facebook Link</label>
+                            <app-validation-error [control]="f['fbLink']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="twitterLink"
+                                [ngClass]="{ 'is-invalid': submitted && f['twitterLink'].errors }">
+                            <label class="form-label">Twitter Link</label>
+                            <app-validation-error [control]="f['twitterLink']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="linkedinLink"
+                                [ngClass]="{ 'is-invalid': submitted && f['linkedinLink'].errors }">
+                            <label class="form-label">Linkedin Link</label>
+                            <app-validation-error [control]="f['linkedinLink']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="instagramLink"
+                                [ngClass]="{ 'is-invalid': submitted && f['instagramLink'].errors }">
+                            <label class="form-label">Instagram Link</label>
+                            <app-validation-error [control]="f['instagramLink']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="youtubeLink"
+                                [ngClass]="{ 'is-invalid': submitted && f['youtubeLink'].errors }">
+                            <label class="form-label">Youtube Link</label>
+                            <app-validation-error [control]="f['youtubeLink']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="whatsappLink"
+                                [ngClass]="{ 'is-invalid': submitted && f['whatsappLink'].errors }">
+                            <label class="form-label">Whatsapp Link</label>
+                            <app-validation-error [control]="f['whatsappLink']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="pinterestLink"
+                                [ngClass]="{ 'is-invalid': submitted && f['pinterestLink'].errors }">
+                            <label class="form-label">Pinterest Link</label>
+                            <app-validation-error [control]="f['pinterestLink']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <textarea class="form-control" formControlName="copyrightText"
+                                [ngClass]="{ 'is-invalid': submitted && f['copyrightText'].errors }"></textarea>
+                            <label class="form-label">Copyright Text</label>
+                            <app-validation-error [control]="f['copyrightText']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" formControlName="descriptions"
+                                [ngClass]="{ 'is-invalid': submitted && f['descriptions'].errors }"></textarea>
+                            <label class="form-label">Descriptions</label>
+                            <app-validation-error [control]="f['descriptions']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1"><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flow-rootX acces_style ornz_modal_styl">
+                <div class="row" *ngIf="!isEdit">
+                    <h3 class="h4 my-4">Module Submodule Access Permission</h3>
+                    <div class="col-12 acces_style_col" *ngFor="let module of subModulesgroupByModuleList; let moduleIndex=index">
+                        <div class="form-check form-switch form-switch-sm parentlabel">
+                            <input type="checkbox" id="flexSwitchCheckChecked{{moduleIndex}}" class="form-check-input"[checked]="isModuleChecked(module)"
+                           (change)="toggleModule(moduleIndex)" >
+                            <label for="flexSwitchCheckChecked{{moduleIndex}}" class="form-check-label">{{module?.module_name}}</label>
+                        </div>
+                        <div class="row child_div">
+                            <div class="col-lg-4 mb-0" *ngFor="let item of module?.sub_modules; let subModuleIndex=index">
+                                <div class="form-check form-switch form-switch-sm mb-0">
+                                    <input type="checkbox" id="flexSwitchCheckCheckedSubModule{{item?.sub_module_id}}" class="form-check-input"  (change)="toggleSubmodule($event,moduleIndex, subModuleIndex)"[checked]="item.selected" >
+                                    <label for="flexSwitchCheckCheckedSubModule{{item?.sub_module_id}}" class="form-check-label">{{item.sub_module_name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row" *ngIf="!isEdit">
+            <h3 class="h3">Module Submodule Access Permission</h3>
+            <div class="col-12" *ngFor="let module of subModulesgroupByModuleList; let moduleIndex=index">
+                <div class="form-check form-switch form-switch-sm">
+                    <input type="checkbox" id="flexSwitchCheckChecked{{moduleIndex}}" class="form-check-input"[checked]="isModuleChecked(module)"
+                   (change)="toggleModule(moduleIndex)" >
+                    <label for="flexSwitchCheckChecked{{moduleIndex}}" class="form-check-label">{{module?.module_name}}</label>
+                </div>
+                <div class="col-3" *ngFor="let item of module?.sub_modules; let subModuleIndex=index">
+                    <div class="form-check form-switch form-switch-sm">
+                        <input type="checkbox" id="flexSwitchCheckCheckedSubModule{{subModuleIndex}}" class="form-check-input"  (change)="toggleSubmodule($event,moduleIndex, subModuleIndex)"[checked]="item.selected" >
+                        <label for="flexSwitchCheckCheckedSubModule{{subModuleIndex}}" class="form-check-label">{{item.sub_module_name}}</label>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        
+
+        
+
+        <div class="modal-footer w-100 fl-left">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeOrgAddEditModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}
+                Organization</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW ORGANIZATIONS  ==================== -->
+
+<ng-template #viewOrg>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Organization Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="row">
+                <div class="col-6">
+                    <p> <b>Oranization Name</b>: {{viewObj.org_name}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.org_title">
+                    <p> <b>Oranization Title</b>: {{viewObj.org_title}}</p>
+                </div>
+                <div class="col-12" *ngIf="viewObj.description">
+                    <p> <b>Description</b>: {{viewObj.description}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.contact_email">
+                    <p> <b>Contact Email</b>: {{viewObj.contact_email}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.contact_phone">
+                    <p> <b>Contact Phone</b>: {{viewObj.contact_phone}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.support_email">
+                    <p> <b>Support Email</b>: {{viewObj.support_email}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.support_phone">
+                    <p> <b>Support Phone</b>: {{viewObj.support_phone}}</p>
+                </div>
+
+                <div class="col-6" *ngIf="viewObj.logo">
+                    <p> <b>Logo</b></p>
+                    <img src="{{viewObj.logo}}">
+                </div>
+                <div class="col-6" *ngIf="viewObj.tiny_logo">
+                    <p> <b>Tiny Logo</b></p>
+                    <img src="{{viewObj.tiny_logo}}">
+                </div>
+                <div class="col-6" *ngIf="viewObj.favicon">
+                    <p> <b>Favicon</b></p>
+                    <img src="{{viewObj.favicon}}">
+                </div>
+                <div class="col-12" *ngIf="viewObj.copyright_text">
+                    <p> <b>Copyright Text</b>: {{viewObj.copyright_text}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.fb_link">
+                    <p> <b>Facebook</b>{{viewObj.fb_link}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.twitter_link">
+                    <p> <b>Twitter</b>{{viewObj.twitter_link}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.linkedin_link">
+                    <p> <b>LinkedIn</b>{{viewObj.linkedin_link}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.instagram_link">
+                    <p> <b>Instagram</b>{{viewObj.instagram_link}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.youtube_link">
+                    <p> <b>Youtube</b>{{viewObj.youtube_link}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.whatsapp_link">
+                    <p> <b>Whatsapp</b>{{viewObj.whatsapp_link}}</p>
+                </div>
+                <div class="col-6" *ngIf="viewObj.pinterest_link">
+                    <p> <b>Pinterest</b>{{viewObj.pinterest_link}}</p>
+                </div>
+                <div class="col-12">
+                    <p><b>Status</b>: <span class="badge success" *ngIf="viewObj.active_status==1">Active</span> <span
+                            class="badge danger" *ngIf="viewObj.active_status!==1">Inactive</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditOrgModal(addEditOrg,viewObj)"><i
+                class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>
+
+
+<!-- ================ SET ORGANAIZATIONS MODULE-SUBMODULE ACCESS PERMISSION   ==================== -->
+
+<ng-template #orgModuleSubmodulePermission>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Organizationn Module-submodule access permission</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="closeModuleSubmodulePermissionModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-style acces_style ornz_modal_styl">
+            <div class="row">
+                <div class="col-12 acces_style_col" *ngFor="let module of subModulesgroupByModuleList; let moduleIndex=index">
+                    <div class="form-check form-switch form-switch-sm mb-1">
+                        <input type="checkbox" id="flexSwitchCheckChecked{{moduleIndex}}" class="form-check-input"[checked]="isModuleChecked(module)"
+                       (change)="toggleModule(moduleIndex)" >
+                        <label for="flexSwitchCheckChecked{{moduleIndex}}" class="form-check-label">{{module?.module_name}}</label>
+                    </div>
+                    <div class="row child_div">
+                        <div class="col-6 mb-0" *ngFor="let item of module?.sub_modules; let subModuleIndex=index">
+                            <div class="form-check form-switch form-switch-sm ">
+                                <input type="checkbox" id="flexSwitchCheckCheckedSubModule{{item?.sub_module_id}}" class="form-check-input"  (change)="toggleSubmodule($event,moduleIndex, subModuleIndex)"[checked]="item.selected" >
+                                <label for="flexSwitchCheckCheckedSubModule{{item?.sub_module_id}}" class="form-check-label">{{item.sub_module_name}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+
+
+     
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="closeModuleSubmodulePermissionModal()">Close</button>
+        <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading" (click)="saveOrgModuleSubModulePermission()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>Save</button>
+    </div>
+</ng-template>

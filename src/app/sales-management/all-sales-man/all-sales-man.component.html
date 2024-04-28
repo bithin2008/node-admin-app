@@ -1,0 +1,109 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div class="">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                          <div class="card__head d-block">
+                            <div class="row d-flex align-items-center flex-wrap">
+
+                                <div class="col-lg-4 mb-0">
+                                  <div class="card-heading">
+                                    <p class="h4 c--drkgry">All Salesman</p>
+                                  </div>
+                                </div>
+                           
+                                <div class="align-items-center col-lg-8 mb-0">
+                                  <div class="d-flex justify-content-end">
+                                    <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                      [placeHolderText]="'Search...'"></app-search-input>
+                                        <div class="col-auto mb-0 ml-1 pr-0">
+                                        </div>
+                                    </div>
+                                  </div>   
+                                 
+                              </div>
+                            </div>
+                         
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="">
+                                       <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col" class="w60" (click)="updateSorting('org_user_id')"># <span
+                                                class="pi pi-sort short-icon"></span></th>
+                                            <th scope="col" class="w120">Actions</th>
+                                            <th scope="col" (click)="updateSorting('first_name')">First Name <span
+                                                  class="pi pi-sort short-icon"></span></th>
+                                            <th scope="col" (click)="updateSorting('last_name')">Last Name <span
+                                                    class="pi pi-sort short-icon"></span></th>
+                                            <th scope="col" (click)="updateSorting('email')">Email <span
+                                                class="pi pi-sort short-icon"></span></th>
+                                            <th scope="col" (click)="updateSorting('mobile')">Phone <span
+                                                class="pi pi-sort short-icon"></span></th>
+                                            <th scope="col" (click)="updateSorting('user_role_details.role_type')">Role <span
+                                                class="pi pi-sort short-icon"></span></th>
+                                            <th scope="col" (click)="updateSorting('department_details.department_name')">Department <span
+                                                class="pi pi-sort short-icon"></span></th>
+                                            <th scope="col" (click)="updateSorting('last_login')">Last Login <span
+                                                class="pi pi-sort short-icon"></span>
+                                            </th>
+                                          </tr>
+                                        </thead>
+                                        <tbody *ngIf="orgUsersList?.length>0">
+                                          <tr *ngFor="let item of orgUsersList; let i=index">
+                                            <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                            <td>
+                                              <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="View"
+                                                data-bs-original-title="View" class="btn btn-sm h-1 btn-view" *ngIf="permissionObj?.view"
+                                                (click)="navigateToSalesmanDetails(item.org_user_id)">View
+                                              </button>
+                                              
+                                            </td>
+                                            <td><b> {{item?.first_name}}</b></td>
+                                            <td><b>{{item?.last_name}}</b></td>
+                                            <td> {{item?.email}}</td>
+                                            <td> {{item?.mobile|phoneUsFormat}}</td>
+                                            <td> {{item?.user_role_details?.role_type}}</td>
+                                            <td> {{item?.department_details?.department_name}}</td>
+                                            <td><span *ngIf="item?.last_login"> {{item?.last_login|date:'MM-dd-YYYY'}}</span> 
+                                                <span *ngIf="!item?.last_login">N/A</span> 
+                                            </td>
+                                          </tr>
+                  
+                                        </tbody>
+                                        <tbody *ngIf="orgUsersList?.length==0">
+                                          <tr>
+                                            <td colspan="10" class="text-center">No data found</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      </div>
+                                    </div>
+                                    <span>
+                                      <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                        [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                        [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                  </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

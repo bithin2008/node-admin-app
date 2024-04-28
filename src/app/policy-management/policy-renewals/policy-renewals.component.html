@@ -1,0 +1,504 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Policy Renewal</p>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0 pr-0">
+                                        <div class="d-flex justify-content-end">
+                                            <app-search-input (inputValue)="getSearchInputVal($event)"
+                                                [resetInput]="resetSearchInput"
+                                                [placeHolderText]="'Search...'"></app-search-input>
+                                            <!--  <div class="col-auto mb-0">
+                                            <div class="form--search d-flex">
+                                                    <div class="form-control form-control--search newSerch w-auto">
+                                                        <i class="pi pi-search search-icon mr-1"></i>
+                                                        <input type="search" placeholder="Type here to Search"
+                                                        [(ngModel)]="searchingvalue" (input)="search($event)">
+                                                    </div>
+                                                    <button class="btn btn-reset ml-1" role="button"(click)="resetAllFilter()">Reset</button>
+                                                    <button class="btn btn-secondary ml-1 btn-advnc" data-bs-toggle="collapse" href="#searchDiv" role="button">Advanced Search</button>
+                                                </div> 
+                                                
+                                            </div>-->
+                                            <div class="col-auto mb-0">
+                                                <div class="form--search d-flex">
+                                                    <button class="btn bg--extradrkb text-white btn-advnc"
+                                                        data-bs-toggle="collapse" href="#searchDiv" role="button">Advanced
+                                                        Search</button>                                                    
+                                                    <button class="btn btn-info" role="button"
+                                                        (click)="exportPolicyList('export_csv')">Export</button>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <!-- MIDDLE SEPAREATE DIV START HERE -->
+                                    <app-advanced-search [advancedSearchConfig]="advancedSearchConfig"
+                                        (inputValueChange)="advancedSearchInputValueChange($event)"></app-advanced-search>
+                                    <!-- MIDDLE SEPAREATE DIV END HERE -->
+                                </div>
+                            </div>
+
+                            <div class="card__body mt-1">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="table-responsive  more-data-table-4">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w80"
+                                                            (click)="updateSorting('policy_id')"># <span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                                
+                                                        <th scope="col">Actions</th>
+                                                        <th scope="col" (click)="updateSorting('policy_number')">Policy
+                                                            No. <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('policy_status')">Policy
+                                                            Status <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('renewal_status')">Policy
+                                                                Renewal Status <span class="pi pi-sort short-icon"></span></th>
+                                                       <th scope="col" (click)="updateSorting('expiry_with_bonus')">Days Remaining <span class="pi pi-sort short-icon"></span></th>
+                                                       <th scope="col" (click)="updateSorting('first_name')">First Name
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                         <th scope="col" (click)="updateSorting('last_name')">Last Name
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('email')">Email <span
+                                                            class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('address')">Address </th>
+                                                        <th scope="col" (click)="updateSorting('billing_city')">City </th>
+                                                        <th scope="col" (click)="updateSorting('billing_state')">State
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('billing_zip')">Zip Code
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('created_by')">Sale By
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+
+                                                        <!-- <th scope="col" (click)="updateSorting('policy_number')">Policy
+                                                            No. <span class="pi pi-sort short-icon"></span></th> -->
+                                                        <th scope="col"
+                                                            (click)="updateSorting('plan_details.plan_name')">Plan Name
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                       
+                                                        <th scope="col" (click)="updateSorting('net_amount')">
+                                                            Amount<span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('discount_amount')">
+                                                            Discount Amount<span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col"
+                                                            (click)="updateSorting('miscellaneous_charges')">
+                                                            Miscellaneous Charges<span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('order_date')">Order Date
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('policy_start_date')">
+                                                            Effective From<span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('expiry_with_bonus')">
+                                                            Expiry With Bonus<span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('policy_term')">Policy
+                                                            Term <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('pcf')">SCF<span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('holding_period')">
+                                                            Holding Period<span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <!-- <th>Sales Representative</th>
+                                                        <th>Cancellation Form</th>-->
+                                                        <!-- <th>Source</th> -->
+                                                        <th>First Free Service</th>
+                                                        <th scope="col" (click)="updateSorting('created_at')">Created On
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('updated_at')">Updated On
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="policyList?.length>0">
+                                                    <tr *ngFor="let item of policyList; let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <div class="btn-group" dropdown container="body">
+                                                                <button id="button-basic" dropdownToggle type="button"
+                                                                    class="btn btn-action dropdown-toggle"
+                                                                    aria-controls="dropdown-basic">Actions<span
+                                                                        class="caret"></span></button>
+                                                                <ul id="dropdown-basic" *dropdownMenu
+                                                                    class="dropdown-menu" role="menu"
+                                                                    aria-labelledby="button-basic">
+                                                                    <li><a type="button" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="top" title=""
+                                                                            data-bs-original-title="View"
+                                                                            class="dropdown-item"
+                                                                            (click)="openViewPolicyModal(viewPolicyEleRef,item)">View
+                                                                        </a>
+                                                                    </li>
+                                                                  
+                                                                            <li><a type="button" data-bs-toggle="tooltip"
+                                                                                data-bs-placement="top"
+                                                                                (click)="navigateToRenewPolicy(item.policy_id)"                                                                               
+                                                                                title="" *ngIf="permissionObj.edit && (item?.policy_status==1 || item?.policy_status==3) && item?.renewal_status!=1"
+                                                                                data-bs-original-title="Renew"
+                                                                                class="dropdown-item">Renew</a></li>
+
+                                                                                <li><a type="button" data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="top"
+                                                                                    (click)="policyRenewalConfirmation(item)"                                                                               
+                                                                                    title="" *ngIf="permissionObj.edit && (item?.policy_status==1 || item?.policy_status==3) && (item?.renewal_status!=1 && item?.renewal_status!=2)"
+                                                                                    data-bs-original-title="Renew"
+                                                                                    class="dropdown-item">Rejected By Customer</a></li>
+                                                                    
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <span (click)="navigateToCustomerDetails(item?.customer_id)"
+                                                                class="py-1 c--mdSky" role="button">{{item?.policy_number}}
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item?.policy_status_details>{{item?.policy_status_details}}</span> -->
+                                                            <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.policy_status_details?.status_color }">{{item?.policy_status_details?.status_name}}</span>
+                                                        </td>
+                                                        <td> <span class="badge radius:tiny size:tiny padding:tiny" 
+                                                            [ngStyle]="{
+                                                                'background-color': item?.policy_renewal_status_color
+                                                                ? item?.policy_renewal_status_color
+                                                                : '#BDBDBD'
+                                                             }">{{item?.policy_renewal_status_details}} </span>
+
+                                                        </td>
+                                                        <td><span class="badge radius:tiny size:tiny padding:tiny" data-status="Expired" *ngIf="item?.renewal_status!=1"> {{item?.daysDifference>-1?item?.daysDifference:0}}</span><span class="badge radius:tiny size:tiny padding:tiny" data-status="Expired" *ngIf="item?.renewal_status==1"> N/A</span></td>
+                                                        <td (click)="navigateToCustomerDetails(item?.customer_id)">
+                                                            {{item?.first_name}}</td>
+                                                        <td (click)="navigateToCustomerDetails(item?.customer_id)">
+                                                            {{item?.last_name}}</td>
+                                                        <td (click)="navigateToCustomerDetails(item?.customer_id)">
+                                                            {{item?.email}}</td>
+                                                        <td>{{item?.billing_address1}}</td>
+                                                        <td>{{item?.billing_city}}</td>
+                                                        <td>{{item?.billing_state}}</td>
+                                                        <td>{{item?.billing_zip}}</td>
+                                                        <td>{{item?.created_user_info?.first_name+' '+item?.created_user_info?.last_name}} ({{item?.source_details}})</td>
+
+                                                        
+                                                        <td><span class="pln-nm {{item?.plan_details?.plan_name  | lowercase}}">{{item?.plan_details?.plan_name}}</span></td>
+                                                        <!-- <td (click)="navigateToCustomerDetails(item?.customer_id)">
+                                                            {{item?.last_name}}</td> -->
+                                                        
+                                                        
+                                                        
+                                                        <td>{{item?.net_amount| currency:'USD'}}</td>
+                                                        <td>{{item?.discount_amount| currency:'USD'}}</td>
+                                                        <td>{{item?.miscellaneous_charges| currency:'USD'}}</td>
+                                                        <td>{{item?.order_date|date:'MM-dd-YYYY'}}</td>
+                                                        <td>{{item?.policy_start_date|date:'MM-dd-YYYY'}}</td>
+                                                        <td>{{item?.expiry_with_bonus}}</td>
+                                                        <td>{{item?.policy_term}}</td>
+                                                        <td>{{item?.pcf | currency:'USD'}}</td>
+                                                        <td>{{item?.holding_period}}</td>
+                                                        <!-- <td>N/A</td>
+                                                        <td>N/A</td>-->
+                                                        <!-- <td>{{item?.source_details}}</td> -->
+                                                        <td>{{item?.first_free_service_details}}</td>
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                                <tbody *ngIf="policyList?.length==0">
+                                                    <tr>
+                                                        <td colspan="14" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <span>
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                            [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                            [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ VIEW Policy  ==================== -->
+
+<ng-template #viewPolicyEleRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Policy Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="viewPolicyModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row modal-row">
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles pt-0">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky">Policy Information</h6>
+                    </div>
+                    <div class="modal_lg_table">
+                        <div class="modal_table_scrol">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td [width]="150">Policy Status : </td>
+                                        <td>
+                                        
+                                            <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=viewPolicyObj?.policy_status_details>{{viewPolicyObj?.policy_status_details}}</span> -->
+                                            <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':viewPolicyObj?.policy_status_details?.status_color }">{{viewPolicyObj?.policy_status_details?.status_name}}</span>
+                                        </td>
+    
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Policy No :</td>
+                                        <td class="c--mdSky">{{viewPolicyObj.policy_number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Policy Term :</td>
+                                        <td>{{viewPolicyObj?.policy_term}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Plan Name :</td>
+                                        <td><span class="pln-nm {{viewPolicyObj?.plan_details?.plan_name  | lowercase}}">{{viewPolicyObj?.plan_details?.plan_name}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Policy Amount :</td>
+                                        <td>{{viewPolicyObj?.policy_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Discount Amount :</td>
+                                        <td>{{viewPolicyObj?.discount_amount| currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Miscellaneous Charges :</td>
+                                        <td>{{viewPolicyObj?.miscellaneous_charges| currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Policy Amount :</td>
+                                        <td>{{viewPolicyObj?.policy_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="200">Total Add-on Amount :</td>
+                                        <td>{{viewPolicyObj?.addon_coverage_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="200">Surcharge Amount :</td>
+                                        <td>{{viewPolicyObj?.surcharge_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Sales Tax :</td>
+                                        <td>{{viewPolicyObj?.tax_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Grand Total :</td>
+                                        <td>{{viewPolicyObj?.net_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Bonus Month :</td>
+                                        <td>{{viewPolicyObj?.bonus_month}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Order Date :</td>
+                                        <td>{{viewPolicyObj?.order_date |date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Effective From :</td>
+                                        <td>{{viewPolicyObj?.policy_start_date|date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Expiry On :</td>
+                                        <td>{{viewPolicyObj?.policy_expiry_date|date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="200">Expiry With Bonus :</td>
+                                        <td>{{viewPolicyObj?.expiry_with_bonus|date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="200">Day's Remaining :</td>
+                                        <td>{{viewPolicyObj.policy_days_remaining}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Property Type :</td>
+                                        <td>{{viewPolicyObj?.property_type_details?.property_type}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Property Size :</td>
+                                        <td>{{viewPolicyObj?.property_size_id==0?'Under 5,000 sq.ft':viewPolicyObj?.property_size_id==1?'Over 5,000 sq. ft':'N/A'}}</td>
+                                    </tr>
+    
+                                    <tr>
+                                        <td [width]="150">Source :</td>
+                                        <td>{{viewPolicyObj?.source_details}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">First Free Service :</td>
+                                        <td>{{viewPolicyObj?.first_free_service_details}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Created By :</td>
+                                        <td><span
+                                                *ngIf="viewPolicyObj?.created_user_info">{{viewPolicyObj?.created_user_info?.first_name}}
+                                                {{viewPolicyObj?.created_user_info?.last_name}}</span> <span
+                                                *ngIf="!viewPolicyObj?.created_user_info">NA</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Created On :</td>
+                                        <td>{{viewPolicyObj?.created_at|date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+    
+                                    <tr>
+                                        <td [width]="150">Updated By :</td>
+                                        <td><span
+                                                *ngIf="viewPolicyObj?.updated_user_info">{{viewPolicyObj?.updated_user_info?.first_name}}
+                                                {{viewPolicyObj?.updated_user_info?.last_name}}</span>
+                                            <span *ngIf="!viewPolicyObj?.updated_user_info">NA</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Updated On :</td>
+                                        <td>{{viewPolicyObj?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles pt-0">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky">Property Information</h6>
+                    </div>
+                    <div class="modal_lg_table">
+                        <div class="modal_table_scrol">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td [width]="150">Name :</td>
+                                        <td>{{viewPolicyObj.customer_details.first_name}}
+                                            {{viewPolicyObj.customer_details.last_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Email :</td>
+                                        <td>{{viewPolicyObj?.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Mobile :</td>
+                                        <td>{{viewPolicyObj?.mobile |phoneUsFormat}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Alternate Mobile :</td>
+                                        <td>
+                                            <span
+                                                *ngIf="viewPolicyObj?.customer_details?.alternate_phone">{{viewPolicyObj?.customer_details?.alternate_phone|phoneUsFormat}}</span>
+                                            <span *ngIf="!viewPolicyObj?.customer_details?.alternate_phone">N/A</span>
+                                        </td>
+                                    </tr>
+    
+                                    <tr>
+                                        <td [width]="150">Address :</td>
+                                        <td>{{viewPolicyObj?.billing_address1}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="100">Zip :</td>
+                                        <td>{{viewPolicyObj?.billing_zip}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="100">State :</td>
+                                        <td>{{viewPolicyObj?.billing_state}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="100">City :</td>
+                                        <td>{{viewPolicyObj?.billing_city}}</td>
+                                    </tr>
+    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles pt-0">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky">Base Products</h6>
+                    </div>
+                    <div class="modal_lg_table">
+                        <div class="modal_table_scrol">
+                            <table>
+                                <tbody>
+                                    <tr *ngFor="let item of viewPolicyObj?.policy_product_list">
+                                        <ng-container *ngIf="item?.product_details?.product_type==1">
+                                            <td class="fw-normal">{{item?.product_details?.product_name}}</td>
+                                        </ng-container>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles pt-0">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky">Add-On Products</h6>
+                    </div>
+                    <div class="modal_lg_table">
+                        <div class="modal_table_scrol">
+                            <table>
+                                <tbody>
+                                    <tr *ngFor="let item of viewPolicyObj?.policy_product_list">
+                                        <ng-container *ngIf="item?.product_details?.product_type==0">
+                                            <td class="fw-normal">{{item?.product_details?.product_name}}</td>
+                                        </ng-container>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="viewPolicyModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-primary" *ngIf="permissionObj.edit"
+            (click)="navigateToEditPolicy(viewPolicyObj?.policy_id)"><i class="pi pi-pencil"></i> Edit
+        </button>
+    </div>
+    <!-- (click)="openEditProductModal(addEditProducts,viewObj)" -->
+</ng-template>

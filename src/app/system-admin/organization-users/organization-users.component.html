@@ -1,0 +1,326 @@
+<div class="row my-4">
+  <div class="col">
+    <div class="card box-shadow">
+      <div class="card-header"></div>
+      <div class="card-body">
+        <!-- <app-post></app-post> -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card-1" id="table">
+              <div class="card__head">
+                <div class="card-heading">
+                  <p class="h4 c--drkgry">Organization Users</p>
+                </div>
+                <div class="bd-example justify-content-end text-end d-flex gap-2">
+
+                  <select class="form-control form-select" [(ngModel)]="selectedOrg" (change)="changeOrganizationName()">
+                    <option value="">Select organization</option>
+                    <ng-container *ngFor="let org of orgList">
+                      <option value="{{org.org_id}}">{{org.org_name}}</option>
+                    </ng-container>
+                  </select>
+
+                  <button
+                    class="btn btn-sm btn-primary btn-sm w200 d-flex align-items-center justify-content-center gap-2"
+                    (click)="openAddEditUserModal(addEditUser,'')">Add
+                    User</button>
+                </div>
+
+
+
+
+              </div>
+              <div class="card__body">
+                <div class="card__body__container">
+                  <div class="table-style table-style-1 table-layout-fixed">
+
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="w80">#</th>
+                          <th scope="col" class="w180">Actions</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Phone</th>
+                          <th scope="col" class="w80">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="orgUsersList?.length>0">
+                        <tr *ngFor="let item of orgUsersList; let i=index">
+                          <td>{{i+1}}</td>
+                          <td>
+                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Edit" class="btn btn-sm h-1"
+                              (click)="openViewUserRoleModal(viewUser,item)"><i class="pi pi-eye"></i>
+                            </button>
+                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Edit" class="btn btn-sm h-1"
+                              (click)="openAddEditUserModal(addEditUser,item)"><i class="pi pi-file-edit"></i>
+                            </button>
+                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Delete" class="btn btn-sm h-1" (click)="deleteUserRole(item)"><i
+                                class="pi pi-trash"></i></button>
+                          </td>
+
+                          <td><b> {{item?.first_name}} {{item?.last_name}}</b></td>
+                          <td> {{item?.email}}</td>
+                          <td> {{item?.mobile|phoneUsFormat}}</td>
+                          <td>
+                            <div class="form-check form-switch form-switch-sm">
+                              <input class="form-check-input" type="checkbox" id="{{item.user_role_id}}-status"
+                                (change)="changeActivationStatus($event,item.user_role_id)"
+                                [checked]="item.active_status">
+                            </div>
+                            <!-- <span *ngIf="item.active_status==1" class="badge success">Active</span>
+                                <span *ngIf="item.active_status==0" class="badge danger">Inactive</span> -->
+                          </td>
+                        </tr>
+
+                      </tbody>
+                      <tbody *ngIf="orgUsersList?.length==0">
+                        <tr>
+                          <td colspan="4" class="text-center">No data found</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <span *ngIf="totalRecords>10">
+                    <p-paginator (onPageChange)="paginate($event)" [first]="first" [rows]="itemPerPage"
+                      [totalRecords]="totalRecords" [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================ ADD/EDIT MODULES  ==================== -->
+
+<ng-template #addEditUser>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} User</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditUserModal()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="orgUserForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="form-style">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-floating"><select class="form-control form-select" formControlName="orgId"
+                [ngClass]="{ 'is-invalid': submitted && f['orgId'].errors }" [attr.disabled]="isEdit"
+                (change)="changeOrganization()">
+                <option value="">Select organization</option>
+                <ng-container *ngFor="let org of orgList">
+                  <option value="{{org.org_id}}">{{org.org_name}}</option>
+                </ng-container>
+
+              </select><label class="form-label">Organization</label>
+              <app-validation-error [control]="f['orgId']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-floating"><select class="form-control form-select" formControlName="userRoleId"
+                [ngClass]="{ 'is-invalid': submitted && f['userRoleId'].errors }" [attr.disabled]="isEdit">
+                <option value="">Select Role</option>
+                <ng-container *ngFor="let role of orgRoleList">
+                  <option value="{{role.user_role_id}}">{{role.role_type}}</option>
+                </ng-container>
+
+              </select><label class="form-label">User Role</label>
+              <app-validation-error [control]="f['userRoleId']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-floating"><select class="form-control form-select" formControlName="departmentId"
+                [ngClass]="{ 'is-invalid': submitted && f['departmentId'].errors }" [attr.disabled]="isEdit">
+                <option value="">Select Department</option>
+                <ng-container *ngFor="let department of orgDepartmentList">
+                  <option value="{{department.department_id}}">{{department.department_name}}</option>
+                </ng-container>
+              </select><label class="form-label">User Department</label>
+              <app-validation-error [control]="f['departmentId']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="firstName"
+                [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }">
+              <label class="form-label">First Name</label>
+              <app-validation-error [control]="f['firstName']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="lastName"
+                [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }">
+              <label class="form-label">Last Name</label>
+              <app-validation-error [control]="f['lastName']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="emailId"
+                [ngClass]="{ 'is-invalid': submitted && f['emailId'].errors }">
+              <label class="form-label">Email Address</label>
+              <app-validation-error [control]="f['emailId']"></app-validation-error>
+            </div>
+          </div>        
+          <div class="col-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="mobile" [appInputLimit]="10" [appInputType]="'number'"
+                [ngClass]="{ 'is-invalid': submitted && f['mobile'].errors }"  (input)="changePhoneFormat($event)">
+              <label class="form-label">Mobile</label>
+              <app-validation-error [control]="f['mobile']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="residentialPhone" [appInputLimit]="10" [appInputType]="'number'"
+                [ngClass]="{ 'is-invalid': submitted && f['residentialPhone'].errors }" (input)="changeResidancePhoneFormat($event)"    >
+              <label class="form-label">Residential Phone</label>
+              <app-validation-error [control]="f['residentialPhone']"></app-validation-error>
+            </div>
+          </div>
+          
+          <div class="col-md-12">
+            <label class="required me-4 radio-label" for="gender">Gender</label>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="gender_male" value="1" formControlName="gender">
+              <label class="form-check-label" for="gender_male">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="gender_female" value="2" formControlName="gender">
+              <label class="form-check-label" for="gender_female">Female</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="gender_other" value="3" formControlName="gender">
+              <label class="form-check-label" for="gender_other">Others</label>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" placeholder="Datepicker" class="form-control" id="dateOfBirth" onkeydown="return false"
+                formControlName="dateOfBirth" bsDatepicker onkeydown="return false" (bsValueChange)="changeDateOfBirth($event)"
+                [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'MM-DD-YYYY',showWeekNumbers: false  }" [maxDate]="maxDate" autocomplete="off"   [ngClass]="{ 'is-invalid': submitted && f['dateOfBirth'].errors }">
+              <label class="form-label">Date Of Birth</label>
+              <app-validation-error [control]="f['dateOfBirth']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" placeholder="Datepicker" class="form-control" id="joiningDate" onkeydown="return false"
+                formControlName="joiningDate" bsDatepicker  onkeydown="return false" (bsValueChange)="changeJoiningDate($event)"
+                [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers: false  }" [maxDate]="maxDate" autocomplete="off" [ngClass]="{ 'is-invalid': submitted && f['joiningDate'].errors }">
+              <label class="form-label">Joining Date</label>
+              <app-validation-error [control]="f['joiningDate']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="zip" maxlength="5" 
+                [ngClass]="{ 'is-invalid': submitted && f['zip'].errors }" (input)="changeZip($event)">
+              <label class="form-label">ZIP</label>
+              <app-validation-error [control]="f['zip']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="city"
+                [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
+              <label class="form-label">city</label>
+              <app-validation-error [control]="f['city']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="state"
+                [ngClass]="{ 'is-invalid': submitted && f['state'].errors }">
+              <label class="form-label">state</label>
+              <app-validation-error [control]="f['state']"></app-validation-error>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="address1"
+                [ngClass]="{ 'is-invalid': submitted && f['address1'].errors }">
+              <label class="form-label">address1</label>
+              <app-validation-error [control]="f['address1']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="address2"
+                [ngClass]="{ 'is-invalid': submitted && f['address2'].errors }">
+              <label class="form-label">address2</label>
+              <app-validation-error [control]="f['address2']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-12">
+            <p>Status</p>
+            <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                  formControlName="activeStatus" value="1"><span class="checkmark"></span>
+                <p>Active</p>
+              </label><label><input type="radio" name="activeStatus" formControlName="activeStatus" value="0"><span
+                  class="checkmark"></span>
+                <p>Inactive</p>
+              </label></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditUserModal()">Close</button>
+      <button type="submit" class="btn btn-sm btn-primary">{{isEdit?'Update':'Add'}} User</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<!-- ================ VIEW SUB MODULES  ==================== -->
+
+<ng-template #viewUser>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Organization User Details</h4>
+
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-style">
+      <div class="row">
+
+        <div class="col-12">
+          <p> <b>Role Type</b>: {{viewObj.role_type}}</p>
+        </div>
+        <div class="col-12">
+          <p> <b>Organization</b>: {{viewObj.organization.org_name}}</p>
+        </div>
+        <div class="col-12" *ngIf="viewObj.description">
+          <p> <b>Description</b>: {{viewObj.description}}</p>
+        </div>
+        <div class="col-12">
+          <p><b>Status</b>: <span class="badge success" *ngIf="viewObj.active_status==1">Active</span> <span
+              class="badge danger" *ngIf="viewObj.active_status!==1">Inactive</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+    <button type="button" class="btn btn-sm btn-primary" (click)="openEditUserRoleModal(addEditUser,viewObj)"><i
+        class="pi pi-pencil"></i> Edit</button>
+
+  </div>
+</ng-template>

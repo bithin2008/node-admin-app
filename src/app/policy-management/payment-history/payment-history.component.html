@@ -1,0 +1,275 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+            <div class="card-header"></div>
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row" *ngIf="permissionObj.view">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                <div class="col-lg-4 mb-0 pr-0">
+                                  <div class="card-heading">
+                                    <p class="h4 c--drkgry">Manage Payment History</p>
+                                  </div>
+                                </div>
+                                <div class="align-items-center col-lg-8 mb-1 pr-0">
+                                    <div class="d-flex justify-content-end">
+                                        <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                        [placeHolderText]="'Search...'"></app-search-input>
+                                      <!--   <div class="col-auto mb-0">
+                                            <div class="form--search d-flex">
+                                                <div class="form-control form-control--search newSerch w-auto">
+                                                    <i class="pi pi-search search-icon mr-1"></i>
+                                                    <input type="search" placeholder="Type here to Search"
+                                                    [(ngModel)]="searchingvalue" (input)="search($event)">
+                                                  </div>
+                                                  <button class="btn btn-reset ml-1" role="button"(click)="resetAllFilter()">Reset</button>
+                                             </div>
+                                            
+                                        </div> -->
+                                        <div class="col-auto mb-0">
+                                            <div class="form--search d-flex">
+                                                <button class="btn bg--extradrkb text-white btn-advnc" data-bs-toggle="collapse" href="#searchDiv" role="button">Advanced Search</button>
+                                                <button class="btn btn-info" role="button" (click)="exportPaymentList('export_csv')">Export</button>
+                                            </div>
+                                            
+                                        </div>
+                                      
+
+                                    </div>
+                                </div>
+                                <!-- MIDDLE SEPAREATE DIV START HERE -->
+                                    <app-advanced-search [advancedSearchConfig]="advancedSearchConfig"  (inputValueChange)="advancedSearchInputValueChange($event)"></app-advanced-search>
+                                <!-- MIDDLE SEPAREATE DIV END HERE -->
+                                
+                             
+                            </div>
+                        </div>
+
+                               
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="table-responsive">
+                                            <table class="table more-data-table-2">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w60" (click)="updateSorting('payment_id')"># <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" class="w80">Actions</th>
+                                                        <th scope="col" (click)="updateSorting('policy_details.first_name')">First Name
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('policy_details.last_name')">Last Name <span class="pi pi-sort short-icon"></span> </th>
+                                                        <th scope="col" (click)="updateSorting('policy_details.email')">Email <span class="pi pi-sort short-icon"></span> </th>
+                                                        <th scope="col" (click)="updateSorting('policy_details.policy_number')">Policy Number<span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col"  (click)="updateSorting('payment_status')">Payment Status <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col">Check Number</th>
+                                                        <th scope="col" (click)="updateSorting('amount')">Amount <span
+                                                            class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col">Payment Type</th>
+                                                        <th scope="col" (click)="updateSorting('payment_date')">Expected Payment Date <span
+                                                            class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('payment_successfull_date')">Successfully Payment Date <span
+                                                            class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col">Created By</th>
+                                                        <th scope="col">Updated By</th>
+                                                        <th scope="col"(click)="updateSorting('created_at')">Created On <span class="pi pi-sort short-icon"></span></th>
+                                                  
+                                                        <th scope="col"(click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="paymentList?.length>0">
+                                                    <tr *ngFor="let item of paymentList; let i=index" [ngClass]="item?.policy_details?.is_anamaly==1 ? 'anamaly': ''">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                        <td>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="View" class="btn btn-sm h-1 btn-view"(click)="openViewUserModal(viewUser,item)">View</button>
+                                                        </td>
+                                                        <td>
+                                                            <div class="pro_name">
+                                                                <b> {{item?.policy_details.first_name}}</b>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="pro_name">
+                                                                <b> {{item?.policy_details.last_name}}</b>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{item?.policy_details?.email}}</td>
+                                                        <!-- <td> <span class="badge radius:large py-1 c--mdSky border-txt ng-star-inserted" role="button" title="Copy to clipboard" *ngIf="item?.policy_details?.policy_number" (click)="copyToClipBoard(item?.policy_details?.policy_number)">{{item?.policy_details?.policy_number}}</span> 
+                                                        
+                                                        </td> -->
+                                                        <td>
+                                                            <span (click)="navigateToCustomerDetails(item?.customer_id)"
+                                                                class="py-1 c--mdSky" role="button">{{item?.policy_details?.policy_number}}
+                                                            </span>
+                                                        </td>
+
+                                                       
+                                                        <td>
+                                                            <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.payment_status_details?.status_color }">{{item.payment_status_details?.status_name}}</span> 
+                                                        </td>
+                                                        <td> {{item?.cheque_no?item?.cheque_no:'N/A'}}</td>
+                                                        <td> {{item?.amount| currency:'USD'}}</td>
+                                                        <td> 
+                                                            <span>{{item?.payment_type_details}}</span>
+
+                                                        </td>
+      
+                                                        <td> {{item.payment_date?(item.payment_date | date:'MM-dd-YYYY'):'N/A'}}</td>
+                                                        <td> <span *ngIf="item?.payment_successfull_date"> {{item?.payment_successfull_date | date:'MM-dd-YYYY'}}</span>
+                                                        <span *ngIf="!item?.payment_successfull_date">N/A</span></td>
+                                                   
+                                                       
+                                                        <td> <span
+                                                                *ngIf="item.create_user_type==1 || item.create_user_type==3">{{item?.customer_details?.first_name}}
+                                                                {{item?.customer_details?.last_name}}</span>
+                                                            <span
+                                                                *ngIf="item.create_user_type!=1 && item.create_user_type!=null">{{item?.created_user_info?.first_name}}
+                                                                {{item?.created_user_info?.last_name}}</span>
+                                                                <span
+                                                                *ngIf="!item.create_user_type">N/A</span>
+                                                                
+                                                        </td>
+                                                        <td> <span
+                                                                *ngIf="item.update_user_type==1 || item.update_user_type==3">{{item?.customer_details?.first_name}}
+                                                                {{item?.customer_details?.last_name}}</span>
+                                                            <span
+                                                                *ngIf="item.update_user_type!=1 && item.update_user_type!=null">{{item?.updated_user_info?.first_name}}
+                                                                {{item?.updated_user_info?.last_name}}</span>
+                                                                <span
+                                                                *ngIf="item.update_user_type==null">N/A</span>
+                                                        </td>
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                                <tbody *ngIf="paymentList?.length==0">
+                                                    <tr>
+                                                        <td colspan="15" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <span>
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                            [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                            [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ================ VIEW SUB USERS  ==================== -->
+
+<ng-template #viewUser>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Payment Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+     
+            <div class="row"> 
+                <div class="col-lg-6 px-0">
+                    <div class="fee-details">
+                        <ul>
+                            <li>Name :</li>
+                            <li> {{viewObj?.customer_details?.first_name}} {{viewObj?.customer_details?.last_name}}</li>
+                        </ul>
+                        <ul>
+                            <li>Payment Type :</li>
+                            <li> <span>{{viewObj.payment_type_details}}</span></li>
+                        </ul>
+                        <ul>
+                            <li>Payment Date :</li>
+                            <li>{{viewObj.payment_date | date:'MM-dd-YYYY'}} </li>
+                        </ul>
+                        <ul>
+                            <li>Created By :</li>
+                            <li> <span
+                                *ngIf="viewObj.create_user_type==1">{{viewObj?.customer_details?.first_name}}
+                                {{viewObj?.customer_details?.last_name}}</span>
+                            <span
+                                *ngIf="viewObj.create_user_type!=1 && viewObj.create_user_type!=null">{{viewObj?.created_user_info?.first_name}}
+                                {{viewObj?.created_user_info?.last_name}}</span>
+                                <span  *ngIf="viewObj.create_user_type==null">N/A</span>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>Updated By :</li>
+                            <li> <span
+                                *ngIf="viewObj.update_user_type==1">{{viewObj?.customer_details.first_name}}
+                                {{viewObj?.customer_details.last_name}}</span>
+                            <span
+                                *ngIf="viewObj.update_user_type!=1 && viewObj.update_user_type!=null">{{viewObj?.updated_user_info.first_name}}
+                                {{viewObj?.updated_user_info.last_name}}</span>
+                                <span
+                                *ngIf="viewObj.update_user_type==null">N/A</span></li>
+                        </ul>
+                        <ul>
+                            <li>Schedule Payment :</li>
+                            <li> {{viewObj?.schedule_payment_details}}</li>
+                        </ul>
+                        <ul>
+                            <li>Manual Payment Type :</li>
+                            <li> {{viewObj?.manual_payment_type_details}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 pr-0 pl-1">
+                    <div class="fee-details">
+                        <ul>
+                            <li>Policy Number : </li>
+                            <li>{{viewObj?.policy_details?.policy_number}}</li>
+                        </ul>
+                        <ul>
+                            <li>Amount :</li>
+                            <li>{{viewObj?.amount | currency:'USD'}} </li>
+                        </ul>
+                        <ul>
+                            <li>Created User Type :</li>
+                            <li><span *ngIf="viewObj?.create_user_type==1">Customer</span>
+                                <span *ngIf="viewObj?.create_user_type==2">User</span>
+                                <span *ngIf="viewObj?.create_user_type==3">Realtor</span>
+                                <span *ngIf="viewObj?.create_user_type==null">N/A</span></li>
+                        </ul>
+                        <ul>
+                            <li>Created On :</li>
+                            <li> {{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                        </ul>
+                        <ul>
+                            <li>Updated On :</li>
+                            <li> {{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>
+                        </ul>    
+                        <ul>
+                            <li>Recurring Type :</li>
+                            <li> {{viewObj?.recurring_type_details}}</li>
+                        </ul>
+                        <ul>
+                            <li>Payment Status :</li> 
+                            <li>
+                                <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':viewObj?.payment_status_details?.status_color }">{{viewObj.payment_status_details?.status_name}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+    </div>    
+</ng-template>

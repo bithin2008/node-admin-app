@@ -1,0 +1,29 @@
+.modal.show,
+modal-container[style="display: block"]{
+  display: grid !important;
+  place-items: center;
+}
+
+
+.modal{
+  --bs-modal-width: 400px;
+}
+
+.modal-body.confoBody{
+  --bs-modal-padding: 2.5rem;
+  p{
+    line-height: 1.5;
+  }
+}
+
+.modal-dialog{
+  width: 100%;
+}
+
+.modal-xxl{
+  --bs-modal-width: 1440px;
+
+  @media(max-width:1500px){
+    --bs-modal-width: 1340px;
+  }
+}

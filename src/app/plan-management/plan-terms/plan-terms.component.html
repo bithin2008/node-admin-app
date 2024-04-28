@@ -1,0 +1,332 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+      
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Plan Terms</p>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end">
+                                        <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                            [placeHolderText]="'Search...'"></app-search-input>
+                                        <div class="col-auto mb-0 ml-1">
+                                            <div class="btns-grp">
+                                            <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                                            (click)="openaddEditPlanModal(addEditPlanTerms,'')">Add </button> 
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="w60" (click)="updateSorting('plan_terms_id')"># <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" >Actions</th>
+                                                            <th scope="col" (click)="updateSorting('plan_details.plan_name')">Plan Name <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('plan_term')">Plan Term <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('plan_term_month')">Total Months <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('property_type_details.property_type')">Home Type <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('price_below_5000_sqft')">Price (Below 5000 sqft) <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('price_above_5000_sqft')">Price (Above 5000 sqft) <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('bonus_month')">Bonus Month <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('max_split_payment')">Split Payment <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col"(click)="updateSorting('created_at')">Created On <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col"(click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="planTermList?.length>0">
+                                                        <tr *ngFor="let item of planTermList; let i=index">
+                                                            <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                            <td>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="View"
+                                                                    data-bs-original-title="View" class="btn btn-sm h-1 btn-view"
+                                                                    (click)="openViewPlanTermModal(viewPlanTerms,item)" >View
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Edit"*ngIf="permissionObj?.edit"
+                                                                    data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit"
+                                                                    (click)="openaddEditPlanModal(addEditPlanTerms,item)">Edit
+                                                                </button>
+                                                                <!-- <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Delete"*ngIf="permissionObj?.delete"
+                                                                    data-bs-original-title="Delete" class="btn btn-sm h-1 btn-del"
+                                                                    (click)="deletePlanTerm(item)">Delete</button> -->
+                                                            </td>
+                                                            <td><span class="pln-nm {{item?.plan_details?.plan_name  | lowercase}}">{{item?.plan_details?.plan_name}}</span></td>
+                                                            <td>{{item?.plan_term}}</td>
+                                                            <td>{{item?.plan_term_month}}</td>
+                                                                <td>{{item?.property_type_details?.property_type}}</td>
+                                                            <td>{{item?.price_below_5000_sqft |
+                                                                currency:'USD'}}</td>
+                                                            <td>{{item?.price_above_5000_sqft |
+                                                                currency:'USD'}}</td>
+                                                            <td>{{item?.bonus_month}}</td>
+                                                            <td>{{item?.max_split_payment}}</td>
+                                                            <!-- <td><span   *ngIf="item?.create_info">{{item?.create_info?.first_name}}
+                                                                {{item?.create_info?.last_name}}</span> <span
+                                                                *ngIf="!item?.create_info">N/A</span></td> -->
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <!-- <td><span *ngIf="item?.updated_by">{{item?.update_info?.first_name}}
+                                                                {{item?.update_info?.last_name}}</span> <span
+                                                                *ngIf="!item?.updated_by">N/A</span></td> -->
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tbody *ngIf="planTermList?.length==0">
+                                                        <tr>
+                                                            <td colspan="10" class="text-center">No data found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <span >
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first" [rows]="paginationObj.limit"
+                                        [totalRecords]="paginationObj.total" [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ ADD/EDIT Plan Terms  ==================== -->
+
+<ng-template #addEditPlanTerms>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Plan Term </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="planTermsForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-floating"><select class="form-control form-select" formControlName="planId"
+                                [ngClass]="{ 'is-invalid': submitted && f['planId'].errors }">
+                                <ng-container *ngFor="let plan of planList">
+                                    <option value="{{plan.plan_id}}">{{plan.plan_name}}</option>
+                                </ng-container>
+
+                            </select>
+                            <label class="form-label">Select Plan <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['planId']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="planTerm"
+                                [ngClass]="{ 'is-invalid': submitted && f['planTerm'].errors }"
+                                (change)="changeTenure($event)">
+                                <ng-container *ngFor="let tenure of tenureList">
+                                    <option value="{{tenure.term_month}}">{{tenure.term_name}}</option>
+                                </ng-container>
+
+                            </select>
+                            <label class="form-label">Select Plan Terms <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['planTerm']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="propertyType"
+                                [ngClass]="{ 'is-invalid': submitted && f['propertyType'].errors }">
+                                <ng-container *ngFor="let property of propertyTypes">
+                                    <option value="{{property.property_type_id}}">{{property.property_type}}</option>
+                                </ng-container>
+
+                            </select>
+                            <label class="form-label">Select Property Type <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['propertyType']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="bonusMonth"
+                                [ngClass]="{ 'is-invalid': submitted && f['bonusMonth'].errors }" min="0">
+                            <label class="form-label">Bonus Month </label>
+                            <app-validation-error [control]="f['bonusMonth']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="priceBelow5000Sqft"
+                                [ngClass]="{ 'is-invalid': submitted && f['priceBelow5000Sqft'].errors }" min="0">
+                            <label class="form-label">Price Below 5000 Sqft ($) <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['priceBelow5000Sqft']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="minPriceBelow5000Sqft"
+                                [ngClass]="{ 'is-invalid': submitted && f['minPriceBelow5000Sqft'].errors }" min="0">
+                            <label class="form-label">Min. Price Below 5000 Sqft ($) <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['minPriceBelow5000Sqft']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="priceAbove5000Sqft"
+                                [ngClass]="{ 'is-invalid': submitted && f['priceAbove5000Sqft'].errors }" min="0">
+                            <label class="form-label">Price Above 5000 Sqft ($) <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['priceAbove5000Sqft']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="minPriceAbove5000Sqft"
+                                [ngClass]="{ 'is-invalid': submitted && f['minPriceAbove5000Sqft'].errors }" min="0">
+                            <label class="form-label">Min. Price Above 5000 Sqft ($) <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['minPriceAbove5000Sqft']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="max_split_payment"
+                                [ngClass]="{ 'is-invalid': submitted && f['max_split_payment'].errors }" min="0">
+                            <label class="form-label">Max Split Payment</label>
+                            <app-validation-error [control]="f['max_split_payment']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-check form-switch form-switch-sm">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Display on Admin </label>
+                            <input class="form-check-input d-block" formControlName="active_status" (ngModelChange)="changeSatus($event)" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-check form-switch form-switch-sm" *ngIf="f['active_status'].value==true">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Display On Website</label>
+                            <input class="form-check-input d-block" formControlName="show_website" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                        </div>
+                    </div>
+                    <div class="text-warning mt-1">Note *(In order to display the plan price on Website also, first Active Display on Admin)</div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="modalRef?.hide()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary"[disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update Plan Term':'Add'}} </button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW Plan Terms  ==================== -->
+
+<ng-template #viewPlanTerms>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Plan Term Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="fee-details">
+
+                <ul>
+                    <li>Plan Name :</li>
+                    <li> <span class="pln-nm {{viewObj.plan_details?.plan_name  | lowercase}}">{{viewObj.plan_details?.plan_name}}</span></li>
+                </ul>
+                <ul>
+                    <li>Home Type :</li>
+                    <li> 
+                        <!-- <i  class="pi {{viewObj?.property_type_details?.property_icon}}"></i> -->
+                        {{viewObj?.property_type_details?.property_type}}</li>
+                </ul>
+                <ul>
+                    <li>Plan Term Name :</li>
+                    <li>{{viewObj.plan_term}}</li>
+                </ul>
+                <ul>
+                    <li>Total Months :</li>
+                    <li>{{viewObj?.plan_term_month}}</li>
+                </ul>
+                
+                <ul>
+                    <li>Bonus Month :</li>
+                    <li>{{viewObj?.bonus_month}}</li>
+                </ul>
+                <ul>
+                    <li>Price<br>(below 5000 sqft) :</li>
+                    <li>{{viewObj?.price_below_5000_sqft |
+                        currency:'USD'}}</li>
+                </ul>
+                <ul>
+                    <li>Price<br>(Above 5000 sqft) :</li>
+                    <li>{{viewObj?.price_above_5000_sqft |
+                        currency:'USD'}}</li>
+                </ul>
+                
+                <ul>
+                    <li>Show On Admin :</li>
+                    <li><span>{{viewObj?.active_status==1?'Yes':'No'}}
+                        </span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>Show On Website :</li>
+                    <li><span>{{viewObj?.show_website==true?'Yes':'No'}}
+                        </span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>Created By :</li>
+                    <li><span
+                        *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                        {{viewObj?.create_info?.last_name}}</span> <span
+                        *ngIf="!viewObj?.create_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Created On :</li>
+                    <li> {{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>
+                    <li>Updated By :</li>
+                    <li> <span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}} {{viewObj?.update_info?.last_name}}</span>
+                         <span  *ngIf="!viewObj?.update_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Updated On :</li>
+                    <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+      
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditPlanModal(addEditPlanTerms,viewObj)"*ngIf="permissionObj?.edit"><i
+                class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>

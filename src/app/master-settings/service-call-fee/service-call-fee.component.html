@@ -1,0 +1,193 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div class="">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+
+                                <div class="col-lg-4 mb-0">
+                                  <div class="card-heading">
+                                    <p class="h4 c--drkgry">Service Claim Fees</p>
+                                  </div>
+                                </div> 
+                           
+                                <div class="align-items-center col-lg-8 mb-0">
+                                  <div class="d-flex justify-content-end">
+                                    <div class="col-lg-3 mb-0">
+                                        <select class="form-control form-select" [(ngModel)]="plan_term" (ngModelChange)="planTermChange($event)">
+                                            <option value="">Select Plan Term</option>
+                                            <option value="{{item?.plan_term_month}}"
+                                                *ngFor="let item of planTermList let i=index">
+                                                {{item?.plan_term}}</option>
+                                        </select>
+
+                                    </div>
+                                   
+                 
+                                    <div class="col-auto mb-0 ml-1 px-0">
+                                        <div class="btns-grp">
+                                            <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                                            (click)="openEditModal(addEditBrand,'')">Add </button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                  </div>   
+                              </div>
+                            </div>
+                         
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="table-responsive more-data-table">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w60">#</th>
+                                                        <th scope="col" class="w140">Actions</th>
+                                                        <th class="col" (click)="updateSorting('month')">Plan Term <span class="pi pi-sort short-icon"></span></th>
+                                                        <th class="col" (click)="updateSorting('scf_value')">SCF Value <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col">Created On </th>
+                                                        <th scope="col">Updated On </th>
+                                                        <th scope="col" class="w80">Status</th> 
+                                                    </tr>
+                                                </thead>
+                                              <tbody *ngIf="scfList?.length>0">
+                                                    <tr *ngFor="let item of scfList  let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                        <td>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="View" class="btn btn-sm h-1 btn-view"(click)="openViewModal(viewProductsBrand,item)">View </button>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj?.edit" data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit" (click)="openAddEditModal(addEditBrand,item)">Edit</button>
+                                                            <!-- <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj?.delete" data-bs-original-title="Delete" class="btn btn-sm h-1 btn-del" (click)="deleteBrand(item)">Delete</button>  -->
+                                                       </td>                                                  
+                                                        <td>{{item?.plan_term}}</td>
+                                                        <td>{{item?.scf_value}}</td>
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>
+                                                            <div class="form-check form-switch form-switch-sm">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="{{item.module_id}}-status"
+                                                                    (click)="changeActivationStatus($event,item)"
+                                                                    [checked]="item.active_status">
+                                                            </div>
+                                                        </td>
+                                                    </tr> 
+                                                </tbody> 
+                                                <tbody *ngIf="scfList?.length==0">
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <span >
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first" [rows]="paginationObj.limit"
+                                        [totalRecords]="paginationObj.total" [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ================ VIEW Products  ==================== -->
+
+<ng-template #viewProductsBrand>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Service Claim Fees Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="fee-details">
+                <ul>
+                    <li >Plan Term:</li>
+                    <li>{{viewObj?.plan_term}} </li>
+                </ul>
+                <ul>
+                    <li >Service Claim Fees:</li>
+                    <li>{{viewObj?.scf_value}} </li>
+                </ul>
+                <ul>
+                    <li >Status :</li>
+                    <li><span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+              class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></li>
+          
+                </ul>
+                <ul>
+                    <li >Created On :</li>
+                    <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>    
+                    <li >Updated On :</li>
+                    <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>  
+                </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary"  *ngIf="permissionObj?.edit" (click)="openEditModal(addEditBrand,viewObj)"><i
+                class="pi pi-pencil"></i> Edit</button>
+    </div>
+</ng-template>
+
+<!-- ================ ADD/EDIT Products  ==================== -->
+
+<ng-template #addEditBrand>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Service Claim Fees</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="ScfForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-12 mb-0">
+                        <div class="form-floating">
+                            <select class="form-control form-select"formControlName="month"
+                                [ngClass]="{ 'is-invalid': submitted && f['month'].errors }">
+                                    <option value="">Select</option>
+                                    <option value="{{item?.plan_term_month}}"
+                                        *ngFor="let item of planTermList let i=index">
+                                        {{item?.plan_term}}</option>
+                            </select>
+                            <label class="form-label">Plan Term <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['month']"></app-validation-error>
+                            <!-- <input type="number" class="form-control" formControlName="month" placeholder="Enter month number...">
+                            <label class="form-label">Service Claim Fees Month<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['month']"></app-validation-error> -->
+                        </div>
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="scf_value" placeholder="Enter service claim fees...">
+                            <label class="form-label">Service Claim Fees Value<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['scf_value']"></app-validation-error>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading"><span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form> 
+</ng-template>
+
+
+
+
+
+
+

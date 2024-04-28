@@ -1,0 +1,11 @@
+<div class="modal-header" *ngIf="title">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+</div>
+<div class="modal-body flow-rootX confoBody text-center">
+  <p class="h5">{{message}}</p>
+  <div class="bd-example">
+    <button type="button" class="btn btn-danger me-2 pe-4 ps-4" (click)="confirm()">{{btnOkText}}</button>
+    <button type="button" class="btn btn-secondary btn-outline me-2 pe-4 ps-4" (click)="decline()">{{btnCancelText}}</button>
+  </div>
+
+</div>

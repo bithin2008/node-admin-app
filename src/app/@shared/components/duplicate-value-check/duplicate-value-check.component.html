@@ -1,0 +1,4 @@
+<div class="my-1 py-1 alert alert-danger" *ngIf="errorMessage !== null">
+  <app-icon [name]="'error'" ></app-icon>
+  <span>{{errorMessage.field_value}} already exist</span>
+</div>

@@ -1,0 +1,29 @@
+@use './layout/normalize';
+@use './project/typo';
+@use './abstracts/util';
+@use './components/buttons';
+@use './components/form';
+@use './components/modal';
+@use './project/themes-modes';
+@use './project/main';
+@use "./star-rating.min.css";
+// @import '@swimlane/ngx-datatable/index.css';
+// @import '@swimlane/ngx-datatable/themes/material.scss';
+// @import '@swimlane/ngx-datatable/assets/icons.css';
+app-alert-message{
+    position: relative;
+    z-index: 9999;
+}
+
+// .tox-tinymce-aux{
+//     display: none;
+// }
+
+.p-multiselect {
+    min-width: 100%;
+    border-radius: 0.375rem !important;
+}
+
+.ck-editor__editable {
+    height: 250px; 
+  }

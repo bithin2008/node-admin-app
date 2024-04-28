@@ -1,0 +1,266 @@
+<div class="row mb-4">
+  <div class="col">
+    <div>
+      <div class="card-body">
+        <!-- <app-post></app-post> -->
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card-1" id="table">
+              <!-- <div class="card__head">
+                <div class="col-lg-4 mb-0">
+                  <div class="card-heading">
+                    <p class="h4 c--drkgry">Manage Access Permissions</p>
+                  </div>
+                </div>
+                <div class="align-items-center col-lg-8 mb-0">
+                  <div class="d-flex justify-content-end">
+                    <div class="col-auto mb-0">
+                      <div class="form-floating mb-0">
+                        <select class="form-control form-select" [(ngModel)]="filterByRoleId"
+                        (ngModelChange)="getOrgUserList()">
+                        <option value="0">Select</option>
+                        <ng-container *ngFor="let role of orgRoleList">
+                          <option value="{{role.user_role_id}}">{{role.role_type}}</option>
+                        </ng-container>
+                      </select>
+                      <label class="form-label">Role</label>
+                      </div>
+
+                    </div>
+                    <div class="col-4 mb-0">
+                      <div class="form-floating mb-0">
+                        <select class="form-control form-select" [(ngModel)]="filterByDeptId"
+                          (ngModelChange)="getOrgUserList()">
+                          <option value="0">Select</option>
+                          <ng-container *ngFor="let department of orgDepartmentList">
+                            <option value="{{department.department_id}}">{{department.department_name}}</option>
+                          </ng-container>
+                        </select>        
+                        <label class="form-label">Department</label>       
+                     </div>
+                      
+
+                    </div>
+                    <div class="col-auto mb-0">
+                      <div class="form--search d-flex">
+                        <div class="form-control form-control--search newSerch cuserch w-auto">
+                            <i class="pi pi-search search-icon mr-1"></i>
+                            <input type="text" name="search" placeholder="Search" [(ngModel)]="searchingvalue" (input)="searchUser($event)">
+                          </div>
+                            <button class="btn btn-reset ml-1" role="button"(click)="resetAllFilter()">Reset</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                
+              </div> -->
+              <div class="card__head d-block">
+                <div class="row d-flex align-items-center flex-wrap">
+                <div class="col-lg-4 mb-0">
+                  <div class="card-heading">
+                    <p class="h4 c--drkgry">Manage Access Permissions</p>
+                  </div>
+                </div>
+           
+                <div class="align-items-center col-lg-8 mb-0">
+                  <div class="d-flex justify-content-end">
+                    <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                      [placeHolderText]="'Search...'"></app-search-input>
+                    <div class="col-auto mb-0 ml-1 pr-0">
+                      <div class="btns-grp">
+                        <button class="btn bg--extradrkb text-white  btn-advnc" data-bs-toggle="collapse" href="#searchDiv"
+                        role="button">Advanced Search</button>
+              
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    <!-- MIDDLE SEPAREATE DIV START HERE -->
+                    <app-advanced-search [advancedSearchConfig]="advancedSearchConfig"
+                    (inputValueChange)="advancedSearchInputValueChange($event)"></app-advanced-search>
+                  <!-- MIDDLE SEPAREATE DIV END HERE -->
+                </div>
+              </div>
+              <div class="card-1">
+                <div class="card__body">
+                  <div class="card__body__container">
+                    <div class="table-style table-style-1 table-layout-fixed">
+                      <div class="table-responsive more-data-table">
+                      <table class="table ">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="w60" (click)="updateSorting('org_user_id')"># <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" class="w80">Actions</th>
+                            <th scope="col"></th>
+                                <th scope="col" (click)="updateSorting('first_name')">First Name <span
+                                  class="pi pi-sort short-icon"></span></th>
+                                  <th scope="col" (click)="updateSorting('last_name')">Last Name <span
+                                    class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('email')">Email <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('mobile')">Phone <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('user_role_details.role_type')">Role <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('department_details.department_name')">Department <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('last_login')">Last Login <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('created_at')">Created On <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" (click)="updateSorting('updated_at')">Updated On <span
+                                class="pi pi-sort short-icon"></span></th>
+                            <th scope="col" class="w80" (click)="updateSorting('active_status')">Status <span
+                                class="pi pi-sort short-icon"></span></th>
+                          </tr>
+                        </thead>
+                        <tbody *ngIf="orgUsersList?.length>0">
+                          <tr *ngFor="let item of orgUsersList; let i=index">
+                            <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                            <td>
+                              <button type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Set Permission" data-bs-original-title="Edit" class="btn btn-sm h-1 btn-permission"
+                                (click)="openManageAccessPermissionModal(AccessPermissionTemplate,item)">Set Permission
+                              </button>
+                            </td>
+                            <td>
+                              <div class="pro_name">
+                                <img [src]="item?.profile_image?item?.profile_image:'assets/img/profile.jpg'"
+                                  class="profile-img table_pro_img" alt="Profile"onerror="this.onerror=null;this.src='assets/img/profile.jpg'">
+                              </div>
+                            </td>
+                            <td> <b> {{item?.first_name}}</b></td>
+                            <td> <b>  {{item?.last_name}}</b></td>
+                            <td> {{item?.email}}</td>
+                            <td> {{item?.mobile|phoneUsFormat}}</td>
+                            <td> {{item?.user_role_details?.role_type}}</td>
+                            <td> {{item?.department_details?.department_name}}</td>
+                            <td><span *ngIf="item?.last_login"> {{item?.last_login|date:'MM-dd-YYYY'}}</span> <span
+                                *ngIf="!item?.last_login">N/A</span> </td>
+                            <!-- <td><span *ngIf="item?.create_info">{{item?.create_info?.first_name}}
+                                {{item?.create_info?.last_name}}</span> <span *ngIf="!item?.create_info">N/A</span></td> -->
+                            <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                            <!-- <td><span *ngIf="item?.updated_by">{{item?.update_info?.first_name}}
+                                {{item?.update_info?.last_name}}</span> <span *ngIf="!item?.updated_by">N/A</span></td> -->
+                            <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                            <td>
+                              <div class="form-check form-switch form-switch-sm">
+                                <input class="form-check-input" type="checkbox" id="{{item.org_user_id}}-status" disabled
+                                  [checked]="item.active_status">
+                              </div>
+  
+                            </td>
+                          </tr>
+  
+                        </tbody>
+                        <tbody *ngIf="orgUsersList?.length==0">
+                          <tr>
+                            <td colspan="10" class="text-center">No data found</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    </div>
+                    <span>
+                      <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                        [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                        [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ======= {{paginationObj.first}} -->
+<ng-template #AccessPermissionTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Access permission module for
+      <b>{{selectedOrgUser?.first_name}} {{selectedOrgUser?.last_name}} </b></h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAccessPermissionModal()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-style acces_style ornz_modal_styl">
+      <div class="acces_permison_style  fl-left w-100">
+        <div class="acces_tabs fl-left w-100">
+          <div class="tab_wrapper pt-0">
+            <tabset>
+              <ng-container *ngFor="let module of subModulesgroupByModuleList; let moduleIndex=index">
+                <tab heading="{{module?.org_module_name}}" id="tab{{moduleIndex}}">
+                  <div class="content_style fl-left w-100">
+                    <figcaption class="tab_hdng">
+                      <h5 class="h5">{{module?.org_module_name}}</h5>
+                      <div class="form-checkbox">
+                        <label>
+                          <input type="checkbox" name="checkall" id="permissionAllCheckBox{{module?.module_id}}"
+                            (change)="checkAllPermission($event,module?.module_id,module?.sub_modules)">
+                          <span class="checkmark"></span>
+                          <p>Check all</p>
+                        </label>
+                      </div>
+                    </figcaption>
+
+                    <div class="content_inner_style fl-left w-100">
+                      <div class="row">
+                        <div class="col-lg-6 pl-lg-0"
+                          *ngFor="let item of module?.sub_modules; let subModuleIndex=index">
+                          <div class="form-group">
+                            <h6 class="h6">{{item.org_sub_module_name}}</h6>
+                            <div class="sub_modules_list">
+                              <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                    name="view{{item?.org_sub_module_id}}"
+                                    id="viewPermissionCheckBox{{item?.org_sub_module_id}}"
+                                    class="permissionCheckBox{{item?.org_sub_module_id}}"
+                                    (change)="changePermission(module?.module_id,item  )"><span
+                                    class="checkmark"></span>
+                                  <p>View</p>
+                                </label></div>
+                              <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                    name="Add{{item?.org_sub_module_id}}"
+                                    class="permissionCheckBox{{item?.org_sub_module_id}}"
+                                    (change)="changePermission(module?.module_id,item)"><span class="checkmark"></span>
+                                  <p>Add</p>
+                                </label></div>
+                              <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                    name="Edit{{item?.org_sub_module_id}}"
+                                    class="permissionCheckBox{{item?.org_sub_module_id}}"
+                                    (change)="changePermission(module?.module_id,item)"><span class="checkmark"></span>
+                                  <p>Edit</p>
+                                </label></div>
+                              <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                    name="Delete{{item?.org_sub_module_id}}"
+                                    class="permissionCheckBox{{item?.org_sub_module_id}}"
+                                    (change)="changePermission(module?.module_id,item)"><span class="checkmark"></span>
+                                  <p>Delete</p>
+                                </label></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </tab>
+              </ng-container>
+            </tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="closeAccessPermissionModal()">Close</button>
+    <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading"
+      (click)="saveUserModuleSubModuleAccessPermission()">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>Save</button>
+  </div>
+</ng-template>

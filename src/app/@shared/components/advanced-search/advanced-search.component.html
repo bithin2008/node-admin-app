@@ -1,0 +1,108 @@
+<!-- 
+    <div class="col-lg-4 mb-0">
+        <div class="card-heading">
+            <p class="h4 c--drkgry">Manage Customer</p>
+        </div>
+    </div> 
+    <div class="align-items-center col-lg-8 mb-0">
+        <div class="d-flex justify-content-end">
+            <div class="col-auto mb-0">
+                <div class="form--search d-flex">
+                    <div class="input-group w-auto">
+                        <div class="form-control form-control--search newSerch w-auto">
+                            <i class="pi pi-search search-icon mr-1"></i>
+                            <input type="search" placeholder="Type here to Search" >
+                        </div>
+                        <button class="btn btn-primary disabled-lg" >Search</button>
+                    </div>
+                    <button class="btn btn-reset ml-1 disabled-xl"> Reset</button>
+                    <button class="btn bg--extradrkb text-white btn-advnc" data-bs-toggle="collapse" href="#searchDiv"
+                        role="button">Advanced Search</button>
+                </div>
+            </div>
+            <div class="col-auto mb-0 ml-1">
+                <div class="btns-grp">
+                    <button class="btn btn-info" role="button" >Export</button>
+                    <button class="btn btn-primary ml-1" role="button"
+                        routerLink="/policy-management/create-policy">Add Policy</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+
+<div class="bt-1 collapse" id="searchDiv" *ngIf="advancedSearchConfig?.inputConfig">
+    <h4>Advanced Search</h4>
+    <div class="form-style mt-2">
+        <div class="row">
+            <ng-container *ngFor="let config of advancedSearchConfig.inputConfig">
+                <ng-container *ngIf="config.isDisplay">
+                    <ng-container [ngSwitch]="config.type">
+                        <div class="col-lg-4 mb-0" *ngSwitchCase="'textBox'">
+                            <div class="form-floating">
+                                <input type="text" [(ngModel)]="config.value" class="form-control"
+                                    (ngModelChange)="onInputChange($event,config)"
+                                    [maxlength]="config.max ? config.max : null" (input)="onInputTextBox($event,config)">
+                                <label for="{{ config.label }}" class="form-label">{{ config.label }}</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-0" *ngSwitchCase="'dateRangePicker'">
+                            <div class="form-group datepickform form-floating mr-0">
+                                <input type="text" [(ngModel)]="config.value" placeholder="{{config.placeholder}}"
+                                    id="floatingSelect" class="form-control" bsDaterangepicker
+                                    [bsConfig]="{containerClass : 'theme-dark-blue',  rangeInputFormat: 'MM-DD-YYYY',showWeekNumbers: false, adaptivePosition: true}"
+                                    onkeydown="return false" (ngModelChange)="onInputChange($event,config)" [maxDate]="config.maxDate"
+                                    (bsValueChange)="changeDateRange($event,config)">
+                                <label for="floatingSelect" class="form-label">{{config.label}}</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-0" *ngSwitchCase="'mobile'">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" [(ngModel)]="config.value" [appInputLimit]="10"
+                                    [appInputType]="'number'" (ngModelChange)="onInputChange($event,config)">
+                                <label class="form-label">{{config.label}}<span class="c--error">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-0" *ngSwitchCase="'autoCompleteTextBox'">
+                            <div class="form-floating">
+                                <div class="ng-autocomplete">
+                                    <ng-autocomplete [data]="data" [searchKeyword]="keyword" [(ngModel)]="config.value"
+                                        class="form-control" (ngModelChange)="onInputChange($event,config)"
+                                        [placeholder]="config.placeholder" (selected)='selectEvent($event)'
+                                        (inputChanged)='onChangeAutoCompleteSearch($event)'
+                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                        [notFoundTemplate]="notFoundTemplate">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.name"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4  mb-0" *ngSwitchCase="'dropdown'">
+                            <div class="form-floating mb-0">
+                                <select class="form-control form-select" id="" [(ngModel)]="config.value"
+                                    (ngModelChange)="onInputChange($event,config)">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let item of config.data" [value]="item?.value">{{item?.key}}</option>
+                                </select>
+                                <label class="form-label">Select {{config.label}} </label>
+                            </div>
+                        </div>
+
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+            <div class="col-12 text-right mb-0 mt-1 advnceSrchBtn">
+                <button class="btn btn-reset {{ this.searchQuery?'':'disabled-xl'}}" (click)="resetAllSearchFilter()">Reset</button>
+                <button class="btn bg--extradrkb text-white" (click)="search()">Search </button>
+            </div>
+        </div>
+    </div>
+</div>

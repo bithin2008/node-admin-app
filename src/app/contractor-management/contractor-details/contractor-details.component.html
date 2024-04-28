@@ -1,0 +1,591 @@
+<section class="backend__customet-details container-fluid pl-0 pr-0 nomainlayout">
+    <div class="row">
+        <div class="col-12 mb-20">
+            <div class="dtl-card-list contractor-card-list">
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="m438-338 226-226-57-57-169 169-84-84-57 57 141 141Zm42 258q-139-35-229.5-159.5T160-516v-244l320-120 320 120v244q0 152-90.5 276.5T480-80Zm0-84q104-33 172-132t68-220v-189l-240-90-240 90v189q0 121 68 220t172 132Zm0-316Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Assign Jobs</h6>
+                                <p>{{assignJobList?.length}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="M440-200h80v-40h40q17 0 28.5-11.5T600-280v-120q0-17-11.5-28.5T560-440H440v-40h160v-80h-80v-40h-80v40h-40q-17 0-28.5 11.5T360-520v120q0 17 11.5 28.5T400-360h120v40H360v80h80v40ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-560v-160H240v640h480v-480H520ZM240-800v160-160 640-640Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Job Completed</h6>
+                               
+                                <p>{{assignJobList?.length-seriviceJobPending?.length}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="M570-104q-23 23-57 23t-57-23L104-456q-11-11-17.5-26T80-514v-286q0-33 23.5-56.5T160-880h286q17 0 32 6.5t26 17.5l352 353q23 23 23 56.5T856-390L570-104Zm-57-56 286-286-353-354H160v286l353 354ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640ZM160-800Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Number of Technicians</h6>                               
+                                <ng-container [ngSwitch]="contractorDetails?.contractor_count">
+                                    <p *ngSwitchCase="1">Less than 50</p>
+                                    <p *ngSwitchCase="2">50 to 100</p>
+                                    <p *ngSwitchCase="3">100 to 250</p>
+                                    <p *ngSwitchCase="4">More than 250</p>
+                                </ng-container>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Verified</h6>
+                                <p>{{contractorDetails?.active_status==1?"Yes":"No"}}</p> 
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="M560-440q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35ZM280-320q-33 0-56.5-23.5T200-400v-320q0-33 23.5-56.5T280-800h560q33 0 56.5 23.5T920-720v320q0 33-23.5 56.5T840-320H280Zm80-80h400q0-33 23.5-56.5T840-480v-160q-33 0-56.5-23.5T760-720H360q0 33-23.5 56.5T280-640v160q33 0 56.5 23.5T360-400Zm440 240H120q-33 0-56.5-23.5T40-240v-440h80v440h680v80ZM280-400v-320 320Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Service Call Fee(SCF)</h6>
+                                <p>{{contractorDetails?.service_call_fee| currency:'USD'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="M160-640h640v-80H160v80Zm-80-80q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v240H160v240h164v80H160q-33 0-56.5-23.5T80-240v-480ZM598-80 428-250l56-56 114 112 226-226 56 58L598-80ZM160-720v480-180 113-413Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Radial Distance</h6>
+                                <p>{{contractorDetails?.radial_distance}} miles</p>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+     <div class="col-12">
+            <div class="detil_hdng">
+                <h3>Technician Details</h3>
+            </div>
+            <div class="card-styles card--customer-info">
+
+                <div class="detls_wrap">
+                    <div class="customer-img">
+                        <img src="./assets/img/people.png" alt="" title="" />
+                    </div>
+                    <h5 class="fw-semibold">{{contractorDetails?.first_name}} {{contractorDetails?.last_name}}</h5>
+                    <button type="button" class="btn btn-sm h-1 btn-edit ml-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj.edit" data-bs-original-title="Edit" (click)="openAddEditModal(addEditContractors,contractorDetails)">Edit</button>
+                </div>
+           
+                <div class="detls_table">
+                    <div class="detls_item">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><span class="pl-0">Email:</span>
+                                        <span class="pl-0">{{contractorDetails?.email}}</span>
+                                    </td>
+                                </tr>
+                                
+                            <tr>
+                                <td><span class="pl-0">Company Name.:</span>
+                                    <span class="pl-0">{{contractorDetails?.company_name?contractorDetails?.company_name:'NA'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="pl-0">State:</span>
+                                    <span class="pl-0">{{contractorDetails?.state?contractorDetails?.state:'NA'}}</span>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td><span class="pl-0">Address:</span>
+                                        <span class="pl-0">{{contractorDetails?.address1?contractorDetails?.address1:'NA'}}</span>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="detls_item">
+                        <table>
+                            <tr>
+                                <td><span class="pl-0">Phone No.:</span>
+                                    <span class="pl-0">{{contractorDetails?.mobile|phoneUsFormat}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="pl-0">Zip Code:</span>
+                                    <span class="pl-0">{{contractorDetails?.zip?contractorDetails?.zip:'NA'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="pl-0">City:</span>
+                                    <span class="pl-0">{{contractorDetails?.city}}</span> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="pl-0">Source:</span>
+                                    <span class="pl-0">{{contractorDetails?.source==0?"Self Customer":"Backend Team"}}</span>
+                                </td>
+                            </tr>
+                            
+                            
+                        </table>
+                    </div>
+                    <div class="detls_item service_detls_item">
+                        <table>
+                            <tr>
+                                <td><span class="pl-0">Serviceable Zip:</span>
+                                    <span *ngFor="let item of serviceLocations" class="badge info radius:tiny size:tiny padding:tiny m-1 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14" viewBox="0 0 11 14" fill="none">
+                                            <mask id="path-1-inside-1_29_12" fill="white">
+                                              <path d="M5.55225 0C2.54604 0 0 2.44439 0 5.33942C0 8.37139 2.95121 11.472 4.93625 13.6513C4.94404 13.6601 5.26488 14 5.65996 14H5.69479C6.09033 14 6.40888 13.6601 6.41667 13.6513C8.27933 11.6072 11 8.23619 11 5.33942C11 2.44395 9.01404 0 5.55225 0ZM5.73604 13.0642C5.72 13.0795 5.69663 13.0965 5.676 13.111C5.65492 13.097 5.632 13.0795 5.61504 13.0642L5.37533 12.8008C3.49342 10.7401 0.916208 7.91769 0.916208 5.33898C0.916208 2.91865 3.03921 0.874152 5.55179 0.874152C8.68175 0.874152 10.0829 3.11641 10.0829 5.33898C10.0829 7.29642 8.62033 9.89612 5.73604 13.0642ZM5.51604 2.64915C3.99758 2.64915 2.76604 3.82431 2.76604 5.27423C2.76604 6.72415 3.99758 7.89931 5.51604 7.89931C7.0345 7.89931 8.26604 6.72371 8.26604 5.27423C8.26604 3.82474 7.03496 2.64915 5.51604 2.64915ZM5.51604 7.02428C4.50496 7.02428 3.66163 6.22013 3.66163 5.25498C3.66163 4.28982 4.48388 3.50492 5.49496 3.50492C6.5065 3.50492 7.32829 4.28982 7.32829 5.25498C7.32875 6.22013 6.52758 7.02428 5.51604 7.02428Z"/>
+                                            </mask>
+                                            <path d="M5.55225 0C2.54604 0 0 2.44439 0 5.33942C0 8.37139 2.95121 11.472 4.93625 13.6513C4.94404 13.6601 5.26488 14 5.65996 14H5.69479C6.09033 14 6.40888 13.6601 6.41667 13.6513C8.27933 11.6072 11 8.23619 11 5.33942C11 2.44395 9.01404 0 5.55225 0ZM5.73604 13.0642C5.72 13.0795 5.69663 13.0965 5.676 13.111C5.65492 13.097 5.632 13.0795 5.61504 13.0642L5.37533 12.8008C3.49342 10.7401 0.916208 7.91769 0.916208 5.33898C0.916208 2.91865 3.03921 0.874152 5.55179 0.874152C8.68175 0.874152 10.0829 3.11641 10.0829 5.33898C10.0829 7.29642 8.62033 9.89612 5.73604 13.0642ZM5.51604 2.64915C3.99758 2.64915 2.76604 3.82431 2.76604 5.27423C2.76604 6.72415 3.99758 7.89931 5.51604 7.89931C7.0345 7.89931 8.26604 6.72371 8.26604 5.27423C8.26604 3.82474 7.03496 2.64915 5.51604 2.64915ZM5.51604 7.02428C4.50496 7.02428 3.66163 6.22013 3.66163 5.25498C3.66163 4.28982 4.48388 3.50492 5.49496 3.50492C6.5065 3.50492 7.32829 4.28982 7.32829 5.25498C7.32875 6.22013 6.52758 7.02428 5.51604 7.02428Z" fill="white"/>
+                                            <path d="M4.93625 13.6513L7.92357 10.9912L7.90857 10.9744L7.89338 10.9577L4.93625 13.6513ZM6.41667 13.6513L3.4601 10.9571L3.44462 10.9741L3.42934 10.9912L6.41667 13.6513ZM5.73604 13.0642L8.49799 15.9575L8.59942 15.8607L8.69382 15.757L5.73604 13.0642ZM5.676 13.111L3.46323 16.4432L5.73543 17.952L7.9699 16.3879L5.676 13.111ZM5.61504 13.0642L2.65678 15.7565L2.78877 15.9015L2.9343 16.0329L5.61504 13.0642ZM5.37533 12.8008L8.3336 10.1084L8.32898 10.1034L5.37533 12.8008ZM7.32829 5.25498L3.32829 5.25498L3.32829 5.25688L7.32829 5.25498ZM5.55225 -4C0.487703 -4 -4 0.0874062 -4 5.33942H4C4 5.09009 4.11016 4.7664 4.42067 4.46794C4.73171 4.16898 5.14184 4 5.55225 4V-4ZM-4 5.33942C-4 8.08332 -2.70256 10.4461 -1.56686 12.0893C-0.394111 13.7862 1.05229 15.3274 1.97913 16.3449L7.89338 10.9577C6.83516 9.79597 5.81344 8.69719 5.01433 7.54093C4.17817 6.33107 4 5.62748 4 5.33942H-4ZM1.94893 16.3114C2.13871 16.5245 2.47842 16.8568 2.95117 17.1685C3.39616 17.4618 4.35387 18 5.65996 18V10C6.57097 10 7.17072 10.3682 7.35457 10.4894C7.48015 10.5722 7.57776 10.6518 7.65018 10.716C7.70311 10.7629 7.79883 10.8512 7.92357 10.9912L1.94893 16.3114ZM5.65996 18H5.69479V10H5.65996V18ZM5.69479 18C7.00236 18 7.96084 17.461 8.40891 17.1645C8.88618 16.8486 9.22315 16.5144 9.40399 16.3114L3.42934 10.9912C3.54639 10.8598 3.63756 10.7744 3.69481 10.7234C3.76788 10.6582 3.86647 10.5774 3.99337 10.4934C4.18133 10.369 4.78277 10 5.69479 10V18ZM9.37324 16.3455C10.3685 15.2533 11.699 13.6944 12.7985 11.9356C13.8395 10.2706 15 7.92107 15 5.33942H7C7 5.65454 6.80021 6.43891 6.01512 7.69468C5.2887 8.85662 4.32746 10.0053 3.4601 10.9571L9.37324 16.3455ZM15 5.33942C15 2.98132 14.1849 0.619923 12.467 -1.1788C10.7159 -3.01218 8.27482 -4 5.55225 -4V4C6.29147 4 6.57424 4.23416 6.68164 4.34661C6.82215 4.49374 7 4.80205 7 5.33942H15ZM2.97409 10.1708C3.04971 10.0986 3.11489 10.0424 3.16053 10.0043C3.20748 9.96512 3.24728 9.93394 3.27584 9.91207C3.33039 9.8703 3.37179 9.8413 3.3821 9.83408L7.9699 16.3879C7.98033 16.3806 8.23608 16.2076 8.49799 15.9575L2.97409 10.1708ZM7.88877 9.77876C7.95787 9.82464 8.02054 9.86981 8.07789 9.91378C8.13287 9.95593 8.20839 10.0165 8.29578 10.0954L2.9343 16.0329C3.12157 16.202 3.30607 16.3388 3.46323 16.4432L7.88877 9.77876ZM8.5733 10.3718L8.33359 10.1084L2.41707 15.4931L2.65678 15.7565L8.5733 10.3718ZM8.32898 10.1034C7.35529 9.03718 6.43579 8.02048 5.74131 7.00545C5.40394 6.51235 5.18046 6.10467 5.04802 5.78245C4.91484 5.45839 4.91621 5.32369 4.91621 5.33898H-3.08379C-3.08379 7.86287 -1.87166 10.046 -0.86121 11.5228C0.203396 13.0788 1.51346 14.5037 2.42169 15.4982L8.32898 10.1034ZM4.91621 5.33898C4.91621 5.32342 4.92353 5.21778 5.06658 5.08C5.20994 4.94193 5.38974 4.87415 5.55179 4.87415V-3.12585C0.973071 -3.12585 -3.08379 0.569175 -3.08379 5.33898H4.91621ZM5.55179 4.87415C5.85132 4.87415 5.98223 4.92625 6.0045 4.93579C6.02295 4.9437 6.00898 4.93911 5.99486 4.92315C5.98068 4.90711 6.08288 5.02594 6.08288 5.33898H14.0829C14.0829 3.42945 13.4845 1.31586 11.9873 -0.376947C10.4166 -2.15276 8.15289 -3.12585 5.55179 -3.12585V4.87415ZM6.08288 5.33898C6.08288 5.3336 6.08297 5.44703 6.0001 5.70562C5.91727 5.9641 5.76594 6.32237 5.505 6.78613C4.97587 7.72654 4.09808 8.92163 2.77826 10.3713L8.69382 15.757C10.2583 14.0386 11.5539 12.3499 12.4771 10.7091C13.3797 9.10494 14.0829 7.27114 14.0829 5.33898H6.08288ZM5.51604 -1.35085C1.96617 -1.35085 -1.23396 1.44154 -1.23396 5.27423H6.76604C6.76604 6.20708 6.029 6.64915 5.51604 6.64915V-1.35085ZM-1.23396 5.27423C-1.23396 9.10691 1.96616 11.8993 5.51604 11.8993V3.89931C6.029 3.89931 6.76604 4.34138 6.76604 5.27423H-1.23396ZM5.51604 11.8993C9.06636 11.8993 12.266 9.10605 12.266 5.27423H4.26604C4.26604 4.34137 5.00264 3.89931 5.51604 3.89931V11.8993ZM12.266 5.27423C12.266 1.44282 9.06726 -1.35085 5.51604 -1.35085V6.64915C5.00265 6.64915 4.26604 6.20667 4.26604 5.27423H12.266ZM5.51604 3.02428C6.5342 3.02428 7.66163 3.83529 7.66163 5.25498H-0.338375C-0.338375 8.60497 2.47572 11.0243 5.51604 11.0243V3.02428ZM7.66163 5.25498C7.66163 6.67217 6.51574 7.50492 5.49496 7.50492V-0.495078C2.45201 -0.495078 -0.338375 1.90748 -0.338375 5.25498H7.66163ZM5.49496 7.50492C4.47397 7.50492 3.32829 6.67153 3.32829 5.25498H11.3283C11.3283 1.90811 8.53903 -0.495078 5.49496 -0.495078V7.50492ZM3.32829 5.25688C3.32767 3.95248 4.37785 3.02428 5.51604 3.02428V11.0243C8.67731 11.0243 11.3298 8.48779 11.3283 5.25308L3.32829 5.25688Z" fill="white" mask="url(#path-1-inside-1_29_12)"/>
+                                          </svg>
+                                         {{item}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="detls_item service_detls_item">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><span class="pl-0">Serviceable Products:</span>
+                                        <ul *ngIf="contractorProductList.length>0">
+                                            <li *ngFor="let item of contractorProductList">{{item?.product_name}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                   
+                </div>
+                <div class="detls_posted">
+                    <div class="detls_posted_itm">
+                       <p>Created On: <span>{{contractorDetails?.created_at |date:"MM-dd-YYYY"}}</span> by</p> 
+                       <p>
+                        <span *ngIf="contractorDetails?.created_user_info">{{contractorDetails?.created_user_info?.first_name}}
+                            {{contractorDetails?.created_user_info?.last_name}}</span> 
+                        <span *ngIf="!contractorDetails?.created_user_info">N/A</span>
+                       </p>
+                    </div>
+                    <div class="detls_posted_itm"  *ngIf="contractorDetails?.update_user_type">
+                        <p>Updated On: <span>{{contractorDetails?.updated_at |date:"MM-dd-YYYY"}}</span>  by</p> 
+                        <p>
+                            <span *ngIf="contractorDetails?.updated_user_info">{{contractorDetails?.updated_user_info?.first_name}}
+                                        {{contractorDetails?.updated_user_info?.last_name}}</span>
+                                   
+                           </p>
+                     </div>
+                    
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="detil_hdng">
+                <h3>Assigned Jobs Details</h3>
+            </div>
+
+            <div class="card--tab-contents">
+                <!-- Nav tabs -->
+                <div class="card-styles p-0">
+                    <ul class="nav nav-tabs nav-fill fw--bold" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="nav-link-tab__1" data-bs-toggle="tab"
+                                data-bs-target="#tab-pane__tab-1" type="button" role="tab" aria-controls="tab-1"
+                                aria-selected="true">Assigned Jobs</button>
+                        </li>
+                        <!-- <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__3" data-bs-toggle="tab" 
+                            data-bs-target="#tab-pane__tab-3" type="button" role="tab" aria-controls="tab-3" 
+                            aria-selected="false">All Policy Notes</button>
+                        </li> -->              
+                    </ul>
+                </div>
+
+                <div class="card-styles">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!-- Start Policies Tab -->
+                        <div class="tab-pane active" id="tab-pane__tab-1" role="tabpanel" aria-labelledby="tab-1">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="table-responsive more-data-table-2">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w80"># </th>
+                                                <th>Job Status</th>
+                                                <th>Ticket No.</th>
+                                                <th>Policy No.</th>
+                                                <th>Product Name</th>
+                                                <th scope="col">Job Assigned Date</th>
+                                                <!-- <th scope="col">Photo</th> -->
+                                                <th scope="col">Company Name </th>
+                                                <th scope="col"> Service Call Fee (SCF)</th>
+                                                <th scope="col">Name </th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Mobile </th>
+                                                <th scope="col">Zip </th>
+                                                <th scope="col">State </th>
+                                                <th scope="col">City </th>
+                                                <th>Assigned By</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody
+                                        *ngIf="assignJobList?.length>0">
+                                        <tr *ngFor="let item of assignJobList; let i=index">
+                                            <td>{{i+1}}</td>
+                                            <td>
+                                                <span
+                                                    class="badge radius:tiny size:tiny padding:tiny"
+                                                    [attr.data-status]='item?.job_status_details'>{{item?.job_status_details}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span (click)="navigateToEditClaim(item?.claim_details?.claim_id)" class="badge radius:large py-1 c--mdSky border-txt ng-star-inserted"
+                                                 role="button" >{{item?.claim_details?.ticket_no}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span (click)="navigateToCustomerDetails(item?.claim_details?.policy_details?.customer_id)"
+                                                    class="py-1 c--mdSky" role="button">{{item?.claim_details?.policy_details?.policy_number}}
+                                                </span>
+                                            </td>
+                                            <td>{{item?.claim_details?.product_details?.product_name}}</td>
+                                            <td>{{item?.job_assigned_date |date
+                                                :"MM-dd-YYYY HH:MM"}}</td>
+                                            <!-- <td>
+                                                <div class="pro_name">
+                                                    <img [src]="contractorDetails.profile_image?contractorDetails.profile_image:'assets/img/profile.jpg'"
+                                                        class="profile-img table_pro_img"
+                                                        alt="Profile"
+                                                        onerror="this.onerror=null;this.src='assets/img/profile.jpg'">
+                                                </div>
+                                            </td> -->
+                                            <td>{{contractorDetails.company_name}}
+                                            </td>
+                                            <td>{{contractorDetails.service_call_fee
+                                                | currency:'USD'}}</td>
+                                            <td>{{contractorDetails.first_name}}
+                                                {{contractorDetails.last_name}}
+                                            </td>
+                                            <td>{{contractorDetails.email}}
+                                            </td>
+                                            <td>{{contractorDetails.mobile}}
+                                            </td>
+                                            <td>{{contractorDetails.zip}}
+                                            </td>
+                                            <td>{{contractorDetails.state}}
+                                            </td>
+                                            <td>{{contractorDetails.city}}
+                                            </td>
+                                            
+                                            <td>{{item?.created_user_info?.first_name}}
+                                                {{item?.created_user_info?.last_name}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody
+                                        *ngIf="assignJobList?.length==0">
+                                        <tr>
+                                            <td colspan="14" class="text-center">No data found</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Policies Tab -->
+
+                        
+
+                       
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================ EDIT Contractors  ==================== -->
+
+<ng-template #addEditContractors>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Technician</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="contractorForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="companyName"
+                            [ngClass]="{ 'is-invalid': submitted && f['companyName'].errors }" placeholder="Enter company name...">
+                            <label class="form-label">Company Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['companyName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0"> 
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="firstName" 
+                            [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" placeholder="Enter first name...">
+                            <label class="form-label">First Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['firstName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="lastName"
+                            [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" placeholder="Enter last name...">
+                            <label class="form-label">Last Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['lastName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control"
+                            formControlName="companyPhone" [maxlength]="14" [appInputLimit]="10"
+                            [appInputType]="'number'"
+                            [ngClass]="{ 'is-invalid': submitted && f['companyPhone'].errors }"
+                            (input)="changePhoneFormat('companyPhone')">
+                            <label class="form-label">Company Phone Number <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['companyPhone']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" (input)="changePhoneFormat('mobileNo')" [maxlength]="14" [appInputLimit]="10" 
+                            [appInputType]="'number'" [ngClass]="{ 'is-invalid': submitted && f['mobileNo'].errors }" formControlName="mobileNo" placeholder="Enter mobile number...">
+                            <label class="form-label">Mobile Number <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['mobileNo']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="licenseNumber" placeholder="Enter license/certification number...">
+                            <label class="form-label">License/Certification Number</label>
+                            <app-validation-error [control]="f['licenseNumber']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="emailId" [readonly]="isEdit?true:false"
+                             [ngClass]="{ 'is-invalid': submitted && f['emailId'].errors }">
+                             <label class="form-label">Email Address <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['emailId']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="address1"
+                             [ngClass]="{ 'is-invalid': submitted && f['address1'].errors }">
+                             <label class="form-label">Street Address <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['address1']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="zipCode"
+                            [ngClass]="{ 'is-invalid': submitted && f['zipCode'].errors }"
+                            maxlength="5" (input)="changeZip('zipCode')">
+                                <label class="form-label">ZIP <span class="c--error">*</span></label>
+                                <app-validation-error [control]="f['zipCode']"></app-validation-error>
+                                <div class="app-validation-error">
+                                    <div class="mt-1 alert alert-danger"
+                                        *ngIf="validZipContractorMessage">
+                                        <i aria-hidden="true"
+                                            class="pi pi-exclamation-circle me-2"></i>
+                                        <span>{{validZipContractorMessage}}</span>
+                                    </div>
+                                </div>
+                            <!-- <input type="text" class="form-control" formControlName="zipCode"
+                             [ngClass]="{ 'is-invalid': submitted && f['zipCode'].errors }">
+                             <label class="form-label">Zip Code <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['zipCode']"></app-validation-error> -->
+                        </div>
+                     </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="city"
+                             [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
+                             <label class="form-label">City <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['city']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="state"
+                             [ngClass]="{ 'is-invalid': submitted && f['state'].errors }">
+                             <label class="form-label">State <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['state']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating has-value">
+                            <!-- <input type="text" class="form-control" formControlName="contractorsNumber"
+                             [ngClass]="{ 'is-invalid': submitted && f['contractorsNumber'].errors }"> -->
+
+                           
+                             <select class="form-field form-select"
+                                                    formControlName="contractorsNumber" [ngClass]="{ 'is-invalid': submitted && f['contractorsNumber'].errors }">
+                                                    <option [value]="1">0 to 50</option>
+                                                    <option [value]="2">50 to 100</option>
+                                                    <option [value]="3">100 to 250</option>
+                                                    <option [value]="4">More than 250</option>
+                                                </select>
+                             <label class="form-label">How many Technician's do you have <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['contractorsNumber']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="serviceCallFee"
+                             [ngClass]="{ 'is-invalid': submitted && f['serviceCallFee'].errors }">
+                             <label class="form-label">Service Call Fee ($) <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['serviceCallFee']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="radialDistance"
+                             [ngClass]="{ 'is-invalid': submitted && f['radialDistance'].errors }">
+                             <label class="form-label">Radial Distance (In miles) <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['radialDistance']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-12 mb-2">
+                        <div class="form-floating mb-0 has-value autocomplete-field">
+                            <div class="form-control zip-service h-auto" title="& more">
+                                <div class="ng-autocomplete-wrap">
+                                    <div class="ng-autocomplete">
+                                        <p-autoComplete formControlName="serviceCity"  placeholder="" [suggestions]="zipCodeList" (keyup)="searchZipCode($event)" (onSelect)="selectZipCode($event)" [multiple]="true">
+                                            <ng-template let-zip pTemplate="item">
+                                                <div class="zip-item">
+                                                    <div>{{zip.zipcode}} (City:{{zip.city}}, State:{{zip.state}})</div>
+                                                </div>
+                                            </ng-template>
+                                        </p-autoComplete>
+                                        <app-validation-error [control]="f['serviceCity']"></app-validation-error>
+                                    </div>
+                                </div>        
+                            </div>
+                            <label class="form-label">Which zipcode(s) do you service?<span class="c--error">*</span></label>
+                        </div>
+                     </div>
+                     <div class="col-12">  
+                         <div class="form-floating has-value ">
+                            <div class="form-control multisect-floaing-field">
+                                <p-multiSelect #multiSelect [options]="productList" formControlName="serviceTypes"
+                                    defaultLabel="Select Product" optionLabel="product_name" display="chip">
+                                </p-multiSelect>
+                                <app-validation-error [control]="f['serviceTypes']"></app-validation-error>
+                            </div>
+                            <label class="form-label">Choose your service(s)<span class="c--error">*</span></label> 
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+
+                        <label for="formFile" class="form-label">Upload license (Format .doc, .docx, .pdf")</label>
+                        <input class="form-control" type="file" id="formFile" formControlName="licenseFile"  accept=".doc, .docx, .pdf"
+                        (change)="fileChangeEvent($event)">
+                        <!-- <input type="file" formControlName="licenseFile"  accept=".doc, .docx, .pdf"
+                        (change)="fileChangeEvent($event)" /> -->
+                        <app-validation-error [control]="f['licenseFile']"></app-validation-error>
+                        <span class="c--whitee d-block mt-1">[Only doc and pdf are accepted.] <br> Max size: 2MB</span>  
+                    </div>
+
+                    <div class="col-6">
+
+                        <div class="form-check form-switch form-switch-sm">
+                            <label class="form-check-label " for="flexSwitchCheckDefault">Verify Technician</label>
+                            
+                            <input class="form-check-input d-block" formControlName="active_status" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                          </div>
+                    </div>
+                    
+                </div>
+               
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span> Update</button>
+        </div>
+    </form> 
+</ng-template>
+
+

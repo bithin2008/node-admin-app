@@ -1,0 +1,634 @@
+<div class="row">
+    <div class="col card_wrapper">
+        <div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <!-- PAGE HEADER -->
+                            <div class="card__head policyn">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">Edit Claim</p>
+                                    <span role="button" title="Copy to clipboard" class="badge radius:large py-1 c--mdSky border-txt"> {{claimDetails?.ticket_no}}</span>
+                                </div>
+                            </div>
+                            <div class="card__body mt-1">
+                                <div class="card__body__container">
+                                    <div class="policy_table_two mt-0" *ngIf="claimForm">
+                                        <div class="table_hdng">
+                                            <h4 class="mb-2">Claim Information</h4>
+                                        </div>
+                                        <form class="mt-1 form-style flow-rootX app-form unauth-form-max-w"
+                                            [formGroup]="claimForm" (ngSubmit)="onSubmit()">
+                                            <div class="row">
+
+                                                <div class="col-lg-3 mb-0">
+                                                    <div class="form-floating has-value">
+                                                        <label class="form-label" for="floatingSelect">Product
+                                                            Details</label>
+                                                        <div class="form-control">
+                                                            <p>{{claimDetails?.product_details?.product_name }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="form-floating mb-0 has-value autocomplete-field">
+                                                        <div class="form-control">
+                                                        <app-auto-complete-search [autoCompleteConfig]="{
+                                                            searchKeyword:'brand_name',
+                                                            defaultSearchValue:f['product_brand'].value,
+                                                            minQueryLength:1,
+                                                            debounceTime:0,
+                                                            placeholder : 'Search Brand Name',
+                                                            data : brandList}" (selectedItem)="selectedBrand($event)"></app-auto-complete-search>
+                                                        </div>
+                                                        <label class="form-label">Select Brand<span class="c--error">*</span></label>
+                                                        <app-validation-error [control]="f['product_brand']"></app-validation-error>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="form-floating">
+                                                        <label class="form-label">Model no.</label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="product_model"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['product_model'].errors }">
+                                                        <app-validation-error  [control]="f['product_model']"></app-validation-error>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-3 mb-0">
+                                                    <div class="form-floating">
+                                                        <label class="form-label">Serial no. </label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="product_serial_no"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['product_serial_no'].errors }">
+                                                        <app-validation-error
+                                                            [control]="f['product_serial_no']"></app-validation-error>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-lg-3">
+                                                    <div class="custom-dropdown form-floating priority-dropdown {{isOpended?'opened':''}}"
+                                                        (click)="isOpended= !isOpended" id="">
+                                                        <label class="form-label" for="floatingSelect">Priority <span
+                                                                class="c--error">*</span></label>
+                                                        <input type="text" id="priorityInput" class="form-control"
+                                                            readonly formControlName="priority"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['priority'].errors }" />
+                                                        <ul class="options">
+                                                            <li class="option" *ngFor="let item of priorityList"
+                                                                (click)="selectPriority(item)">
+                                                                <span>{{item.priority_name}}</span>
+                                                                ({{item.priority_details}}) </li>
+                                                        </ul>
+                                                        <app-validation-error
+                                                            [control]="f['priority']"></app-validation-error>
+                                                    </div>
+                                                    <!-- <div class="form-floating">
+                                                        <label class="form-label" for="floatingSelect">Priority
+                                                            <span class="c--error">*</span></label>
+                                                        <select class="form-control form-select" id="floatingSelect"
+                                                            formControlName="priority"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['priority'].errors }">
+                                                            <option selected>Select</option>
+                                                            <ng-container *ngFor="let item of priorityList">
+                                                                <option value="{{item?.priority_name}}">
+                                                                    {{item?.priority_name}}
+                                                                </option>
+                                                            </ng-container>
+                                                        </select>
+                                                        <app-validation-error
+                                                            [control]="f['priority']"></app-validation-error>
+
+                                                    </div> -->
+                                                </div>
+
+                                                <div class="col-lg-3 mb-0">
+                                                    <div class="form-floating datepickform mr-0">
+                                                        <input type="text" class="form-control"
+                                                            formControlName="product_issue_date" bsDatepicker
+                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'MM-DD-YYYY',showWeekNumbers: false  }"
+                                                            [maxDate]="today"
+                                                            (bsValueChange)="changePurchaseDate($event)"
+                                                            onkeydown="return false" autocomplete="off"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['product_issue_date'].errors }">
+                                                        <label class="form-label">Date Issue Notice </label>
+                                                        <app-validation-error
+                                                            [control]="f['product_issue_date']"></app-validation-error>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="form-floating has-value">
+                                                        <label class="form-label" for="floatingSelect">Service Call Fee
+                                                            ($)</label>
+                                                        <div class="form-control">
+                                                            <p>{{claimDetails?.pcf | number : '1.2-2'|
+                                                                currency:'USD'}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="form-floating">
+                                                        <label class="form-label" for="floatingSelect">Select Issue
+                                                            Type<span class="c--error">*</span></label>
+                                                        <select class="form-control form-select"
+                                                            (ngModelChange)="onChangeProductIssueType($event)"
+                                                            formControlName="product_problem_id"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['product_problem_id'].errors }"
+                                                            id="floatingSelect">
+                                                            <option value="">Select</option>
+                                                            <ng-container *ngFor="let item of productWiseProblems">
+                                                                <option value="{{item?.product_problem_id}}">
+                                                                    {{item?.problems}} </option>
+                                                            </ng-container>
+                                                            <option value="Other">Other</option>
+                                                        </select>
+                                                        <app-validation-error
+                                                            [control]="f['product_problem_id']"></app-validation-error>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3" *ngIf="f['product_problem_id'].value=='Other'">
+                                                    <div class="form-floating">
+                                                        <label class="form-label">Other Issue Type </label>
+                                                        <input type="text" class="form-control"
+                                                            formControlName="other_issue_type"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['other_issue_type'].errors }">
+                                                        <app-validation-error
+                                                            [control]="f['other_issue_type']"></app-validation-error>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-floating">
+                                                        <label class="form-label" for="floatingSelect">Select
+                                                            Claim Ticket Status <span class="c--error">*</span></label>
+                                                        <select class="form-control form-select"
+                                                            formControlName="claim_ticket_statuses_id"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['claim_ticket_statuses_id'].errors }"
+                                                            id="floatingSelect">
+                                                            <option value="">Select</option>
+                                                            <ng-container *ngFor="let item of claimTicketStatusList">
+                                                                <option value="{{item?.claim_ticket_statuses_id}}">
+                                                                    {{item?.ticket_status}}</option>
+                                                            </ng-container>
+
+                                                        </select>
+                                                        <app-validation-error
+                                                            [control]="f['claim_ticket_statuses_id']"></app-validation-error>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6 mb-0">
+                                                    <div class="form-floating">
+                                                        <label class="form-label" for="floatingSelect">Issue
+                                                            Details <span class="c--error">*</span></label>
+                                                        <textarea type="text" rows="3" cols="3"
+                                                            class="form-control ng-pristine ng-invalid ng-touched"
+                                                            formControlName="issue_details"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['issue_details'].errors }"></textarea>
+                                                        <app-validation-error
+                                                            [control]="f['issue_details']"></app-validation-error>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-0">
+                                                    <div class="form-floating">
+                                                        <label class="form-label" for="floatingSelect">Special
+                                                            instruction from customer</label>
+                                                        <textarea type="text" rows="3" cols="3" formControlName="note"
+                                                            class="form-control ng-pristine ng-invalid ng-touched"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="row">
+                                                    <div class="col-xl-3 col-lg-4 mb-0"
+                                                        *ngIf="customerSavedCardList?.length>0">
+                                                        <div class="form-radio inline-style mb-1">
+                                                            <label>
+                                                                <input type="radio" name="newOrSavedCard" value="1"
+                                                                    formControlName="newOrSavedCard"
+                                                                    (ngModelChange)="onChangeNewOrSavedCard()">
+                                                                <span class="checkmark"></span>
+                                                                <p>New Card</p>
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" name="newOrSavedCard" value="2"
+                                                                    formControlName="newOrSavedCard"
+                                                                    (ngModelChange)="onChangeNewOrSavedCard()">
+                                                                <span class="checkmark"></span>
+                                                                <p>Saved Card</p>
+                                                            </label>
+                                    
+                                                        </div>
+                                    
+                                                        <div class="form-floating"
+                                                            *ngIf="f['newOrSavedCard'].value==2">
+                                                            <select class="form-control form-select"
+                                                                formControlName="selectedCardId"
+                                                                (ngModelChange)="onChangecard()">
+                                                                <option *ngFor="let item of customerSavedCardList"
+                                                                    [ngValue]="item?.customer_card_id">
+                                                                    {{item?.card_last_4_digit}}</option>
+                                                            </select>
+                                                            <label for="" class="form-label">Select Card Number<span
+                                                                    class="c--error">*</span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 mb-0">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" appCapitalize
+                                                                [readOnly]="f['selectedCardId'].value"
+                                                                formControlName="cardHolderName"
+                                                                [ngClass]="{ 'is-invalid': submitted && f['cardHolderName'].errors }">
+                                                            <label class="form-label">Card Holder Name <span
+                                                                    class="c--error">*</span></label>
+                                                            <app-validation-error
+                                                                [control]="f['cardHolderName']"></app-validation-error>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 mb-0">
+                                                        <div class="form-floating">
+                                                            <input type="text"
+                                                                [readOnly]="f['selectedCardId'].value"
+                                                                [minlength]="14" [maxlength]="21" appCardFormatter
+                                                                class="form-control" formControlName="cardNumber"
+                                                                [ngClass]="{ 'is-invalid': submitted && f['cardNumber'].errors }">
+                                                            <label class="form-label">Card Number <span
+                                                                    class="c--error">*</span></label>
+                                                            <app-validation-error
+                                                                [control]="f['cardNumber']"></app-validation-error>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 mb-0">
+                                    
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control"
+                                                                [readOnly]="f['selectedCardId'].value"
+                                                                formControlName="cardExpiryDate" appCardExpiryDate
+                                                                [ngClass]="{ 'is-invalid': submitted && f['cardExpiryDate'].errors }">
+                                                            <label class="form-label">Expiry Date <span
+                                                                    class="c--error">*</span></label>
+                                                            <app-validation-error
+                                                                [control]="f['cardExpiryDate']"></app-validation-error>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 mb-0">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" [minlength]="3"
+                                                                [maxlength]="4" [appInputLimit]="4"
+                                                                [appInputType]="'number'" formControlName="cvv"
+                                                                [ngClass]="{ 'is-invalid': submitted && f['cvv'].errors }">
+                                                            <label class="form-label">CVV <span
+                                                                    class="c--error">*</span></label>
+                                                            <app-validation-error
+                                                                [control]="f['cvv']"></app-validation-error>
+                                                        </div>
+                                                    </div>
+                                    
+                                    
+                                                </div> -->
+
+                                            </div>
+                                            <div class="table_hdng">
+                                                <h4>For Internal Usage Only</h4>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6 mb-0">
+                                                    <div class="form-floating polytextarea">
+                                                        <label class="form-label" for="floatingSelect">Add a Claim note
+                                                            <span *ngIf="f['is_assign'].value==true"
+                                                                class="c--error">*</span><span class="text-info">(For
+                                                                internal usage only)</span> </label>
+                                                        <textarea type="text" rows="3" cols="3"
+                                                            class="form-control ng-pristine ng-invalid ng-touched"
+                                                            formControlName="policy_notes"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['policy_notes'].errors }"></textarea>
+                                                        <app-validation-error
+                                                            [control]="f['policy_notes']"></app-validation-error>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-lg-6 mb-0">
+                                                    <div class="related_assign_box">
+                                                        <div class="form-checkbox d-inline-block mr-0">
+                                                            <label>
+                                                                <input type="checkbox" name="Add"
+                                                                    class="callback_request" class="form-control"
+                                                                    formControlName="is_assign"
+                                                                    (change)="assignChecked($event)">
+                                                                <span class="checkmark"></span>
+                                                                <p>Assign To</p>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-0 has-value autocomplete-field autocomplete-field-user"
+                                                            *ngIf="f['is_assign'].value==true">
+                                                            <div class="form-control">
+                                                                <app-auto-complete-search [autoCompleteConfig]="{
+                                                                    searchKeyword:'name_email',
+                                                                    defaultSearchValue:'',
+                                                                    minQueryLength:1,
+                                                                    debounceTime:0,
+                                                                    placeholder : 'Search..',
+                                                                    data : usersList}"
+                                                                    (searchingValue)="onChangeAssigneToUservalue($event)"
+                                                                    (selectedItem)="selectAssigneToUser($event)"></app-auto-complete-search>
+                                                            </div>
+                                                            <label class="form-label">Select Internal User<span
+                                                                    class="c--error">*</span></label>
+                                                            <app-validation-error
+                                                                [control]="f['assign_to']"></app-validation-error>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4 text-right submit_py_con ml-auto">
+                                                    <button type="submit"
+                                                        class="btn btn-primary text-uppercase final-crect-btn"
+                                                        [disabled]="loading">
+                                                        <span *ngIf="loading"
+                                                            class="spinner-border spinner-border-sm me-1"></span>Update
+                                                        Claim</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <hr class="mt-2 mb-2" />
+                                    <div class=" mt-1">
+                                        <div class="">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="links_vw">
+                                                        <h3>Quick Links</h3>
+                                                        <div class="btn_grp">
+                                                            <a class="btn btn-primary btn-mid"
+                                                                (click)="openAssignTechnicianModel(technicianTableRef)"> Ready to Dispatch</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="mt-2 mb-2" />
+                                    <div class="pilicy_tab">
+                                        <div class="card--tab-contents">
+                                            <!-- Nav tabs -->
+                                            <div class="nav_tab_wrap">
+                                                <ul class="nav nav-tabs nav-fill fw--bold" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link active" id="nav-link-tab__1"
+                                                            data-bs-toggle="tab" data-bs-target="#tab-pane__tab-1"
+                                                            type="button" role="tab" aria-controls="tab-1"
+                                                            aria-selected="true">Customer Special
+                                                            Instructions  <span class="badge {{claimNotesTableData?.length==0?'secondary':'bg--mdSky'}}">{{claimNotesTableData?.length}}</span></button>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link" id="nav-link-tab__2"
+                                                            data-bs-toggle="tab" data-bs-target="#tab-pane__tab-2"
+                                                            type="button" role="tab" aria-controls="tab-2"
+                                                            aria-selected="false">Claim Notes  <span class="badge {{policyNotesTableData?.length==0?'secondary':'bg--mdSky'}}">{{policyNotesTableData?.length}}</span></button>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link" id="nav-link-tab__3"
+                                                            data-bs-toggle="tab" data-bs-target="#tab-pane__tab-3"
+                                                            type="button" role="tab" aria-controls="tab-3"
+                                                            aria-selected="false">Assigned Technicians  <span class="badge {{claimDetails.assigned_contractors_list?.length==0?'secondary':'bg--mdSky'}}">{{claimDetails.assigned_contractors_list?.length}}</span></button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div>
+                                                <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <!-- Start Requested claim tab -->
+                                                    <div class="tab-pane active" id="tab-pane__tab-1" role="tabpanel"
+                                                        aria-labelledby="tab-1">
+                                                        <div class="policy_table_two">
+                                                            <div class="table_hdng">
+                                                                <h4>Customer Special
+                                                                    Instructions</h4>
+                                                            </div>
+
+                                                            <div
+                                                                class="table-style table-style-1 table-layout-fixed mt-1">
+                                                                <div class="">
+                                                                    <app-claim-note-table
+                                                                        [tableHeaderData]="claimNotesTableHeaders"
+                                                                        [tableBodyData]="claimNotesTableData"></app-claim-note-table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Requested claim tab -->
+                                                    <!-- Start Policy Notes tab -->
+                                                    <div class="tab-pane" id="tab-pane__tab-2" role="tabpanel"
+                                                        aria-labelledby="tab-2">
+                                                        <div class="policy_table_two">
+                                                            <div class="table_hdng mb-1">
+                                                                <h4>Claim Notes</h4>
+                                                            </div>
+                                                            <app-poliy-note-table
+                                                                [tableHeaderData]="policyNotesTableHeaders"
+                                                                [tableBodyData]="policyNotesTableData"></app-poliy-note-table>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Policy Notes tab -->
+                                                    <!-- Start Assigned Contractors tab -->
+                                                    <div class="tab-pane" id="tab-pane__tab-3" role="tabpanel"
+                                                        aria-labelledby="tab-3">
+                                                        <div class="policy_table_two">
+                                                            <div class="table_hdng mb-1">
+                                                                <h4>Assigned Technicians</h4>
+                                                            </div>
+                                                            <!-- <app-assigned-contractors-job-table [tableHeaderData]="assignedContractorsTableHeaders" [tableBodyData]="assignedContractorsTableData"></app-assigned-contractors-job-table> -->
+                                                            <div class="table-style table-style-1 table-layout-fixed">
+                                                                <div class="">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col" class="w80">#</th>
+                                                                                <th>Job Status</th>
+                                                                                <th scope="col">Job Assigned Date</th>
+                                                                                <th scope="col">Photo</th>
+                                                                                <th scope="col">Company Name </th>
+                                                                                <th scope="col"> Service Call Fee (SCF)</th>
+                                                                                <th scope="col">Name </th>
+                                                                                <th scope="col">Email</th>
+                                                                                <th scope="col">Mobile </th>
+                                                                                <th scope="col">Zip </th>
+                                                                                <th scope="col">State </th>
+                                                                                <th scope="col">City </th>
+                                                                                <th>Created By</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody
+                                                                            *ngIf="claimDetails.assigned_contractors_list?.length>0">
+                                                                            <tr
+                                                                                *ngFor="let item of claimDetails.assigned_contractors_list; let i=index">
+
+                                                                                <td>{{i+1}}</td>
+                                                                                <td>
+                                                                                    <span
+                                                                                        class="badge radius:tiny size:tiny padding:tiny"
+                                                                                        [attr.data-status]='item?.job_status_details'>{{item?.job_status_details}}</span>
+                                                                                </td>
+                                                                                <td>{{item?.job_assigned_date |date
+                                                                                    :"MM-dd-YYYY HH:MM"}}</td>
+                                                                                <td>
+                                                                                    <div class="pro_name">
+                                                                                        <img [src]="item?.contractor_details.profile_image?item?.contractor_details.profile_image:'assets/img/profile.jpg'"
+                                                                                            class="profile-img table_pro_img"
+                                                                                            alt="Profile"
+                                                                                            onerror="this.onerror=null;this.src='assets/img/profile.jpg'">
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>{{item?.contractor_details.company_name}}
+                                                                                </td>
+                                                                                <td>{{item?.contractor_details.service_call_fee
+                                                                                    | currency:'USD'}}</td>
+                                                                                <td>{{item?.contractor_details.first_name}}
+                                                                                    {{item?.contractor_details.last_name}}
+                                                                                </td>
+                                                                                <td>{{item?.contractor_details.email}}</td>
+                                                                                <td>{{item?.contractor_details.mobile}}
+                                                                                </td>
+                                                                                <td>{{item?.contractor_details.zip}}
+                                                                                </td>
+                                                                                <td>{{item?.contractor_details.state}}
+                                                                                </td>
+                                                                                <td>{{item?.contractor_details.city}}
+                                                                                </td>
+                                                                                <td>{{item?.created_user_info?.first_name}}
+                                                                                    {{item?.created_user_info?.last_name}}
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                        <tbody
+                                                                            *ngIf="claimDetails.assigned_contractors_list?.length==0">
+                                                                            <tr>
+                                                                                <td colspan="14" class="text-center">No
+                                                                                    data found</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Assigned Contractors tab -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #technicianTableRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Technician Information </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="viewContractorsModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row modal-row">
+            <div class="col-12">
+                <div class="card__body">
+                    <div class="card__body__container">
+                        <div class="table-style table-style-1 table-layout-fixed">
+                            <div class="table-responsive more-data-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th scope="col" class="w80"># </th>
+                                            <th scope="col">Photo</th>
+                                            <th scope="col" class="w80">Company Name</th>
+                                            <th scope="col">Service Fee</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col"class="w80">Email</th>
+                                            <th scope="col">Mobile </th>
+                                            <th scope="col">Zip </th>
+                                            <th scope="col">State </th>
+                                            <th scope="col">City </th>
+                                            <th scope="col"> Number of Technicians </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="contractorsList?.length>0">
+                                        <tr *ngFor="let item of contractorsList; let i=index" >
+                                            <td>
+                                                <div class="table-radio form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"  name="selectedAddOnItems" [value]="item.contractor_id"
+                                                                [(ngModel)]="selectedContractorId" tabindex="11" [checked]="item?.contractor_id===selectedContractorId">
+                                                    <label class="form-check-label" for="selectedAddOnItems"></label>
+                                                  </div>
+                                            </td>
+                                            <td>{{i+1}}</td>
+                                            <!-- <button type="button" *ngIf="item.license_url" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Download" class="btn btn-sm btn-download h-1" (click)="downloadDoc(item)">Download</button> -->
+                                            <td>
+                                                <div class="pro_name">
+                                                    <img [src]="item?.profile_image?item?.profile_image:'assets/img/profile.jpg'"
+                                                        class="profile-img table_pro_img" alt="Profile"
+                                                        onerror="this.onerror=null;this.src='assets/img/profile.jpg'">
+                                                </div>
+                                            </td>
+                                            <td>{{item?.company_name}}</td>
+                                            <td>{{item?.service_call_fee | currency:'USD'}}</td>
+                                            <td>{{item?.first_name}} {{item?.last_name}}</td>
+                                            <td>{{item?.email}}</td>
+                                            <td>{{item?.mobile}}</td>
+                                            <td>{{item?.zip}}</td>
+                                            <td>{{item?.state}}</td>
+                                            <td>{{item?.city}}</td>
+                                            <td><ng-container [ngSwitch]="item?.contractor_count">
+                                                <span *ngSwitchCase="1">Less than 50</span>
+                                                <span *ngSwitchCase="2">50 to 100</span>
+                                                <span *ngSwitchCase="3">100 to 250</span>
+                                                <span *ngSwitchCase="4">More than 250</span>
+                                            </ng-container></td>
+
+                                        </tr>
+
+                                    </tbody>
+                                    <tbody *ngIf="contractorsList?.length==0">
+                                        <tr>
+                                            <td colspan="14" class="text-center">No data found</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewContractorsModalRef?.hide()">Close</button>
+        <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading" (click)="createAssignJob()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>Send Service Request</button>
+    </div>
+</ng-template>

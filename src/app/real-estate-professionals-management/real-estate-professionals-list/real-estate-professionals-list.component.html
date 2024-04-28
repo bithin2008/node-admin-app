@@ -1,0 +1,269 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+    
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head">
+                                <div class="col-lg-4 mb-0 pl-0">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Manage Real Estate Professionals</p>
+                                    </div>
+                                </div>
+                                <div class="align-items-center col-lg-8 mb-0 pr-0">
+                                    <div class="d-flex justify-content-end">
+                                        <div class="col-auto mb-0">
+                                            <div class="form--search d-flex">
+                                                <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                                    [placeHolderText]="'Search...'"></app-search-input>
+                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bt-1 collapse" id="searchDiv">
+                                    <div class="row form-style pt-4 mt-4" style="border-top: 1px solid rgba(76, 78, 100, 0.12);">
+                                        <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-group form-floating">
+                                              <input type="text"  class="form-control" id="ffname" [(ngModel)]="filterObj.contactName" (input)="advancedFilter('firstName')">
+                                              <label for="ffname" class="form-label">Filter by First Name</label>
+                                            </div>
+                                          </div>
+                                          <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-group form-floating">
+                                              <input type="text"  class="form-control" id="flname"  [(ngModel)]="filterObj.lastName" (input)="advancedFilter('lastName')">
+                                              <label for="flname" class="form-label">Filter by Last Name</label>
+                                            </div>
+                                          </div>  
+                                        
+                                        <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-floating">
+                                              <input type="text"  class="form-control" id="email" [(ngModel)]="filterObj.email" (input)="advancedFilter('email')">
+                                              <label for="email" class="form-label">Filter by email</label>
+                                            </div>
+                                          </div>
+                                          <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-group form-floating">
+                                              <input type="text"  class="form-control" id="mobile"  [(ngModel)]="filterObj.mobile"  (input)="advancedFilter('mobile')">
+                                              <label for="mobile" class="form-label">Filter by mobile No.</label>
+                                            </div>
+                                          </div>
+                                          <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-group form-floating">
+                                              <input type="text"  class="form-control" id="company"  [(ngModel)]="filterObj.companyName"  (input)="advancedFilter('companyName')">
+                                              <label for="company" class="form-label">Filter by company name</label>
+                                            </div>
+                                          </div>
+                                          <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-group form-floating">
+                                              <input type="text"  class="form-control" id="address"  [(ngModel)]="filterObj.address"  (input)="advancedFilter('address')">
+                                              <label for="address" class="form-label">Filter by address</label>
+                                            </div>
+                                          </div>
+                                          <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-group form-floating">
+                                              <input type="text"  class="form-control" id="officeLocation"  [(ngModel)]="filterObj.officeLocation"  (input)="advancedFilter('officeLocation')">
+                                              <label for="officeLocation" class="form-label">Filter by office location</label>
+                                            </div>
+                                          </div>
+                                          <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-group form-floating">
+                                              <input type="text"  class="form-control" id="officeZip"  [(ngModel)]="filterObj.officeZip"  (input)="advancedFilter('officeZip')">
+                                              <label for="officeZip" class="form-label">Filter by office ZIP</label>
+                                            </div>
+                                          </div>
+                                          <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-group form-floating">
+                                              <input type="text"  class="form-control" id="officeCity"  [(ngModel)]="filterObj.officeCity"  (input)="advancedFilter('officeCity')">
+                                              <label for="officeCity" class="form-label">Filter by office city</label>
+                                            </div>
+                                          </div>
+                                          <div class="col-xl-2 col-lg-3 mb-0">
+                                            <div class="form-group form-floating">
+                                              <input type="text"  class="form-control" id="officeState"  [(ngModel)]="filterObj.officeState"  (input)="advancedFilter('officeState')">
+                                              <label for="officeState" class="form-label">Filter by office satet</label>
+                                            </div>
+                                          </div>
+                                     
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="table-responsive more-data-table-2">
+                                           <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="w80" ># </th>
+                                                    <th scope="col" class="w120">Actions</th>
+                                                    <th scope="col" class="w80" (click)="updateSorting('active_status')">
+                                                        Status <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('contact_name')">Brokerage/Agency Name <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('email')">Email Address <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('mobile')">Mobile <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('company_name')">Full Name <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('office_address')">Office Address <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('office_zip')">Office Zip <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('office_state')">Office State <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('office_city')">Office City <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('created_at')">Created On <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="realEstateProfessionalsList?.length>0">
+                                                <tr *ngFor="let item of realEstateProfessionalsList; let i=index">
+                                                    <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td> 
+                                                    <td>
+                                                       
+                                                        <div class="btn-group" dropdown container="body">
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" 
+                                                            title="" data-bs-original-title="View" class="btn btn-sm h-1 btn-view"
+                                                            (click)="navigateToRealtorDetails(item.realestate_professional_id)">View </button>
+                                                            <!-- (click)="openViewAffiliateModal(viewRealEstateProfessionalsEleRef,item)" -->
+                                                        </div>
+                                                    </td> 
+                                                    <td>
+                                                        <div class="form-check form-switch form-switch-sm">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="{{item.org_id}}-status"
+                                                                (click)="changeActivationStatus($event,item)"
+                                                                [checked]="item.active_status">
+                                                        </div>
+                                                    
+                                                    </td>                                                                                
+                                                    <td>{{item?.contact_name}}</td>
+                                                    <td>{{item?.email}}</td>
+                                                    <td>{{item?.mobile}}</td>
+                                                    <td>{{item?.company_name}}</td>
+                                                    <td>{{item?.office_address}}</td>
+                                                    <td>{{item?.office_zip}}</td>
+                                                    <td>{{item?.office_state}}</td>
+                                                    <td>{{item?.office_city}}</td>
+                                                    <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                    <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                    
+                                                </tr>
+                    
+                                            </tbody>
+                                            <tbody *ngIf="realEstateProfessionalsList?.length==0">
+                                                <tr>
+                                                    <td colspan="14" class="text-center">No data found</td>
+                                                </tr>
+                                            </tbody>
+                                        </table> 
+                                        </div>
+                                        
+                                    </div>
+                                    <span >
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                        [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                        [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ VIEW Policy  ==================== -->
+
+<ng-template #viewRealEstateProfessionalsEleRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">RealEstate Professionals Information</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewRealEstateProfessionalsModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="fee-details">                     
+                    <ul>
+                        <li>Full Name:</li>
+                        <li>{{viewRealEstateProfessionalsObj.contact_name}}</li>
+                    </ul>   
+                    <ul>
+                        <li>Mobile:</li>
+                        <li>{{viewRealEstateProfessionalsObj.mobile}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Address:</li>
+                        <li>{{viewRealEstateProfessionalsObj.address}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Office Location:</li>
+                        <li>{{viewRealEstateProfessionalsObj.office_location}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Office Zip:</li>
+                        <li>{{viewRealEstateProfessionalsObj.office_zip}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Office State:</li>
+                        <li>{{viewRealEstateProfessionalsObj.office_state}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Created On :</li>
+                        <li>{{viewRealEstateProfessionalsObj?.created_at|date:'MM-dd-YYYY'}}</li>   
+                    </ul>
+                    <ul> 
+                        <li>Updated On :</li>
+                        <li>{{viewRealEstateProfessionalsObj?.updated_at|date:'MM-dd-YYYY'}}</li> 
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="fee-details"> 
+                    <ul>
+                        <li>Email:</li>
+                        <li>{{viewRealEstateProfessionalsObj.email}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Brokerage/Agency Name:</li>
+                        <li>{{viewRealEstateProfessionalsObj.company_name}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Account Type:</li>
+                        <li>{{viewRealEstateProfessionalsObj.account_type}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Office Address:</li>
+                        <li>{{viewRealEstateProfessionalsObj.office_address}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Office City:</li>
+                        <li>{{viewRealEstateProfessionalsObj.office_city}}</li> 
+                    </ul>
+                    <ul>
+                        <li>Created By :</li>
+                        <li><span
+                            *ngIf="viewRealEstateProfessionalsObj?.create_info">{{viewRealEstateProfessionalsObj?.create_info?.first_name}}
+                            {{viewRealEstateProfessionalsObj?.create_info?.last_name}}</span> <span
+                            *ngIf="!viewRealEstateProfessionalsObj?.create_info">NA</span></li>
+                    </ul>
+                    <ul>
+                        <li>Updated By :</li>
+                        <li><span *ngIf="viewRealEstateProfessionalsObj?.update_info">{{viewRealEstateProfessionalsObj?.update_info?.first_name}} {{viewRealEstateProfessionalsObj?.update_info?.last_name}}</span>
+                            <span  *ngIf="!viewRealEstateProfessionalsObj?.update_info">NA</span></li>
+                    </ul>
+                 </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="viewRealEstateProfessionalsModalRef?.hide()">Close</button>      
+
+    </div>
+    <!-- (click)="openEditProductModal(addEditProducts,viewObj)" -->
+</ng-template>

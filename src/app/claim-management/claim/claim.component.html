@@ -1,0 +1,354 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+    
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                           
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Claims</p>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0 pr-0">
+                                        <div class="d-flex justify-content-end">
+                                            <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                            [placeHolderText]="'Search...'"></app-search-input>
+                                   
+                                            <div class="col-auto mb-0">
+                                                <div class="form--search d-flex">
+                                                    <button class="btn bg--extradrkb text-white btn-advnc" data-bs-toggle="collapse" href="#searchDiv" role="button">Advanced Search</button>
+                                                    <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add" routerLink="/claim-management/create-claim">Add</button>
+                                                    <button class="btn btn-info btn-expt" role="button" (click)="exportClaimList('export_csv')">Export</button>
+                                                </div>
+                                                
+                                            </div>
+                                            
+
+                                        </div>
+                                    </div>
+                                    <!-- MIDDLE SEPAREATE DIV START HERE -->
+                                    <app-advanced-search [advancedSearchConfig]="advancedSearchConfig"  (inputValueChange)="advancedSearchInputValueChange($event)"></app-advanced-search>
+                                    <!-- MIDDLE SEPAREATE DIV END HERE -->
+                                </div>
+                            </div>
+                            
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="table-responsive more-data-table-3">
+                                           <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="w80" (click)="updateSorting('claim_id')"># <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" class="w120">Actions</th>
+                                                    <th scope="col" > Name </th>
+                                                    <th scope="col" (click)="updateSorting('ticket_no')">Claim No. <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" >Claim Ticket Status </th>
+                                                    <th scope="col" >Policy Number </th>
+                                                    <th scope="col" (click)="updateSorting('product_details.product_name')">Product Name <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" >Date Issue Notice </th>
+                                                    <th scope="col" >Unit Age (Month)</th>
+                                                    <th scope="col" >Product Issue</th>
+                                                    <th scope="col" (click)="updateSorting('other_issue_type')">Other Issue Type <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('issue_details')">Issue Details <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('priority')">Priority<span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" >Plan Name </th>
+                                                    <!-- <th scope="col" (click)="updateSorting('policy_details.first_name')">First Name <span class="pi pi-sort short-icon"></span></th>
+                                                    <th scope="col" (click)="updateSorting('policy_details.last_name')">Last Name <span class="pi pi-sort short-icon"></span></th> -->
+                                                    <th scope="col" >Email</th>
+                                                    <th scope="col">Phone</th>
+                                                    <th scope="col" >Zip Code </th>
+                                                    <th scope="col">Address </th>
+                                                    <th scope="col" >State </th>                                                                                                   
+                                                    <th>Source</th> 
+                                                    <th scope="col" (click)="updateSorting('created_at')">Created On <span class="pi pi-sort short-icon"></span></th>
+                                                     <!--<th scope="col" (click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="claimList?.length>0" >
+                                                <tr *ngFor="let item of claimList; let i=index" [ngClass]="item?.policy_details?.is_anamaly==1 ? 'anamaly': ''">
+                                                    <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                    
+                                                    <td>
+                                                        <a (click)="navigateToEditClaim(item?.claim_id)"title="" *ngIf="permissionObj?.edit"  class="btn btn-sm h-1 btn-edit d">Edit</a>
+                                                    </td>
+                                                    <td>{{item?.policy_details?.first_name+' '+item?.policy_details?.last_name}}</td>
+                                                    <td><span class="py-1 c--mdSky">{{item?.ticket_no}}</span></td>
+                                                    <td>
+                                                        <!-- <span class="badge fw-semibold radius:tiny py-1 bg-light-info text-info">{{}}</span> -->
+                                                        <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.claim_ticket_status_details?.status_color }">{{item?.claim_ticket_status_details?.ticket_status}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span (click)="navigateToCustomerDetails(item?.customer_id)"
+                                                            class="py-1 c--mdSky" role="button">{{item?.policy_details.policy_number}}
+                                                        </span>
+                                                    </td>
+                                                    <td>{{item?.product_details?.product_name}}</td>
+                                                    <td>{{item?.product_issue_date?item?.product_issue_date:'N/A'}}</td>
+                                                    <td>{{item?.unit_age_month?item?.unit_age_month:'N/A'}}</td>
+                                                    <td>{{item?.product_problem_type?.problems?item?.product_problem_type?.problems:'N/A'}}</td>
+                                                    <td>{{item?.other_issue_type?item?.other_issue_type:'N/A'}}</td>
+                                                    <td>{{item?.issue_details}}</td>
+                                                    <td>{{item?.priority}}</td>
+                                                    <td><span class="pln-nm {{item?.policy_details?.plan_details?.plan_name  | lowercase}}">{{item?.policy_details?.plan_details?.plan_name}}</span></td>
+                                                    <td>{{item?.policy_details?.email}}</td>
+                                                    <td>{{item?.policy_details?.mobile|phoneUsFormat}}</td>
+                                                    <td>{{item?.policy_details?.billing_zip}}</td>
+                                                    <td>{{item?.policy_details?.billing_address1}}</td>
+                                                    <td>{{item?.policy_details?.billing_state}}</td>
+                                                  
+                                                    <!-- <td>N/A</td>
+                                                    <td>N/A</td>-->
+                                                    <td>{{item?.source==0?"Self Customer":'Backend Team'}}</td>
+                                                    <td>{{item?.created_at|date:'MM-dd-YYYY HH:MM'}}</td>
+                                                     <!--<td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td> -->
+                                                </tr>
+                    
+                                            </tbody>
+                                            <tbody *ngIf="claimList?.length==0">
+                                                <tr>
+                                                    <td colspan="14" class="text-center">No data found</td>
+                                                </tr>
+                                            </tbody>
+                                        </table> 
+                                        </div>
+                                        
+                                    </div>
+                                    <span >
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                        [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                        [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ VIEW Claim  ==================== -->
+
+<ng-template #viewClaimEleRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Claim Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewClaimModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row modal-row">
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles pt-0">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky text-info">Claim Information</h6>
+                    </div>
+                    <div class="modal_table_scrol">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td [width]="150">Claim Status :</td>
+                                    <td>
+                                        <span class="badge fw-semibold radius:tiny py-1 bg-light-success text-success"*ngIf="viewClaimObj?.Claim_status==1">Active</span>
+                                        <span class="badge fw-semibold radius:tiny py-1 bg-light-danger text-danger"*ngIf="viewClaimObj?.Claim_status==0">Cancel</span>
+                                        <span class="badge fw-semibold radius:tiny py-1 bg-light-warning text-warning"*ngIf="viewClaimObj?.Claim_status==2">Hold</span>
+
+                                        <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item?.policy_status_details>{{item?.policy_status_details}}</span> -->
+                                    </td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Claim No :</td>
+                                    <td>{{viewClaimObj.Claim_number}}</td>
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Claim Term :</td>
+                                    <td>{{viewClaimObj?.Claim_term}}</td>        
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Plan Name :</td>
+                                    <td>{{viewClaimObj?.plan_details?.plan_name}}</td> 
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Claim Amount :</td>
+                                    <td>{{viewClaimObj?.Claim_amount | number : '1.2-2'| currency:'USD'}}</td>    
+                                </tr>
+                                <tr>
+                                    <td [width]="200">Total Add-on Amount :</td>
+                                    <td>{{viewClaimObj?.addon_coverage_amount | number : '1.2-2'| currency:'USD'}}</td>    
+                                </tr>
+                                <tr>
+                                    <td [width]="200">Surcharge Amount :</td>
+                                    <td>{{viewClaimObj?.surcharge_amount | number : '1.2-2'| currency:'USD'}}</td>    
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Sales Tax :</td>
+                                    <td>{{viewClaimObj?.tax_amount | number : '1.2-2'| currency:'USD'}}</td>    
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Grand Total :</td>
+                                    <td>{{viewClaimObj?.net_amount | number : '1.2-2'| currency:'USD'}}</td>    
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Bonus Month :</td>
+                                    <td>{{viewClaimObj?.bonus_month}}</td>    
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Order Date :</td>
+                                    <td>{{viewClaimObj?.order_date |date:'MM-dd-YYYY'}}</td>    
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Effective From :</td>
+                                    <td>{{viewClaimObj?.Claim_start_date|date:'MM-dd-YYYY'}}</td>
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Expiry On :</td>
+                                    <td>{{viewClaimObj?.Claim_expiry_date|date:'MM-dd-YYYY'}}</td>
+                                </tr>
+                                <tr>
+                                    <td [width]="200">Expiry With Bonus :</td>
+                                    <td>{{viewClaimObj?.expiry_with_bonus|date:'MM-dd-YYYY'}}</td>
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Property Type :</td>
+                                    <td>{{viewClaimObj?.property_type_details?.property_type}}</td>
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Property Size :</td>
+                                    <td>{{viewClaimObj?.property_size_id==0?'Under 5,000 sq. ft':viewClaimObj?.property_size_id==1?'Over 5,000 sq. ft':'N/A'}}</td>
+                                </tr>
+        
+                                <tr>
+                                    <td [width]="150">Source :</td>
+                                    <td>{{viewClaimObj?.source==0?"Self Customer":'Backend Team'}}</td>
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Created By :</td>
+                                    <td><span
+                                        *ngIf="viewClaimObj?.created_user_info">{{viewClaimObj?.created_user_info?.first_name}}
+                                        {{viewClaimObj?.created_user_info?.last_name}}</span> <span
+                                        *ngIf="!viewClaimObj?.created_user_info">N/A</span></td>
+                                </tr>
+                                <tr>
+                                    <td [width]="150">Created On :</td>
+                                    <td>{{viewClaimObj?.created_at|date:'MM-dd-YYYY'}}</td>   
+                                </tr>
+                
+                                <tr>
+                                    <td [width]="150">Updated By :</td>
+                                    <td><span *ngIf="viewClaimObj?.updated_user_info">{{viewClaimObj?.updated_user_info?.first_name}} {{viewClaimObj?.updated_user_info?.last_name}}</span>
+                                        <span  *ngIf="!viewClaimObj?.updated_user_info">N/A</span></td>
+                                </tr>
+                            <tr> 
+                                <td [width]="150">Updated On :</td>
+                                <td>{{viewClaimObj?.updated_at|date:'MM-dd-YYYY'}}</td> 
+                             </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles pt-0">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky text-info">Property Information</h6>
+                    </div>
+                    <div class="modal_table_scrol">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td [width]="150">Name :</td>
+                                <td>{{viewClaimObj.customer_details.first_name}} {{viewClaimObj.customer_details.last_name}}</td>
+                            </tr>
+                            <tr>
+                                <td [width]="150">Email :</td>
+                                <td>{{viewClaimObj?.email}}</td>
+                            </tr>
+                            <tr>
+                                <td [width]="150">Mobile :</td>
+                                <td>{{viewClaimObj?.mobile |phoneUsFormat}}</td>
+                            </tr>
+                            <tr>
+                                <td [width]="150">Alternate Mobile :</td>
+                                <td>
+                                    <span *ngIf="viewClaimObj?.customer_details?.alternate_phone">{{viewClaimObj?.customer_details?.alternate_phone|phoneUsFormat}}</span>
+                                    <span *ngIf="!viewClaimObj?.customer_details?.alternate_phone">N/A</span>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td [width]="150">Address :</td>
+                                <td>{{viewClaimObj?.billing_address}}</td>
+                            </tr>
+                            <tr>
+                                <td [width]="100">Zip :</td>
+                                <td>{{viewClaimObj?.billing_zip}}</td>
+                            </tr>
+                            <tr>
+                                <td [width]="100">State :</td>
+                                <td>{{viewClaimObj?.billing_state}}</td>  
+                            </tr>
+                            <tr>
+                                <td [width]="100">City :</td>
+                                <td>{{viewClaimObj?.billing_city}}</td>
+                            </tr>
+    
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles pt-0">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky text-info">Base Products</h6>
+                    </div>
+                    <div class="modal_table_scrol">
+                        <table>
+                            <tbody>
+                                <tr *ngFor="let item of viewClaimObj?.Claim_product_list">
+                                    <ng-container *ngIf="item?.product_details?.product_type==1">
+                                        <td class="fw-normal">{{item?.product_details?.product_name}}</td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles pt-0">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky text-info">Add-On Products</h6>
+                    </div>
+                    <div class="modal_table_scrol">
+                        <table>
+                            <tbody>
+                                <tr *ngFor="let item of viewClaimObj?.Claim_product_list">
+                                    <ng-container *ngIf="item?.product_details?.product_type==0">
+                                        <td class="fw-normal">{{item?.product_details?.product_name}}</td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="viewClaimModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-primary"  *ngIf="permissionObj?.edit"  (click)="navigateToEditClaim(viewClaimObj?.Claim_id)"><i  class="pi pi-pencil"></i> edit
+        </button>
+    </div>
+    <!-- (click)="openEditProductModal(addEditProducts,viewObj)" -->
+</ng-template>

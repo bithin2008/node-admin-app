@@ -1,0 +1,348 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div class="">
+  
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table"> <!-- PAGE HEADER -->
+                            <!-- TOP SEPAREATE DIV FROM HERE -->
+                         
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Manage Products & Add On Item</p>
+                                    </div>
+                                    </div>
+                            
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                    <div class="d-flex justify-content-end">
+                                        <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                        [placeHolderText]="'Search...'"></app-search-input>
+                                        <div class="col-auto mb-0 ml-1 pr-0">
+                                        <div class="btns-grp">
+                                        <!--   <button class="btn bg--extradrkb text-white btn-advnc" data-bs-toggle="collapse" href="#searchDiv"
+                                            role="button">Advanced Search</button> -->
+                                
+                                            <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                                            (click)="openaddEditProductModal(addEditProducts,'')">Add </button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                        <!-- MIDDLE SEPAREATE DIV START HERE -->
+                                    <!--    <app-advanced-search [advancedSearchConfig]="advancedSearchConfig"
+                                        (inputValueChange)="advancedSearchInputValueChange($event)"></app-advanced-search> -->
+                                    <!-- MIDDLE SEPAREATE DIV END HERE -->
+                                    </div>
+                                </div>
+                              <!-- TOP SEPAREATE DIV END HERE -->
+                         
+                            <div class="card__body mt-1">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="table-responsive more-data-table">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w60"(click)="updateSorting('product_id')">#  <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('active_status')">Status <span class="pi pi-sort short-icon"></span></th>
+                                                        <th class="w200"(click)="updateSorting('product_name')">Product Name <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" class="w140"(click)="updateSorting('product_type')">Product Type <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col"(click)="updateSorting('monthly_price')">Monthly Price <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col"(click)="updateSorting('yearly_price')">Yearly Price <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col"(click)="updateSorting('sequence')">Sequence <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col">Created By</th>
+                                                        <th scope="col"(click)="updateSorting('created_at')">Created On <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col">Updated By</th>
+                                                        <th scope="col"(click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col">Actions</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="productList?.length>0">
+                                                    <tr *ngFor="let item of productList  let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                       
+    
+                                                        <td>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="View" class="btn btn-sm h-1 btn-view" (click)="openViewProductModal(viewProducts,item)">View </button>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj?.edit" data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit" (click)="openaddEditProductModal(addEditProducts,item)">Edit</button>
+                                                            <!-- <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj?.delete" data-bs-original-title="Delete" class="btn btn-sm h-1 btn-del" (click)="deleteProduct(item)">Delete</button> -->
+                                                        </td>
+                                                        <td>{{item?.product_name}}</td>                                                   
+                                                        <td><span class="badge radius:large py-1 c--mdSky border-txt" *ngIf="item?.product_type==1">Base</span>
+                                                            <span class="badge radius:large py-1 text-success border-txt" *ngIf="item?.product_type==0">Add-on</span>
+                                                            
+                                                        </td>
+                                                        <td>{{item?.monthly_price | number : '1.2-2'| currency:'USD'}}</td>
+                                                        <td>{{item?.yearly_price | number : '1.2-2' | currency:'USD'}}</td>
+                                                        <td>{{item?.sequence}}</td>
+                                                        <td><span *ngIf="item?.create_info">{{item?.create_info?.first_name}}
+                                                            {{item?.create_info?.last_name}}</span> <span
+                                                            *ngIf="!item?.create_info">N/A</span></td>
+                                                    <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                    <td><span *ngIf="item?.updated_by">{{item?.update_info?.first_name}}
+                                                            {{item?.update_info?.last_name}}</span> <span
+                                                            *ngIf="!item?.updated_by">N/A</span></td>
+                                                    <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                    <td>
+                                                        <div class="form-check form-switch form-switch-sm d-inline-grid">
+                                                            <input class="form-check-input" type="checkbox" id="{{item.module_id}}-status" 
+                                                            (click)="changeActivationStatus($event,item)"
+                                                                [checked]="item.active_status">
+                                                        </div> 
+                                                    </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="productList?.length==0">
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <span >
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first" [rows]="paginationObj.limit"
+                                        [totalRecords]="paginationObj.total" [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ ADD/EDIT Products  ==================== -->
+
+<ng-template #addEditProducts>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Product & Add On Item</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeProductAddEditModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="ProductForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-element">
+                            <!-- <label class="form-label" for="blogImage">Blog Image<span class="c--error">*</span></label> -->
+                            <div class="drag-area">
+                                <div class="icon" *ngIf="!editObj?.product_image"><i class="pi pi-cloud-upload icon"></i></div>
+                                <p *ngIf="!editObj?.product_image && !productImage">Upload Product Image <span class="c--error">*</span></p>
+                                <img *ngIf="productImage && !isEdit" src="{{productImage}}"
+                                    class="drop-zoon__preview-image" alt="tinylogo">
+                                <img *ngIf="isEdit && editObj?.product_image" class="drop-zoon__preview-image"
+                                    src="{{editObj?.product_image}}" alt="product image">
+                                <input type="file" formControlName="productImage" class="drop-zoon__file-input"
+                                    id="productImage" accept="image/*" (change)="fileChangeEvent($event,'productImage')">
+                            </div>
+                            <app-validation-error [control]="f['productImage']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="productName"
+                                [ngClass]="{ 'is-invalid': submitted && f['productName'].errors }">
+                            <label class="form-label">Product Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['productName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="productType"
+                                [ngClass]="{ 'is-invalid': submitted && f['productType'].errors }">
+                                <option value="1">Base</option>
+                                <option value="0">Add on</option>
+                            </select>
+                            <label class="form-label">Product Type <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['productType']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="monthlyPrice"
+                                [ngClass]="{ 'is-invalid': submitted && f['monthlyPrice'].errors }" min="0">
+                            <label class="form-label">Monthly Price ($) <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['monthlyPrice']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="yearlyPrice"
+                                [ngClass]="{ 'is-invalid': submitted && f['yearlyPrice'].errors }" min="0">
+                            <label class="form-label">Yearly Price ($) <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['yearlyPrice']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="sequence"
+                                [ngClass]="{ 'is-invalid': submitted && f['sequence'].errors }" min="0">
+                            <label class="form-label">Sequence <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['sequence']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-0">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1" checked><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeProductAddEditModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW Products  ==================== -->
+
+<ng-template #viewProducts>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Product & Add On Item Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="fee-details">
+                    <ul>
+                        <li class="w-150">Product Image :</li>
+                        <li><img src="{{viewObj.product_image}}"></li>
+                        </ul>
+                    <ul>
+                        <li>Product Name :</li>
+                        <li>{{viewObj.product_name}} </li>
+                    </ul>
+             
+                    <ul>
+                        <li>Monthly Price :</li>
+                        <li>{{viewObj?.monthly_price | number : '1.2-2'| currency:'USD'}}</li>
+                    </ul>
+                    <ul>
+                        <li>Status :</li>
+                        <li><span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+                            class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></li>
+                    </ul>
+               
+                    <ul>
+                        <li>Created By :</li>
+                        <li><span
+                            *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                            {{viewObj?.create_info?.last_name}}</span> <span
+                            *ngIf="!viewObj?.create_info">NA</span></li>
+                    </ul>
+            
+                    <ul>
+                        <li>Updated By :</li>
+                        <li><span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}} {{viewObj?.update_info?.last_name}}</span>
+                            <span  *ngIf="!viewObj?.update_info">NA</span></li>
+                    </ul>
+                
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="fee-details">
+                    
+                    <ul>
+    
+                        <li>Product Type :</li>
+                        <li><span class="badge radius:large py-1 c--mdSky border-txt" *ngIf="viewObj?.product_type==1">Base</span>
+                            <span class="badge radius:large py-1 text-success border-txt" *ngIf="viewObj?.product_type==0">Add-on</span></li>    
+                    </ul>
+                    <ul>
+                        <li>Yearly Price :</li>
+                        <li>{{viewObj?.yearly_price | number : '1.2-2'| currency:'USD'}}</li>
+                    </ul>
+                    <ul>
+                        <li>Status :</li>
+                        <li><span><span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+                            class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></span></li>
+    
+                    </ul>
+                    <ul>
+                        <li>Created On :</li>
+                        <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>    
+                    </ul>
+                    <ul>
+                        <li>Updated On :</li>
+                        <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>    
+                    </ul>
+                
+             
+            </div>
+            </div>
+        </div>
+       
+        <!-- <div class="form-style">
+            <div class="row">
+                <div class="col-12">
+                    <p> <b>Product Name :</b> </p>
+                </div>
+                <div class="col-12">
+                    <p><b>Product Type :</b> <span class="badge info" *ngIf="viewObj?.product_type==1">Base</span>
+                        <span class="badge warning" *ngIf="viewObj?.product_type==0">Add-on</span></p>
+                </div>
+                <div class="col-12">
+                    <p><b>Monthly Price :</b> {{viewObj?.monthly_price | number : '1.2-2'| currency:'USD'}}</p>
+                </div>
+                <div class="col-12">
+                    <p><b>Yearly Price :</b> {{viewObj?.yearly_price | number : '1.2-2'| currency:'USD'}}</p>
+                </div>
+                <div class="col-12">
+                    <p><b>Status</b>: <span class="badge success" *ngIf="viewObj.active_status==1">Active</span> <span
+                            class="badge danger" *ngIf="viewObj.active_status!==1">Inactive</span></p>
+                </div>
+                <div class="col-6">
+                    <p><b>Created By :</b> <span
+                        *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                        {{viewObj?.create_info?.last_name}}</span> <span
+                        *ngIf="!viewObj?.create_info">N/A</span></p>
+                </div>
+                <div class="col-6">
+                    <p><b>Created On :</b> {{viewObj?.created_at|date:'MM-dd-YYYY'}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Updated By :</b> <span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}} {{viewObj?.update_info?.last_name}}</span>
+                         <span  *ngIf="!viewObj?.update_info">N/A</span></p>
+                </div>
+                <div class="col-6">
+                    <p><b>Updated On :</b> {{viewObj?.updated_at|date:'MM-dd-YYYY'}}</p>
+                </div>
+                
+            </div>
+        </div> -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary"  *ngIf="permissionObj?.edit" (click)="openEditProductModal(addEditProducts,viewObj)"><i
+                class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>
+

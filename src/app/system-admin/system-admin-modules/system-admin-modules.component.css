@@ -1,0 +1,32 @@
+.inlineInput {
+  border-bottom: 1px solid #a2a2a2;
+  padding: 4px 0;
+  position: relative;
+}
+
+.inlineEditDiv {
+  position: relative;
+}
+.inlineEditDiv::after {
+  content: "\e942";
+  font-family: primeicons;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  font-size: 12px;
+}
+
+.grid > div {
+  font-size: 12px;
+  min-height: 60px;
+}
+
+.grid > div:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}/*# sourceMappingURL=system-admin-modules.component.css.map */

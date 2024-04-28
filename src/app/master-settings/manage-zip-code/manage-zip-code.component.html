@@ -1,0 +1,295 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Zip Code </p>
+                                        </div>
+
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end"> 
+                                            <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                            [placeHolderText]="'Search...'"></app-search-input>    
+                                            <div class="col-auto mb-0 pr-0 ml-1">
+                                                <div class="form--search d-flex">
+                                                    <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                                                    (click)="openaddEditPlanModal(addEditPlanTerms,'')">Add</button>
+                                                </div>
+                                            </div>                                 
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="w60"># <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col">Actions</th>                                                   
+                                                            <th scope="col">ZIP Code </th>
+                                                            <th scope="col">City </th>
+                                                            <th scope="col">State </th>
+                                                            <th scope="col">State Code </th>
+                                                            <th scope="col">Serviceable </th>                                                      
+                                                            <th scope="col" class="w80"
+                                                                (click)="updateSorting('active_status')">
+                                                                Status <span class="pi pi-sort short-icon"></span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="zipCodeList?.length>0">
+                                                        <tr *ngFor="let item of zipCodeList; let i=index">
+                                                            <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                            <!-- <td>
+                                                            
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Edit"
+                                                                    *ngIf="permissionObj?.edit" data-bs-original-title="Edit"
+                                                                    class="btn btn-sm h-1 btn-edit"
+                                                                    (click)="openaddEditPlanModal(addEditPlanTerms,item)">Edit
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Delete"
+                                                                    *ngIf="permissionObj?.delete" data-bs-original-title="Delete"
+                                                                    class="btn btn-sm h-1 btn-del"
+                                                                    (click)="deleteIpAddress(item)">Delete</button>
+                                                            </td>  -->
+                                                            <td>
+                                                                
+                                                                <button type="button" *ngIf="permissionObj?.edit" class="btn btn-sm h-1 btn-edit"  (click)="openaddEditPlanModal(addEditPlanTerms,item)">Edit</button> 
+                                                            
+                                                            </td>                                                  
+                                                            <td>{{item?.zipcode}}</td>
+                                                            <td>{{item?.city}}</td>
+                                                            <td>{{item?.state}}</td>
+                                                            <td>{{item?.statecode}}</td>
+                                                            <td><span class="badge success" *ngIf="item?.is_serviceable==1">Yes</span><span class="badge danger" *ngIf="item?.is_serviceable==0">No</span></td>                                                        
+                                                            <td>
+                                                                <div class="form-check form-switch form-switch-sm">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="{{item.module_id}}-status"
+                                                                        (click)="changeActivationStatus($event,item)"
+                                                                        [checked]="item.active_status">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tbody *ngIf="zipCodeList?.length==0">
+                                                        <tr>
+                                                            <td colspan="10" class="text-center">No data found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <span>
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                            [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                            [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ ADD/EDIT Plan Terms  ==================== -->
+
+<ng-template #addEditPlanTerms>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Zip Code </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="zipCodeForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">                    
+                   
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder=""
+                            formControlName="zipCode"
+                            (input)="allowOnlyNumber($event)"
+                            onKeyPress="if(this.value.length==5) return true;" [minlength]="5" [maxlength]="5"
+                            [ngClass]="{ 'is-invalid': submitted && f['zipCode'].errors }">
+                            <label class="form-label">ZIP Code <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['zipCode']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder=""
+                            formControlName="city"  
+                            [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
+                            <label class="form-label">City <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['city']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder=""
+                            formControlName="state"  
+                            [ngClass]="{ 'is-invalid': submitted && f['state'].errors }">
+                            <label class="form-label">State <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['state']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder=""
+                            formControlName="stateCode"  
+                            [ngClass]="{ 'is-invalid': submitted && f['stateCode'].errors }">
+                            <label class="form-label">State Code <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['stateCode']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder=""
+                            formControlName="lat"  
+                            [ngClass]="{ 'is-invalid': submitted && f['lat'].errors }">
+                            <label class="form-label">Latitude <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['lat']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" placeholder=""
+                            formControlName="long"  
+                            [ngClass]="{ 'is-invalid': submitted && f['long'].errors }">
+                            <label class="form-label">Longitude <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['long']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" placeholder=""
+                            formControlName="stateRate"  
+                            [ngClass]="{ 'is-invalid': submitted && f['stateRate'].errors }">
+                            <label class="form-label">state Rate <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['stateRate']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col-6">
+                        <p>Serviceable</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="isServiceable"
+                                    formControlName="isServiceable" value="1" checked><span class="checkmark"></span>
+                                <p>Yes</p>
+                            </label><label><input type="radio" name="isServiceable" formControlName="isServiceable"
+                                    value="0"><span class="checkmark"></span>
+                                <p>No</p>
+                            </label></div>
+                    </div>
+                    <div class="col-6">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1" checked><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="modalRef?.hide()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}} </button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW Plan Terms  ==================== -->
+
+<!-- <ng-template #viewPlanTerms>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Plan Term Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="row">
+                <div class="col-12">
+                    <p> <b>Plan Name :</b> {{viewObj.plan_details?.plan_name}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Home Type :</b> <i
+                            class="pi {{viewObj?.property_type_details?.property_icon}}"></i>{{viewObj?.property_type_details?.property_type}}
+                    </p>
+                </div>
+                <div class="col-6">
+                    <p> <b>Plan Term Name :</b> {{viewObj.plan_term}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Total Months :</b> {{viewObj?.plan_term_month}}</p>
+                </div>
+
+                <div class="col-6">
+                    <p><b>Bonus Month :</b> {{viewObj?.bonus_month}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Price (below 5000 sqft) :</b> {{viewObj?.price_below_5000_sqft | number : '1.2-2'|
+                        currency:'USD'}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Price (Above 5000 sqft) :</b> {{viewObj?.price_above_5000_sqft | number : '1.2-2'|
+                        currency:'USD'}}</p>
+                </div>
+
+                <div class="col-6">
+                    <p><b>Created By :</b> <span *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                            {{viewObj?.create_info?.last_name}}</span> <span *ngIf="!viewObj?.create_info">N/A</span>
+                    </p>
+                </div>
+                <div class="col-6">
+                    <p><b>Created On :</b> {{viewObj?.created_at|date:'MM-dd-YYYY'}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Updated By :</b> <span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}}
+                            {{viewObj?.update_info?.last_name}}</span>
+                        <span *ngIf="!viewObj?.update_info">N/A</span>
+                    </p>
+                </div>
+                <div class="col-6">
+                    <p><b>Updated On :</b> {{viewObj?.updated_at|date:'MM-dd-YYYY'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditPlanModal(addEditPlanTerms,viewObj)"
+            *ngIf="permissionObj?.edit"><i class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template> -->

@@ -1,0 +1,251 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Coverage Plan</p>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="col-auto mb-0 pr-0">
+                                                <div class="form--search d-flex">
+                                                    <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                                        [placeHolderText]="'Search...'"></app-search-input>
+                                                <!-- <div class="form-control form-control--search newSerch cuserch w-auto">
+                                                    <i class="pi pi-search search-icon mr-1"></i>
+                                                    <input type="search" placeholder="Type here to Search"
+                                                    [(ngModel)]="searchingvalue" (input)="search($event)">
+                                                    </div>
+                                                    <button class="btn btn-reset ml-1" role="button"(click)="resetAllFilter()">Reset</button> -->
+                                                </div>
+                                            </div>
+                                            <div class="col-auto mb-0 pr-0">
+                                                <button *ngIf="permissionObj?.add" class="btn btn-sm btn-success h-100" (click)="openaddEditPlanModal(addEditPlans,'')"> Add
+                                        </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w60" (click)="updateSorting('plan_id')">#
+                                                            <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" class="w180">Actions</th>
+                                                        <th (click)="updateSorting('plan_name')">Plan Name <span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                        
+                                                        <th scope="col">Created By</th>
+                                                        <th scope="col"(click)="updateSorting('created_at')">Created On <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col">Updated By</th>
+                                                        <th scope="col"(click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" class="w80" (click)="updateSorting('active_status')">
+                                                            Status <span class="pi pi-sort short-icon"></span></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="planList?.length>0">
+                                                    <tr *ngFor="let item of planList; let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                        <td>
+                                                            <button type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Test"
+                                                                data-bs-original-title="View" class="btn btn-sm btn-view h-1"
+                                                                (click)="openViewPlanModal(viewPlans,item)">View
+                                                            </button>
+                                                            <button type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title=""*ngIf="permissionObj?.edit"
+                                                                data-bs-original-title="Edit" class="btn btn-sm btn-edit h-1"
+                                                                (click)="openaddEditPlanModal(addEditPlans,item)">Edit
+                                                            </button>
+                                                            <!-- <button type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title=""*ngIf="permissionObj?.delete"
+                                                                data-bs-original-title="Delete" class="btn btn-sm btn-del h-1"
+                                                                (click)="deletePlan(item)">Delete</button> -->
+                                                        </td>
+                                                        <td><span class="pln-nm {{item?.plan_name  | lowercase}}">{{item?.plan_name}}</span></td>                                                       
+                                                        <td><span
+                                                                *ngIf="item?.create_info">{{item?.create_info?.first_name}}
+                                                                {{item?.create_info?.last_name}}</span> <span
+                                                                *ngIf="!item?.create_info">N/A</span></td>
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td><span *ngIf="item?.updated_by">{{item?.update_info?.first_name}}
+                                                                {{item?.update_info?.last_name}}</span> <span
+                                                                *ngIf="!item?.updated_by">N/A</span></td>
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>
+                                                            <div class="form-check form-switch form-switch-sm">
+                                                                <input class="form-check-input" type="checkbox"  id="{{item.module_id}}-status"
+                                                                    (click)="changeActivationStatus($event,item)"
+                                                                    [checked]="item.active_status">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="planList?.length==0">
+                                                    <tr>
+                                                        <td colspan="7" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <span *ngIf="paginationObj">
+                                            <p-paginator (onPageChange)="paginate($event)" [rows]="paginationObj.limit"
+                                                [first]="paginationObj.first" [totalRecords]="paginationObj.total"
+                                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ ADD/EDIT Plans  ==================== -->
+
+<ng-template #addEditPlans >
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Coverage Plan</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditPlanModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="planForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="planName"
+                                [ngClass]="{ 'is-invalid': submitted && f['planName'].errors }">
+                            <label class="form-label">Plan Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['planName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="sequence"
+                                [ngClass]="{ 'is-invalid': submitted && f['sequence'].errors }" min="0">
+                            <label class="form-label">Sequence</label>
+                            <app-validation-error [control]="f['sequence']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <p-multiSelect #multiSelect [options]="productList" formControlName="productId"
+                                defaultLabel="Select Product" optionLabel="product_name" display="chip"
+                                (onChange)="productChange()">
+                            </p-multiSelect>
+                            <app-validation-error [control]="f['productId']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1" checked><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditPlanModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary"[disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW Plans  ==================== -->
+
+<ng-template #viewPlans>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Coverage Plan Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+            <div class="fee-details">
+                <ul>
+                    <li>Plan Name : </li>
+                    <li><span class="pln-nm {{viewObj.plan_name  | lowercase}}">{{viewObj.plan_name}}</span></li>
+                </ul>
+                <ul class="align-items-start">
+                    <li class="product-list-label"> Products Included : </li>
+                    <li class="product-list">
+                        <span
+                        *ngFor="let item of viewObj.product_list; let isLast=last">{{item.product_name}}{{isLast ?
+                        '' : ','}}</span></li>
+                </ul>
+                <ul>
+                    <li>Max Price : </li>
+                    <li>{{viewObj?.max_price | number : '1.2-2'| currency:'USD'}}</li>
+                </ul>
+                <ul>
+                    <li>Created By : </li>
+                    <li>
+                        <span
+                        *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                        {{viewObj?.create_info?.last_name}}</span> <span
+                        *ngIf="!viewObj?.create_info">N/A</span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>Created On : </li>
+                    <li>
+                        {{viewObj?.created_at|date:'MM-dd-YYYY'}}
+                    </li>
+                </ul>
+                <ul>
+                    <li>Updated By : </li>
+                    <li><span  *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}} {{viewObj?.update_info?.last_name}}</span>
+                        <span  *ngIf="!viewObj?.update_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Updated On : </li>
+                    <li>
+                        {{viewObj?.updated_at|date:'MM-dd-YYYY'}}
+                    </li>
+                </ul>
+                <ul>
+                    <li>Status : </li>
+                    <li><span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+                        class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></li>
+                </ul>
+            </div>
+      
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditPlanModal(addEditPlans,viewObj)" *ngIf="permissionObj?.edit"><i
+                class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>

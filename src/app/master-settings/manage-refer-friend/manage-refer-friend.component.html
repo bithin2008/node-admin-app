@@ -1,0 +1,183 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Refer Friend </p>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end">
+                                            <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                            [placeHolderText]="'Search...'"></app-search-input>
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <div class="table-responsive more-data-table">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w60"># <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" class="w100">Actions</th>                                                   
+                                                        <th scope="col">Name </th>
+                                                        <th scope="col">Email </th>
+                                                        <th scope="col">Policy Number </th>
+                                                        <th scope="col">Purchase Date </th>
+                                                        <th scope="col">Friend Name </th>
+                                                        <th scope="col">Friend Email </th>                                                       
+                                                        <th scope="col" (click)="updateSorting('created_at')">Created On
+                                                            <span class="pi pi-sort short-icon"></span></th>
+    
+                                                        <!-- <th scope="col">Updated By</th>
+                                                        <th scope="col" (click)="updateSorting('updated_at')">Updated On
+                                                            <span class="pi pi-sort short-icon"></span></th> -->
+                                                        <th scope="col" class="w80"
+                                                            (click)="updateSorting('active_status')">
+                                                            Status <span class="pi pi-sort short-icon"></span></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="referFriendList?.length>0">
+                                                    <tr *ngFor="let item of referFriendList; let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*10}}</td>
+                                                        <td> <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Test"
+                                                            data-bs-original-title="View" class="btn btn-sm btn-view h-1" (click)="openViewReferFriendModal(viewreferFriendModal,item)"
+                                                            >View
+                                                        </button></td>                  
+                                                        <td>{{item?.name}}</td>
+                                                        <td>{{item?.email}}</td>
+                                                        <td>
+                                                            <span class="py-1 c--mdSky">{{item?.policy_number}}</span>
+                                                        </td>
+                                                        <td>{{item?.purchase_date|date:'MM-dd-YYYY'}}</td>
+                                                        <td>{{item?.friend_name}}</td>
+                                                        <td>{{item?.friend_email}}</td>                                                       
+                                                        <!-- <td><span
+                                                                *ngIf="item?.create_info">{{item?.create_info?.first_name}}
+                                                                {{item?.create_info?.last_name}}</span> <span
+                                                                *ngIf="!item?.create_info">N/A</span></td> -->
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <!-- <td><span *ngIf="item?.updated_by">{{item?.update_info?.first_name}}
+                                                                {{item?.update_info?.last_name}}</span> <span
+                                                                *ngIf="!item?.updated_by">N/A</span></td> -->
+                                                        <!-- <td *ngIf="item?.updated_by">{{item?.updated_at|date:'MM-dd-YYYY'}}</td> -->
+                                                        <!-- <td *ngIf="!item?.updated_by">N/A</td> -->
+                                                        <td>
+                                                            <div class="form-check form-switch form-switch-sm">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="{{item.module_id}}-status" disabled                                                                    
+                                                                    [checked]="item.active_status">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="referFriendList?.length==0">
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+                                        <span>
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                            [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                            [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<ng-template #viewreferFriendModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Refer Friend Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="fee-details">
+                <ul>
+                    <li> Name : </li>
+                    <li>{{viewObj.name}}</li>
+                </ul>
+                <ul>
+                    <li>Email : </li>
+                    <li>{{viewObj?.email}}</li>
+                </ul>
+                <ul>
+                    <li> Friend's Name : </li>
+                    <li>{{viewObj.friend_name}}</li>
+                </ul>
+                <ul>
+                    <li>Friend's Email : </li>
+                    <li>{{viewObj?.friend_email}}</li>
+                </ul>
+
+                <ul>
+                    <li>Policy Number : </li>
+                    <li>{{viewObj?.policy_number}}</li>
+                </ul>
+                <ul>
+                    <li>Purchase Date : </li>
+                    <li>{{viewObj?.purchase_date | date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>
+                    <li>Eligible :</li>
+                    <li><span *ngIf="viewObj?.is_eligible==1">Yes</span> <span  *ngIf="viewObj?.is_eligible==0">No</span></li>
+                </ul>
+
+                <ul>
+                    <li>Created By : </li>
+                    <li><span *ngIf="viewObj?.create_info">{{viewObj?.create_info?.name}}</span> <span *ngIf="!viewObj?.create_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Created On : </li>
+                    <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul *ngIf="viewObj.updated_by">
+                    <li>Updated By :</li>
+                    <li> <span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}}
+                        {{viewObj?.update_info?.last_name}}</span>
+                    <span *ngIf="!viewObj?.update_info">N/A</span></li>
+                </ul>
+                <ul *ngIf="viewObj.updated_by">
+                    <li>Updated On : </li>
+                    <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>  
+    </div>
+</ng-template>

@@ -1,0 +1,886 @@
+<div id="dashboard-wrap">
+ 
+    <div class="row my-4">
+        <div class="col">
+            <div class="card box-shadow pt-lg-4">
+                <!-- <div class="card-header">Statistics</div> -->
+
+                <div class="card-body">
+                    <!-- <app-dashboard-stat></app-dashboard-stat> -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card-1">
+                                <div class="card__head">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Policy Overview</p>
+                                        <div class="progress-result h7">
+                                            <!-- <span>	Total Claims  42.5k Sales</span> -->
+                                            <!-- <div class="increase">
+                                                <h6>+18%</h6>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-chevron-up">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="card-action dropdown">
+                                        <a class="button" id="edit" data-bs-toggle="dropdown" aria-expanded="false" href="javacript:"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-more-vertical">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="edit">
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-edit">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg> Edit</a></li>
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-plus">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg> Add</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="col-3 mb-0">
+                                            <div class="widget-1 violet_widget">
+                                                <div class="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-user">
+                                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="12" cy="7" r="4"></circle>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <p class="h3 fw--m">7,194</p>
+                                                    <p class="h7">Total Polices </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 mb-0">
+                                            <div class="widget-1 yellow_widget">
+                                                <div class="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-shopping-bag">
+                                                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z">
+                                                        </path>
+                                                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                                                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <p class="h3 fw--m">6,540</p>
+                                                    <p class="h7">Active Polices</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 mb-0">
+                                            <div class="widget-1 blue_widget">
+                                                <div class="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-credit-card">
+                                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <p class="h3 fw--m">654</p>
+                                                    <p class="h7">Inactive Polices</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 mb-0">
+                                            <div class="widget-1 blue_widget">
+                                                <div class="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-credit-card">
+                                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <p class="h3 fw--m">2018</p>
+                                                    <p class="h7">Total Claims</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card-1">
+                                <div class="card__head">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Revenue Overview</p>
+                                        <!-- <div class="progress-result h7">
+                                            <span>3,000 less than yesterday</span>
+                                            <div class="decrease">
+                                                <h6>+18%</h6>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-chevron-down">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="card-action dropdown">
+                                        <a class="button" id="edit" data-bs-toggle="dropdown" aria-expanded="false" href="javacript:"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-more-vertical">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="edit">
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-edit">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg> Edit</a></li>
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-plus">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg> Add</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="col-4 mb-0">
+                                            <div class="widget-1 blue_widget">
+                                                <div class="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-user">
+                                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="12" cy="7" r="4"></circle>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <p class="h3 fw--m">5,58,021</p>
+                                                    <p class="h7">Total Revenue</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 mb-0">
+                                            <div class="widget-1 blue_widget">
+                                                <div class="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-user">
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="12" cy="7" r="4"></circle>
+                                                </svg>
+                                                </div>
+                                                <div>
+                                                    <p class="h3 fw--m">55,095</p>
+                                                    <p class="h7">Schedule Payment  </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 mb-0">
+                                            <div class="widget-1 blue_widget">
+                                                <div class="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-user">
+                                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="12" cy="7" r="4"></circle>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <p class="h3 fw--m">5,02,926</p>
+                                                    <p class="h7">Payment Received </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-3">
+                            <div class="card-1">
+                                <div class="card__head">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Total Customers</p>
+                                        <div class="progress-result h7">
+                                            <span>400 high than yesterday</span>
+                                            <div class="increase">
+                                                <h6>+8%</h6>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-chevron-up">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-action dropdown">
+                                        <a class="button" id="edit" data-bs-toggle="dropdown" aria-expanded="false" href="javacript:"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-more-vertical">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="edit">
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-edit">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg> Edit</a></li>
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-plus">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg> Add</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="widget-1 violet_widget">
+                                            <div class="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-users">
+                                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="9" cy="7" r="4"></circle>
+                                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">3679</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card-1">
+                                <div class="card__head">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Total Orders</p>
+                                        <div class="progress-result h7">
+                                            <span>400 high than yesterday</span>
+                                            <div class="increase">
+                                                <h6>+8%</h6>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-chevron-up">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-action dropdown">
+                                        <a class="button" id="edit" data-bs-toggle="dropdown" aria-expanded="false" href="javacript:"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-more-vertical">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="edit">
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-edit">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg> Edit</a></li>
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-plus">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg> Add</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="widget-1 violet_widget">
+                                            <div class="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-shopping-cart">
+                                                    <circle cx="9" cy="21" r="1"></circle>
+                                                    <circle cx="20" cy="21" r="1"></circle>
+                                                    <path
+                                                        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">730</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card-1">
+                                <div class="card__head">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Total Delivered Orders</p>
+                                        <div class="progress-result h7">
+                                            <span>400 high than yesterday</span>
+                                            <div class="increase">
+                                                <h6>+8%</h6>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-chevron-up">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-action dropdown">
+                                        <a class="button" id="edit" data-bs-toggle="dropdown" aria-expanded="false" href="javacript:"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-more-vertical">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="edit">
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-edit">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg> Edit</a></li>
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-plus">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg> Add</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="widget-1 violet_widget">
+                                            <div class="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-truck">
+                                                    <rect x="1" y="3" width="15" height="13"></rect>
+                                                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">1,260</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card-1 revenue-block">
+                                <div class="card__head">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Total Revenue</p>
+                                        <div class="progress-result h7">
+                                            <span>400 high than yesterday</span>
+                                            <div class="increase">
+                                                <h6>+8%</h6>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-chevron-up">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-action dropdown">
+                                        <a class="button" id="edit" data-bs-toggle="dropdown" aria-expanded="false" href="javacript:"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-more-vertical">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="edit">
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-edit">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg> Edit</a></li>
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-plus">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg> Add</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="widget-1 violet_widget">
+                                            <div class="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-bar-chart">
+                                                    <line x1="12" y1="20" x2="12" y2="10"></line>
+                                                    <line x1="18" y1="20" x2="18" y2="4"></line>
+                                                    <line x1="6" y1="20" x2="6" y2="16"></line>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <p class="h3 fw--m">50928285.0</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card box-shadow">
+                <div class="card-body">
+                    <!-- <app-dashboard-stat></app-dashboard-stat> -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- <div class="card-block h-100">
+                                <div class="card-body flow-rootx">
+                                    <div class="text-center flow-rootx">
+                                        <img src="../../assets/img/icon-launch.webp" class="theme-filter" alt="launch">
+                                        <div class="d-flex flex-column sh-5">
+                                            <p class="h4 fw--b c--blak">Application Launch</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted h6">Chocolate cake marshmallow bear claw sweet. Apple pie
+                                        macaroon sesame snaps candy
+                                        jelly pudding.</div>
+                                </div>
+                            </div> -->
+                            
+                            <div class="card-block h-100">
+                                <div class="card-header">Payment History (Failed vs Scheduled)</div>
+                                <div class="card-body flow-rootx">
+                                    <p-chart type="bar" [data]="data" [options]="options" height="400"></p-chart>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <!-- <div class="card-block h-100">
+                                <div class="card-body flow-rootx">
+                                    <div class="text-center flow-rootx">
+                                        <img src="../../assets/img/icon-launch.webp" class="theme-filter" alt="launch">
+                                        <div class="d-flex flex-column sh-5">
+                                            <p class="h4 fw--b c--blak">Application Launch</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted h6">Chocolate cake marshmallow bear claw sweet. Apple pie
+                                        macaroon sesame snaps candy
+                                        jelly pudding.</div>
+                                </div>
+                            </div> -->
+                            
+                            
+                            <div class="card-block h-100">
+                                <div class="card-header">Policy vs Claims
+                                </div>
+                                <div class="card-body flow-rootx">
+                                    <p-chart type="line" [data]="linedata" [options]="lineoptions" height="400"></p-chart>
+                                </div>
+                            </div>
+                        </div>
+                       <!--  <div class="col-lg-4">
+                            <div class="card-block h-100">
+                                <div class="card-body flow-rootx">
+                                    <div class="text-center flow-rootx">
+                                        <img src="../../assets/img/icon-launch.webp" class="theme-filter" alt="launch">
+                                        <div class="d-flex flex-column sh-5">
+                                            <p class="h4 fw--b c--blak">Application Launch</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted h6">Chocolate cake marshmallow bear claw sweet. Apple pie
+                                        macaroon sesame snaps candy
+                                        jelly pudding.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-block h-100">
+                                <div class="card-body flow-rootx">
+                                    <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-lg-3">
+                            <div class="card-block h-100">
+                                <div class="card-body flow-rootx">
+                                    <div class="text-center flow-rootx">
+                                        <img src="../../assets/img/icon-performance.webp" class="theme-filter"
+                                            alt="launch">
+                                        <div class="d-flex flex-column sh-5">
+                                            <p class="h4 fw--b c--blak">Performance Tweaks</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted h6">Chocolate cake marshmallow bear claw sweet. Apple pie
+                                        macaroon sesame snaps candy
+                                        jelly pudding.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="card-block h-100">
+                                <div class="card-body flow-rootx">
+                                    <div class="text-center flow-rootx">
+                                        <img src="../../assets/img/icon-configure.webp" class="theme-filter"
+                                            alt="launch">
+                                        <div class="d-flex flex-column sh-5">
+                                            <p class="h4 fw--b c--blak">Advanced Configuration</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted h6">Chocolate cake marshmallow bear claw sweet. Apple pie
+                                        macaroon sesame snaps candy
+                                        jelly pudding.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="card-block h-100">
+                                <div class="card-body flow-rootx">
+                                    <div class="text-center flow-rootx">
+                                        <img src="../../assets/img/icon-analytics.webp" class="theme-filter"
+                                            alt="launch">
+                                        <div class="d-flex flex-column sh-5">
+                                            <p class="h4 fw--b c--blak">Server Analytics</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted h6">Chocolate cake marshmallow bear claw sweet. Apple pie
+                                        macaroon sesame snaps candy
+                                        jelly pudding.</div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-4">
+        <div class="col">
+            <div class="card box-shadow">
+                <!-- <div class="card-header">Posts & Updates</div> -->
+                <div class="card-body">
+                    <!-- <app-post></app-post> -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-1" id="table">
+                                <div class="card__head px-0">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Last 10 Policies  </p>
+                                    </div>
+                                    <div class="card-action dropdown">
+                                        <a class="button" id="edit" data-bs-toggle="dropdown" aria-expanded="false" href="javacript:"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-more-vertical">
+                                                <circle cx="12" cy="12" r="1"></circle>
+                                                <circle cx="12" cy="5" r="1"></circle>
+                                                <circle cx="12" cy="19" r="1"></circle>
+                                            </svg>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="edit">
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-edit">
+                                                        <path
+                                                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                        </path>
+                                                        <path
+                                                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                        </path>
+                                                    </svg> Edit</a></li>
+                                            <li><a href="javascript:void" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-plus">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg> Add</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card__body px-0">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sl</th>
+                                                        <th>Order No.</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Zip Code</th>
+                                                        <th>Order Date</th>
+                                                        <th>Order Value</th>
+                                                        <th class="w120">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr >
+                                                        <td>1</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>12345</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                                class="badge bg-light-danger text-danger radius:tiny size:tiny padding:tiny w-100">Pending</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="table-row">
+                                                        <td>2</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>85001</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                            class="badge bg-light-success text-success radius:tiny size:tiny padding:tiny w-100">Approved</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>60001</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                            class="badge bg-light-danger text-danger radius:tiny size:tiny padding:tiny w-100">Pending</span>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>10001</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                            class="badge bg-light-success text-success radius:tiny size:tiny padding:tiny w-100">Approved</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>22001</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                            class="badge bg-light-danger text-danger radius:tiny size:tiny padding:tiny w-100">Pending</span>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>6</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>60016</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                            class="badge bg-light-success text-success radius:tiny size:tiny padding:tiny w-100">Approved</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>7</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>60012</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                            class="badge bg-light-danger text-danger radius:tiny size:tiny padding:tiny w-100">Pending</span>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>8</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>60011</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                            class="badge bg-light-success text-success radius:tiny size:tiny padding:tiny w-100">Approved</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>9</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>77586</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                            class="badge bg-light-danger text-danger radius:tiny size:tiny padding:tiny w-100">Pending</span>
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>10</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>73344</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                            class="badge bg-light-success text-success radius:tiny size:tiny padding:tiny w-100">Approved</span>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                        <td>11</td>
+                                                        <td>SYSZA0BK7LT6NWUPR1</td>
+                                                        <td>Jhon Doe</td>
+                                                        <td>jhon@firstpremier.com</td>
+                                                        <td>1</td>
+                                                        <td>02/08/2023</td>
+                                                        <td>$2900</td>
+                                                        <td class="order__status"><span
+                                                                class="badge bg-light-danger text-danger radius:tiny size:tiny padding:tiny w-100">Order
+                                                                Placed</span></td>
+                                                    </tr> -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row my-4">
+    <div class="col">
+        <div class="card box-shadow">
+            <div class="card-header">Calendar</div>
+            <div class="card-body"><app-event-calendar></app-event-calendar></div>
+        </div>
+    </div>
+</div> -->
+</div>

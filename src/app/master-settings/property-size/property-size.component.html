@@ -1,0 +1,186 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div class="">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+
+                                <div class="col-lg-4 mb-0">
+                                  <div class="card-heading">
+                                    <p class="h4 c--drkgry">Property Size</p>
+                                  </div>
+                                </div>
+                           
+                                <div class="align-items-center col-lg-8 mb-0">
+                                  <div class="d-flex justify-content-end">
+                                    <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                      [placeHolderText]="'Search...'"></app-search-input>
+                                        <div class="col-auto mb-0 ml-1 pr-0">
+                                            <div class="btns-grp">
+                                                <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                                                (click)="openEditModal(addEditContent,'')">Add </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>   
+                              </div>
+                            </div>
+                         
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w60">#</th>
+                                                        <th scope="col" class="w140">Actions</th>
+                                                        <th class="col">Name</th>
+                                                        <th class="col">Value</th>
+                                                          <!--<th class="col">Color</th> -->
+                                                        <th scope="col">Created On </th>
+                                                        <th scope="col">Updated On </th>
+                                                        <th scope="col" class="w80">Status</th>
+                                                    </tr>
+                                                </thead>
+                                              <tbody *ngIf="propertySizeList?.length>0">
+                                                    <tr *ngFor="let item of propertySizeList  let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                        <td>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="View" class="btn btn-sm h-1 btn-view"(click)="openViewModal(viewContent,item)">View </button>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj?.edit" data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit" (click)="openAddEditModal(addEditContent,item)">Edit</button>
+                                                            <!-- <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj?.delete" data-bs-original-title="Delete" class="btn btn-sm h-1 btn-del" (click)="deletePriority(item)">Delete</button>  -->
+                                                       </td>                                                  
+                                                        <td>{{item?.property_size}}</td>
+                                                        <td>{{item?.value}}</td>
+                                                         <!--<td>{{item?.status_color?item?.status_color:'N/A'}}</td> -->
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>
+                                                            <div class="form-check form-switch form-switch-sm">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="{{item.module_id}}-status"
+                                                                    (click)="changeActivationStatus($event,item)"
+                                                                    [checked]="item.active_status">
+                                                            </div>
+                                                        </td>
+                                                    </tr> 
+                                                </tbody> 
+                                                <tbody *ngIf="propertySizeList?.length==0">
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <span >
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first" [rows]="paginationObj.limit"
+                                        [totalRecords]="paginationObj.total" [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ================ VIEW Products  ==================== -->
+
+<ng-template #viewContent>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Property Size Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="fee-details">
+                <ul>
+                    <li> Name :</li>
+                    <li>{{viewObj?.property_size}} </li>
+                </ul>
+                <ul>
+                    <li> Value :</li>
+                    <li>{{viewObj?.value}} </li>
+                </ul>
+                <ul>
+                    <li>Status :</li>
+                    <li><span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+                        class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></li>
+                </ul>
+                <ul>
+                    <li>Created On :</li>
+                    <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>
+                    <li>Updated On :</li>
+                    <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>  
+                </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary"  *ngIf="permissionObj?.edit" (click)="openEditModal(addEditContent,viewObj)"><i
+                class="pi pi-pencil"></i> Edit</button>
+    </div>
+</ng-template>
+
+<!-- ================ ADD/EDIT Products  ==================== -->
+
+<ng-template #addEditContent>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Property Size</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="propertySizeForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-12 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="property_size" placeholder="Enter property size ...">
+                            <label class="form-label">Property Size Name<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['property_size']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="value" placeholder="Enter value...">
+                            <label class="form-label">Value<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['value']"></app-validation-error>
+                        </div>
+                    </div>
+                     <!--<div class="col-12 mb-0">
+                        <div class="form-floating">
+                            <input type="color" class="form-control" formControlName="status_color" >
+                            <label class="form-label">Status color<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['status_color']"></app-validation-error>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form> 
+</ng-template>
+
+
+
+
+
+
+

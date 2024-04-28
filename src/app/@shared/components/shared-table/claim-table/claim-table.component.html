@@ -1,0 +1,31 @@
+<!-- table.component.html -->
+<div class="table-style table-style-1 table-layout-fixed">
+    <div class="">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th *ngFor="let header of headers">{{ header }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of data">
+                    <ng-container *ngFor="let header of headers">
+                        <td *ngIf="header=='Policy Status' || header=='Payment Status'">
+                            <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=row[header]>{{row[header]}}</span>
+                        </td> 
+                        <td *ngIf="header!='Policy Status' && header!='Payment Status'">{{ row[header] }}</td>
+                    </ng-container>
+                    
+
+                    
+                  </tr>
+            </tbody>
+            <tbody *ngIf="data?.length==0">
+                <tr>
+                    <td colspan="14" class="text-center">No data found</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+  

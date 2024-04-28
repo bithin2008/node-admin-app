@@ -1,0 +1,105 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+      <div>
+        <div class="card-body">
+          <!-- <app-post></app-post> -->
+          <div class="row">
+            <div class="col-lg-12">
+                <div class="card-1" id="table">
+                    <!-- <div class="card__head d-block">
+                      <div class="row d-flex align-items-center flex-wrap">
+                        <div class="col-lg-4 mb-0">
+                          <div class="card-heading"> 
+                            <p class="h4 c--drkgry">Manage Department</p>
+                          </div>
+                        </div>
+                        
+                      </div>    
+                    </div>   -->
+                    <div class="card-1">
+                        <div class="card__body">
+                          <div class="card__body__container">
+                            <div class="claim-thankyou-header">
+                                <div class="claim-thank-header-left">
+                                    <figure>
+                                        <img src="assets/img/thumb.png" alt="" title="" />
+                                    </figure>
+                                    <div class="thank-header-content">
+                                        <h3>#{{claimDetails?.ticket_no}}</h3>
+                                    </div>
+                                </div>
+                                <div class="claim-thank-header-right">
+                                    <p>Claim has been successfully placed for <span>{{claimDetails?.policy_details?.first_name?claimDetails.policy_details?.first_name:''}} {{claimDetails.policy_details?.last_name?claimDetails.policy_details?.last_name:''}}</span></p>
+                                </div>
+                            </div>
+                            <div class="claim-thankyou-body">
+                              <div class="claim-card">
+                                  <div class="claim-card-hdr">
+                                      <h4>Claim Information</h4>
+                                  </div>
+                                  <div class="claim-card-body">
+                                      <ul>
+                                          <li><span>Name</span> <span class="claim-val">{{claimDetails?.policy_details?.first_name?claimDetails.policy_details?.first_name:''}} {{claimDetails?.policy_details?.last_name?claimDetails.policy_details?.last_name:''}}</span></li>
+                                          <li><span>Claim Ticket Status</span><span class="claim-val">{{claimDetails?.claim_ticket_status_details?.ticket_status}}</span></li>
+                                          <li><span>Product Name</span><span class="claim-val">{{claimDetails?.product_details?.product_name}}</span></li>
+                                          <li><span>Product Brand</span><span class="claim-val">{{claimDetails?.product_brand?claimDetails?.product_brand:'N/A'}}</span></li>
+                                          <li><span>Unit Age (Month)</span><span class="claim-val">{{claimDetails?.unit_age_month?claimDetails?.unit_age_month:'N/A'}}</span></li>
+                                          <li><span>Date Issue Notice</span><span class="claim-val">{{claimDetails?.product_issue_date?claimDetails?.product_issue_date:'N/A'}}</span></li>
+                                          <li><span>Priority</span><span class="claim-val">{{claimDetails?.priority}}</span></li>
+                                          <li><span>Plan Name</span><span class="claim-val">{{claimDetails?.policy_details?.plan_details?.plan_name}}</span></li>
+                                          <li><span>Address</span><span class="claim-val">{{claimDetails?.policy_details?.billing_address1}}</span></li>
+                                          <li><span>Email</span><span class="claim-val">{{claimDetails?.policy_details?.email}}</span></li>
+                                          <li><span>Phone</span><span class="claim-val">{{claimDetails?.policy_details?.mobile}}</span></li>
+                                          <li><span>Created On</span><span class="claim-val">{{claimDetails?.created_at |date:'MM-dd-YYYY HH:MM'}}</span></li>
+                                      </ul>
+                                  </div>
+                                </div>
+                               
+                                <div class="claim-card">
+                                    <div class="claim-card-hdr">
+                                        <h4>Product Issue</h4>
+                                    </div>
+                                    <div class="claim-card-body">
+                                         <ul>
+                                            <li><span>{{claimDetails?.product_problem_type?.problems?claimDetails?.product_problem_type?.problems:'N/A'}}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="claim-card">
+                                    <div class="claim-card-hdr">
+                                        <h4>Issue Details</h4>
+                                    </div>
+                                    <div class="claim-card-body">
+                                         <ul>
+                                            <li><span>{{claimDetails?.issue_details?claimDetails?.issue_details:'N/A'}}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="claim-card">
+                                    <div class="claim-card-hdr">
+                                        <h4>Other Issue Type</h4>
+                                    </div>
+                                    <div class="claim-card-body">
+                                         <ul>
+                                            <li><span>{{claimDetails?.other_issue_type?claimDetails?.other_issue_type:'N/A'}}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>      
+                            </div>   
+                            
+                            <div class="claim-thankyou-footer">
+                                <h4>Do you want to add another Claim?</h4>
+                                <a routerLink="/claim-management/create-claim" class="btn btn-success">ADD CLAIM NOW</a>
+                            </div>
+                          </div>
+                        </div>
+                    </div>        
+                </div>    
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>                

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en" data-mode="light" data-theme="default">
+
+<head>
+  <meta charset="utf-8">
+  <title>First Premier Home Warranty</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/x-icon" href="assets/img/logo-sm.webp">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+  <link rel="stylesheet" href="https://www.cssscript.com/demo/user-guide-web-tour/dist/webtour.min.css" />
+  <script src="./assets/js/webtour.min.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.css">
+  <script src="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.js"></script>
+  <script src="https://cdn.ckeditor.com/4.18.0/full-all/ckeditor.js"></script>
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALRs-oFw3ANX3D12OzezYeYYeKRRoxlcQ&libraries=places"
+  defer
+></script>
+  <script> CKEDITOR.config.forcePasteAsPlainText = true; </script>
+  <noscript>
+    JavaScript must be enabled in order to use this Application in standard view.
+    However, it seems JavaScript is either disabled or not supported by your browser.
+    To use standard view, enable JavaScript by changing your browser options, then try again.
+  </noscript>
+  <!-- <script>
+    let theme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-bs-theme', theme);
+  </script> -->
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+<!-- Modal center -->
+<!-- <div class="modal fade" id="modal-center" tabindex="-1" aria-labelledby="exampleModalCenterLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title h4" id="modal-center">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-style">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <select class="form-control form-select">
+                  <option>Dropdown 1</option>
+                  <option>Dropdown 2</option>
+                  <option>Dropdown 3</option>
+                </select>
+                <label class="form-label">Dropdown</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <select class="form-control form-select">
+                  <option>Dropdown 1</option>
+                  <option>Dropdown 2</option>
+                  <option>Dropdown 3</option>
+                </select>
+                <label class="form-label">Dropdown 2</label>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-element">
+                <label class="form-label">Message</label>
+                <textarea class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-element forgot-password">
+                <div class="form-checkbox">
+                  <label>
+                    <input type="checkbox" name="callback_request" value="1">
+                    <span class="checkmark"></span>
+                    <p>Remember Me</p>
+                  </label>
+                </div>
+                <a class="c2a-underline" href="javascript:void">Forgot Password?</a>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Modal Right -->
+<!-- <div class="modal fade modal-right" id="modal-right" tabindex="-1" aria-labelledby="exampleModalRightLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title h4" id="modal-center">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form-style">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control">
+                <label class="form-label">Email Address</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="password" class="form-control">
+                <label class="form-label">Password</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <select class="form-control form-select">
+                  <option>Dropdown 1</option>
+                  <option>Dropdown 2</option>
+                  <option>Dropdown 3</option>
+                </select>
+                <label class="form-label">Dropdown</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <select class="form-control form-select">
+                  <option>Dropdown 1</option>
+                  <option>Dropdown 2</option>
+                  <option>Dropdown 3</option>
+                </select>
+                <label class="form-label">Dropdown 2</label>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-element">
+                <label class="form-label">Message</label>
+                <textarea class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-element forgot-password">
+                <div class="form-checkbox">
+                  <label>
+                    <input type="checkbox" name="callback_request" value="1">
+                    <span class="checkmark"></span>
+                    <p>Remember Me</p>
+                  </label>
+                </div>
+                <a class="c2a-underline" href="javascript:void">Forgot Password?</a>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger btn-sm me-2" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-primary btn-sm me-2">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+</html>

@@ -1,0 +1,27 @@
+<div class="ng-autocomplete-wrap">
+  <div class="ng-autocomplete">
+    <ng-autocomplete [data]="autoCompleteConfig?.data" [searchKeyword]="autoCompleteConfig?.searchKeyword"[minQueryLength]='autoCompleteConfig?.minQueryLength'
+      [placeholder]='autoCompleteConfig?.placeholder' (selected)='selectEvent($event)'[debounceTime]='autoCompleteConfig?.debounceTime' [(ngModel)]="autoCompleteConfig.defaultSearchValue"
+      (inputChanged)='onChangeSearch($event)'[historyIdentifier]='autoCompleteConfig?.searchKeyword' (inputFocused)='onFocused($event)' (inputCleared)="inputCleared()"
+      [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>  
+
+    <ng-template #itemTemplate let-item>
+      <!-- <p>{{item|json}}</p> -->
+      <ul class="p-1">
+        <li *ngIf="item.image"><img class="autocomplete-data-img rounded-circle"  [src]="item.image" alt="{{item[autoCompleteConfig?.searchKeyword]}}"></li>
+        <li class=""><a [innerHTML]="item[autoCompleteConfig?.searchKeyword]"></a></li>
+        <ng-container *ngIf="item?.policy_number && item?.policy_status_details" >
+          <li class="c--mdSky"  *ngIf="autoCompleteConfig?.searchKeyword=='policy_number'" [innerHTML]="item[autoCompleteConfig?.searchKeyword]"></li>
+          <li class="c--mdSky" *ngIf="autoCompleteConfig?.searchKeyword!='policy_number'">{{ item?.policy_number}}</li>
+          <li>&nbsp;&nbsp;<span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.policy_status_details?.status_color }">{{item?.policy_status_details?.status_name}}</span></li>
+        </ng-container>
+      </ul>
+    </ng-template>
+    <ng-template #notFoundTemplate let-notFound>
+      <div *ngIf="isDataNotLoaded" [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<!-- <button class="btn btn-primary disabled-lg nowrap sngle-serch-btn">Search</button> -->

@@ -1,0 +1,200 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div class="">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+
+                                <div class="col-lg-4 mb-0">
+                                  <div class="card-heading">
+                                    <p class="h4 c--drkgry">Product Issue Type</p>
+                                  </div>
+                                </div>
+                           
+                                <div class="align-items-center col-lg-8 mb-0">
+                                  <div class="d-flex justify-content-end">
+                                    <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                      [placeHolderText]="'Search...'"></app-search-input>
+                                        <div class="col-auto mb-0 ml-1 pr-0">
+                                            <div class="btns-grp">
+                                                <button class="btn bg--extradrkb text-white btn-advnc" data-bs-toggle="collapse" href="#searchDiv" role="button">Advanced Search</button>
+                                                <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                                                (click)="openaddEditProductModal(addEditProducts,'')">Add </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>   
+                                  <app-advanced-search [advancedSearchConfig]="advancedSearchConfig"  (inputValueChange)="advancedSearchInputValueChange($event)"></app-advanced-search>  
+                              </div>
+                            </div>
+                         
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Actions</th>
+                                                        <th class="col">Product Name</th>
+                                                        <th scope="col">Issue Type</th>  
+                                                        <th scope="col">Created On </th>
+                                                        <th scope="col">Updated On </th>
+                                                      
+                                                    </tr>
+                                                </thead>
+                                              <tbody *ngIf="productProblemList?.length>0">
+                                                    <tr *ngFor="let item of productProblemList  let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                        <td>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="View" class="btn btn-sm h-1 btn-view"(click)="openViewProductModal(viewProducts,item)">View </button>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj?.edit" data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit" (click)="openaddEditProductModal(addEditProducts,item)">Edit</button>
+                                                            <!-- <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj?.delete" data-bs-original-title="Delete" class="btn btn-sm h-1 btn-del">Delete</button>  -->
+                                                       </td>
+                                                        <td>{{item?.product_details.product_name}}</td>                                                   
+                                                        <td>{{item?.problems}}</td>
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                      
+                                                    </tr> 
+                                                </tbody> 
+                                                <tbody *ngIf="productProblemList?.length==0">
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <span >
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first" [rows]="paginationObj.limit"
+                                        [totalRecords]="paginationObj.total" [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ================ VIEW Products  ==================== -->
+
+<ng-template #viewProducts>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Ticket Issue Type Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="fee-details">
+            <ul>
+                <li>Product Name :</li>
+                <li>{{viewObj?.product_details?.product_name}} </li>
+            </ul>
+            <ul>
+                <li>Product Type :</li>
+                <li><span class="badge radius:large py-1 c--mdSky border-txt" *ngIf="viewObj?.product_details?.product_type==1">Base</span>
+                    <span class="badge radius:large py-1 text-success border-txt" *ngIf="viewObj?.product_details?.product_type==0">Add-on</span></li>    
+            </ul>
+            <ul>
+                <li>Status :</li>
+                <li><span><span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+                    class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></span></li>
+            </ul>
+            <ul>
+                <li>Issue Type :</li>
+                <li>{{viewObj.problems}}</li>
+            </ul>
+            <ul>
+                <li>Created On :</li>
+                <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+            </ul>
+            <ul>
+                <li>Updated On :</li>
+                <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>  
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <!-- <button type="button" class="btn btn-sm btn-primary"  *ngIf="permissionObj?.edit" (click)="openEditProductModal(addEditProducts,viewObj)"><i
+                class="pi pi-pencil"></i> Edit</button> -->
+    </div>
+</ng-template>
+
+<!-- ================ ADD/EDIT Products  ==================== -->
+
+<ng-template #addEditProducts>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Product Issue Type</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeProductAddEditModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="ProductIssueForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    
+                    <div class="col-12 mb-0">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="product_id"
+                                [ngClass]="{ 'is-invalid': submitted && f['product_id'].errors }">
+                                <option [value]="item.product_id" *ngFor="let item of productList">{{item.product_name}}</option>
+                            </select>
+                            <label class="form-label">Select Product<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['product_id']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="issue" placeholder="Enter issue type...">
+                            <label class="form-label">Product Issue<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['issue']"></app-validation-error>
+                        </div>
+                    </div>
+
+<!-- 
+                    <div formArrayName="problems" class="col-12 mb-1">
+                        <div class="col-12 row" *ngFor="let item of ProductIssueForm.controls?.problems?.controls; let i = index" [formGroupName]="i" >
+                                <div class="col-10">
+                                    <div class="form-element mb-0">
+                                        <label class="form-label">Issue Type</label>
+                                        <input type="text" class="form-control" formControlName="issue" placeholder="Enter issue type...">
+                                    </div>
+                                </div>
+                                <div class="col-2 pt-2" *ngIf="i!=0">
+                                    <button (click)="removeIssue(item,i)" class="btn btn-sm btn-danger">Remove</button>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-sm btn-primary"(click)="addMoreIssue()">Add More</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeProductAddEditModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form> 
+</ng-template>
+
+
+
+
+
+
+

@@ -1,0 +1,352 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Customer Review</p>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="col-auto mb-0">
+                                                <div class="form--search d-flex">
+                                                    <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                                        [placeHolderText]="'Search...'"></app-search-input>
+                                                    <!-- <div class="form-control form-control--search newSerch w-auto">
+                                                        <i class="pi pi-search search-icon mr-1"></i>
+                                                        <input type="search" placeholder="Type here to Search"
+                                                            [(ngModel)]="primaySearch" (input)="search($event)">
+                                                    </div>
+                                                    <button class="btn btn-reset ml-1" role="button"
+                                                        (click)="resetAllFilter()">Reset</button> -->
+                                                    <!-- <button class="btn btn-secondary ml-1 btn-advnc" data-bs-toggle="collapse"
+                                                        href="#searchDiv" role="button">Advanced Search</button> -->
+                                                </div>
+
+                                            </div>
+                                            <div class="col-auto ml-1 mb-0">
+                                                <div class="btns-grp">
+                                                    <button class="btn btn-success" *ngIf="permissionObj?.add"
+                                                        (click)="openAddEditReviewModal(addEditReview,'')"> Add</button>
+                                                    <!-- <button class="btn btn-info btn-expt" role="button">Export</button> -->
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="bt-1 collapse" id="searchDiv">
+                                        <div class="row form-style pt-4 mt-4"
+                                            style="border-top: 1px solid rgba(76, 78, 100, 0.12);">
+                                            <div class="col-xl-2 col-lg-3 mb-0">
+                                                <div class="form-group form-floating">
+                                                    <input type="text" class="form-control" id="ffname"
+                                                        [(ngModel)]="filterObj.firstName"
+                                                        (input)="advancedFilter('firstName')">
+                                                    <label for="ffname" class="form-label">Filter by First Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-3 mb-0">
+                                                <div class="form-group form-floating">
+                                                    <input type="text" class="form-control" id="flname"
+                                                        [(ngModel)]="filterObj.lastName"
+                                                        (input)="advancedFilter('lastName')">
+                                                    <label for="flname" class="form-label">Filter by Last Name</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- <div class="col-xl-2 col-lg-3">
+                                                <div class="form-floating mb-0">
+                                                    <select class="form-control form-select" id="" [(ngModel)]="filterPlanName" (ngModelChange)="this.getreviewList()">
+                                                        <option value=""> Select</option>
+                                                        <option value="{{item?.plan_name}}" *ngFor="let item of planList; let i=index">{{item?.plan_name}}</option>
+                                                    </select>
+                                                    <label for="" class="form-label">Filter by Plan Name </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-3">
+                                                <div class="form-floating mb-0">
+                                                    <select class="form-control form-select" id="" [(ngModel)]="filterPlanTerm" (ngModelChange)="this.getreviewList()">
+                                                        <option value=""> Select</option>
+                                                        <option value="{{item?.plan_term_month}}" *ngFor="let item of planTermList; let i=index">{{item?.plan_term}}</option>
+                                                    </select>
+                                                    <label for="" class="form-label">Filter by Plan Term </label>
+                                                </div>
+                                            </div> -->
+
+
+                                            <div class="col-xl-2 col-lg-3 mb-0">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="email"
+                                                        [(ngModel)]="filterObj.email" (input)="advancedFilter('email')">
+                                                    <label for="email" class="form-label">Filter by email</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-3 mb-0">
+                                                <div class="form-group form-floating">
+                                                    <input type="text" class="form-control" id="mobile"
+                                                        [(ngModel)]="filterObj.mobile" (input)="advancedFilter('mobile')">
+                                                    <label for="mobile" class="form-label">Filter by mobile No.</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-3 mb-0">
+                                                <div class="form-group form-floating">
+                                                    <input type="text" class="form-control" id="company"
+                                                        [(ngModel)]="filterObj.companyName"
+                                                        (input)="advancedFilter('companyName')">
+                                                    <label for="company" class="form-label">Filter by company name</label>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w80"># </th>
+                                                        <th scope="col" class="w120">Actions</th>
+                                                        <th scope="col" (click)="updateSorting('first_name')">First Name
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('last_name')">Last Name
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('rating')">Rating <span
+                                                            class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('description')">
+                                                            Description <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('review_source')">
+                                                                Source <span class="pi pi-sort short-icon"></span></th>
+                                                       
+                                                        <th scope="col" (click)="updateSorting('created_at')">Created On
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                        <th scope="col" (click)="updateSorting('updated_at')">Updated On
+                                                            <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="reviewList?.length>0">
+                                                    <tr *ngFor="let item of reviewList; let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                        <td>
+                                                            <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="View"
+                                                            data-bs-original-title="View" class="btn btn-sm h-1 btn-view"
+                                                            (click)="openViewAffiliateModal(viewAffiliatesEleRef,item)" >View
+                                                        </button>
+                                                        <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Edit"*ngIf="permissionObj?.edit"
+                                                            data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit"
+                                                            (click)="openAddEditReviewModal(addEditReview,item)">Edit
+                                                        </button>
+                                                        <button type="button" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Delete"*ngIf="permissionObj?.delete"
+                                                            data-bs-original-title="Delete" class="btn btn-sm h-1 btn-del"
+                                                            (click)="deleteReview(item)">Delete</button>
+
+                                                        
+                                                        </td>
+                                                        <td>{{item?.first_name}}</td>
+                                                        <td>{{item?.last_name}}</td>
+                                                        <td>{{item?.rating}}</td>
+                                                        <td> {{ item?.description | slice: 0:60}} {{ item?.description.length > 60 ? '...' : ''}}</td>                                                       
+                                                        <td><span class="badge radius:large py-1 c--mdSky border-txt" *ngIf="item?.review_source==1">Google</span>
+                                                            <span class="badge radius:large py-1 c--mdSky border-txt" *ngIf="item?.review_source==2">Trustpilot</span>
+                                                            <span class="badge radius:large py-1 c--mdSky border-txt" *ngIf="item?.review_source==3">BBB</span></td>  
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                                <tbody *ngIf="reviewList?.length==0">
+                                                    <tr>
+                                                        <td colspan="14" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                    <span>
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                            [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                            [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ================ ADD/EDIT Review  ==================== -->
+
+<ng-template #addEditReview>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Review</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditReviewModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="reviewForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="firstName"
+                                [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }">
+                            <label class="form-label">First Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['firstName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="lastName"
+                                [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }">
+                            <label class="form-label">Last Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['lastName']"></app-validation-error>
+                        </div>
+                    </div>
+                   
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <div class="form-control form-star-ratings">
+                                <label class="static-label">{{isEdit?'':'Set'}} Ratings <span class="c--error">*</span></label>
+                                <star-rating-control class="d-inline-block" formControlName="rating"
+                                (ratingChange)="onRatingChange($event)"></star-rating-control>
+                                <div class="app-validation-error" *ngIf="submitted && f['rating'].errors">
+                                    <div class="my-1 py-1 alert alert-danger" *ngIf="f['rating'].errors['required']"><i class="pi pi-exclamation-circle"></i> Please provide rating</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="source"   [ngClass]="{ 'is-invalid': submitted && f['source'].errors }">
+                                <option> Select</option>
+                                <option value="1">Google</option>
+                                <option value="2">Trustpilot</option>
+                                <option value="3">BBB</option>
+                            </select>
+                            <label for="" class="form-label">Select Source <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['source']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" formControlName="description"
+                                [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+                            <label class="form-label">Description</label>
+                            <app-validation-error [control]="f['description']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1" checked><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditReviewModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading"
+                    class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- ================ VIEW Policy  ==================== -->
+
+<ng-template #viewAffiliatesEleRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Customer Review Information</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="viewAffiliatesModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="fee-details">
+            <ul>
+                <li>First Name : </li>
+                <li>{{viewAffiliatesObj.first_name}}</li>
+            </ul>
+            <ul>
+                <li>Last Name : </li>
+                <li>{{viewAffiliatesObj.last_name}}</li>
+            </ul>
+            <ul>
+                <li>Rating :</li> 
+                <li class="d-flex align-items-end justify-content-end">
+                    
+                    <star-rating [starType]="'svg'" [readOnly]="true" [rating]="viewAffiliatesObj.rating"></star-rating>
+                </li>
+            </ul>
+            <ul>
+                <li>Description : </li>
+                <li>{{viewAffiliatesObj.description}}</li>
+            </ul>
+            <ul>
+                <li> <b>Created By  : </b></li>
+                    <li>  <span><span
+                        *ngIf="viewAffiliatesObj?.create_info">{{viewAffiliatesObj?.create_info?.first_name}}
+                        {{viewAffiliatesObj?.create_info?.last_name}}</span> <span
+                        *ngIf="!viewAffiliatesObj?.create_info">N/A</span></span></li>
+            </ul>
+            <ul>
+                <li>Created On  : </li>
+                <li>{{viewAffiliatesObj?.created_at|date:'MM-dd-YYYY'}}</li>
+            </ul>
+
+            <ul>
+                <li> <b>Updated By  : </b></li>
+                <li>  <span><span
+                        *ngIf="viewAffiliatesObj?.update_info">{{viewAffiliatesObj?.update_info?.first_name}}
+                        {{viewAffiliatesObj?.update_info?.last_name}}</span>
+                    <span *ngIf="!viewAffiliatesObj?.update_info">N/A</span>
+                </span></li>
+            </ul>
+            <ul>
+                <li> <b>Updated On  : </b></li>
+                <li> <span>{{viewAffiliatesObj?.updated_at|date:'MM-dd-YYYY'}}</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="viewAffiliatesModalRef?.hide()">Close</button>
+
+    </div>
+    <!-- (click)="openEditProductModal(addEditProducts,viewObj)" -->
+</ng-template>

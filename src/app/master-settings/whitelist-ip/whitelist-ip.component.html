@@ -1,0 +1,259 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head">
+                                <div class="col-lg-4 mb-0 pl-0">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Manage Whitelist IP </p>
+                                    </div>
+
+                                </div>
+                                <div class="align-items-center col-lg-8 mb-0 pr-0">
+                                    <div class="d-flex justify-content-end">  
+                                        <div class="col-auto mb-0 ml-1">
+                                            <div class="btns-grp">
+                                                <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add" (click)="openaddEditWhiteListIpModal(addEditPlanTerms,'')">Add</button>
+                                             </div>
+                                            
+                                        </div>                                      
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1">
+    
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w60"># <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col">Actions</th>                                                   
+                                                        <th scope="col">IP Address </th>
+                                                        <th scope="col">Created By</th>
+                                                        <th scope="col" (click)="updateSorting('created_at')">Created On
+                                                            <span class="pi pi-sort short-icon"></span></th>
+    
+                                                        <th scope="col">Updated By</th>
+                                                        <th scope="col" (click)="updateSorting('updated_at')">Updated On
+                                                            <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" class="w80"
+                                                            (click)="updateSorting('active_status')">
+                                                            Status <span class="pi pi-sort short-icon"></span></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="whitelistIPList?.length>0">
+                                                    <tr *ngFor="let item of whitelistIPList; let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                        <!-- <td>
+                                                          
+                                                            <button type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Edit"
+                                                                *ngIf="permissionObj?.edit" data-bs-original-title="Edit"
+                                                                class="btn btn-sm h-1 btn-edit"
+                                                                (click)="openaddEditPlanModal(addEditPlanTerms,item)">Edit
+                                                            </button>
+                                                            <button type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Delete"
+                                                                *ngIf="permissionObj?.delete" data-bs-original-title="Delete"
+                                                                class="btn btn-sm h-1 btn-del"
+                                                                (click)="deleteIpAddress(item)">Delete</button>
+                                                        </td>  -->
+                                                        <td>
+                                                            
+                                                            <button type="button" *ngIf="permissionObj?.edit" class="btn btn-sm h-1 btn-edit"  (click)="openaddEditWhiteListIpModal(addEditPlanTerms,item)">Edit</button> 
+                                                            <button type="button" *ngIf="permissionObj?.delete"   class="btn btn-sm h-1 btn-del" (click)="deleteIpAddress(item)">Delete</button>
+                                                          </td>                                                  
+                                                        <td>{{item?.ip_address}}</td>
+                                                        <td><span
+                                                                *ngIf="item?.create_info">{{item?.create_info?.first_name}}
+                                                                {{item?.create_info?.last_name}}</span> <span
+                                                                *ngIf="!item?.create_info">N/A</span></td>
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td><span *ngIf="item?.updated_by">{{item?.update_info?.first_name}}
+                                                                {{item?.update_info?.last_name}}</span> <span
+                                                                *ngIf="!item?.updated_by">N/A</span></td>
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>
+                                                            <div class="form-check form-switch form-switch-sm">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="{{item.module_id}}-status"
+                                                                    (click)="changeActivationStatus($event,item)"
+                                                                    [checked]="item.active_status">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="whitelistIPList?.length==0">
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+    
+                                        </div>
+                                        <span>
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                            [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                            [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ ADD/EDIT Plan Terms  ==================== -->
+
+<ng-template #addEditPlanTerms>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} IP to Whitelist </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="ipAddressForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <!-- <div class="col-12">
+                        <div class="ng-autocomplete">
+                          
+
+                            <ng-autocomplete 
+  [data]="userSearchList" [ngModelOptions]="{standalone: true}"
+  [(ngModel)]="userSearchField"
+  [searchKeyword]="'user_name'"
+  placeholder="Search User"
+  (selected)='selectUser($event)'
+  (inputChanged)='onChangeUserSearch($event)'
+
+  [itemTemplate]="userItemTemplate"
+  [notFoundTemplate]="notFoundTemplate">                                 
+</ng-autocomplete>
+                            <div class="type__loader"></div>                                           
+                            <ng-template #userItemTemplate let-item>
+                                <a *ngIf="showItems" [innerHTML]="item.user_name"></a>
+                       
+                                </ng-template>
+
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div *ngIf="showNotFound" [innerHTML]="notFound"></div>
+                                    </ng-template>
+                        </div>
+                    </div> -->
+                   
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" formControlName="ipAddress"
+                                    [ngClass]="{ 'is-invalid': submitted && f['ipAddress'].errors }">
+                                <label class="form-label">IP Address <span class="c--error">*</span></label>
+                                <app-validation-error [control]="f['ipAddress']"></app-validation-error>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1" checked><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="modalRef?.hide()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update IP Address':'Submit'}} </button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW Plan Terms  ==================== -->
+
+<!-- <ng-template #viewPlanTerms>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Plan Term Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="row">
+                <div class="col-12">
+                    <p> <b>Plan Name :</b> {{viewObj.plan_details?.plan_name}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Home Type :</b> <i
+                            class="pi {{viewObj?.property_type_details?.property_icon}}"></i>{{viewObj?.property_type_details?.property_type}}
+                    </p>
+                </div>
+                <div class="col-6">
+                    <p> <b>Plan Term Name :</b> {{viewObj.plan_term}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Total Months :</b> {{viewObj?.plan_term_month}}</p>
+                </div>
+
+                <div class="col-6">
+                    <p><b>Bonus Month :</b> {{viewObj?.bonus_month}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Price (below 5000 sqft) :</b> {{viewObj?.price_below_5000_sqft | number : '1.2-2'|
+                        currency:'USD'}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Price (Above 5000 sqft) :</b> {{viewObj?.price_above_5000_sqft | number : '1.2-2'|
+                        currency:'USD'}}</p>
+                </div>
+
+                <div class="col-6">
+                    <p><b>Created By :</b> <span *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                            {{viewObj?.create_info?.last_name}}</span> <span *ngIf="!viewObj?.create_info">N/A</span>
+                    </p>
+                </div>
+                <div class="col-6">
+                    <p><b>Created On :</b> {{viewObj?.created_at|date:'MM-dd-YYYY'}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Updated By :</b> <span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}}
+                            {{viewObj?.update_info?.last_name}}</span>
+                        <span *ngIf="!viewObj?.update_info">N/A</span>
+                    </p>
+                </div>
+                <div class="col-6">
+                    <p><b>Updated On :</b> {{viewObj?.updated_at|date:'MM-dd-YYYY'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditPlanModal(addEditPlanTerms,viewObj)"
+            *ngIf="permissionObj?.edit"><i class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template> -->

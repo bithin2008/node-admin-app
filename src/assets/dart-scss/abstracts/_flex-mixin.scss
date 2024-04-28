@@ -1,0 +1,108 @@
+@use './mixin' as *;
+
+
+@mixin flex(){display: -webkit-box; display: -ms-flexbox; display: flex;}
+@mixin flex-grow($grow){-webkit-box-flex: $grow;-ms-flex-positive: $grow;flex-grow: $grow;}
+@mixin flex-direction($dir) {@include prefix(flex-direction, $dir);}
+@mixin flex-wrap($wrap) {@include prefix(flex-wrap, $wrap);}
+@mixin justify-content($cont){-webkit-box-pack: $cont;-moz-box-pack: $cont;-webkit-justify-content: $cont;-ms-flex-pack: $cont;justify-content: $cont;}
+@mixin align-items($item){-webkit-box-align: $item;-moz-box-align: $item;-webkit-align-items: $item;-ms-flex-align: $item;align-items: $item;}
+@mixin align-content($cont) {@include prefix(align-content, $cont);}
+
+
+
+//Get the value for justify-content
+@function flex-jc($key){
+    @if map-has-key($justify, $key) {
+      @return map-get($justify, $key);
+    }
+    @warn "Unknown `#{$key}` in $justify.";
+    @return null;
+  
+  }
+  $justify: (
+    'sa':space-around,
+    'sb':space-between,
+    'se':space-evenly,
+    'c':center,
+    'fs':flex-start,
+    'fe':flex-end
+  );
+  
+  
+  //Get the value for align-items
+  @function flex-ai($key){
+    @if map-has-key($align, $key) {
+      @return map-get($align, $key);
+    }
+    @warn "Unknown `#{$key}` in $align.";
+    @return null;
+  
+  }
+  
+  $align: (
+    'b':baseline,
+    's':stretch,
+    'c':center,
+    'fs':flex-start,
+    'fe':flex-end
+  );
+    
+  
+  //Get the value for direction
+  @function flex-dir($key){
+    @if map-has-key($direction, $key) {
+      @return map-get($direction, $key);
+    }
+    @warn "Unknown `#{$key}` in $direction.";
+    @return null;
+  }
+  
+  $direction: (
+    'r':row,
+    'rr':row-reverse,
+    'c':column,
+    'cr':column-reverse,
+  );
+  
+  
+  @mixin d-flex($dir:row, $jc:fs, $ai:js, $wrap: '') {
+    @include flex();
+    @if ($dir != '') {
+      @include flex-direction(flex-dir($dir));
+    }
+  
+    @if ($jc != '') {
+      @include justify-content(flex-jc($jc));
+    }
+  
+    @if ($ai != '') {
+      @include align-items(flex-ai($ai));
+    }
+  
+    @if ($wrap != '') {
+      @include flex-wrap($wrap);
+    }
+  }
+  
+  
+  @mixin i-flex($dir:row, $jc:fs, $ai:js, $wrap: '') {
+    display: -webkit-inline-box;display: -ms-inline-flexbox;display: inline-flex;
+    @if ($dir != '') {
+      @include flex-direction(flex-dir($dir));
+    }
+  
+    @if ($jc != '') {
+      @include justify-content(flex-jc($jc));
+    }
+  
+    @if ($ai != '') {
+      @include align-items(flex-ai($ai));
+    }
+  
+    @if ($wrap != '') {
+      @include flex-wrap($wrap);
+    }
+  }
+  
+  

@@ -1,0 +1,1863 @@
+<section class="backend__customet-details container-fluid pl-0 pr-0 nomainlayout">
+    <div class="row">
+        <div class="col-12">
+            <div class="dtl-card-list">
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="m438-338 226-226-57-57-169 169-84-84-57 57 141 141Zm42 258q-139-35-229.5-159.5T160-516v-244l320-120 320 120v244q0 152-90.5 276.5T480-80Zm0-84q104-33 172-132t68-220v-189l-240-90-240 90v189q0 121 68 220t172 132Zm0-316Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Total Policies</h6>
+                                <p>{{customerDetails?.policy_list?.length}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="M440-200h80v-40h40q17 0 28.5-11.5T600-280v-120q0-17-11.5-28.5T560-440H440v-40h160v-80h-80v-40h-80v40h-40q-17 0-28.5 11.5T360-520v120q0 17 11.5 28.5T400-360h120v40H360v80h80v40ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-560v-160H240v640h480v-480H520ZM240-800v160-160 640-640Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Policy Value</h6>
+                                <p>{{totalPolicyAmount| currency:'USD'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="M570-104q-23 23-57 23t-57-23L104-456q-11-11-17.5-26T80-514v-286q0-33 23.5-56.5T160-880h286q17 0 32 6.5t26 17.5l352 353q23 23 23 56.5T856-390L570-104Zm-57-56 286-286-353-354H160v286l353 354ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640ZM160-800Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Total Claim</h6>
+                                <p>{{claimList?.length}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Active Claim</h6>
+                                <p>{{activeClaim?.length}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="M560-440q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35ZM280-320q-33 0-56.5-23.5T200-400v-320q0-33 23.5-56.5T280-800h560q33 0 56.5 23.5T920-720v320q0 33-23.5 56.5T840-320H280Zm80-80h400q0-33 23.5-56.5T840-480v-160q-33 0-56.5-23.5T760-720H360q0 33-23.5 56.5T280-640v160q33 0 56.5 23.5T360-400Zm440 240H120q-33 0-56.5-23.5T40-240v-440h80v440h680v80ZM280-400v-320 320Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Premium Due Balance</h6>
+                                <p>{{totalPremiumAmount| currency:'USD'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="dtl-card">
+                    <div class="card-styles">
+                        <div class="card--main-block">
+                            <div class="card_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                                    <path
+                                        d="M160-640h640v-80H160v80Zm-80-80q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v240H160v240h164v80H160q-33 0-56.5-23.5T80-240v-480ZM598-80 428-250l56-56 114 112 226-226 56 58L598-80ZM160-720v480-180 113-413Z" />
+                                </svg>
+                            </div>
+                            <div class="card--main-content">
+                                <h6>Premium Paid Balance</h6>
+                                <p>{{totalPremiumPaidAmount| currency:'USD'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card mt-1">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="links_vw">
+                        <h3>Quick Links</h3>
+                        <div class="btn_grp">
+                            <a class="btn btn-primary btn-mid" (click)="reSendCustomerWelcomeMail()">Send Welcome Mail</a>
+                            <a class="btn btn-primary btn-mid" (click)="navigateToCreatePolicy()">Add Another Property</a>
+                            <a class="btn btn-secondary btn-mid" (click)="openPolicyNoteModal(createPolicyNoteEleRef)">Create Policy Note</a>
+                            <a class="btn btn-info btn-mid hvr:c--whitee" (click)="openPolicyDocModal(policyDocEleRef)">Upload Policy Document</a>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7 mb-35 d-flex flex-column">
+            <div class="detil_hdng">
+                <h3>Customer Details</h3>
+            </div>
+            <div class="card-styles card--customer-info">
+
+                <div class="detls_wrap">
+                    <div class="customer-img">
+                        <img src="./assets/img/people.png" alt="" title="" />
+                    </div>
+                    <h5 class="fw-semibold">{{customerDetails?.first_name}} {{customerDetails?.last_name}}</h5>
+                    <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                        data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit ml-auto" (click)="openAddEditCustomerModal(addEditCustomer,customerDetails)">Edit</button>
+                </div>
+                <!-- (click)="openAddEditCustomerModal(addEditCustomer,item)" -->
+                <div class="detls_table">
+                    <div class="detls_item">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <span class="pl-0">Address:</span>
+                                            <span class="pl-0">{{customerDetails?.address1?customerDetails?.address1:'NA'}}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div>
+                                        <span class="pl-0">State:</span>
+                                        <span class="pl-0">{{customerDetails?.state?customerDetails?.state:'NA'}}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><div><span class="pl-0">Email:</span>
+                                        <span class="pl-0">{{customerDetails?.email}}</span></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><div><span class="pl-0">Alternate Phone No.:</span>
+                                        <span class="pl-0">{{customerDetails?.alternate_phone?(customerDetails?.alternate_phone|phoneUsFormat):'NA'}}</span></div>
+                                    </td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="detls_item">
+                        <table>
+                            <tr>
+                                <td><div><span class="pl-0">City:</span>
+                                    <span class="pl-0">{{customerDetails?.city}}</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div><span class="pl-0">Zip Code:</span>
+                                    <span class="pl-0">{{customerDetails?.zip?customerDetails?.zip:'NA'}}</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div><span class="pl-0">Phone No.:</span>
+                                    <span class="pl-0">{{customerDetails?.mobile|phoneUsFormat}}</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div><span class="pl-0">Source:</span>
+                                    <span class="pl-0">{{customerDetails?.source==0?"Self Customer":"Backend Team"}}</span></div>
+                                </td>
+                            </tr>
+                            
+                            
+                        </table>
+                    </div>
+                   
+                </div>
+                <div class="detls_posted">
+                    <div class="detls_posted_itm">
+                       <p>Created On: <span>{{customerDetails?.created_at |date:"MM-dd-YYYY hh:mm"}}</span> by</p> 
+                       <p>
+                        <span *ngIf="customerDetails?.created_user_info">{{customerDetails?.created_user_info?.first_name}}
+                            {{customerDetails?.created_user_info?.last_name}}</span> 
+                        <span *ngIf="!customerDetails?.created_user_info">N/A</span>
+                       </p>
+                        
+                    </div>
+                    <div class="detls_posted_itm" *ngIf="customerDetails?.update_user_type">
+                        <p>Updated On: <span *ngIf="customerDetails?.updated_user_info">{{customerDetails?.updated_at |date:"MM-dd-YYYY hh:mm"}}</span> 
+                            by</p> 
+                        <p>
+                            <span *ngIf="customerDetails?.updated_user_info">{{customerDetails?.updated_user_info?.first_name}}
+                                        {{customerDetails?.updated_user_info?.last_name}}</span>
+                                   
+                           </p>
+                     </div>
+                </div>
+
+
+                <div class="accptence-box form-style">
+                    <div class="form-checkbox">
+                        <label>
+                          <input type="checkbox" name="acceptence" checked>
+                          <span class="checkmark"></span>
+                          <p>I consent to ALL of First Premier Home Warranty Terms & Conditions & Policy Guidelines.</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-5 mb-35 d-flex flex-column">
+            <div class="detil_hdng">
+                <h3>Saved Cards</h3>
+                <a class="btn btn-success btn-mid hvr:c--whitee" (click)="openAddCardModal(addCardEleRef)">Add New Card</a>
+            </div>
+            <div class="card-styles save_card_data flex-grow-1 flex-shrink-1">
+                <table class="table">
+                    <tbody *ngIf="customerSavedCardList?.length>0">
+                        <tr *ngFor="let item of customerSavedCardList"
+                            class="{{item.primary_card?'active-primary':''}}">
+                            
+                            <td class="pay-card"><span class="payment-icons mastercard">
+                                    <img *ngIf="item?.card_type=='Visa'" src="assets/img/allCardIcon/visa.svg" />
+                                    <img *ngIf="item?.card_type=='MasterCard'"
+                                        src="assets/img/allCardIcon/mastercard.svg" />
+                                    <img *ngIf="item?.card_type=='Discover'"
+                                        src="assets/img/allCardIcon/discover.svg" />
+                                    <img *ngIf="item?.card_type=='AmericanExpress'"
+                                        src="assets/img/allCardIcon/amex.svg" />
+                                    <img *ngIf="item?.card_type=='DinersClub'"
+                                        src="assets/img/allCardIcon/diners.svg" />
+                                    <img *ngIf="item?.card_type!='DinersClub' && item?.card_type!='AmericanExpress' 
+                                            && item?.card_type!='Discover'&& item?.card_type!='MasterCard' 
+                                            && item?.card_type!='Visa'" src="assets/img/allCardIcon/credit-card.svg" />
+                                </span>
+
+                                <p><span>{{item?.card_last_4_digit}}</span>
+                                    <span class="c--expDt">Exp {{ (item?.card_expiry_date | slice: 0:2) + '/' + (item?.card_expiry_date | slice: 2)
+                                    }}</span>
+                                </p>
+                               
+                            </td>
+                           
+                            <td class="set-card">
+                                <div class="form-style">
+                                    <div class="form-radio inline-style mr-0">
+                                        <label class="pl-0">
+                                            <ng-container *ngIf="!item.primary_card">
+                                                <input type="radio" name="" value=""
+                                                    (click)="changePrimaryCard($event,item)"
+                                                    [(ngModel)]="item.primary_card" [checked]="item.primary_card">
+                                             
+                                                <p class="badge text-bg-secondary shadow-sm set-prim-badge">Set as Primary</p>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="item.primary_card">
+                                                <p class="badge text-bg-success shadow-sm">Primary</p>
+                                            </ng-container>
+
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td class="del-card">
+                                <button type="button" (click)="inactiveCardStatus(item)" *ngIf="!item.primary_card" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Delete" class="btn btn-sm btn-del">Delete</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tbody *ngIf="customerSavedCardList?.length==0">
+                        <tr>
+                          <td colspan="8" class="text-center">No data found</td>
+                        </tr>
+                      </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="detil_hdng mt-0">
+                <h3>Policy and Payment Details</h3>
+            </div>
+
+            <div class="card--tab-contents">
+                <!-- Nav tabs -->
+                <div class="card-styles p-0">
+                    <ul class="nav nav-tabs fw--bold fixed-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="nav-link-tab__1" data-bs-toggle="tab"
+                                data-bs-target="#tab-pane__tab-1" type="button" role="tab" aria-controls="tab-1"
+                                aria-selected="true">Policies <span class="badge bg--mdSky">{{customerDetails?.policy_list?.length}}</span></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__8" data-bs-toggle="tab" data-bs-target="#tab-pane__tab-8" type="button" role="tab" aria-controls="tab-8" aria-selected="false">All Policy Notes  <span class="badge {{customersNotesData?.length?'bg--mdSky':'secondary'}}">{{customersNotesData?.length?customersNotesData?.length:0}}</span></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__6" data-bs-toggle="tab" data-bs-target="#tab-pane__tab-6" type="button" role="tab" aria-controls="tab-4" aria-selected="false" >All Policy Documents <span class="badge {{policyDocumentList?.length==0?'secondary':'bg--mdSky'}}">{{policyDocumentList?.length}}</span></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__2" data-bs-toggle="tab"
+                                data-bs-target="#tab-pane__tab-2" type="button" role="tab" aria-controls="tab-2"
+                                aria-selected="false">Bank Payment <span class="badge {{customerDetails?.bank_payment?.length==0?'secondary':'bg--mdSky'}}">{{customerDetails?.bank_payment?.length}}</span></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__3" data-bs-toggle="tab"
+                                data-bs-target="#tab-pane__tab-3" type="button" role="tab" aria-controls="tab-3"
+                                aria-selected="false">Card Payment <span class="badge {{customerDetails?.credit_card_payment?.length==0?'secondary':'bg--mdSky'}}">{{customerDetails?.credit_card_payment?.length}}</span></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__4" data-bs-toggle="tab"
+                                data-bs-target="#tab-pane__tab-4" type="button" role="tab" aria-controls="tab-4"
+                                aria-selected="false">Escrow <span class="badge {{customerDetails?.escrow?.length==0?'secondary':'bg--mdSky'}}">{{customerDetails?.escrow?.length}}</span></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__5" data-bs-toggle="tab"
+                                data-bs-target="#tab-pane__tab-5" type="button" role="tab" aria-controls="tab-5"
+                                aria-selected="false">Do Not Charge  <span class="badge {{customerDetails?.do_not_charge?.length==0?'secondary':'bg--mdSky'}}">{{customerDetails?.do_not_charge?.length}}</span></button>
+                        </li>
+                        
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__7" data-bs-toggle="tab" data-bs-target="#tab-pane__tab-7" type="button" role="tab" aria-controls="tab-7" aria-selected="false">Claims  <span class="badge {{claimList?.length==0?'secondary':'bg--mdSky'}}">{{claimList?.length}}</span></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__9" data-bs-toggle="tab" data-bs-target="#tab-pane__tab-9" type="button" role="tab" aria-controls="tab-9" aria-selected="false">All Payments <span class="badge {{paymentList?.length==0?'secondary':'bg--mdSky'}}">{{paymentList?.length}}</span></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nav-link-tab__10" data-bs-toggle="tab" data-bs-target="#tab-pane__tab-10" type="button" role="tab" aria-controls="tab-10" aria-selected="false">Audit Trail <span class="badge {{customersAuditData?.length==0?'secondary':'bg--mdSky'}}">{{customersAuditData?.length}}</span></button>
+                        </li>
+                      
+                        
+                    </ul>
+                </div>
+
+                <div id="dd-parent" class="card-styles">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!-- Start Policies Tab -->
+                        <div class="tab-pane active" id="tab-pane__tab-1" role="tabpanel" aria-labelledby="tab-1">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="table-responsive more-data-table-2">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th></th> -->
+                                                <th scope="col" class="w80">#</th>
+                                                <th scope="col" class="w120">Actions</th>
+                                                <th scope="col">Policy Status
+                                                </th>
+                                                <th scope="col">Policy No.</th>
+                                                <th scope="col">Plan Name</th>
+                                                <th scope="col">First Name</th>
+                                                <th scope="col">Last Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Phone</th>
+                                                <th scope="col">Zip Code</th>
+                                                <th scope="col">Address </th>
+                                                <th scope="col">State</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Order On</th>
+                                                <th scope="col">Effective From</th>
+                                                <th scope="col">Expiry With Bonus</th>
+                                                <th scope="col">Policy Term</th>
+                                                <th scope="col">SCF</th>
+                                                <th>Source</th>
+                                                <!-- <th>Sales Representative</th> -->
+                                                <!-- <th>Cancellation Form</th> -->
+                                                <th scope="col">Created On</th>
+                                                <th scope="col">Updated On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="customerDetails?.policy_list?.length>0">
+                                            <tr *ngFor="let item of customerDetails?.policy_list; let i=index" [ngClass]="item.is_anamaly==1 ? 'anamaly': ''">
+                                               <!--  <td>
+                                                    <div class="form-style policy_tabl_check">
+                                                        <div class="form-checkbox mr-0">
+                                                            <label>
+                                                                <input type="checkbox" name="selectedAddOnItems" class="selectedAddOnItems" value="43">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td> -->
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <div class="btn-group" dropdown container="#dd-parent">
+                                                        <button id="button-basic" dropdownToggle type="button"
+                                                            class="btn btn-action dropdown-toggle"
+                                                            aria-controls="dropdown-basic">Actions<span
+                                                                class="caret"></span></button>
+                                                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                                                            role="menu" aria-labelledby="button-basic">
+                                                            <li><a class="dropdown-item" type="button"
+                                                                    *ngIf="permissionObj?.add"
+                                                                    (click)="openViewPolicyModal(viewPolicyEleRef,item)">View
+                                                                </a></li>
+                                                            <li><a class="dropdown-item" type="button"
+                                                                    *ngIf="permissionObj?.edit"
+                                                                    (click)="navigateToEditPolicy(item?.policy_id)">Edit</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item" type="button"
+                                                                    (click)="openPolicyNoteModal(createPolicyNoteEleRef,item)"
+                                                                    *ngIf="permissionObj?.add">Add Policy Note</a> </li>
+                                                            <li><a class="dropdown-item" type="button" (click)="openPolicyDocModal(policyDocEleRef,item)"  *ngIf="permissionObj?.add">Upload Policy Document
+                                                                </a>
+                                                            </li>
+                                                               <!-- <li><a class="dropdown-item" type="button">Export to Pdf</a>
+                                                            </li>
+                                                            <li><a class="dropdown-item" type="button">Share Pdf</a>
+                                                            </li>
+                                                          
+                                                            <li><a class="dropdown-item" type="button">Update Policy
+                                                                    Status</a> </li>-->
+                                                            <!-- <li><a class="dropdown-item" type="button"> Renew Policy</a> </li> -->
+                                                            <li *ngIf="item?.policy_status==2 || item?.policy_status==1"><a class="dropdown-item" type="button"   (click)="navigateToCreateClaim(item?.policy_number) ">Add Claim</a> </li> 
+                                                            <ng-container *ngIf="item?.policy_status==4"> <!-- policy_status=  Awaiting Escrow Payment=>4, -->
+                                                               
+                                                                <li><a class="dropdown-item" (click)="generateEscrowInvoice(item?.policy_id,'download')">Download Escrow Receipt</a> </li>
+                                                                <li><a class="dropdown-item" target="_blank" (click)="generateEscrowInvoice(item?.policy_id,'send-mail')">Send Escrow Receipt</a> </li> 
+                                                            </ng-container>
+                                                            <ng-container>  <!--policy_status = Active=>1, 30 Day Wait=>2, -->
+                                                              
+                                                                <li><a class="dropdown-item" (click)="generatePaymentReceipt(item?.policy_id,'download')">Download Payment Receipt</a> </li>
+                                                                <li><a class="dropdown-item" target="_blank" (click)="generatePaymentReceipt(item?.policy_id,'send-mail')">Send Payment Receipt</a> </li> 
+                                                            </ng-container>
+                                                            <li><a type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title=""
+                                                                data-bs-original-title="Anamaly"
+                                                                class="dropdown-item"
+                                                                (click)="markAnamaly(item)">{{item.is_anamaly?'Unmark':'Mark'}} as Anamaly
+                                                                </a>
+                                                            </li>
+                                                            
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    
+                                                        <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item.policy_status_details>{{item.policy_status_details}}</span> -->
+                                                        <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.policy_status_details?.status_color }">{{item?.policy_status_details?.status_name}}</span>
+
+                                                </td>
+                                                <td>
+                                                    <span 
+                                                        class="py-1 c--mdSky">{{item?.policy_number}}
+                                                    </span>
+                                                </td>
+                                                <td><span class="pln-nm {{item?.plan_details?.plan_name  | lowercase}}">{{item?.plan_details?.plan_name}}</span></td>
+                                                <td>{{item?.first_name}}</td>
+                                                <td>{{item?.last_name}}</td>
+                                                <td>{{item?.email}}</td>
+                                                <td>{{item?.mobile | phoneUsFormat}}</td>
+                                                <td>{{item?.billing_zip}}</td>
+                                                <td>{{item?.billing_address1}}</td>
+                                                <td>{{item?.billing_state}}</td>
+                                                <td>{{item?.net_amount| currency:'USD'}}</td>
+                                                <td>{{item?.order_date|date:'MM-dd-YYYY'}}</td>
+                                                <td>{{item?.policy_start_date|date:'MM-dd-YYYY'}}</td>
+                                                <td>{{item?.expiry_with_bonus|date:'MM-dd-YYYY'}}</td>
+                                                <td>{{item?.policy_term}}</td>
+                                                <td>{{item?.pcf | currency:'USD'}}</td>
+                                                <td>{{item?.source==0?"Self Customer":'Backend Team'}}</td>
+                                                <!-- <td>N/A</td>
+                                                <td>N/A</td> -->
+                                                <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                                <td>{{item?.updated_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody *ngIf="customerDetails?.policy_list?.length==0">
+                                            <tr>
+                                                <td colspan="12" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Policies Tab -->
+
+                        <!-- Start Bank  Payment Tab -->
+                        <div class="tab-pane" id="tab-pane__tab-2" role="tabpanel" aria-labelledby="tab-2">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w80" (click)="updateSorting('payment_id')">#</th>
+                                                <th scope="col" class="w180">Actions</th>
+                                                <th scope="col" (click)="updateSorting('policy_number')">Policy No.</th>
+                                                <th scope="col" (click)="updateSorting('payment_type')">Payment type
+                                                </th>
+                                                <th scope="col"> Check No</th>
+                                                <th scope="col" (click)="updateSorting('payment_status')">Payment Status
+                                                </th>
+                                                <th scope="col" (click)="updateSorting('payment_for')">Payment For</th>
+                                                <th scope="col" (click)="updateSorting('re_payment_date')">Expected
+                                                    Payment Date</th>
+                                                <th scope="col" (click)="updateSorting('payment_date')">Payment Success
+                                                    Date</th>
+                                                <th scope="col" (click)="updateSorting('amount')">Amount</th>
+                                               
+                                                <th scope="col" (click)="updateSorting('comments')">Comments</th>
+                                                <th scope="col" (click)="updateSorting('created_at')">Created On</th>
+                                                <th scope="col" (click)="updateSorting('updated_at')">Updated On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="customerDetails?.bank_payment?.length>0">
+                                            <tr *ngFor="let item of customerDetails?.bank_payment; let i=index" [ngClass]="item.is_anamaly==1 ? 'anamaly': ''">
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <button type="button" *ngIf="permissionObj?.edit"
+                                                        class="btn btn-sm h-1 btn-edit"
+                                                        (click)="openEditPaymentModal(editPaymentEleRef,item)">Edit</button>
+                                                    <!-- brd 4.2.6 -->
+                                                </td>
+
+                                                <td>
+                                                    <span
+                                                        class="py-1 c--mdSky">{{item?.policy_number}}
+                                                    </span>
+                                                </td>
+                                                <td>{{item?.payment_type==1?'CREDIT CARD':'BANK ACH'}}</td>
+                                                <td>{{item?.cheque_no?item?.cheque_no:'N/A'}}</td>
+                                                <td>
+                
+                                                    <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.payment_status_details?.status_color }">{{item.payment_status_details?.status_name}}</span>
+                                                </td>
+
+                                                <td>{{item?.manual_payment_type==0?'Policy':item?.manual_payment_type==1?'Ticket':'N/A'}}
+                                                </td>
+                                                <td><span
+                                                        *ngIf="item?.re_payment_date">{{item?.re_payment_date|date:'MM-dd-YYYY'}}</span>
+                                                    <span *ngIf="!item?.re_payment_date">N/A</span>
+                                                </td>
+                                                <td>{{item?.payment_date|date:'MM-dd-YYYY'}}</td>
+
+                                                <td>{{item?.amount| currency:'USD'}}</td>
+                                                
+                                                <td>{{item?.comments?item?.comments:'N/A'}}</td>
+                                                <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                                <td>{{item?.updated_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                        <tbody *ngIf="customerDetails?.bank_payment?.length==0">
+                                            <tr>
+                                                <td colspan="12" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Bank Payment Tab -->
+                        <!-- Start Credit Card Payment Tab -->
+                        <div class="tab-pane" id="tab-pane__tab-3" role="tabpanel" aria-labelledby="tab-3">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w80">#</th>
+                                                <th scope="col" class="w180">Actions</th>
+                                                <th scope="col">Policy No.</th>
+                                              
+                                                <th scope="col">Recurring Type</th>
+                                                <th scope="col">Payment Status</th>
+                                                <th scope="col">Schedule Payment</th>
+
+                                                <th scope="col">Expected Payment Date</th>
+                                                <th scope="col">Successfully Payment Date</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Payment type</th>
+                                                <th scope="col">Transaction ID</th>
+                                                <th scope="col">Card No.</th>
+
+                                                <th scope="col">Created By</th>
+                                                <th scope="col">Updated By</th>
+                                                <th scope="col">Created On</th>
+                                                <th scope="col">Updated On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="customerDetails?.credit_card_payment?.length>0">
+                                            <tr *ngFor="let item of customerDetails?.credit_card_payment; let i=index" [ngClass]="item.is_anamaly==1 ? 'anamaly': ''">
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <button type="button" *ngIf="permissionObj?.edit && item.payment_status!=1 && item.payment_status!=2" class="btn btn-sm h-1 btn-edit"  (click)="openEditPaymentModal(editPaymentEleRef,item)">Edit</button>
+                                                    <span *ngIf=" item.payment_status==1 ||  item.payment_status==2">N/A</span>
+                                                </td>
+
+                                                <td>
+                                                    <span 
+                                                        class="py-1 c--mdSky">{{item?.policy_number}}
+                                                    </span>
+                                                </td>
+                                              
+                                                <td>{{item?.recurring_type==1?'Monthly':item?.recurring_type==0?'Yearly':'N/A'}}
+                                                </td>
+                                                <td>
+                                                    <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.payment_status_details?.status_color }">{{item.payment_status_details?.status_name}}</span>
+                                                    <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item.payment_status_details>{{item.payment_status_details}}</span> -->
+                                                </td>
+
+                                                <td>
+                                                    <div class="form-check form-switch form-switch-sm form-switch-enable-disable"
+                                                        *ngIf="item?.payment_status==4  || item?.payment_status==5">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="{{item.payment_id}}-status"
+                                                            (click)="changeCreditCardPaymentStatus($event,item)"
+                                                            [checked]="item?.payment_status==4">
+                                                    </div>
+                                                    <span
+                                                        *ngIf="item?.payment_status!=4  && item?.payment_status!=5">N/A</span>
+                                                </td>
+                                                <td>{{item?.payment_date|date:'MM-dd-YYYY'}}</td>
+                                                <td><span *ngIf="!item?.payment_successfull_date">N/A</span>
+                                                    <span
+                                                        *ngIf="item?.payment_successfull_date">{{item?.payment_successfull_date|date:'MM-dd-YYYY'}}</span>
+                                                </td>
+                                                <td>{{item?.amount| currency:'USD'}}</td>
+                                                <td>{{item?.payment_type==1?'CREDIT CARD':'BANK ACH'}}</td>
+                                                <td>{{item?.transaction_no?item?.transaction_no:'N/A'}}</td>
+                                                <td>{{item?.card_number}}</td>
+                                                <td>
+                                                    <span class="pl-0" *ngIf="item?.created_user_info">
+                                                        {{item?.created_user_info?.first_name}}{{item?.created_user_info?.last_name}}
+                                                    </span>
+                                                    <span *ngIf="!item?.created_user_info">N/A</span>
+                                                </td>
+                                                <td>
+                                                    <span class="pl-0"
+                                                        *ngIf="item?.updated_user_info">{{item?.updated_user_info?.first_name}} {{item?.updated_user_info?.last_name}}</span>
+                                                    <span class="pl-0" *ngIf="!item?.updated_user_info">N/A</span>
+                                                </td>
+
+                                                <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                                <td>{{item?.updated_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                        <tbody *ngIf="customerDetails?.credit_card_payment?.length==0">
+                                            <tr>
+                                                <td colspan="10" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Credit Card Payment Tab -->
+
+                        <!-- Start Escrow Payment Tab -->
+                        <div class="tab-pane" id="tab-pane__tab-4" role="tabpanel" aria-labelledby="tab-4">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w80">#</th>
+                                                <th scope="col" class="w180">Actions</th>
+                                                <th scope="col">Policy No.</th>
+                                                <!-- <th scope="col">Policy Status</th> -->
+                                                <th scope="col">Recurring Type</th>
+                                                <th scope="col">Payment Status</th>
+                                                <th scope="col">Schedule Payment</th>
+
+                                                <th scope="col">Expected Payment Date</th>
+                                                <th scope="col">Successfully Payment Date</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Payment type</th>
+
+                                                <th scope="col">Created On</th>
+                                                <th scope="col">Updated On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="customerDetails?.escrow?.length>0">
+                                            <tr *ngFor="let item of customerDetails?.escrow; let i=index" [ngClass]="item.is_anamaly==1 ? 'anamaly': ''">
+
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <button type="button"
+                                                        *ngIf="permissionObj?.edit &&  item?.payment_status!=1"
+                                                        class="btn btn-sm h-1 btn-edit"
+                                                        (click)="openEditPaymentModal(editPaymentEleRef,item)">Edit</button>
+                                                        <span *ngIf="item?.payment_status==1">N/A</span>
+                                                </td>
+
+                                                <td>
+                                                    <span 
+                                                        class="py-1 c--mdSky">{{item?.policy_number}}
+                                                    </span>
+                                                </td>
+                                                        
+                                                <td>{{item?.recurring_type==1?'Monthly':item?.recurring_type==0?'Yearly':'N/A'}}</td>
+                                                <td>
+                            
+                                                    <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.payment_status_details?.status_color }">{{item.payment_status_details?.status_name}}</span>
+                                                    <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item.payment_status_details>{{item.payment_status_details}}</span> -->
+                                                </td>
+
+                                                <td>
+                                                    <span
+                                                        *ngIf="item?.payment_status!=4  && item?.payment_status!=5">N/A</span>
+                                                    <div class="form-check form-switch form-switch-sm form-switch-enable-disable"
+                                                        *ngIf="item?.payment_status==4  || item?.payment_status==5">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="{{item.payment_id}}-status"
+                                                            (click)="changeCreditCardPaymentStatus($event,item)"
+                                                            [checked]="item?.payment_status==4">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        *ngIf="item?.payment_date">{{item?.payment_date|date:'MM-dd-YYYY'}}</span>
+                                                    <span *ngIf="!item?.payment_date">N/A</span>
+                                                </td>
+                                                <td><span *ngIf="!item?.payment_successfull_date">N/A</span>
+                                                    <span
+                                                        *ngIf="item?.payment_successfull_date">{{item?.payment_successfull_date|date:'MM-dd-YYYY'}}</span>
+                                                </td>
+
+                                                <td>{{item?.amount| currency:'USD'}}</td>
+                                                <td>Escrow</td>
+
+                                                <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                                <td>{{item?.updated_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                        <tbody *ngIf="customerDetails?.escrow?.length==0">
+                                            <tr>
+                                                <td colspan="12" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Escrow Payment Tab -->
+
+                        <!-- Start Do Not Charge Payment Tab -->
+                        <div class="tab-pane" id="tab-pane__tab-5" role="tabpanel" aria-labelledby="tab-5">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w80">#</th>
+                                                <th scope="col" class="w180">Actions</th>
+                                                <th scope="col">Policy No.</th>
+                                               
+                                                <th scope="col">Recurring Type</th>
+                                                <th scope="col">Payment Status</th>
+                                                <!-- <th scope="col">Schedule Payment</th> -->
+
+                                                <th scope="col">Expected Payment Date</th>
+                                                <th scope="col">Successfully Payment Date</th>
+                                                <th scope="col">Created By</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Payment type</th>
+                                                <!-- <th scope="col">Transaction ID</th>
+                                                <th scope="col">Card No.</th> -->
+
+                                                <th scope="col">Created On</th>
+                                                <th scope="col">Updated On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="customerDetails?.do_not_charge?.length>0">
+                                            <tr *ngFor="let item of customerDetails?.do_not_charge; let i=index" [ngClass]="item.is_anamaly==1 ? 'anamaly': ''">
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <button type="button" *ngIf="permissionObj?.edit"
+                                                        class="btn btn-sm h-1 btn-edit"
+                                                        (click)="openEditPaymentModal(editPaymentEleRef,item)">Edit</button>
+                                                </td>
+
+                                                <td>
+                                                    <span 
+                                                        class="py-1 c--mdSky">{{item?.policy_number}}
+                                                    </span>
+                                                </td>
+                                                        
+                                                <td>{{item?.recurring_type==1?'Monthly':item?.recurring_type==0?'Yearly':'N/A'}}
+                                                </td>
+                                                <td>
+                                                   
+                                                    <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.payment_status_details?.status_color }">{{item.payment_status_details?.status_name}}</span>
+                                                    <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item.payment_status_details>{{item.payment_status_details}}</span> -->
+                                                </td>
+
+                                                <!-- <td>
+                                                    <div class="form-check form-switch form-switch-sm form-switch-enable-disable"
+                                                        *ngIf="item?.payment_status==4  || item?.payment_status==5">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="{{item.payment_id}}-status"
+                                                            (click)="changeCreditCardPaymentStatus($event,item)"
+                                                            [checked]="item?.payment_status==4">
+                                                    </div>
+                                                </td> -->
+                                             
+                                                <td><span *ngIf="!item?.payment_date">N/A</span>
+                                                    <span
+                                                        *ngIf="item?.payment_date">{{item?.payment_date|date:'MM-dd-YYYY'}}</span>
+                                                </td>
+                                                <td><span *ngIf="!item?.payment_successfull_date">N/A</span>
+                                                    <span
+                                                        *ngIf="item?.payment_successfull_date">{{item?.payment_successfull_date|date:'MM-dd-YYYY'}}</span>
+                                                </td>
+                                                <td>{{item?.created_user_info?.first_name}}
+                                                    {{item?.created_user_info?.last_name}}</td>
+                                                <td>{{item?.amount| currency:'USD'}}</td>
+                                                <td>{{item?.payment_type==1?'CREDIT CARD':'BANK ACH'}}</td>
+                                                <!-- <td>{{item?.transaction_no?item?.transaction_no:'N/A'}}</td>
+                                                <td>{{item?.card_number}}</td> -->
+
+                                                <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                                <td>{{item?.updated_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                        <tbody *ngIf="customerDetails?.do_not_charge?.length==0">
+                                            <tr>
+                                                <td colspan="12" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Do Not Charge Payment Tab -->
+
+                        <!-- Start policy documents tab -->
+                        <div class="tab-pane" id="tab-pane__tab-6" role="tabpanel" aria-labelledby="tab-6">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w80">#</th>
+                                                <th scope="col" class="w180">Actions</th>
+                                                <th scope="col">Policy No.</th>
+                                                <th scope="col">Policy Status</th>
+                                                <th scope="col">Title</th>
+                                                <th scope="col">Created By</th>                                               
+                                                <th scope="col">Created On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="policyDocumentList?.length>0">
+                                            <tr *ngFor="let item of policyDocumentList; let i=index" [ngClass]="item.policy_details?.is_anamaly==1 ? 'anamaly': ''">
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <a href="{{item?.document}}" target="_blank" [download]="item?.document" *ngIf="permissionObj.view" (click)="downloadPolicyDocument(item?.document)" class="btn btn-sm h-1 btn-outline-success text-success hvr:c--whitee">Download File</a>
+                                                </td>
+
+                                                <td>
+                                                    <span 
+                                                        class="py-1 c--mdSky">{{item?.policy_details?.policy_number}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    
+
+                                                        <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item?.policy_details?.policy_status_details>{{item?.policy_details?.policy_status_details}}</span> -->
+                                                        <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.policy_status_details?.status_color }">{{item?.policy_status_details?.status_name}}</span>
+
+                                                </td>
+                                                <td>{{item?.title}}</td>
+                                                <td>{{item?.created_user_info?.first_name}}
+                                                    {{item?.created_user_info?.last_name}}</td>
+                                                <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                               
+                                            </tr>
+
+                                        </tbody>
+                                        <tbody *ngIf="policyDocumentList?.length==0">
+                                            <tr>
+                                                <td colspan="10" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End policy documents tab -->
+                        <!-- Start Requested claim tab -->
+                        <div class="tab-pane" id="tab-pane__tab-7" role="tabpanel" aria-labelledby="tab-7">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w80">#</th>
+                                                <th scope="col" class="w120">Actions</th>
+                                                <th scope="col">Claim Ticket Status </th>
+                                                <th scope="col">Claim No.</th>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">Issue Details</th>
+                                                <th scope="col">Priority</th>
+                                                <th scope="col">Plan Name</th>
+                                                <th scope="col">Policy Number</th>
+                                                <th scope="col">First Name </th>
+                                                <th scope="col">Last Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Mobile No.</th>
+                                                <th scope="col">Zip Code</th>
+                                                <th scope="col">Address </th>
+                                                <th scope="col">State</th>                                                                                                   
+                                                <th>Source</th> 
+                                                <th scope="col">Created On</th>
+                                                <th scope="col">Updated On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="claimList?.length>0">
+                                            <tr *ngFor="let item of claimList; let i=index" [ngClass]="item.policy_details?.is_anamaly==1 ? 'anamaly': ''">
+                                                <td>{{i+1}}</td>
+                                                <td>
+                                                    <a (click)="navigateToEditClaim(item?.claim_id)"title="" *ngIf="permissionObj?.edit"  class="btn btn-sm h-1 btn-edit d">Edit</a>
+                                                </td>
+                                                <td>
+                                                    
+                                                    <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.claim_ticket_status_details?.status_color }">{{item?.claim_ticket_status_details?.ticket_status}}</span>
+                                                </td>
+                                                <td><span  (click)="navigateToEditClaim(item?.claim_id)" class="badge radius:large py-1 c--mdSky border-txt ng-star-inserted" role="button" >{{item?.ticket_no}}</span></td>
+                                                <td>{{item?.product_details?.product_name}}</td>
+                                                <td>{{item?.issue_details}}</td>
+                                                <td>{{item?.priority}}</td>
+                                                <td><span class="pln-nm {{item?.policy_details?.plan_details?.plan_name  | lowercase}}">{{item?.policy_details?.plan_details?.plan_name}}</span></td>
+                                                <td><span class="py-1 c--mdSky">{{item?.policy_details?.policy_number}}</span></td>
+                                                <td>{{item?.policy_details?.first_name}}</td>
+                                                <td>{{item?.policy_details?.last_name}}</td>
+                                                <td>{{item?.policy_details?.email}}</td>
+                                                <td>{{item?.policy_details?.mobile|phoneUsFormat}}</td>
+                                                <td>{{item?.policy_details?.billing_zip}}</td>
+                                                <td>{{item?.policy_details?.billing_address1}}</td>
+                                                <td>{{item?.policy_details?.billing_state}}</td>
+                                                
+                                                <!-- <td>N/A</td>
+                                                <td>N/A</td>-->
+                                                <td>{{item?.source==0?"Self Customer":'Backend Team'}}</td>
+                                                <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                                <td>{{item?.updated_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                            </tr>
+                
+                                        </tbody>
+                                        <tbody *ngIf="claimList?.length==0">
+                                            <tr>
+                                                <td colspan="14" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Requested claim tab -->
+                        <!-- Start Policy Note tab -->
+                        <div class="tab-pane" id="tab-pane__tab-8" role="tabpanel" aria-labelledby="tab-8">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w80">#</th>
+                                                <th scope="col">Policy No.</th>
+                                                <th scope="col">Policy Status</th>
+                                                <th scope="col">Note</th>
+                                                <th scope="col">Created By</th>                                               
+                                                <th scope="col">Created On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="customersNotesData?.length>0">
+                                            <tr *ngFor="let item of customersNotesData; let i=index" [ngClass]="item.policy_details?.is_anamaly==1 ? 'anamaly': ''">
+                                                <td>{{i+1}}</td>
+                                                <td><span class="py-1 c--mdSky">{{item?.policy_details?.policy_number}}</span></td>
+                                                <td> 
+                                                   
+                        
+                                                    <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=item?.policy_details?.policy_status_details>{{item?.policy_details?.policy_status_details}}</span> -->
+                                                    <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.policy_status_details?.status_color }">{{item?.policy_status_details?.status_name}}</span>
+
+                                                </td>
+                                                <td>{{item?.notes}}</td>
+                                                <td>{{item?.created_user_info?.first_name}}
+                                                    {{item?.created_user_info?.last_name}}</td>
+                                                <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                                                                               
+                                                
+                                            </tr>
+                
+                                        </tbody>
+                                        <tbody *ngIf="customersNotesData?.length==0">
+                                            <tr>
+                                                <td colspan="14" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Policy Note tab -->
+                         <!-- Start Audit  trail  tab -->
+                         <div class="tab-pane" id="tab-pane__tab-10" role="tabpanel" aria-labelledby="tab-10">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="audit-table">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w80">#</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Created By</th>                                               
+                                                <th scope="col">Created On</th>
+                                                <th scope="col">Updated On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="customersAuditData?.length>0">
+                                            <tr *ngFor="let item of customersAuditData; let i=index">
+                                                <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                <td class="note-col">{{item?.description}}</td>
+                                                <td>
+                                                    <span *ngIf="item?.create_user_type==1 || item?.create_user_type==3">{{item?.name?item?.name:'N/A'}}</span> 
+                                                    <span *ngIf="item?.create_user_type==2 ">{{item?.created_user_info?.first_name?item?.created_user_info?.first_name:'N/A'}} {{item?.created_user_info?.last_name}}</span>
+                                            </td>
+                                                 
+
+                                                <td>{{item?.created_at| date:'MM-dd-YYYY hh:mm'}}</td>                                               
+                                                <td>{{item?.updated_at| date:'MM-dd-YYYY hh:mm'}}</td> 
+                                            </tr>                
+                                        </tbody>
+                                        <tbody *ngIf="customersAuditData?.length==0">
+                                            <tr>
+                                                <td colspan="14" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                   
+                                </div>
+                                
+                            </div>
+                            <span >
+                                <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                            </span>
+                        </div>
+                         <!-- End Audit  trail  tab -->
+                         <!-- start payment history tab -->
+                         <div class="tab-pane" id="tab-pane__tab-9" role="tabpanel" aria-labelledby="tab-9">
+                            <div class="table-style table-style-1 table-layout-fixed">
+                                <div class="">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="w60">#</th>
+                                                <th scope="col">Policy Number</th>
+                                                <th scope="col">Payment Status</th>
+                                                <th scope="col">Check Number</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Payment Type</th>
+                                                <th scope="col">Expected Payment Date</th>
+                                                <th scope="col">Successfully Payment Date </th>
+                                                <th scope="col">Created By</th>
+                                                <th scope="col">Updated By</th>
+                                                <th scope="col">Created On</th>
+                                                <th scope="col">Updated On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="paymentList?.length>0">
+                                            <tr *ngFor="let item of paymentList; let i=index" [ngClass]="item.is_anamaly==1 ? 'anamaly': ''">
+                                                <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>  
+                                                <td>
+                                                    <span 
+                                                        class="py-1 c--mdSky" >{{item?.policy_number}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.payment_status_details?.status_color }">{{item.payment_status_details?.status_name}}</span>
+                            
+                                                </td>
+                                                <td> {{item?.cheque_no?item?.cheque_no:'N/A'}}</td>
+                                                <td> {{item?.amount| currency:'USD'}}</td>
+                                                <td> 
+                                                    <span>{{item?.payment_type_details}}</span>
+                                                </td>
+                                                <td> {{item.payment_date?(item.payment_date | date:'MM-dd-YYYY'):'N/A'}}</td>
+                                                <td> <span *ngIf="item?.payment_successfull_date"> {{item?.payment_successfull_date | date:'MM-dd-YYYY'}}</span>
+                                                <span *ngIf="!item?.payment_successfull_date">N/A</span></td>
+                                                <td>
+                                                    <span class="pl-0" *ngIf="item?.created_user_info">
+                                                        {{item?.created_user_info?.first_name}}{{item?.created_user_info?.last_name}}
+                                                    </span>
+                                                    <span *ngIf="!item?.created_user_info">N/A</span>
+                                                </td>
+                                                <td>
+                                                    <span class="pl-0"
+                                                        *ngIf="item?.updated_user_info">{{item?.updated_user_info?.first_name}} {{item?.updated_user_info?.last_name}}</span>
+                                                    <span class="pl-0" *ngIf="!item?.updated_user_info">N/A</span>
+                                                </td>
+                                                <td>{{item?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+
+                                                <td>{{item?.updated_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                        <tbody *ngIf="paymentList?.length==0">
+                                            <tr>
+                                                <td colspan="15" class="text-center">No data found</td>
+                                            </tr>
+                                        </tbody>
+                                    </table> 
+                                </div>
+                            </div>
+                        </div>
+                      <!-- end payment history  trail  tab -->
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================ VIEW Policy  ==================== -->
+
+<ng-template #viewPolicyEleRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Policy Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="viewPolicyModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row modal-row">
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky">Policy Information</h6>
+                    </div> 
+                    <div class="modal_lg_table">
+                        <div class="modal_table_scrol">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td [width]="150">Policy Status :</td>
+                                        <td>
+                                           
+    
+                                            <!-- <span class="badge radius:tiny size:tiny padding:tiny" [attr.data-status]=viewPolicyObj?.policy_status_details>{{viewPolicyObj?.policy_status_details}}</span> -->
+                                            <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':viewPolicyObj?.policy_status_details?.status_color }">{{viewPolicyObj?.policy_status_details?.status_name}}</span>
+                                        </td>
+    
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Policy No :</td>
+                                        <td class="c--mdSky">{{viewPolicyObj.policy_number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Policy Term :</td>
+                                        <td>{{viewPolicyObj?.policy_term}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Plan Name :</td>
+                                        <td><span class="pln-nm {{viewPolicyObj?.plan_details?.plan_name  | lowercase}}">{{viewPolicyObj?.plan_details?.plan_name}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Policy Amount :</td>
+                                        <td>{{viewPolicyObj?.policy_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="200">Total Add-on Amount :</td>
+                                        <td>{{viewPolicyObj?.addon_coverage_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="200">Surcharge Amount :</td>
+                                        <td>{{viewPolicyObj?.surcharge_amount?viewPolicyObj?.surcharge_amount:0 |
+                                            currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Sales Tax :</td>
+                                        <td>{{viewPolicyObj?.tax_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Grand Total :</td>
+                                        <td>{{viewPolicyObj?.net_amount | currency:'USD'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Bonus Month :</td>
+                                        <td>{{viewPolicyObj?.bonus_month}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Order Date :</td>
+                                        <td>{{viewPolicyObj?.order_date |date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Effective From :</td>
+                                        <td>{{viewPolicyObj?.policy_start_date|date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Expiry On :</td>
+                                        <td>{{viewPolicyObj?.policy_expiry_date|date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="200">Expiry With Bonus :</td>
+                                        <td>{{viewPolicyObj?.expiry_with_bonus|date:'MM-dd-YYYY'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="200">Day's Remaining :</td>
+                                        <td>{{viewPolicyObj.policy_days_remaining}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Property Type :</td>
+                                        <td>{{viewPolicyObj?.property_type_details?.property_type}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Property Size :</td>
+                                        <td>{{viewPolicyObj?.property_size_id==0?'Under 5,000 sq.ft':viewPolicyObj?.property_size_id==1?'Over 5,000 sq. ft':'N/A'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Source :</td>
+                                        <td>{{viewPolicyObj?.source==0?"Self Customer":'Backend Team'}}</td>
+    
+                                    </tr>
+    
+                                    <tr>
+                                        <td [width]="150">Created By :</td>
+                                        <td>
+                                            <span
+                                                *ngIf="viewPolicyObj?.created_user_info">{{viewPolicyObj?.created_user_info?.first_name}}
+                                                {{viewPolicyObj?.created_user_info?.last_name}}</span>
+                                            <span *ngIf="!viewPolicyObj?.created_user_info">N/A</span>
+                                        </td>
+    
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Created On :</td>
+                                        <td>{{viewPolicyObj?.created_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Updated By :</td>
+                                        <td><span
+                                                *ngIf="viewPolicyObj?.updated_user_info">{{viewPolicyObj?.updated_user_info?.first_name}}
+                                                {{viewPolicyObj?.updated_user_info?.last_name}}</span>
+                                            <span *ngIf="!viewPolicyObj?.updated_user_info">N/A</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Updated On :</td>
+                                        <td>{{viewPolicyObj?.updated_at|date:'MM-dd-YYYY hh:mm'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky">Property Information</h6>
+                    </div>
+                    <div class="modal_lg_table">
+                        <div class="modal_table_scrol">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td [width]="150">Name :</td>
+                                        <td>{{viewPolicyObj.first_name}} {{viewPolicyObj.last_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Email :</td>
+                                        <td>{{viewPolicyObj?.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Mobile :</td>
+                                        <td>{{viewPolicyObj?.mobile |phoneUsFormat}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="150">Alternate Mobile :</td>
+                                        <td>
+                                            <span
+                                                *ngIf="viewPolicyObj?.alternate_phone">{{viewPolicyObj?.alternate_phone|phoneUsFormat}}</span>
+                                            <span *ngIf="!viewPolicyObj?.alternate_phone">N/A</span>
+                                        </td>
+                                    </tr>
+    
+                                    <tr>
+                                        <td [width]="150">Address :</td>
+                                        <td>{{viewPolicyObj?.billing_address1}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="100">Zip :</td>
+                                        <td>{{viewPolicyObj?.billing_zip}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="100">State :</td>
+                                        <td>{{viewPolicyObj?.billing_state}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td [width]="100">City :</td>
+                                        <td>{{viewPolicyObj?.billing_city}}</td>
+                                    </tr>
+    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky">Base Products</h6>
+                    </div>
+                    <div class="modal_lg_table">
+                        <div class="modal_table_scrol">
+                            <table>
+                                <tbody>
+                                    <tr *ngFor="let item of viewPolicyObj?.policy_product_list">
+                                        <ng-container *ngIf="item?.product_details?.product_type==1">
+                                            <td>{{item?.product_details?.product_name}}</td>
+                                        </ng-container>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 modal-lg_table">
+                <div class="card-styles">
+                    <div class="card--main-block card-header">
+                        <h6 class="c--mdSky">Add-On Products</h6>
+                    </div>
+                    <div class="modal_lg_table">
+                        <div class="modal_table_scrol">
+                            <table>
+                                <tbody>
+                                    <tr *ngFor="let item of viewPolicyObj?.policy_product_list">
+                                        <ng-container *ngIf="item?.product_details?.product_type==0">
+                                            <td>{{item?.product_details?.product_name}}</td>
+                                        </ng-container>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewPolicyModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" *ngIf="permissionObj?.edit"
+            (click)="navigateToEditPolicy(viewPolicyObj?.policy_id)"><i class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+    <!-- (click)="openEditProductModal(addEditProducts,viewObj)" -->
+</ng-template>
+
+<!-- ================ UPDATE PAYMENT  ==================== -->
+
+<ng-template #editPaymentEleRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Edit {{editPaymentObj.payment_type==1?'Credit Card':editPaymentObj.payment_type==2?'Bank':editPaymentObj.payment_type==3?'Escrow':editPaymentObj.payment_type==4?'Do Not Charge':''}} Payment</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeEditPaymentModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="paymentForm" class="form-style flow-rootX app-form unauth-form-max-w"
+        (ngSubmit)="updatePayment()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-6 mb-0" *ngIf="editPaymentObj.payment_type==4">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="payment_type"
+                                name="payment_type"
+                                [ngClass]="{ 'is-invalid': submittedPayment && f['payment_type'].errors }"
+                                (change)="onChangePaymentType()">
+                                <option [value]="1">Credit Card</option>
+                                <option [value]="2">Bank ACH</option>
+                            </select>
+                            <label class="form-label">Payment Type <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['payment_type']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0" *ngIf="editPaymentObj.payment_type==2 || editPaymentObj.payment_type==3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="cheque_no" name="cheque_no"
+                                [ngClass]="{ 'is-invalid': submittedPayment && f['cheque_no'].errors }">
+                            <label class="form-label">Check No. <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['cheque_no']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0" *ngIf="editPaymentObj.payment_type==4">
+                        <div class="form-floating" *ngIf="f['payment_type'].value==2">
+                            <input type="text" class="form-control" formControlName="cheque_no" name="cheque_no"
+                                [ngClass]="{ 'is-invalid': submittedPayment && f['cheque_no'].errors }">
+                            <label class="form-label">Check No. <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['cheque_no']"></app-validation-error>
+                        </div>
+                        <div class="form-floating" *ngIf="f['payment_type']?.value==1">
+                            <input type="text" class="form-control" formControlName="transaction_no" name="transaction_no"
+                                [ngClass]="{ 'is-invalid': submittedPayment && f['transaction_no'].errors }">
+                            <label class="form-label">Transaction No.<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['transaction_no']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="amount" name="amount"
+                                [ngClass]="{ 'is-invalid': submittedPayment && f['amount'].errors }" min="0">
+                            <label class="form-label">Amount ($) <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['amount']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" [readonly]="true" class="form-control" id="payment_date"
+                                formControlName="payment_date" bsDatepicker onkeydown="return false"
+                                (bsValueChange)="changeDate($event)"
+                                onkeydown="return false"
+                                [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'MM-DD-YYYY',showWeekNumbers: false  }"
+                                autocomplete="off" name="payment_date"
+                                [ngClass]="{ 'is-invalid': submittedPayment && f['payment_date'].errors }">
+                            <label class="form-label">Expected Payment Date  <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['payment_date']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0" *ngIf="editPaymentObj.payment_type==2 || editPaymentObj.payment_type==3||editPaymentObj.payment_type==4">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="payment_status"
+                                name="payment_status"
+                                [ngClass]="{ 'is-invalid': submittedPayment && f['payment_status'].errors }"
+                                (change)="onChangePaymentStatus()">
+
+                                <!-- <option [value]="1"><span *ngIf="editPaymentObj.payment_type==3">Received</span> <span
+                                        *ngIf=" editPaymentObj.payment_type!=3">Success</span></option>
+                                <option [value]="2" *ngIf="editPaymentObj.payment_type!=3">Failed</option>
+                                <option [value]="3">Cancelled</option>
+                                <option [value]="4">Pending</option> 
+                                <option [value]="5">Deactivate</option> -->
+
+
+                                <ng-container let *ngFor="let item of paymentStatusList">
+                                    <option [value]="item.value" *ngIf="item.value==1">
+                                        <span *ngIf="editPaymentObj.payment_type==3">Received</span> 
+                                        <span *ngIf=" editPaymentObj.payment_type!=3">{{item.status_name}}</span>
+                                    </option>
+                                    <option [value]="item.value" *ngIf="editPaymentObj.payment_type!=3 && item.id==2">{{item.status_name}}</option>
+
+                                    <option [value]="item.value" *ngIf="item.value==3">{{item.status_name}}</option>
+                                    <option [value]="item.value" *ngIf="item.value==4">{{item.status_name}}</option> 
+                                    <option [value]="item.value" *ngIf="item.value==5">{{item.status_name}}</option>
+                                </ng-container>
+                            </select>
+                            <label class="form-label">Payment Status <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['payment_status']"></app-validation-error>
+                        </div>
+                    </div>
+                    
+                    <div class="col-6 mb-0" *ngIf="(editPaymentObj.payment_type==3||editPaymentObj.payment_type==4) && f['payment_status'].value==1">
+                        <div class="form-floating">
+                            <input type="text" [readonly]="true" class="form-control"
+                                formControlName="payment_successfull_date" bsDatepicker onkeydown="return false"
+                                (bsValueChange)="changeDate($event)"
+                                [maxDate]="maxPaymentReceivedDate"
+                                [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'MM-DD-YYYY',showWeekNumbers: false  }"
+                                name="payment_successfull_date"
+                                [ngClass]="{ 'is-invalid': submittedPayment && f['payment_successfull_date'].errors }">
+                            <label class="form-label"> Payment Recived Date <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['payment_successfull_date']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-0" *ngIf="editPaymentObj.payment_type==3 || editPaymentObj.payment_type==4">
+                        <div class="form-floating">
+                            <textarea type="text" rows="3" cols="3" class="form-control" formControlName="notes"
+                                [ngClass]="{ 'is-invalid': submittedPayment && f['notes'].errors }"></textarea>
+                            <label class="form-label">Policy note </label>
+                            <app-validation-error [control]="f['notes']"></app-validation-error>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeEditPaymentModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>Update</button>
+        </div>
+    </form>
+</ng-template>
+
+<!-- ================ CREATE Policy Note ==================== -->
+
+<ng-template #createPolicyNoteEleRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Create Policy Note</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="closeCreatePolicyNoteModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="policyNoteForm" (ngSubmit)="onSubmitPolicyNote()"
+        class="form-style flow-rootX app-form unauth-form-max-w">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-lg-12 mb-0">
+                        <div class="form-floating">
+                            <select class="form-control form-select" name="policy_id" formControlName="policy_id"
+                                [ngClass]="{ 'is-invalid': submittedPolicyNotes && n['policy_id'].errors }">
+                                <option value="">Select</option>
+                                <ng-container *ngFor="let item of customerDetails?.policy_list">
+                                    <option [value]="item.policy_id">{{item?.policy_number}}
+                                        ({{item?.billing_address1}})</option>
+                                </ng-container>
+
+
+                            </select>
+                            <label class="form-label">Select Policy <span class="c--error">*</span></label>
+                            <app-validation-error [control]="n['policy_id']"></app-validation-error>
+                        </div>
+                 
+                        <div class="form-floating polytextarea">
+                            <textarea type="text" rows="3" cols="3" class="form-control" formControlName="notes"
+                                [ngClass]="{ 'is-invalid': submittedPolicyNotes && n['notes'].errors }"></textarea>
+                            <label class="form-label">Policy note <span class="c--error">*</span></label>
+                            <app-validation-error [control]="n['notes']"></app-validation-error>
+
+                        </div>
+                        <div class="form-checkbox d-inline-block mb-1">
+                            <label>
+                                <input type="checkbox" name="Add" class="callback_request" class="form-control" formControlName="is_assign" (change)="assignChecked($event)">
+                                <span class="checkmark"></span>
+                                <p>Assign To</p>
+                            </label>
+                        </div>
+                        <div class="form-floating" *ngIf="this.policyNoteForm.controls['is_assign'].value==true">
+                            <select class="form-control form-select " name="assign_to" formControlName="assign_to"
+                                [ngClass]="{ 'is-invalid': submittedPolicyNotes && n['assign_to'].errors }">
+                                <option [value]="">Select</option>
+                                <ng-container *ngFor="let user of usersList">
+                                    <option [value]="user?.org_user_id">{{user?.first_name+' '+user?.last_name}}</option>
+                                </ng-container>
+                            </select>
+                            <label class="form-label">Select User <span class="c--error">*</span></label>
+                            <app-validation-error [control]="n['assign_to']"></app-validation-error>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="{{loading?'button':'submit'}}" class="btn btn-sm btn-primary"> <span *ngIf="loading"
+                    class="spinner-border spinner-border-sm me-1"></span>Submit</button>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeCreatePolicyNoteModal()">Close</button>
+
+        </div>
+    </form>
+</ng-template>
+<!-- ================ Add Credit card  ==================== -->
+
+<ng-template #addCardEleRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Credit Card</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="closeAddCardModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="cardForm" (ngSubmit)="onsubmitAddCard()"
+        class="form-style flow-rootX app-form unauth-form-max-w">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-lg-12 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control"
+                                appCapitalize 
+                                formControlName="cardHolderName"
+                                [ngClass]="{ 'is-invalid': submittedCard && c['cardHolderName'].errors }">
+                            <label class="form-label">Card Holder Name  <span class="c--error">*</span></label>
+                            <app-validation-error  [control]="c['cardHolderName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-2">
+                        <div class="form-modal-floating">
+                        <div class="input-group">
+                            <div class="form-floating mb-0">
+                                <input type="text"
+                                    [minlength]="14" [maxlength]="21"
+                                    appCardFormatter
+                                    class="form-control"
+                                    formControlName="cardNumber"
+                                    [ngClass]="{ 'is-invalid': submittedCard && c['cardNumber'].errors }">
+                                <label class="form-label">Card Number  <span class="c--error">*</span></label>
+                            </div>
+                            <div class="input-group-prepend">
+                                <div class="card-svg-icon">
+                                    <img id="cardImage" width="40px" src="assets/img/allCardIcon/credit-card.svg" alt="Card Image" title="Card Image">
+                                </div>
+                            </div>
+                        </div>
+                        <app-validation-error  [control]="c['cardNumber']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control"
+                                formControlName="cardExpiryDate"
+                                appCardExpiryDate
+                                [ngClass]="{ 'is-invalid': submittedCard && c['cardExpiryDate'].errors }">
+                            <label class="form-label">Expiry Date <span  class="c--error">*</span></label>
+                            <app-validation-error  [control]="c['cardExpiryDate']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control"
+                                [minlength]="3" [maxlength]="4"
+                                [appInputLimit]="4"
+                                
+                                formControlName="cardCVV"
+                                [ngClass]="{ 'is-invalid': submittedCard && c['cardCVV'].errors }">
+                            <label class="form-label">CVV <span  class="c--error">*</span></label>
+                            <app-validation-error  [control]="c['cardCVV']"></app-validation-error>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="{{loading?'button':'submit'}}" class="btn btn-sm btn-primary"> <span *ngIf="loading"
+                    class="spinner-border spinner-border-sm me-1"></span>Add</button>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddCardModal()">Close</button>
+
+        </div>
+    </form>
+</ng-template>
+<!-- ================ Upload Policy Documents  ==================== -->
+
+<ng-template #policyDocEleRef>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Upload Supporting Documents</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="closePolicyDocModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form  [formGroup]="policyDocForm" (ngSubmit)="onsubmitPolicyDoc()" class="form-style flow-rootX app-form unauth-form-max-w">
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="row">
+                <div class="col-lg-12 mb-0 policynote">
+                    <div class="form-floating">
+                        <select class="form-control form-select" name="policy_id" formControlName="policy_id"
+                            [ngClass]="{ 'is-invalid': submittedPolicyDoc && d['policy_id'].errors }">
+                            <option [value]="">Select</option>
+                            <ng-container *ngFor="let item of customerDetails?.policy_list">
+                                <option [value]="item.policy_id">{{item?.policy_number}}
+                                    ({{item?.billing_address1}})</option>
+                            </ng-container>
+                        </select>
+                        <label class="form-label">Select Policy <span class="c--error">*</span></label>
+                        <app-validation-error [control]="d['policy_id']"></app-validation-error>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" formControlName="title" [ngClass]="{ 'is-invalid': submittedPolicyDoc && d['title'].errors }">
+                        <label class="form-label">Title  <span class="c--error">*</span></label>
+                        <app-validation-error [control]="d['title']"></app-validation-error>
+                    </div>
+                    <div class="form-element mb-3 ">
+                        <div class="input-group">
+                        <label class="input-group-text" for="inputGroupFile02">Select File <span class="c--error">*</span></label>
+                        <input type="file" class="form-control" id="customFile"  formControlName="policy_doc" (change)="onFileChange($event,'customFile')" name="policy_doc" [required]="true"  [accept]="'.jpg, .jpeg, .png, .doc, .docx, .pdf'" [ngClass]="{ 'is-invalid': submittedPolicyDoc && d['policy_doc'].errors }">
+                    </div>
+                   <app-validation-error [control]="d['policy_doc']"></app-validation-error>
+               
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="{{loading?'button':'submit'}}" class="btn btn-sm btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>Add
+        </button>
+        <button type="button" class="btn btn-sm btn-secondary" (click)="closePolicyDocModal()">Close</button>
+    </div>
+</form>
+
+
+</ng-template>
+
+  <!-- ================ ADD/EDIT Customer  ==================== -->
+
+  <ng-template #addEditCustomer>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Customer</h4>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditCustomerModal()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <form [formGroup]="customerForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+      <div class="modal-body">
+        <div class="form-style">
+          <div class="row">
+
+
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="first_name"
+                  [ngClass]="{ 'is-invalid': submitted && g['first_name'].errors }">
+                <label class="form-label">First Name <span class="c--error">*</span></label>
+                <app-validation-error [control]="g['first_name']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="last_name"
+                  [ngClass]="{ 'is-invalid': submitted && g['last_name'].errors }">
+                <label class="form-label">Last Name <span class="c--error">*</span></label>
+                <app-validation-error [control]="g['last_name']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="email" [readonly]="isEdit?true:false"
+                  [ngClass]="{ 'is-invalid': submitted && g['email'].errors }">
+                <label class="form-label">Email Address <span class="c--error">*</span></label>
+                <app-validation-error [control]="g['email']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="mobile" [appInputLimit]="10"
+                  [appInputType]="'number'" [ngClass]="{ 'is-invalid': submitted && g['mobile'].errors }"
+                  (input)="changePhoneFormat($event)">
+                <label class="form-label">Mobile <span class="c--error">*</span></label>
+                <app-validation-error [control]="g['mobile']"></app-validation-error>
+              </div>
+            </div>
+
+
+            <div class="col-12 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="alternate_phone" [appInputLimit]="10"
+                  [appInputType]="'number'" [ngClass]="{ 'is-invalid': submitted && g['alternate_phone'].errors }"
+                  (input)="changeResidancePhoneFormat($event)">
+                <label class="form-label">Alternate Mobile</label>
+                <app-validation-error [control]="g['alternate_phone']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-4 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="zip"
+                  [ngClass]="{ 'is-invalid': submitted && g['zip'].errors }" (input)="changeZip($event)" [max]="5"
+                  maxlength="5">
+                <label class="form-label">Zip</label>
+                <app-validation-error [control]="g['zip']"></app-validation-error>
+                <div class="my-1 py-2 alert alert-danger" *ngIf="validZipMessage">
+                  <i aria-hidden="true" class="pi pi-exclamation-circle me-2"></i>
+                  <span>{{validZipMessage}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="city" onkeydown="return false"
+                  [ngClass]="{ 'is-invalid': submitted && g['city'].errors }">
+                <label class="form-label"> City </label>
+                <app-validation-error [control]="g['city']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-4 mb-0">
+              <div class="form-floating">
+                <input type="text" class="form-control" formControlName="state" onkeydown="return false"
+                  [ngClass]="{ 'is-invalid': submitted && g['state'].errors }">
+                <label class="form-label">State</label>
+                <app-validation-error [control]="g['state']"></app-validation-error>
+              </div>
+            </div>
+
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <textarea type="text" class="form-control" formControlName="address1"
+                  [ngClass]="{ 'is-invalid': submitted && g['address1'].errors }"></textarea>
+                <label class="form-label">Address 1 <span class="c--error">*</span></label>
+                <app-validation-error [control]="g['address1']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-6 mb-0">
+              <div class="form-floating">
+                <textarea type="text" class="form-control" formControlName="address2"
+                  [ngClass]="{ 'is-invalid': submitted && g['address2'].errors }"></textarea>
+                <label class="form-label">Address 2</label>
+                <app-validation-error [control]="g['address2']"></app-validation-error>
+              </div>
+            </div>
+            <div class="col-12 mb-0">
+              <p>Account Status <span class="c--error">*</span></p>
+              <div class="form-radio inline-style"><label><input type="radio" name="active_status"
+                    formControlName="active_status" value="1"><span class="checkmark"></span>
+                  <p>Active</p>
+                </label><label><input type="radio" name="active_status" formControlName="active_status" value="0"><span
+                    class="checkmark"></span>
+                  <p>Inactive</p>
+                </label></div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditCustomerModal()">Close</button>
+        <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}
+          User</button>
+      </div>
+    </form>
+  </ng-template>

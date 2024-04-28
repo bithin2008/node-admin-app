@@ -1,0 +1,64 @@
+<div class="row mb-4">
+    <div class="col">
+        <div class="card box-shadow">
+            <div class="card-header">Dashboard</div>
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head">
+                                <div class="card-heading">
+                                    <p class="h4 c--drkgry">System Admin</p>
+                                </div>
+                                <div class="card-action dropdown">
+                                    
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="datatable flow-rootX2">
+                                        <div class="d-flex justify-content-between gap-3">
+                                            <select class="dataTable-selector" [(ngModel)]="paginationObj.limit" (ngModelChange)="getSystemAdminList()">
+                                                <option value="20" >20</option>
+                                                <option value="40">40</option>
+                                                <option value="60">60</option>
+                                                <option value="80">80</option>
+                                                <option value="100">100</option>
+                                            </select>
+                
+                                        </div>
+                                        <ngx-datatable #table class="material " [rows]="systemAdminList" [loadingIndicator]="showTableDataLoading"
+                                        [columns]="columns" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50"
+                                        rowHeight="auto" [reorderable]="reorderable"  [externalPaging]="true"
+                                        [count]="paginationObj.total" [offset]="paginationObj.currentPage" [limit]="paginationObj.limit" [selected]="selected" [scrollbarH]="true"
+                                        [selectAllRowsOnPage]="false" [displayCheck]="displayCheck" >
+                                        
+                                        <ngx-datatable-column name="#" >
+                                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">
+                                                {{ rowIndex + 1 }}
+                                              </ng-template>
+                                        </ngx-datatable-column>
+        
+                                            <ngx-datatable-column name="Name"> </ngx-datatable-column>
+                                            <ngx-datatable-column name="Email"></ngx-datatable-column>
+                                            <ngx-datatable-column name="Mobile">
+                                                <ng-template ngx-datatable-cell-template let-row="row">
+                                                    {{row.mobile | phoneUsFormat}}
+                                                  </ng-template>
+                                               
+                                               
+                                            </ngx-datatable-column>
+                                          
+                                        </ngx-datatable>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>

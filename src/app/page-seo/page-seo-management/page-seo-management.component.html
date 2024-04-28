@@ -1,0 +1,260 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Page SEO Management </p>
+                                        </div>
+
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="form--search d-flex">
+                                                <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                                        [placeHolderText]="'Search...'"></app-search-input>
+                                                <!-- <div class="form-control form-control--search newSerch cuserch w-auto">
+                                                    <i class="pi pi-search search-icon mr-1"></i>
+                                                    <input type="text" name="search" id="" placeholder="Search"
+                                                        (input)="search($event)">
+                                                </div>
+                                                <button class="btn btn-reset ml-1" role="button">Reset</button> -->
+                                            </div>
+                                            <div class="col-auto mb-0 pr-0">
+                                                <button class="btn btn-success" *ngIf="permissionObj?.add"
+                                                    (click)="openaddEditPageSeoModal(addEditPageSeo,'')">Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w80"># <span  class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col "class="w180">Actions</th>
+                                                        <th scope="col">Page Name </th>
+                                                        <th scope="col">Route Name </th>
+                                                        <th scope="col">Title </th>
+                                                        <th scope="col">H1 Tag </th>
+                                                       
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="pageSEOList?.length>0">
+                                                    <tr *ngFor="let item of pageSEOList; let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}
+                                                        </td>
+                                                    
+                                                       
+                                                        <td>
+                                                            <button type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="View"
+                                                                data-bs-original-title="View" class="btn btn-sm h-1 btn-view"
+                                                                *ngIf="permissionObj?.view"
+                                                                (click)="openViewSEOModal(viewSEODetails,item)">View
+                                                            </button>
+                                                            <button type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Edit"
+                                                                *ngIf="permissionObj?.edit"
+                                                                data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit"
+                                                                (click)="openaddEditPageSeoModal(addEditPageSeo,item)">Edit
+                                                            </button>
+                                                            <button type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Delete"
+                                                                *ngIf="permissionObj?.delete"
+                                                                data-bs-original-title="Delete" (click)="deletePageSEO(item)"
+                                                                class="btn btn-sm h-1 btn-del">Delete</button>
+                                                        </td>
+                                                        <td>{{item?.page_details?.page_name}}</td>
+                                                        <td>{{item?.page_details?.route_name}}</td>
+                                                        <td>{{item?.title}}</td>
+                                                        <td>{{item?.h1_tag}}</td>
+
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="pageSEOList?.length==0">
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <span>
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                                [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ ADD/EDIT PAGE SEO  ==================== -->
+
+<ng-template #addEditPageSeo>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Page SEO </h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="pageSeoForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+
+                    <div class="col-6">
+                        <div class="form-floating"><select class="form-control form-select" formControlName="pageId" (change)="onChangePage()"
+                                [ngClass]="{ 'is-invalid': submitted && f['pageId'].errors }">
+                                <option value="">Select page</option>
+                                <ng-container *ngFor="let page of pageList">
+                                    <option value="{{page.page_id}}">{{page.page_name}}</option>
+                                </ng-container>
+
+                            </select>
+                            <label class="form-label">Select Page <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['pageId']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control"[readOnly]="true" formControlName="routeName" >
+                            <label class="form-label">Route Name</label>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="" formControlName="title"
+                                [ngClass]="{ 'is-invalid': submitted && f['title'].errors }">
+                            <label class="form-label">Title <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['title']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="" formControlName="h1Tag"
+                                [ngClass]="{ 'is-invalid': submitted && f['h1Tag'].errors }">
+                            <label class="form-label">H1 Tag <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['h1Tag']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="" formControlName="metaDescription"
+                                [ngClass]="{ 'is-invalid': submitted && f['metaDescription'].errors }"></textarea>
+                            <label class="form-label">Meta Description <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['metaDescription']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="" formControlName="schemaMarkup"
+                                [ngClass]="{ 'is-invalid': submitted && f['schemaMarkup'].errors }"></textarea>
+                            <label class="form-label">Schema Markup </label>
+                            <app-validation-error [control]="f['schemaMarkup']"></app-validation-error>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button [type]="loading?'button':'submit'" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary" (click)="modalRef?.hide()">Close</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW PAGE SEO ==================== -->
+
+<ng-template #viewSEODetails>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Page SEO Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="fee-details">
+                <ul>
+                    <li>Page Name : </li>
+                    <li>{{viewObj.page_details?.page_name}}</li>
+                </ul>
+                <ul>
+                    <li>Route Name : </li>
+                    <li>{{viewObj.page_details?.route_name}}</li>
+                </ul>
+                <ul>
+                    <li>Page Title : </li>
+                    <li>{{viewObj.title}}</li>
+                </ul>
+                <ul>
+                    <li>H1 Tag :</li>
+                    <li>{{viewObj?.h1_tag}}</li>
+                </ul>
+
+                <ul>
+                    <li>Meta Description :</li>
+                    <li>{{viewObj?.meta_description}}</li>
+                </ul>
+                <ul>
+                    <li>Schema Markup :</li>
+                    <li>{{viewObj?.schema_markup}}</li>
+                </ul>
+             
+                <ul>
+                    <li>Created By :</li>
+                    <li><span *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                        {{viewObj?.create_info?.last_name}}</span> <span *ngIf="!viewObj?.create_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Created On :</li>
+                    <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>
+                    <li>Updated By :</li>
+                    <li><span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}}
+                        {{viewObj?.update_info?.last_name}}</span>
+                    <span *ngIf="!viewObj?.update_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Updated On :</li>
+                    <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditSEOModal(addEditPageSeo,viewObj)"
+            *ngIf="permissionObj?.edit"><i class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>

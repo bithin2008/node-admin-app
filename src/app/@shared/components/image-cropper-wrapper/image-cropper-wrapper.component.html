@@ -1,0 +1,23 @@
+
+<div class="position-absolute"> <img [src]="croppedImage" /></div> 
+<div class="modal-header">
+    <h4>Upload Image</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeCropper()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <image-cropper
+    [imageChangedEvent]="imageChangedEvent"
+    (imageLoaded)="imageLoaded()"
+    [resizeToWidth]="imageCropperConfig.resizeToWidth"
+    [maintainAspectRatio]="false"
+    [aspectRatio]="imageCropperConfig.aspectRatio"
+    (loadImageFailed)="loadImageFailed()"
+    [imageChangedEvent]="imageChangedEvent" [config]="imageCropperConfig"
+    (imageCropped)="imageCropped($event)" (cropperReady)="cropperReady.emit($event)" [style.display]="imageChangedEvent?.showCropper ? null : 'none'">
+    </image-cropper>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="save()">Save</button>
+</div>

@@ -1,0 +1,352 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Technicians</p>
+                                        </div>
+                                    </div>
+                                    <div class="align-items-center col-lg-8 mb-0">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="col-auto mb-0">
+                                                <div class="form--search d-flex">
+                                                    <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                                        [placeHolderText]="'Search...'"></app-search-input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card__body">
+                                <div class="card__body__container">
+                                    <div class="table-style table-style-1 table-layout-fixed">
+                                        <div class="table-responsive more-data-table-2">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="w80"># </th>
+                                                        <th scope="col" >Actions</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col" class="">License</th>
+                                                        <th scope="col" (click)="updateSorting('company_name')">Company Name <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('service_call_fee')">
+                                                            Service Call Fee (SCF) <span class="pi pi-sort short-icon"></span>
+                                                        </th>
+                                                       
+                                                        <th scope="col" (click)="updateSorting('first_name')"> Name
+                                                            <span class="pi pi-sort short-icon"></span></th>
+                                                        <!-- <th scope="col" (click)="updateSorting('last_name')">Last Name
+                                                            <span class="pi pi-sort short-icon"></span></th> -->
+                                                        <th scope="col" (click)="updateSorting('email')">Email
+                                                            <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('mobile')">Mobile <span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('zip')">Zip <span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('state')">State <span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('city')">City <span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                        <!-- <th scope="col" (click)="updateSorting('contractor_count')">
+                                                            Number of Technicians <span
+                                                                class="pi pi-sort short-icon"></span></th> -->
+                                                        <!-- <th scope="col" (click)="updateSorting('service_location')">
+                                                            Service Location <span class="pi pi-sort short-icon"></span>
+                                                        </th> -->
+                                                        <!-- <th scope="col" (click)="updateSorting('radial_distance')">
+                                                            Radial Distance <span class="pi pi-sort short-icon"></span>
+                                                        </th> -->
+                                                       
+                                                        <th scope="col" (click)="updateSorting('created_at')">Created On
+                                                            <span class="pi pi-sort short-icon"></span></th>
+                                                        <th scope="col" (click)="updateSorting('updated_at')">Updated On
+                                                            <span class="pi pi-sort short-icon"></span></th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="contractorsList?.length>0">
+                                                    <tr *ngFor="let item of contractorsList; let i=index">
+                                                        <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                        <td>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="View"
+                                                                data-bs-original-title="View" class="btn btn-sm h-1 btn-view" *ngIf="permissionObj?.view"
+                                                                (click)="navigateToContractorDetails(item.contractor_id)">View
+                                                            </button>
+                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" *ngIf="permissionObj.edit" data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit" (click)="openAddEditModal(addEditContractors,item)">Edit</button>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-check form-switch form-switch-sm">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="{{item.module_id}}-status"
+                                                                    (click)="changeActivationStatus($event,item)"
+                                                                    [checked]="item.active_status">
+                                                            </div>  
+                                                        </td>
+                                                        <td><a type="button" *ngIf="item.license_url" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Download" class="btn btn-sm h-1 btn-outline-success text-success hvr:c--whitee" (click)="downloadDoc(item)">Download</a>
+                                                            <span *ngIf="!item.license_url" class="btn-sm pl-3 pr-3">N/A</span>
+                                                        </td>
+                                                        <td>{{item?.company_name}}</td>
+                                                        <td>{{item?.service_call_fee | currency:'USD'}}</td>
+                                                        <td>{{item?.first_name}} {{item?.last_name}}</td>
+                                                        <td>{{item?.email}}</td>
+                                                        <td>{{item?.mobile}}</td>
+                                                        <td>{{item?.zip}}</td>
+                                                        <td>{{item?.state}}</td>
+                                                        <td>{{item?.city}}</td>
+                                                        <!-- <td>{{item?.contractor_count}}</td>
+                                                        <td>{{item?.service_location}}</td> -->
+                                                        <!-- <td>{{item?.radial_distance}}</td> -->
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                        
+                                                    </tr>
+
+                                                </tbody>
+                                                <tbody *ngIf="contractorsList?.length==0">
+                                                    <tr>
+                                                        <td colspan="14" class="text-center">No data found</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                    <span>
+                                        <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                            [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                            [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ EDIT Contractors  ==================== -->
+
+<ng-template #addEditContractors>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Technician</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="contractorForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="companyName"
+                            [ngClass]="{ 'is-invalid': submitted && f['companyName'].errors }" placeholder="Enter company name...">
+                            <label class="form-label">Company Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['companyName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0"> 
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="firstName" 
+                            [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" placeholder="Enter first name...">
+                            <label class="form-label">First Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['firstName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="lastName"
+                            [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" placeholder="Enter last name...">
+                            <label class="form-label">Last Name <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['lastName']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control"
+                            formControlName="companyPhone" [maxlength]="14" [appInputLimit]="10"
+                            [appInputType]="'number'"
+                            [ngClass]="{ 'is-invalid': submitted && f['companyPhone'].errors }"
+                            (input)="changePhoneFormat('companyPhone')">
+                            <label class="form-label">Company Phone Number <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['companyPhone']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" (input)="changePhoneFormat('mobileNo')" [maxlength]="14" [appInputLimit]="10" 
+                            [appInputType]="'number'" [ngClass]="{ 'is-invalid': submitted && f['mobileNo'].errors }" formControlName="mobileNo" placeholder="Enter mobile number...">
+                            <label class="form-label">Mobile Number <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['mobileNo']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="licenseNumber" placeholder="Enter license/certification number...">
+                            <label class="form-label">License/Certification Number</label>
+                            <app-validation-error [control]="f['licenseNumber']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="emailId" [readonly]="isEdit?true:false"
+                             [ngClass]="{ 'is-invalid': submitted && f['emailId'].errors }">
+                             <label class="form-label">Email Address <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['emailId']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="address1"
+                             [ngClass]="{ 'is-invalid': submitted && f['address1'].errors }">
+                             <label class="form-label">Street Address <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['address1']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="zipCode"
+                            [ngClass]="{ 'is-invalid': submitted && f['zipCode'].errors }"
+                            maxlength="5" (input)="changeZip('zipCode')">
+                                <label class="form-label">ZIP <span class="c--error">*</span></label>
+                                <app-validation-error [control]="f['zipCode']"></app-validation-error>
+                                <div class="app-validation-error">
+                                    <div class="mt-1 alert alert-danger"
+                                        *ngIf="validZipContractorMessage">
+                                        <i aria-hidden="true"
+                                            class="pi pi-exclamation-circle me-2"></i>
+                                        <span>{{validZipContractorMessage}}</span>
+                                    </div>
+                                </div>
+                            <!-- <input type="text" class="form-control" formControlName="zipCode"
+                             [ngClass]="{ 'is-invalid': submitted && f['zipCode'].errors }">
+                             <label class="form-label">Zip Code <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['zipCode']"></app-validation-error> -->
+                        </div>
+                     </div>
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="city"
+                             [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
+                             <label class="form-label">City <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['city']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="state"
+                             [ngClass]="{ 'is-invalid': submitted && f['state'].errors }">
+                             <label class="form-label">State <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['state']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating has-value">
+                            <!-- <input type="text" class="form-control" formControlName="contractorsNumber"
+                             [ngClass]="{ 'is-invalid': submitted && f['contractorsNumber'].errors }"> -->
+                             <select class="form-field form-select"
+                             formControlName="contractorsNumber" [ngClass]="{ 'is-invalid': submitted && f['contractorsNumber'].errors }">
+                             <option [value]="1">0 to 50</option>
+                             <option [value]="2">50 to 100</option>
+                             <option [value]="3">100 to 250</option>
+                             <option [value]="4">More than 250</option>
+                         </select>
+                             <label class="form-label">How many Technician's do you have <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['contractorsNumber']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="serviceCallFee"
+                             [ngClass]="{ 'is-invalid': submitted && f['serviceCallFee'].errors }">
+                             <label class="form-label">Service Call Fee ($) <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['serviceCallFee']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-6 mb-0">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="radialDistance"
+                             [ngClass]="{ 'is-invalid': submitted && f['radialDistance'].errors }">
+                             <label class="form-label">Radial Distance (In miles) <span class="c--error">*</span></label>
+                           <app-validation-error [control]="f['radialDistance']"></app-validation-error>
+                        </div>
+                     </div>
+
+                    <div class="col-12 mb-2">
+                        <div class="form-floating mb-0 has-value autocomplete-field">
+                            <div class="form-control zip-service h-auto" title="& more">
+                                <div class="ng-autocomplete-wrap">
+                                    <div class="ng-autocomplete">
+                                        <p-autoComplete formControlName="serviceCity"  placeholder="" [suggestions]="zipCodeList" (keyup)="searchZipCode($event)" (onSelect)="selectZipCode($event)" [multiple]="true">
+                                            <ng-template let-zip pTemplate="item">
+                                                <div class="zip-item">
+                                                    <div>{{zip.zipcode}} (City:{{zip.city}}, State:{{zip.state}})</div>
+                                                </div>
+                                            </ng-template>
+                                        </p-autoComplete>
+                                        <app-validation-error [control]="f['serviceCity']"></app-validation-error>
+                                    </div>
+                                </div>        
+                            </div>
+                            <label class="form-label">Which zipcode(s) do you service?<span class="c--error">*</span></label>
+                        </div>
+                     </div>
+                     <div class="col-12">  
+                         <div class="form-floating has-value ">
+                            <div class="form-control multisect-floaing-field">
+                                <p-multiSelect #multiSelect [options]="productList" formControlName="serviceTypes"
+                                    defaultLabel="Select Product" optionLabel="product_name" display="chip">
+                                </p-multiSelect>
+                                <app-validation-error [control]="f['serviceTypes']"></app-validation-error>
+                            </div>
+                            <label class="form-label">Choose your service(s)<span class="c--error">*</span></label> 
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="formFile" class="form-label">Upload license (Format .doc, .docx, .pdf")</label>
+                        <input class="form-control" type="file" id="formFile" formControlName="licenseFile"  accept=".doc, .docx, .pdf"
+                        (change)="fileChangeEvent($event)">
+                        <!-- <input type="file" formControlName="licenseFile"  accept=".doc, .docx, .pdf"
+                        (change)="fileChangeEvent($event)" /> -->
+                        <app-validation-error [control]="f['licenseFile']"></app-validation-error>
+                        <span class="c--whitee d-block mt-1">[Only doc and pdf are accepted.] <br> Max size: 2MB</span>  
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-check form-switch form-switch-sm">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Verify Technician</label>
+                            <input class="form-check-input d-block" formControlName="active_status" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                          </div>
+                    </div>
+                    
+                </div>
+               
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span> Update</button>
+        </div>
+    </form> 
+</ng-template>

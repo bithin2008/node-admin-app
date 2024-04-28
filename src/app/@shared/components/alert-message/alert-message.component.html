@@ -1,0 +1,41 @@
+ <!-- <div *ngIf="message && item.text" class="toast fade show align-items-center text-bg-{{item.icon}} border-0"
+  [ngClass]="item.cssClass">
+  <app-icon *ngIf="item.icon == 'success' " [name]="'success'"></app-icon>
+  <app-icon *ngIf="item.icon == 'error' " [name]="'error'"></app-icon>
+  <app-icon *ngIf="item.icon == 'info' " [name]="'info'"></app-icon>
+  <app-icon *ngIf="item.icon == 'warning' " [name]="'warning'"></app-icon>
+  <span class="ms-2" [innerHTML]="item.text"></span>
+  <button type="button" class="btn-close" (click)="dismissAlert()" aria-label="Close"></button>
+</div>  -->
+<ng-container *ngFor="let item of alertList">
+  <div *ngIf="item && item.text" 
+  class="toast fade align-items-center text-bg-{{item.icon=='error'?'danger':item.icon}} border-0" [ngClass]="item.cssClass">
+  <div class="toast-header" *ngIf="item.icon == 'success' ">
+    <!-- <div class="bd-placeholder-img rounded me-1" style="font-size: 18px;">😁</div> -->
+    <strong class="me-auto">Success</strong>
+    <button type="button"  aria-label="Close" class="btn-close" (click)="dismissAlert(item)"></button>
+  </div>
+  <div class="toast-header" *ngIf="item.icon == 'error' ">
+    <!-- <div class="bd-placeholder-img rounded me-1" style="font-size: 18px;">😡</div> -->
+    <strong class="me-auto">Error</strong>
+    <button type="button"  aria-label="Close" class="btn-close" (click)="dismissAlert(item)"></button>
+  </div>
+  <div class="toast-header" *ngIf="item.icon == 'warning' ">
+    <!-- <div class="bd-placeholder-img rounded me-1" style="font-size: 18px;">😓</div> -->
+    <strong class="me-auto">Warning</strong>
+    <button type="button"  aria-label="Close" class="btn-close" (click)="dismissAlert(item)"></button>
+  </div>
+  <div class="toast-header" *ngIf="item.icon == 'info' ">
+    <!-- <div class="bd-placeholder-img rounded me-1" style="font-size: 18px;">😓</div> -->
+    <strong class="me-auto">Info</strong>
+    <button type="button"  aria-label="Close" class="btn-close" (click)="dismissAlert(item)"></button>
+  </div>
+  <div class="toast-body {{item.icon == 'info'?'c--whitee':''}}" [innerHTML]="item.text"> </div>
+</div>
+</ng-container>
+
+
+
+
+
+

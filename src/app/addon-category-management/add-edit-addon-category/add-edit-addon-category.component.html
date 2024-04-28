@@ -1,0 +1,52 @@
+<h1>    {{addonCategoryId?'Edit':'Add'}} Item </h1>
+<div class="back-to-page">
+    <a [routerLink]="['/addon-category-management']">
+        <app-icon [name]="'angleLeft'" [styleClass]="'me-2'"></app-icon>Back
+    </a>
+</div>
+<div class="row my-4">
+    <div class="2-col-form col-md-9 col-lg-6">
+        <form [formGroup]="addonCategoryForm" class="form app-form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                
+
+                
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="firstName">Addon Category Name</label>
+                    <input type="text" class="form-control" id="addonCategoryName"
+                        formControlName="addonCategoryName">
+                    <app-validation-error [control]="addonCategoryForm.controls['addonCategoryName']"></app-validation-error>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label class="required me-4 radio-label" for="role">Status </label>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="activeStatus_yes" value="1"
+                            formControlName="activeStatus">
+                        <label class="form-check-label" for="activeStatus_yes">Active</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="activeStatus_no" value="0"
+                            formControlName="activeStatus">
+                        <label class="form-check-label" for="activeStatus_no">Inactive</label>
+                    </div>
+
+                    <app-validation-error [control]="addonCategoryForm.controls['activeStatus']"></app-validation-error>
+                </div>               
+
+            </div>
+
+
+
+
+
+
+            <button type="submit" class="btn btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+              {{addonCategoryId?'Update':'Submit'}}  
+            </button>
+        </form>
+        <!-- <p>Form Status: <span class="text-bold">{{ myForm.status }}</span></p>
+        <p>{{myForm.value|json}}</p> -->
+    </div>
+</div>

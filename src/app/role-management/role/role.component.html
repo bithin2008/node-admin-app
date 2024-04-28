@@ -1,0 +1,395 @@
+<div class="row mb-4">
+  <div class="col card_wrapper">
+    <div>
+      <div class="card-body">
+        <!-- <app-post></app-post> -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card-1" id="table">
+              <div class="card__head d-block">
+                  <div class="row d-flex align-items-center flex-wrap">
+                  <div class="col-lg-4 mb-0">
+                    <div class="card-heading">
+                      <p class="h4 c--drkgry">Manage Roles</p>
+                    </div>
+                  </div>
+                  <div class="align-items-center col-lg-8 mb-0">
+                    <div class="d-flex justify-content-end">
+                      <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                        [placeHolderText]="'Search...'"></app-search-input>
+                      <!-- <div class="col-auto mb-0 ml-1 pr-0">
+                        <div class="btns-grp">
+                          <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                          (click)="openAddEditRoleModal(addEditUserRole,'')">Add</button>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-1">
+                <div class="card__body">
+                  <div class="card__body__container">
+                    <div class="table-style table-style-1 table-layout-fixed">
+                       <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="w80" (click)="updateSorting('user_role_id')"># <span
+                                  class="pi pi-sort short-icon"></span></th>
+                              <th scope="col" class="w180">Actions</th>
+                              <th scope="col" (click)="updateSorting('role_type')">Role Type <span
+                                  class="pi pi-sort short-icon"></span></th>
+                              <th scope="col" (click)="updateSorting('description')">Description <span
+                                class="pi pi-sort short-icon"></span></th>
+                              <th scope="col">Created By</th>
+                              <th scope="col" (click)="updateSorting('created_at')">Created On <span
+                                  class="pi pi-sort short-icon"></span></th>
+                              <th scope="col">Updated By</th>
+                              <th scope="col" (click)="updateSorting('updated_at')">Updated On <span
+                                  class="pi pi-sort short-icon"></span></th>
+                              <th scope="col" class="w80" (click)="updateSorting('active_status')">Status <span
+                                  class="pi pi-sort short-icon"></span></th>
+                            </tr>
+                          </thead>
+                          <tbody *ngIf="orgUserRoleList?.length>0">
+                            <tr *ngFor="let item of orgUserRoleList; let i=index">
+                              <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                              <td>
+                              
+                                <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="View"
+                                  data-bs-original-title="View" class="btn btn-sm h-1 btn-view"
+                                  (click)="openViewUserRoleModal(viewUserRole,item)">View
+                                </button>
+                                <ng-container *ngIf="item?.is_super_admin!=1">
+                                  <button type="button"  data-bs-toggle="tooltip" data-bs-placement="top" title="Set Permission"
+                                  *ngIf="item?.is_super_admin!=1" data-bs-original-title="Set module submodule permission"
+                                    class="btn btn-sm h-1 btn-permission"
+                                    (click)="openRolePermissionModal(roleModuleSubmodulePermission,item)">Set Permission</button>
+                                  <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"
+                                    data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit"
+                                    (click)="openAddEditRoleModal(addEditUserRole,item)" *ngIf="permissionObj?.edit">Edit
+                                  </button>
+                                  <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"
+                                    data-bs-original-title="Delete" class="btn btn-sm h-1 btn-del" (click)="deleteUserRole(item)"
+                                    *ngIf="permissionObj?.delete">Delete</button>
+                                </ng-container>
+                              </td>
+                              <td><b> {{item?.role_type}}</b></td>
+                              <td> {{item?.description?item?.description:'N/A'}}</td>
+                              <td><span *ngIf="item?.create_info">{{item?.create_info?.first_name}}
+                                  {{item?.create_info?.last_name}}</span> <span *ngIf="!item?.create_info">N/A</span></td>
+                              <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                              <td><span *ngIf="item?.updated_by">{{item?.update_info?.first_name}}
+                                  {{item?.update_info?.last_name}}</span> <span *ngIf="!item?.updated_by">N/A</span></td>
+                              <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                              <td>
+                                <div class="form-check form-switch form-switch-sm" *ngIf="item?.is_super_admin!=1">
+                                  <input class="form-check-input" type="checkbox" id="{{item.user_role_id}}-status"
+                                    (click)="changeActivationStatus($event,item)" [checked]="item.active_status">
+                                </div>
+    
+                              </td>
+                            </tr>
+    
+                          </tbody>
+                          <tbody *ngIf="orgUserRoleList?.length==0">
+                            <tr>
+                              <td colspan="10" class="text-center">No data found</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <span>
+                      <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                        [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                        [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================ ADD/EDIT ROLES  ==================== -->
+
+<ng-template #addEditUserRole>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Role</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditRoleModal()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="orgUserRoleForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="form-style">
+        <div class="row">
+
+          <div class="col-6">
+
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="roleType"
+                [ngClass]="{ 'is-invalid': submitted && f['roleType'].errors }">
+              <label class="form-label">Role Type <span class="c--error">*</span></label>
+              <app-validation-error [control]="f['roleType']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-floating">
+              <textarea class="form-control" formControlName="description"
+                [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+              <label class="form-label">Description</label>
+              <app-validation-error [control]="f['description']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-12">
+            <p>Status</p>
+            <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                  formControlName="activeStatus" value="1"><span class="checkmark"></span>
+                <p>Active</p>
+              </label><label><input type="radio" name="activeStatus" formControlName="activeStatus" value="0"><span
+                  class="checkmark"></span>
+                <p>Inactive</p>
+              </label></div>
+          </div>
+        </div>
+        <ng-container *ngIf="!isEdit && !isOpenPermissionModal">
+          <div class="form-style acces_style ornz_modal_styl">
+            <div class="acces_permison_style  fl-left w-100">
+              <div class="acces_tabs fl-left w-100">
+                <h4 class="h4">Set Permission Of Module Submodules</h4>
+
+                <div class="tab_wrapper">
+                  <tabset>
+                    <ng-container *ngFor="let module of subModulesgroupByModuleList; let moduleIndex=index">
+                      <tab heading="{{module?.org_module_name}}" id="tab{{moduleIndex}}">
+                        <div class="content_style fl-left w-100">
+                          <figcaption class="tab_hdng">
+                            <h5 class="h5">{{module?.org_module_name}}</h5>
+                            <div class="form-checkbox">
+                              <label>
+                                <input type="checkbox" name="checkall" id="permissionAllCheckBox{{module?.module_id}}"
+                                  (change)="checkAllPermission($event,module?.module_id,module?.sub_modules)">
+                                <span class="checkmark"></span>
+                                <p>Check all</p>
+                              </label>
+                            </div>
+                          </figcaption>
+
+                          <div class="content_inner_style fl-left w-100">
+                            <div class="row">
+                              <div class="col-lg-6 pl-lg-0"
+                                *ngFor="let item of module?.sub_modules; let subModuleIndex=index">
+                                <div class="form-group">
+                                  <h6 class="h6">{{item.org_sub_module_name}}</h6>
+                                  <div class="sub_modules_list">
+                                    <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                          name="view{{item?.org_sub_module_id}}"
+                                          id="viewPermissionCheckBox{{item?.org_sub_module_id}}"
+                                          class="permissionCheckBox{{item?.org_sub_module_id}}"
+                                          (change)="changePermission(module?.module_id,item  )"><span
+                                          class="checkmark"></span>
+                                        <p>View</p>
+                                      </label></div>
+                                    <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                          name="Add{{item?.org_sub_module_id}}"
+                                          class="permissionCheckBox{{item?.org_sub_module_id}}"
+                                          (change)="changePermission(module?.module_id,item)"><span
+                                          class="checkmark"></span>
+                                        <p>Add</p>
+                                      </label></div>
+                                    <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                          name="Edit{{item?.org_sub_module_id}}"
+                                          class="permissionCheckBox{{item?.org_sub_module_id}}"
+                                          (change)="changePermission(module?.module_id,item)"><span
+                                          class="checkmark"></span>
+                                        <p>Edit</p>
+                                      </label></div>
+                                    <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                          name="Delete{{item?.org_sub_module_id}}"
+                                          class="permissionCheckBox{{item?.org_sub_module_id}}"
+                                          (change)="changePermission(module?.module_id,item)"><span
+                                          class="checkmark"></span>
+                                        <p>Delete</p>
+                                      </label></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </tab>
+                    </ng-container>
+                  </tabset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditRoleModal()">Close</button>
+      <button type="submit" class="btn btn-sm btn-primary"[disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update Role':'Add'}}</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<!-- ================ VIEW SUB MODULES  ==================== -->
+
+<ng-template #viewUserRole>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Organization User Role Details</h4>
+
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="fee-details">
+  
+
+        <ul>
+          <li>Role Type :</li>
+          <li> {{viewObj.role_type}}</li>
+        </ul>
+        <ul>
+          <li>Organization :</li>
+          <li>{{viewObj.organization.org_name}}</li>
+        </ul>
+        <ul *ngIf="viewObj.description">
+          <li>Description :</li>
+          <li>{{viewObj.description}}</li>
+        </ul>
+        <ul>
+          <li>Status :</li>
+          <li><span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+              class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></li>
+        </ul>
+        <ul>
+          <li>Created By :</li>
+          <li><span *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+              {{viewObj?.create_info?.last_name}}</span> <span *ngIf="!viewObj?.create_info">N/A</span></li>
+        </ul>
+        <ul>
+          <li>Created On :</li>
+          <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+        </ul>
+        <ul>
+          <li>Updated By :</li>
+          <li> <span *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}}
+              {{viewObj?.update_info?.last_name}}</span>
+            <span *ngIf="!viewObj?.update_info">N/A</span>
+          </li>
+        </ul>
+        <ul>
+          <li>Updated On :</li>
+          <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>
+        </ul>
+   
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+    <button type="button" class="btn btn-sm btn-primary" (click)="openEditUserRoleModal(addEditUserRole,viewObj)"
+      *ngIf="viewObj?.is_super_admin!=1 &&permissionObj?.edit"><i class="pi pi-pencil"></i> Edit</button>
+
+  </div>
+</ng-template>
+
+
+<!-- ================ SET ORGANAIZATIONS MODULE-SUBMODULE ACCESS PERMISSION   ==================== -->
+
+<ng-template #roleModuleSubmodulePermission>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Access permission module for <b>{{selectedRoleObj?.role_type}}</b> role </h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeRolesPermissionModal()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf="isOpenPermissionModal">
+    <div class="form-style acces_style ornz_modal_styl">
+      <div class="acces_permison_style  fl-left w-100">
+        <div class="acces_tabs fl-left w-100">
+          <div class="tab_wrapper pt-0">
+            <tabset>
+              <ng-container *ngFor="let module of subModulesgroupByModuleList; let moduleIndex=index">
+                <tab heading="{{module?.org_module_name}}" id="tab{{moduleIndex}}">
+                  <div class="content_style fl-left w-100">
+                    <figcaption class="tab_hdng">
+                      <h5 class="h5">{{module?.org_module_name}}</h5>
+                      <div class="form-checkbox">
+                        <label>
+                          <input type="checkbox" [disabled]="!permissionObj?.edit" name="checkall" id="permissionAllCheckBox{{module?.module_id}}"
+                            (change)="checkAllPermission($event,module?.module_id,module?.sub_modules)" (click)="clickCheckbox()">
+                          <span class="checkmark"></span>
+                          <p>Check all</p>
+                        </label>
+                      </div>
+                    </figcaption>
+
+                    <div class="content_inner_style fl-left w-100">
+                      <div class="row">
+                        <div class="col-lg-6 pl-lg-0"
+                          *ngFor="let item of module?.sub_modules; let subModuleIndex=index">
+                          <div class="form-group">
+                            <h6 class="h6">{{item.org_sub_module_name}}</h6>
+                            <div class="sub_modules_list">
+                              <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                    name="view{{item?.org_sub_module_id}}"
+                                    id="viewPermissionCheckBox{{item?.org_sub_module_id}}"
+                                    class="permissionCheckBox{{item?.org_sub_module_id}}"
+                                    (change)="changePermission(module?.module_id,item  )"(click)="clickCheckbox()" 
+                                    ><span
+                                    class="checkmark"></span>
+                                  <p>View</p>
+                                </label></div>
+                              <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                    name="Add{{item?.org_sub_module_id}}"(click)="clickCheckbox()"
+                                    class="permissionCheckBox{{item?.org_sub_module_id}}"[disabled]="!permissionObj?.edit"
+                                    (change)="changePermission(module?.module_id,item)"><span class="checkmark"></span>
+                                  <p>Add</p>
+                                </label></div>
+                              <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                    name="Edit{{item?.org_sub_module_id}}"(click)="clickCheckbox()"
+                                    class="permissionCheckBox{{item?.org_sub_module_id}}"[disabled]="!permissionObj?.edit"
+                                    (change)="changePermission(module?.module_id,item)"><span class="checkmark"></span>
+                                  <p>Edit</p>
+                                </label></div>
+                              <div class="form-checkbox d-inline-block mr-1"><label><input type="checkbox"
+                                    name="Delete{{item?.org_sub_module_id}}"(click)="clickCheckbox()"
+                                    class="permissionCheckBox{{item?.org_sub_module_id}}"[disabled]="!permissionObj?.edit"
+                                    (change)="changePermission(module?.module_id,item)"><span class="checkmark"></span>
+                                  <p>Delete</p>
+                                </label></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </tab>
+              </ng-container>
+            </tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="closeRolesPermissionModal()">Close</button>
+    <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading"
+      (click)="saveRoleModuleSubModulePermission()">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>Save</button>
+  </div>
+</ng-template>

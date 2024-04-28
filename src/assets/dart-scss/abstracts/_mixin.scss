@@ -1,0 +1,237 @@
+@use './../project/colors' as *;
+@use "sass:math" as *;
+
+$allPrefix: ('webkit','apple','khtml','moz','rim','xv','ms','o');
+$norPrefix: ('webkit','moz','ms');
+@mixin prefix($property, $value, $prefixes: ()) {@each $prefix in $prefixes {#{'-' + $prefix + '-' + $property}: $value;} #{$property}: $value;}
+@mixin prefixAll($declarations, $prefixes: ()) {@each $property, $value in $declarations {@each $prefix in $prefixes {#{'-' + $prefix + '-' + $property}: $value;} #{$property}: $value;}}
+@mixin transition($transition...) {@include prefix(transition, $transition, $norPrefix);}
+@mixin transition-delay($transition-delay) {@include prefix(transition-delay, $transition-delay, $norPrefix);}
+@mixin transform-origin($v1, $v2) {@include prefix(transform-origin, $v1 $v2, $norPrefix);}
+@mixin transition-timing-function($tim) {@include prefix(transition-timing-function, $tim, $norPrefix);}
+@mixin transform($transform) {@include prefix(transform, $transform, $norPrefix);}
+@mixin transform-origin($origin) {@include prefix(transform-origin, $origin, $norPrefix);}
+@mixin object($fit, $posi){width:100%; -o-object-fit: $fit; object-fit: $fit; -o-object-position: $posi; object-position: $posi;}
+@mixin imgW(){-webkit-filter: brightness(0) invert(1); filter: brightness(0) invert(1);}
+@mixin imgB(){-webkit-filter: saturate(0%) grayscale(100%) brightness(69%) contrast(1000%);}
+@mixin imgG(){-webkit-filter: grayscale(100%); filter: grayscale(100%);}
+@mixin imgN(){ -webkit-filter: brightness(100%) invert(0); filter: brightness(100%) invert(0); }
+
+
+
+@mixin optional-at-root($sel) {
+  @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+    @content;
+  }
+}
+
+
+//  PLACEHOLDER
+@mixin placeholder {
+  @include optional-at-root('::-webkit-input-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root('::-moz-placeholder') {
+    @content;
+  }
+
+  @include optional-at-root(':-ms-input-placeholder') {
+    @content;
+  }
+  .placeholder {@content;}
+}
+
+
+//  PLACEHOLDER
+// @mixin placeholder {
+//   ::-webkit-input-placeholder {@content;}
+//   :-moz-placeholder           {@content;}
+//   ::-moz-placeholder          {@content;}
+//   :-ms-input-placeholder      {@content;}  
+//   .placeholder {@content;}
+// }
+
+// SELECTION
+@mixin  selection {
+    ::-webkit-selection {@content;}
+    ::-moz-selection {@content;}
+    ::selection {@content;}
+}
+
+
+// CLEARFIX
+@mixin clearfix() {
+    clear: both;
+    &::after {
+      display: block;
+      content: "";
+      clear: both;
+    }
+  }
+  
+
+@mixin center($position) {
+  position: absolute;
+  
+  @if $position == 'Y' {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  @else if $position == 'X' {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translate(-50%);
+  }
+  @else if $position == 'XY' {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+
+// IMAGE FILTER
+@mixin imgW(){-webkit-filter: brightness(0) invert(1); filter: brightness(0) invert(1);}
+@mixin imgB(){-webkit-filter: saturate(0%) grayscale(100%) brightness(69%) contrast(1000%);}
+@mixin imgG(){-webkit-filter: grayscale(100%); filter: grayscale(100%);}
+@mixin imgN(){ -webkit-filter: brightness(100%) invert(0); filter: brightness(100%) invert(0); }
+
+
+
+
+// HEIGHT
+@mixin fullH($adjust: ''){
+  @if ($adjust != '') {
+    height: calc(100vh #{$adjust});
+    height: calc(calc(var(--vh, 1vh) * 100) #{$adjust});
+  }
+  @else{
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+
+
+@mixin minH($adjust: ''){
+  @if ($adjust != '') {
+    min-height: calc(100vh #{$adjust});
+    min-height: calc(calc(var(--vh, 1vh) * 100) #{$adjust});
+  }
+  @else{
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+
+
+@mixin maxH($adjust: ''){
+  @if ($adjust != '') {
+    max-height: calc(100vh #{$adjust});
+    max-height: calc(calc(var(--vh, 1vh) * 100) #{$adjust});
+  }
+  @else{
+    max-height: 100vh;
+    max-height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+
+
+// FUNCTIONS
+@function toRem($value) {
+  $remValue: ($value / 16) + rem; 
+  @return $remValue;
+}
+
+
+@function toPercentage($value, $width) {
+  @return percentage($value / $width);
+}
+
+
+
+@mixin clamp($props, $min, $max, $max-vp: 1920){
+  @if ($props == 'paddingY'){
+    padding: #{$min+'px'} 0;
+    padding: clamp(#{$min+'px'}, #{(div((100 * $max), $max-vp))+'vw'}, #{$max + 'px'}) 0;
+  }
+
+  @else if($props == 'marginY'){
+    margin: #{$min+'px'} 0;
+    margin: clamp(#{$min+'px'}, #{(div((100 * $max), $max-vp))+'vw'}, #{$max + 'px'}) 0;
+  }
+
+  @else if($props == 'font-size'){
+    #{$props}: calc(#{$min+'px'} + (#{$max} - #{$min}) * (100vw - 320px) / (#{$max-vp} - 320));
+    #{$props}: clamp(#{$min+'px'}, #{(div((100 * $max), $max-vp))+'vw'}, #{$max + 'px'});
+  }
+
+  @else if($props == 'width'){
+    width: #{$min+'px'};
+    flex:  0 0 #{$min+'px'};
+    width: clamp(#{$min+'px'}, #{(div((100 * $max), $max-vp))+'vw'}, #{$max + 'px'});
+    flex: 0 0 clamp(#{$min+'px'}, #{(div((100 * $max), $max-vp))+'vw'}, #{$max + 'px'});
+  }
+
+  @else{
+    #{$props}: #{$min+'px'};
+    #{$props}: clamp(#{$min+'px'}, #{(div((100 * $max), $max-vp))+'vw'}, #{$max + 'px'});  
+  }
+}
+
+
+
+// profile picture
+@mixin profilePic($w: 85px){
+  width: $w;
+  height: $w;
+  flex: 0 0 $w;
+  border-radius: 50%;
+  background-color: color(dsilver);
+  border: 2px solid color(dsilver);
+  //box-shadow: inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.15), 0 -1.5px 3px 0 rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  img{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: top;
+    &[src=""]{
+      display: none;
+    }
+  }
+}
+
+
+// GRID
+@mixin d-grid($col, $gap: ''){
+  display: grid;
+  grid-template-columns: repeat($col, minmax(0, 1fr));
+  @if($gap != ''){
+    grid-gap: $gap;
+    gap: $gap;
+  }
+}
+
+// mq
+// @mixin mq($val, $dir) {
+//   @if ($dir = '>'){
+//     @media(max-width: #{$va})
+//   }
+// }

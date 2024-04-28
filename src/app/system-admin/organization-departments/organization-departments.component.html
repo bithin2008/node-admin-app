@@ -1,0 +1,204 @@
+<div class="row mb-4">
+  <div class="col">
+    <div class="card box-shadow">
+      <div class="card-header"></div>
+      <div class="card-body">
+        <!-- <app-post></app-post> -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card-1" id="table">
+              <div class="card__head">
+                <div class="card-heading">
+                  <p class="h4 c--drkgry">Organization Departments</p>
+                </div>
+                <div class="bd-example justify-content-end text-end d-flex gap-2">
+
+                  <select class="form-control form-select w-100" [(ngModel)]="selectedOrg"
+                    (change)="changeOrganization()">
+                    <option value="">Select organization</option>
+                    <ng-container *ngFor="let org of orgList">
+                      <option value="{{org.org_id}}">{{org.org_name}}</option>
+                    </ng-container>
+                  </select>
+
+                  <button
+                    class="btn btn-sm btn-primary btn-sm w-100 d-flex align-items-center justify-content-center gap-2"
+                    (click)="openAddEditDepartmentModal(addEditDepartment,'')"> Add
+                    Department</button>
+                </div>
+
+
+
+
+              </div>
+              <div class="card__body">
+                <div class="card__body__container">
+                  <div class="table-style table-style-1 table-layout-fixed">
+
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="w80">#</th>
+                          <th scope="col" class="w180">Actions</th>
+                          <th scope="col">Department</th>
+                          <th scope="col">Organization</th>
+                          <th scope="col" class="w80">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="orgDepartmentList?.length>0">
+                        <tr *ngFor="let item of orgDepartmentList; let i=index">
+                          <td>{{i+1}}</td>
+                          <td>
+                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Edit" class="btn btn-sm h-1"
+                              (click)="openViewDepartmentModal(viewDepartment,item)"><i class="pi pi-eye"></i>
+                            </button>
+                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Edit" class="btn btn-sm h-1"
+                              (click)="openAddEditDepartmentModal(addEditDepartment,item)"><i
+                                class="pi pi-file-edit"></i>
+                            </button>
+                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Delete" class="btn btn-sm h-1" (click)="deleteDepartment(item)"><i
+                                class="pi pi-trash"></i></button>
+                          </td>
+
+                          <td><b> {{item?.department_name}}</b></td>
+                          <td> {{item?.organization?.org_name}}</td>
+                          <td>
+                            <div class="form-check form-switch form-switch-sm">
+                              <input class="form-check-input" type="checkbox" id="{{item.department_id}}-status"
+                                (click)="changeActivationStatus($event,item)"
+                                [checked]="item.active_status">
+                            </div>
+                            <!-- <span *ngIf="item.active_status==1" class="badge success">Active</span>
+                                <span *ngIf="item.active_status==0" class="badge danger">Inactive</span> -->
+                          </td>
+                        </tr>
+
+                      </tbody>
+                      <tbody *ngIf="orgDepartmentList?.length==0">
+                        <tr>
+                          <td colspan="4" class="text-center">No data found</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <span *ngIf="totalRecords>10">
+                    <p-paginator (onPageChange)="paginate($event)" [first]="first" [rows]="itemPerPage"
+                      [totalRecords]="totalRecords" [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================ ADD/EDIT MODULES  ==================== -->
+
+<ng-template #addEditDepartment>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Department</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="orgDepartmentForm" class="form-style flow-rootX app-form unauth-form-max-w"
+    (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="form-style">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-floating"><select class="form-control form-select" formControlName="orgId"
+                [ngClass]="{ 'is-invalid': submitted && f['orgId'].errors }">
+                <option value="">Select organization <span class="c--error">*</span></option>
+                <ng-container *ngFor="let org of orgList">
+                  <option value="{{org.org_id}}">{{org.org_name}}</option>
+                </ng-container>
+
+              </select><label class="form-label">Organization<span class="c--error">*</span></label>
+              <app-validation-error [control]="f['orgId']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-12">
+
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="departmentName"
+                [ngClass]="{ 'is-invalid': submitted && f['departmentName'].errors }">
+              <label class="form-label">Department Name <span class="c--error">*</span></label>
+              <app-validation-error [control]="f['departmentName']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-floating">
+              <textarea class="form-control" formControlName="description"
+                [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+              <label class="form-label">Description</label>
+              <app-validation-error [control]="f['description']"></app-validation-error>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <p>Status</p>
+            <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                  formControlName="activeStatus" value="1"><span class="checkmark"></span>
+                <p>Active</p>
+              </label><label><input type="radio" name="activeStatus" formControlName="activeStatus" value="0"><span
+                  class="checkmark"></span>
+                <p>Inactive</p>
+              </label></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="modalRef?.hide()">Close</button>
+      <button type="submit" class="btn btn-sm btn-primary">{{isEdit?'Update':'Add'}} Department</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<!-- ================ VIEW SUB MODULES  ==================== -->
+
+<ng-template #viewDepartment>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Organization Department Details</h4>
+
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-style">
+      <div class="row">
+
+        <div class="col-12">
+          <p> <b>Department</b>: {{viewObj.department_name}}</p>
+        </div>
+        <div class="col-12">
+          <p> <b>Organization</b>: {{viewObj.organization.org_name}}</p>
+        </div>
+        <div class="col-12" *ngIf="viewObj.description">
+          <p> <b>Description</b>: {{viewObj.description}}</p>
+        </div>
+        <div class="col-12">
+          <p><b>Status</b>: <span class="badge success" *ngIf="viewObj.active_status==1">Active</span> <span
+              class="badge danger" *ngIf="viewObj.active_status!==1">Inactive</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+    <button type="button" class="btn btn-sm btn-primary" (click)="openEditDepartmentModal(addEditDepartment,viewObj)"><i
+        class="pi pi-pencil"></i> Edit</button>
+
+  </div>
+</ng-template>

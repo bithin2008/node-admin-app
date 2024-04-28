@@ -1,0 +1,34 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div class="col-auto mb-0">
+    <div class="form--search d-flex">           
+      <div class="input-group w-auto">
+        <div class="form-control form-control--search newSerch w-auto d-flex align-items-center">
+          <i class="pi pi-search search-icon mr-1"></i>
+          <div class="resize-searchbar">
+          <span class="resize-text"></span>
+          <input name="searchText"(input)="onInputTextBox($event)" [(ngModel)]="searchValue" input type="text" class="resize-input"  [placeholder]="placeHolderText" #searchInput appAutowidth>
+        </div>
+        </div>
+      </div>
+      <button class="nowrap btn btn-primary sngle-serch-btn {{searchValue.length >=3?'':'disabled-lg'}}">Search </button>
+      <button class="nowrap btn btn-reset ml-1 {{searchValue?'':'disabled-xl'}}" (click)="resetInputValue()"> Reset</button>
+    </div>
+  </div>
+</form>
+  <!--   <div class="input-group mb-3 search-input-box">
+      <input name="searchText" ngModel [value]="value" type="text" class="form-control"
+        [placeholder]="placeHolderText" #searchInput>
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+          <app-icon [name]="'search'"></app-icon>
+        </button>
+      </div>
+    </div> -->
+    <!-- <div *ngIf="f.submitted || f.touched && f.dirty">
+      <div class="my-1 py-2 alert alert-danger" *ngIf="f.controls['searchText'].hasError('required')">
+        <app-icon class="me-2" [name]="'exclamation-circle'"></app-icon>
+        <span [innerHTML]="'This field is required'"></span>
+      </div>    
+    </div> -->
+  
+

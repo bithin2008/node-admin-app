@@ -1,0 +1,110 @@
+<h1>    {{itemId?'Edit':'Add'}} Item </h1>
+<div class="back-to-page">
+    <a [routerLink]="['/item-management']">
+        <app-icon [name]="'angleLeft'" [styleClass]="'me-2'"></app-icon>Back
+    </a>
+</div>
+<div class="row my-4">
+    <div class="2-col-form col-md-9 col-lg-6">
+        <form [formGroup]="itemForm" class="form app-form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="itemCategories">Item Categories</label>
+                    <select class="form-select" id="itemCategories" formControlName="itemCategories">
+                        <option value="">Select</option>
+                        <option value="1">Appliances</option>
+                        <option value="2">System Guard</option>
+                        <option value="3">Total Home Guard</option>
+                        <option value="4">Add on</option>                       
+                    </select>
+                    <app-validation-error [control]="itemForm.controls['itemCategories']"></app-validation-error>
+                </div>
+
+               
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="itemType">Item Type</label>          
+                    <select class="form-select" id="itemType" formControlName="itemType"  (change)="changeItemType($event)">
+                        <option value="1">Base</option>
+                        <option value="0">Addon</option>                      
+                    </select>
+                    <app-validation-error [control]="itemForm.controls['itemType']"></app-validation-error>
+                </div>
+              
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="firstName">Item Name</label>
+                    <input type="text" class="form-control" id="itemName"
+                        formControlName="itemName">
+                    <app-validation-error [control]="itemForm.controls['itemName']"></app-validation-error>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="addonCategoryId">Addon Categories</label>
+                    <select class="form-select" id="itemRoleId" addonCategoryId="addonCategoryId"  formControlName="addonCategoryId" [disabled]="itemForm.value.itemType==1">
+                        <option value="">Select</option>
+                        <option value="{{cat.addon_category_id}}" *ngFor="let cat of addOnCateggoryList">{{cat.category_name}}</option>                       
+                    </select>
+                    <app-validation-error [control]="itemForm.controls['addonCategoryId']"></app-validation-error>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="maxMonthlyPrice">Max Monthly Price</label>
+                    <input type="number" class="form-control" id="maxMonthlyPrice" formControlName="maxMonthlyPrice">
+                    <app-validation-error [control]="itemForm.controls['maxMonthlyPrice']"></app-validation-error>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="maxYearlyPrice">Max Yearly Price</label>
+                    <input type="number" class="form-control" id="maxYearlyPrice" formControlName="maxYearlyPrice">
+                    <app-validation-error [control]="itemForm.controls['maxYearlyPrice']"></app-validation-error>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="minMonthlyPrice">Min Monthly Price</label>
+                    <input type="number" class="form-control" id="minMonthlyPrice" formControlName="minMonthlyPrice">
+                    <app-validation-error [control]="itemForm.controls['minMonthlyPrice']"></app-validation-error>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="minYearlyPrice">Min Yearly Price</label>
+                    <input type="number" class="form-control" id="minYearlyPrice" formControlName="minYearlyPrice">
+                    <app-validation-error [control]="itemForm.controls['minYearlyPrice']"></app-validation-error>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="required" for="deletionPrice">Deletion Price</label>
+                    <input type="number" class="form-control" id="deletionPrice" formControlName="deletionPrice">
+                    <app-validation-error [control]="itemForm.controls['deletionPrice']"></app-validation-error>
+                </div>
+                
+
+                <div class="col-md-12 mb-3">
+                    <label class="required me-4 radio-label" for="role">Status </label>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="activeStatus_yes" value="1"
+                            formControlName="activeStatus">
+                        <label class="form-check-label" for="activeStatus_yes">Active</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="activeStatus_no" value="0"
+                            formControlName="activeStatus">
+                        <label class="form-check-label" for="activeStatus_no">Inactive</label>
+                    </div>
+
+                    <app-validation-error [control]="itemForm.controls['activeStatus']"></app-validation-error>
+                </div>               
+
+            </div>
+
+
+
+
+
+
+            <button type="submit" class="btn btn-primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+              {{itemId?'Update':'Submit'}}  
+            </button>
+        </form>
+        <!-- <p>Form Status: <span class="text-bold">{{ myForm.status }}</span></p>
+        <p>{{myForm.value|json}}</p> -->
+    </div>
+</div>

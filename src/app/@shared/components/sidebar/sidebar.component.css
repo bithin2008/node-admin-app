@@ -1,0 +1,19 @@
+.nav-links li li.active a {
+  /* Add your active styles here */
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 1;
+  padding-left: 2rem !important;
+  /* For example, add a background color to highlight the active link */
+}
+.nav-links li li.active a::before {
+  content: "-";
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.no-link-available {
+  pointer-events: none;
+}/*# sourceMappingURL=sidebar.component.css.map */

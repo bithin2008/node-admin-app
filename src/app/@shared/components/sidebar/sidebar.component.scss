@@ -1,0 +1,21 @@
+.nav-links li li.active a{
+    /* Add your active styles here */
+    font-size: 12px ;
+    font-weight: bold;
+    // color: white ;
+    opacity: 1 ;
+    padding-left: 2rem !important;
+
+    &::before{
+      content: '-';
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    /* For example, add a background color to highlight the active link */
+  }
+
+  .no-link-available{
+    pointer-events: none;
+  }

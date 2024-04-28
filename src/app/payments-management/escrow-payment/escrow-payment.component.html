@@ -1,0 +1,254 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+           
+
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head">
+                                <div class="col-lg-4 mb-0 pl-0">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Escrow Payments</p>
+                                    </div>
+
+                                </div>
+                                <div class="align-items-center col-lg-8 mb-0 pr-0">
+                                    <div class="d-flex justify-content-end"> 
+                                        <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                        [placeHolderText]="'Search...'"></app-search-input>    
+                                        <div class="col-auto mb-0 pr-0 ml-1">
+                                            <div class="form--search d-flex">
+                                                <!-- <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add"
+                                                (click)="openaddEditPlanModal(addEditPlanTerms,'')">Add</button> -->
+                                             </div>
+                                        </div>                                 
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="w60" (click)="updateSorting('payment_id')"># <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" class="w80">Actions</th>
+                                                            <th scope="col" (click)="updateSorting('policy_details.first_name')">Full Name
+                                                                <span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <th scope="col">Sale By</th>
+                                                            <!-- <th scope="col" (click)="updateSorting('policy_details.last_name')">Last Name <span class="pi pi-sort short-icon"></span> </th> -->
+                                                            <!-- <th scope="col" (click)="updateSorting('policy_details.email')">Email <span class="pi pi-sort short-icon"></span> </th> -->
+                                                            <th scope="col" (click)="updateSorting('policy_details.policy_number')">Policy Number<span class="pi pi-sort short-icon"></span>
+                                                            </th>
+                                                            <!-- <th scope="col"(click)="updateSorting('ticket_no')">Claim No. <span class="pi pi-sort short-icon"></span></th> -->
+                                                            <th scope="col"  (click)="updateSorting('payment_status')">Payment Status <span class="pi pi-sort short-icon"></span></th>
+                                                            <!-- <th scope="col">Check Number</th> -->
+                                                            <th scope="col" (click)="updateSorting('amount')">Plan Total<span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col">Payment Type</th>
+                                                            <th scope="col" (click)="updateSorting('payment_date')">Estimated Closing Date<span
+                                                                class="pi pi-sort short-icon"></span></th>
+                                                            <!-- <th scope="col" (click)="updateSorting('payment_successfull_date')">Successfully Payment Date <span
+                                                                class="pi pi-sort short-icon"></span></th> -->
+                                                            <!-- <th scope="col">Created User Type</th>
+                                                            <th scope="col">Updated User Type</th> -->
+                                                            <!-- <th scope="col">Updated By</th> -->
+                                                            <th scope="col"(click)="updateSorting('created_at')">Date Created<span class="pi pi-sort short-icon"></span></th>
+                                                      
+                                                            <!-- <th scope="col"(click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th> -->
+    
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="escrowList?.length>0">
+                                                        <tr *ngFor="let item of escrowList; let i=index" [ngClass]="item?.policy_details?.is_anamaly==1 ? 'anamaly': ''">
+                                                            <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                            <td>
+                                                                <span *ngIf="!permissionObj?.edit && !permissionObj?.delete">N/A</span>
+                                                                <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="View" *ngIf="permissionObj?.edit" class="btn btn-sm h-1 btn-view" (click)="navigateToCustomerDetails(item?.customer_id)">Edit</button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="" *ngIf="permissionObj?.delete"
+                                                                data-bs-original-title="Delete" class="btn btn-sm btn-del h-1" (click)="removeEscrowPayment(item?.payment_id)">Delete</button>
+                                                            </td>
+                                                            <td  (click)="navigateToCustomerDetails(item?.customer_id)">
+                                                                <div class="pro_name">
+                                                                    <b> {{item?.policy_details.first_name+' '+item?.policy_details.last_name}} </b>
+                                                                </div>
+                                                            </td>
+                                                            <td> <span *ngIf="item.create_user_type==1 || item.create_user_type==3">{{item?.customer_details?.first_name}}
+                                                                        {{item?.customer_details?.last_name}} 
+                                                                        ({{item.policy_details.source==0 && item.create_user_type==1?'Self Customer':item.policy_details.source==0 && item.create_user_type==3?'RE PROS':'Backend Team'}})
+                                                                </span>
+                                                                <span *ngIf="item.create_user_type==2">{{item?.created_user_info?.first_name}}
+                                                                {{item?.created_user_info?.last_name}} ({{item.policy_details.source==1?'Backend Team':'Self Customer'}})</span>
+                                                                <span *ngIf="!item.create_user_type">N/A</span>
+                                                           
+                                                            </td>
+                                                            <!-- <td (click)="navigateToCustomerDetails(item?.customer_id)">{{item?.policy_details?.email}}</td> -->
+                                                            <!-- <td> <span class="badge radius:large py-1 c--mdSky border-txt ng-star-inserted" role="button" title="Copy to clipboard" *ngIf="item?.policy_details?.policy_number" (click)="copyToClipBoard(item?.policy_details?.policy_number)">{{item?.policy_details?.policy_number}}</span> 
+                                                            
+                                                            </td> -->
+                                                            <td>
+                                                                <span (click)="navigateToCustomerDetails(item?.customer_id)"
+                                                                    class="py-1 c--mdSky" role="button">{{item?.policy_details?.policy_number}}
+                                                                </span>
+                                                            </td>
+    
+                                                            <!-- <td> <span class="badge radius:large py-1 c--mdSky border-txt ng-star-inserted" role="button" title="Copy to clipboard" *ngIf="item?.ticket_no" (click)="copyToClipBoard(item?.ticket_no)">{{item?.ticket_no}}</span>
+                                                            <span *ngIf="!item?.ticket_no">N/A</span>
+                                                            </td> -->
+                                                            <td>
+                                                                <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':item?.payment_status_details?.status_color }">{{item.payment_status_details?.status_name}}</span>
+                                                            </td>
+                                                            <!-- <td> {{item?.cheque_no?item?.cheque_no:'NA'}}</td> -->
+                                                            <td> {{item?.amount| currency:'USD'}}</td>
+                                                            <td> 
+                                                                <span>{{item?.payment_type_details}}</span>
+    
+                                                            </td>
+          
+                                                            <td> {{item.payment_date?(item.payment_date | date:'MM-dd-YYYY'):'NA'}}</td>
+                                                            <!-- <td> <span *ngIf="item?.payment_successfull_date"> {{item?.payment_successfull_date | date:'MM-dd-YYYY'}}</span> -->
+                                                            <!-- <span *ngIf="!item?.payment_successfull_date">N/A</span></td> -->
+                                                            <!-- <td> <span *ngIf="item.create_user_type==1">Customer</span>
+                                                                <span *ngIf="item.create_user_type==2">User</span>
+                                                                <span *ngIf="item.create_user_type==3">Realtor</span>
+                                                                <span *ngIf="item.create_user_type==null">N/A</span>
+                                                            </td>
+                                                            <td> <span *ngIf="item.update_user_type==1">Customer</span>
+                                                                <span *ngIf="item.update_user_type==1">User</span>
+                                                                <span *ngIf="item.update_user_type==3">Realtor</span>
+                                                                <span *ngIf="item.update_user_type==null">N/A</span>
+                                                            </td> -->
+                                                         
+                                                            <!-- <td> <span
+                                                                    *ngIf="item.update_user_type==1">{{item?.customer_details?.first_name}}
+                                                                    {{item?.customer_details?.last_name}}</span>
+                                                                <span
+                                                                    *ngIf="item.update_user_type!=1 && item.update_user_type!=null">{{item?.updated_user_info?.first_name}}
+                                                                    {{item?.updated_user_info?.last_name}}</span>
+                                                                    <span
+                                                                    *ngIf="item.update_user_type==null">N/A</span>
+                                                            </td> -->
+                                                            <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+    
+                                                           <!--  <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td> -->
+                                                        </tr>
+    
+                                                    </tbody>
+                                                    <tbody *ngIf="escrowList?.length==0">
+                                                        <tr>
+                                                            <td colspan="15" class="text-center">No data found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <span>
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                                [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ VIEW SUB USERS  ==================== -->
+
+<ng-template #viewUser>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Payment Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="row"> 
+                    <div class="row no-gutter">
+                        <div class="col-6">
+                            <p><b>Name</b>: {{viewObj?.customer_details?.first_name}} {{viewObj?.customer_details?.last_name}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Policy Number</b>: {{viewObj?.policy_details?.policy_number}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Payment Type</b>: <span>{{viewObj.payment_type_details}}</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Amount</b>:{{viewObj.amount | number : '1.2-2'| currency:'USD'}} </p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Payment Date</b>:{{viewObj.payment_date | date:'MM-dd-YYYY'}} </p>
+                        </div>
+                        <!-- <div class="col-12"></div> -->
+                        <div class="col-6">
+                            <p><b>Created User Type :</b><span *ngIf="viewObj.create_user_type==1">Customer</span>
+                                <span *ngIf="viewObj.create_user_type==2">User</span>
+                                <span *ngIf="viewObj.create_user_type==3">Realtor</span>
+                                <span *ngIf="viewObj.create_user_type==null">NA</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Created By :</b> <span
+                                *ngIf="viewObj.create_user_type==1">{{viewObj?.customer_details?.first_name}}
+                                {{viewObj?.customer_details?.last_name}}</span>
+                            <span
+                                *ngIf="viewObj.create_user_type!=1 && viewObj.create_user_type!=null">{{viewObj?.created_user_info?.first_name}}
+                                {{viewObj?.created_user_info?.last_name}}</span>
+                                <span
+                                *ngIf="viewObj.create_user_type==null">NA</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Created On :</b> {{viewObj?.created_at|date:'MM-dd-YYYY'}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Updated By :</b> <span
+                                *ngIf="viewObj.update_user_type==1">{{viewObj?.customer_details.first_name}}
+                                {{viewObj?.customer_details.last_name}}</span>
+                            <span
+                                *ngIf="viewObj.update_user_type!=1 && viewObj.update_user_type!=null">{{viewObj?.updated_user_info.first_name}}
+                                {{viewObj?.updated_user_info.last_name}}</span>
+                                <span
+                                *ngIf="viewObj.update_user_type==null">NA</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Updated On :</b> {{viewObj?.updated_at|date:'MM-dd-YYYY'}}</p>
+                        </div>                      
+                        
+                        <div class="col-6">
+                            <p><b>Schedule Payment :</b> {{viewObj?.schedule_payment_details}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Recurring Type :</b> {{viewObj?.recurring_type_details}}</p>
+                        </div>
+
+                        <div class="col-6">
+                            <p><b>Manual Payment Type :</b> {{viewObj?.manual_payment_type_details}}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><b>Payment Status</b>: <span class="badge radius:tiny size:tiny padding:tiny" [ngStyle]="{'background-color':viewObj?.payment_status_details?.status_color }">{{viewObj.payment_status_details?.status_name}}</span>
+                            </p>
+                            
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>    
+</ng-template>
+
+
+
+

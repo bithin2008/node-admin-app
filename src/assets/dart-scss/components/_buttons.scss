@@ -1,0 +1,325 @@
+@use './../abstracts/mixin' as *; 
+@use './../project/colors' as *; 
+@use './../project/typo' as *; 
+
+
+.c2as{
+    display: grid;
+    grid-gap: 0.5em;
+    gap: 0.5em;
+
+    @media(min-width: 576px){
+        display: inline-grid;
+        grid-auto-flow: column;
+    }
+}
+
+.c2a, .c2a-arw{
+    display: inline-grid;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 0.8em;
+        gap: 0.8em;
+    font-size: var(--c2a-fs, 0.98rem);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    svg{
+        width: var(--ico-size, 1em);
+        transform: translateX(0);
+        transition: all 0.5s ease;
+    }
+
+    span > svg{
+        display: block;
+    }
+
+    &:hover{
+        svg{
+            transform: translateX(10px);
+        }
+    }
+    &.justify\:between{
+        justify-content: space-between;
+    }
+    &.justify\:around{
+        justify-content: space-around;
+    }
+}
+
+.c2a--inline{
+    grid-auto-flow: column;
+}
+
+
+.c2a{
+    --c2a-fs: 0.98rem;
+    padding: var(--btn-size, 0.6em 1.4em);
+    border: 1px solid transparent;
+    border-radius: var(--c2a-radius, 0.3em);
+    cursor: pointer;
+    &.outline{
+        border-color: currentColor;  
+        &:hover,
+        &:focus{
+            border-color: transparent;
+        }
+    }
+    &.hvr\:outline{
+        &:hover,
+        &:focus{
+            background-color: transparent !important;
+            border-color: currentColor;
+        }
+    }
+    &.size\:minimal{
+        --c2a-fs: 0.9rem;
+        --btn-size: 0.4em 1.4em;
+    }
+    &.size\:expandedX{
+        --c2a-fs: 1.15rem;
+        --btn-size: 0.7em 2em;
+    }
+    &.radius\:expandedx{
+        --c2a-radius: 0.2em;
+    }
+    &.radius\:expandedX{
+        --c2a-radius: 1.2em;
+    }
+    &.radius\:expandedX2{
+        --c2a-radius: 2.2em;
+    }
+    // &:active{
+    //     transition: transform 0.2s;
+    //     transform: scale(0.9);
+    // }
+    &.case\:up{
+        --c2a-fs: 0.88rem;
+    }
+
+    &:hover{
+        opacity: 0.8;
+        color: aliceblue;
+    }
+}
+
+.ico-rounded{
+    width: 1.6em;
+    height: 1.6em;
+    padding: 0.45em 0.35em 0.45em 0.55em;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    svg{
+        width: auto;
+    }
+}
+
+.btn{
+    display: inline-grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background-color: var(--btnBgClr);
+    color: var(--btnClr);
+    transition: all 0.3s ease-in;
+    
+
+    .pi{
+        font-size: 14px;
+    }
+}
+
+.c2a-underline{
+    display: inline-block;
+    font-size: var(--c2a-fs);
+    line-height: 1;
+    padding-bottom: 0.4em;
+    position: relative;
+
+    &::before,
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 1px;
+        height: 1px;
+        background-color: currentColor;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+    &::before{
+        width: 100%;
+        left: 0;
+    }
+    &::after{
+        width: 0;
+        right: 0;
+    }
+    
+
+    &:hover{
+        &::before{
+            width: 0;
+            left: auto;
+            right: 0;
+        }
+        &::after{
+            width: 100%;
+            left: 0;
+            right: auto;
+            transition-delay: 0.35s;
+        }
+    }
+}
+
+.btn-view, 
+.btn-edit, 
+.btn-permission, 
+.btn-pdf, 
+.btn-del,
+.btn-action,
+.btn-download,
+.btn-reset{
+    border-color: transparent;
+
+    &:hover{
+        background-color: var(--btnHvrBgClr);
+        color: var(--btnHvrClr);
+    }
+    [data-mode="dark"] &{
+        --btnBgClr: var(--btnBgClrD);
+        --btnClr: var(--btnClrD);
+        --btnHvrBgClr: var(--btnHvrBgClrD);
+        --btnHvrClr: var(--btnHvrClrD);
+    }
+}
+
+.btn-view{
+    --btnBgClr: #dce5ff;
+    --btnClr: #001c7c;
+    --btnHvrBgClr: #4764c5;
+    --btnHvrClr: #ffffff;
+    
+    --btnBgClrD: #2144a957;
+    --btnClrD: #85a1ff;
+    --btnHvrBgClrD: #aec1ff;
+    --btnHvrClrD: #2144a9;
+}
+
+.btn-edit{
+    --btnBgClr: #ffe8c4;
+    --btnClr: #955a00;
+    --btnHvrBgClr: #cf7e02;
+    --btnHvrClr: #ffffff;
+
+    --btnBgClrD: rgb(63 51 31 / 71%);
+    --btnClrD: rgb(233 141 1);
+    --btnHvrBgClrD: #efb250;
+    --btnHvrClrD: rgb(51 39 19);
+       
+}
+.btn-permission{
+    --btnBgClr: #5dcd9ab0;
+    --btnClr: #266448;
+    --btnHvrBgClr: #509d79;
+    --btnHvrClr: #ffffff;
+
+    --btnBgClrD: #19523887;
+    --btnClrD: #07f489;
+    --btnHvrBgClrD: #44cd8e;
+    --btnHvrClrD: #033d22;
+}
+
+.btn-pdf{
+    --btnBgClr: #cf8f736b;
+    --btnClr: #ab4848;
+    --btnHvrBgClr: rgb(229 131 89);
+    --btnHvrClr: #ffffff;
+
+    --btnBgClrD: #f09a742e;
+    --btnClrD: #ffb5b5;
+    --btnHvrBgClrD: rgb(201 67 8 / 81%);
+    --btnHvrClrD: #ffdfdf;
+}
+
+.btn-del{
+    --btnBgClr: #ffd9d8;
+    --btnClr: #de0b0b;
+    --btnHvrBgClr: #d11e1e;
+    --btnHvrClr: #ffffff;
+
+    --btnBgClrD: rgb(157 78 76 / 29%);
+    --btnClrD: rgb(255 93 93);
+    --btnHvrBgClrD: rgb(197 53 53);
+    --btnHvrClrD: #ffdedd;
+       
+}
+
+.btn-action{
+    --btnBgClr: #05aa0730;
+    --btnClr: #024f03b8;
+    --btnHvrBgClr: #319d32 !important;
+    --btnHvrClr: #ffffff !important;
+    
+    --btnBgClrD: rgb(6 235 9 / 14%);
+    --btnClrD: rgb(6 235 9 / 72%);
+    --btnHvrBgClrD: rgb(0 159 2 / 72%) !important;
+    --btnHvrClrD: rgb(243 255 243 / 72%) !important;
+}
+
+.btn-download{
+    --btnBgClr: #36a9944f;
+    --btnClr: #009688;
+    --btnHvrBgClr: rgb(42, 102, 90);
+    --btnHvrClr: #fff;
+
+    --btnBgClrD: #36a99438;
+    --btnClrD: #0ae7d2;
+    --btnHvrBgClrD: rgb(37 107 92);
+    --btnHvrClrD: rgb(255 255 255);
+}
+
+.btn-reset{
+    --btnBgClr: #8d8d8d;
+    --btnClr: #fff;
+    --btnHvrBgClr: #4f4f4f;
+    --btnHvrClr: #fff;
+    
+    --btnBgClrD: #89898947;
+    --btnClrD: #fff;
+    --btnHvrBgClrD: #5d5d5d;
+    --btnHvrClrD: #fdfdfd;
+}
+
+.btn-sm{
+    font-weight: 500;
+    padding: 0.3em 1em;
+}
+
+.btn + .btn{
+    margin-left: 0.5em;
+}
+
+.btn{
+    --bs-btn-font-size: 1.05rem;
+    --bs-btn-padding-x: 1em;
+    --bs-btn-padding-y: 0.5em;
+}
+
+.btn-mid {
+    --bs-btn-font-size: 1.05rem;
+    --bs-btn-padding-x: 1.5em;
+    --bs-btn-padding-y: 0.8em;
+}
+
+.disabled-xl{
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.disabled-lg{
+    opacity: 0.5;
+    pointer-events: none;
+}

@@ -1,0 +1,275 @@
+<div class="splash-screen" >
+    <div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="steps">
+        <div class="step step-1" *ngIf="splashStepper.step1">
+            <div class="overflow-container">
+                <div class="in-container">
+                    <figure>
+                        <div class="profile">
+                            <div class="hello">You are <br>Amongst us!</div>
+                        </div>
+                    </figure>
+                    <article class="flow-rootx2">
+                        <p class="h1XL c--blak">Hi,</p>
+                        <p class="h1 c--midDrk">What should I call you?</p>
+                        <p class="h6 c--midDrk mb-3">Lorem Ipsum is simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                        <input type="text" class="form-control" placeholder="Say e.g. Atlantis">
+                    </article>
+                </div>
+                
+                <div class="btn-container">
+                    <a class="btn btn-secondary btn-next" (click)="splashNext('step1')">Next</a>
+                </div>
+            </div>
+        </div>
+        <div class="step step-2" *ngIf="splashStepper.step2">
+            <div class="overflow-container">
+                <div class="in-container">
+                    <figure>
+                        <div class="frame">
+                            <div class="plane-container">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    x="0px" y="0px" width="1131.53px" height="379.304px" viewBox="0 0 1131.53 379.304"
+                                    enable-background="new 0 0 1131.53 379.304" xml:space="preserve" class="plane">
+                                    <polygon fill="#fff"
+                                        points="72.008,0 274.113,140.173 274.113,301.804 390.796,221.102 601.682,367.302 1131.53,0.223  " />
+                                    <polygon fill="#354855"
+                                        points="1131.53,0.223 274.113,140.173 274.113,301.804 390.796,221.102   " />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="clouds">
+        
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" width="762px" height="331px" viewBox="0 0 762 331"
+                                enable-background="new 0 0 762 331" xml:space="preserve" class="cloud big front slowest">
+                                <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+                                c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+                                C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+                                S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z" />
+                            </svg>
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" width="762px" height="331px" viewBox="0 0 762 331"
+                                enable-background="new 0 0 762 331" xml:space="preserve" class="cloud distant smaller">
+                                <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+                                c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+                                C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+                                S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z" />
+                            </svg>
+        
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" width="762px" height="331px" viewBox="0 0 762 331"
+                                enable-background="new 0 0 762 331" xml:space="preserve" class="cloud small slow">
+                                <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+                                c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+                                C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+                                S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z" />
+                            </svg>
+        
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" width="762px" height="331px" viewBox="0 0 762 331"
+                                enable-background="new 0 0 762 331" xml:space="preserve"
+                                class="cloud distant super-slow massive">
+                                <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+                                c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+                                C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+                                S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z" />
+                            </svg>
+        
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" width="762px" height="331px" viewBox="0 0 762 331"
+                                enable-background="new 0 0 762 331" xml:space="preserve" class="cloud slower">
+                                <path fill="#FFFFFF" d="M715.394,228h-16.595c0.79-5.219,1.201-10.562,1.201-16c0-58.542-47.458-106-106-106
+                                c-8.198,0-16.178,0.932-23.841,2.693C548.279,45.434,488.199,0,417.5,0c-84.827,0-154.374,65.401-160.98,148.529
+                                C245.15,143.684,232.639,141,219.5,141c-49.667,0-90.381,38.315-94.204,87H46.607C20.866,228,0,251.058,0,279.5
+                                S20.866,331,46.607,331h668.787C741.133,331,762,307.942,762,279.5S741.133,228,715.394,228z" />
+                            </svg>
+        
+                        </div>
+        
+                    </figure>
+                    <article class="flow-rootx2">
+                        <p class="h1 c--blak">Is this the right region?</p>
+                        <ul class="region">
+                            <li class="active">Alabama</li>
+                            <li>Alaska</li>
+                            <li>Arizona</li>
+                            <li>Arkansas</li>
+                            <li>California</li>
+                            <li>Colorado</li>
+                            <li>Connecticut</li>
+                            <li>Delaware</li>
+                            <li>Florida</li>
+                            <li>Georgia</li>
+                        </ul>
+                    </article>
+                    
+                </div>
+                <div class="btn-container">
+                    <a class="btn btn-primary btn-prev"(click)="splashPrev('step2')">Previous</a>
+                    <a class="btn btn-secondary btn-next" (click)="splashNext('step2')">Next</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="step step-3" *ngIf="splashStepper.step3">
+            <div class="overflow-container">
+                <div class="in-container">
+                    <p class="h2 c--blak">Choose logo variations to display on your portal</p>
+                    <article class="flow-rootX">
+                        <!-- Upload  -->
+                        <p class="h4 fw--b c--blak">Upload Logo</p>
+                        <div id="file-upload-form" class="uploader">
+                            <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+        
+                            <label for="file-upload" id="file-drag">
+                                <img id="file-image" src="#" alt="Preview" class="hidden">
+                                <div id="start">
+                                    <i class="pi pi-image" aria-hidden="true"></i>
+                                    <div>Select the <b class="c--mdSky h6 fw--b">100px by 100px</b> logo icon</div>
+                                    <div id="notimage" class="hidden">Please select an image</div>
+                                    <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                                </div>
+                                <div id="response" class="hidden">
+                                    <div id="messages"></div>
+                                    <progress class="progress" id="file-progress" value="0">
+                                        <span>0</span>%
+                                    </progress>
+                                </div>
+                            </label>
+                        </div>
+        
+                        <div id="file-upload-form2" class="uploader2">
+                            <input id="file-upload2" type="file" name="fileUpload" accept="image/*" />
+        
+                            <label for="file-upload2" id="file-drag2">
+                                <img id="file-image2" src="#" alt="Preview" class="hidden">
+                                <div id="start2">
+                                    <p><i class="pi pi-image" aria-hidden="true"></i> <span>Logo Name</span></p>
+                                    <div>Select the <b class="c--mdSky h6 fw--b">165px by 35px</b> full logo</div>
+                                    <div id="notimage2" class="hidden">Please select an image</div>
+                                    <span id="file-upload-btn2" class="btn btn-primary">Select a file</span>
+                                </div>
+                                <div id="response2" class="hidden">
+                                    <div id="messages2"></div>
+                                    <progress class="progress2" id="file-progress2" value="0">
+                                        <span>0</span>%
+                                    </progress>
+                                </div>
+                            </label>
+                        </div>
+                    </article>
+                    <figure><img src="./../assets/img/logo-choose.webp" alt="Choose your Logo variations"></figure>
+                    
+                </div>
+                <div class="btn-container">
+                    <a class="btn btn-primary btn-prev"(click)="splashPrev('step3')">Previous</a>
+                    <a class="btn btn-secondary btn-next" (click)="splashNext('step3')">Next</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="step step-4"  *ngIf="splashStepper.step4">
+            <div class="overflow-container">
+                <div class="in-container">
+                    <p class="h2 c--blak">Choose your theme style</p>
+                    <div class="figure">
+                        <a class="btn btn-solid btn-sm btn-outline-primary me-2">Button</a>
+                        <figure>
+                            <img src="./../assets/img/theme-choose.webp" alt="Choose Solid Buttons">
+                            <figcaption>Solid Buttons</figcaption>
+                        </figure>
+                    </div>
+                    <div class="figure">
+                        <a class="btn btn-rounded btn-sm btn-outline-primary me-2">Button</a>
+                        <figure>
+                            <img src="./../assets/img/theme-choose.webp" alt="Choose Rounded Buttons">
+                            <figcaption>Capsule Buttons</figcaption>
+                        </figure>
+                    </div>
+                    <div class="color--theme flow-rootX2 text-center my-4 mt-3">
+                        <p class="h3 c--blak">Choose color theme</p>
+                        <ul class="theme">
+                            <li class="bl"></li>
+                            <li class="rd"></li>
+                            <li class="gr"></li>
+                            <li class="or"></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+                <div class="btn-container">
+                    <a class="btn btn-primary btn-prev"(click)="splashPrev('step4')">Previous</a>
+                    <a class="btn btn-secondary btn-next" (click)="splashNext('step4')">Next</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="step step-5"  *ngIf="splashStepper.step5">
+            <div class="overflow-container">
+                <div class="in-container">
+                    <svg version="1.1" id="svg-animation-example" class="svg-line-drawing rtl-magazine-animation" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="720" height="310" viewBox="0 0 720 310" xml:space="preserve" aria-hidden="true" >
+                        <defs>
+                           <clipPath id="mask-page">
+                              <path class="stroke-alt stroke-width linecap" d="m240,275 l240,0 0,-217 -240,0z" />
+                           </clipPath>
+                        </defs>
+                        <!-- content page -->
+                        <g clip-path="url(#mask-page)">
+                           <g class="ani-move-page is-animated">
+                              <!-- section one -->
+                              <path class="stroke stroke-width linecap" d="m0,275 m254,-203 l212,0 0,112 -212,0z" fill="none" />
+                              <path class="stroke-alt stroke-width linecap" d="m0,275 m272,-172 a13 13 180 0 1 26,0 a13 13 180 0 1 -26,0" fill="none" />
+                              <path class="stroke stroke-width linecap" d="m0,275 m254,-203 m22,112 l34,-44 a9 9 180 0 1 13,-1 l15,16 38,-48 a5 5 180 0 1 8.4,0 l60,77" fill="none" />
+                              <path class="stroke stroke-width linecap" d="m0,275 m254,-67 l212,0 m-212,10 l54,0 m25,0 l54,0 m25,0 l54,0 m-212,10 l54,0 m25,0 l54,0 m25,0 l54,0" fill="none" />
+                              <!-- button section one -->
+                              <path class="stroke stroke-width linecap" d="m350,250 a10 10 180 0 1 20,0 a10 10 180 0 1 -20,0 m6.8,-1.7 l3.2,3.2 3.2,-3.2" fill="none" />
+                              <path class="stroke stroke-width linecap" d="m318,290 l0,430" fill="none" />
+                              <path class="stroke stroke-width linecap" d="m333,306 l54,0 m-54,10 l54,0 m-54,10 l133,0 m-133,10 l133,0" fill="none" />
+                              <path class="stroke stroke-width linecap" d="m333,356 l133,0 0,78 -133,0 0,-78 m0,90 l54,0 m-54,10 l54,0 m-54,20 133,0 0,78 -133,0 0,-78 m0,90 l54,0 m-54,10 l54,0 m-54,20 133,0 0,78 -133,0 0,-78 m0,90 l54,0 m-54,10 l54,0 m-54,20" fill="none" />
+                              <!-- section two -->
+                              <path class="stroke stroke-width linecap" d="m0,680 m0,275 m254,-203 l212,0 0,112 -212,0z" fill="none" />
+                              <path class="stroke-alt stroke-width linecap" d="m0,680 m0,275 m272,-172 a13 13 180 0 1 26,0 a13 13 180 0 1 -26,0" fill="none" />
+                              <path class="stroke stroke-width linecap" d="m0,680 m0,275 m254,-203 m22,112 l34,-44 a9 9 180 0 1 13,-1 l15,16 38,-48 a5 5 180 0 1 8.4,0 l60,77" fill="none" />
+                              <path class="stroke stroke-width linecap" d="m0,680 m0,275 m254,-67 l212,0 m-212,10 l54,0 m25,0 l54,0 m25,0 l54,0 m-212,10 l54,0 m25,0 l54,0 m25,0 l54,0" fill="none" />
+                              <!-- button section two -->
+                              <path class="stroke stroke-width linecap" d="m0,680 m350,250 a10 10 180 0 1 20,0 a10 10 180 0 1 -20,0 m6.8,-1.7 l3.2,3.2 3.2,-3.2" fill="none" />
+                           </g>
+                           <g class="ani-move-menu is-animated">
+                              <g>
+                                 <path class="stroke stroke-width linecap" d="m254,306 l54,0 m-54,10 l54,0 m-54,10 l54,0 m-54,10 l54,0" fill="none" />
+                              </g>
+                           </g>
+                        </g>
+                        <!-- fade button -->
+                        <g class="ani-fade-button is-animated" opacity="0" >
+                           <path class="stroke-background stroke-overlay linecap" d="m350,250 a10 10 180 0 1 20,0 a10 10 180 0 1 -20,0 m6.8,-1.7 l3.2,3.2 3.2,-3.2" fill="none" />
+                           <path class="stroke-alt stroke-width linecap" d="m350,250 a10 10 180 0 1 20,0 a10 10 180 0 1 -20,0 m6.8,-1.7 l3.2,3.2 3.2,-3.2" fill="none" />
+                        </g>
+                        <!-- baseline -->
+                        <path class="stroke stroke-width linecap" d="m0,275 l240,0 0,-230 a5 5 90 0 1 5,-5 l230,0 a5 5 90 0 1 5,5 l0,230 240,0" fill="none" />
+                        <path class="stroke stroke-width linecap" d="m0,275 m240,-217 l240,0" fill="none" />
+                        <path class="stroke stroke-width linecap" d="m0,275 m240,-226 m10,0 a4 4 180 0 1 8,0 a4 4 180 0 1 -8,0 m14,0 a4 4 180 0 1 8,0 a4 4 180 0 1 -8,0 m14,0 a4 4 180 0 1 8,0 a4 4 180 0 1 -8,0" fill="none" />
+  
+                     </svg>
+                    <p class="h1 c--blak fw--b">Please wait, your portal is getting ready!</p>
+
+                    <div class="progress-bar">
+                        <span class="bar">
+                          <span class="progress"></span>
+                        </span>
+                    </div>
+                    <div class="btn-container">
+                        <a class="btn btn-secondary btn-next" routerLink="/dashboard">Finish Setup</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

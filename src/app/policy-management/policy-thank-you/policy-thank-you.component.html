@@ -1,0 +1,91 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+      <div>
+        <div class="card-body">
+          <!-- <app-post></app-post> -->
+          <div class="row">
+            <div class="col-lg-12">
+                <div class="card-1" id="table">
+                    <!-- <div class="card__head d-block">
+                      <div class="row d-flex align-items-center flex-wrap">
+                        <div class="col-lg-4 mb-0">
+                          <div class="card-heading"> 
+                            <p class="h4 c--drkgry">Manage Department</p>
+                          </div>
+                        </div>
+                        
+                      </div>    
+                    </div>   -->
+                    <div class="card-1">
+                        <div class="card__body">
+                          <div class="card__body__container">
+                            <div class="claim-thankyou-header">
+                                <div class="claim-thank-header-left">
+                                    <figure>
+                                        <img src="assets/img/thumb.png" alt="" title="" />
+                                    </figure>
+                                    <div class="thank-header-content">
+                                        <h3>#{{policyDetails?.policy_number}}</h3>
+                                    </div>
+                                </div>
+                                <div class="claim-thank-header-right">
+                                    <p>Policy has been successfully placed for <span>{{policyDetails?.first_name}} {{policyDetails?.last_name}}</span></p>
+                                </div>
+                            </div>
+                            <div class="claim-thankyou-body">
+                              <div class="claim-card">
+                                  <div class="claim-card-hdr">
+                                      <h4>Policy Information</h4>
+                                  </div>
+                                  <div class="claim-card-body">
+                                      <ul>
+                                          <li><span>Name</span> <span class="claim-val">{{policyDetails?.first_name}} {{policyDetails?.last_name}}</span></li>
+                                          <li><span>Policy No.</span><span class="claim-val">{{policyDetails?.policy_number}}</span></li>
+                                          <li><span>Policy Start Date</span><span class="claim-val">{{policyDetails?.policy_start_date |date:'MM-dd-YYYY'}}</span></li>
+                                          <li><span>Policy End Date</span><span class="claim-val">{{policyDetails?.expiry_with_bonus |date:'MM-dd-YYYY'}}</span></li>
+                                      </ul>
+                                  </div>
+                                </div>
+                                <div class="claim-card">
+                                  <div class="claim-card-hdr">
+                                      <h4>Coverage Plan</h4>
+                                      <span class="pln-nm {{policyDetails?.plan_details?.plan_name  | lowercase}}">{{policyDetails?.plan_details?.plan_name}} </span><!--change the class (premier/ platinum) as requirment-->
+                                  </div>
+                                  <div class="claim-card-body">
+                                      <ul>
+                                        <ng-container *ngFor="let item of policyDetails?.policy_product_list">
+                                          <li  *ngIf="item?.product_details?.product_type==1"><span>{{item?.product_details?.product_name}}</span> <span class="claim-val">{{item?.product_quantity}}</span></li>
+                                        </ng-container>
+                                         
+                                      </ul>
+                                  </div>
+                                </div>
+                                <div class="claim-card">
+                                  <div class="claim-card-hdr">
+                                      <h4>Add Ons</h4>
+                                  </div>
+                                  <div class="claim-card-body">
+                                      <ul>
+                                        <ng-container *ngFor="let item of policyDetails?.policy_product_list">
+                                          <li  *ngIf="item?.product_details?.product_type==0"><span>{{item?.product_details?.product_name}}</span> <span class="claim-val">{{item?.product_quantity}}</span></li>
+                                        </ng-container>
+                                      </ul>
+                                  </div>
+                                </div>
+                           
+                                
+                            </div>
+                            <div class="claim-thankyou-footer">
+                                <h4>Do you want to add another policy?</h4>
+                                <a routerLink="/policy-management/create-policy"class="btn btn-success">ADD POLICY NOW</a>
+                            </div>
+                          </div>
+                        </div>
+                    </div>        
+                </div>    
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>                

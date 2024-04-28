@@ -1,0 +1,326 @@
+<div class="row mb-4">
+  <div class="col">
+    <div class="card box-shadow">
+      <div class="card-header"></div>
+      <div class="card-body">
+        <!-- <app-post></app-post> -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card-1" id="table">
+              <div class="card__head">
+                <div class="card-heading">
+                  <p class="h4 c--drkgry">Modules</p>
+                </div>
+                <div class="bd-example text-end">
+                  <button class="btn btn-sm btn-primary" (click)="openaddEditModuleModal(addEditModules,'')">  Add
+                    Module</button>
+                </div>
+              </div>
+              <div class="card__body">
+                <div class="card__body__container">
+                  <div class="table-style table-style-1 table-layout-fixed">
+
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="w80">#</th>
+                          <th scope="col" class="w180">Actions</th>
+                          <th scope="col">Module Name</th>
+                          <th scope="col">Icon</th>
+                          <th scope="col">Sequence</th>
+                          <th scope="col">Route Name</th>
+                          <th scope="col" class="w80">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="systemAdminModuleList?.length>0">
+                        <tr *ngFor="let item of systemAdminModuleList | orderBy: sortBy: sortDirection; let i=index">
+                          <td>{{i+1}}</td>
+                          <td>
+                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Edit" class="btn btn-sm h-1"
+                              (click)="openViewModuleModal(viewModules,item)"><i class="pi pi-eye"></i>
+                            </button>
+                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Edit" class="btn btn-sm h-1"
+                              (click)="openaddEditModuleModal(addEditModules,item)"><i class="pi pi-file-edit"></i>
+                            </button>
+                            <!-- <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Delete" class="btn btn-sm h-1" (click)="deleteModule(item)"><i
+                                class="pi pi-trash"></i></button> -->
+                          </td>
+
+                          <td>{{item?.module_name}}</td>
+                          <td>{{item?.icon}}</td>
+                          <td>{{item?.sequence}}</td>
+                          <td>{{item?.route_path}}</td>
+                          <td>
+                            <div class="form-check form-switch form-switch-sm">
+                              <input class="form-check-input" type="checkbox" id="{{item.module_id}}-status"
+                                (change)="changeActivationStatus($event,item.module_id)" [checked]="item.active_status">
+                            </div>
+                            <!-- <span *ngIf="item.active_status==1" class="badge success">Active</span>
+                              <span *ngIf="item.active_status==0" class="badge danger">Inactive</span> -->
+                          </td>
+                        </tr>
+
+                      </tbody>
+                      <tbody *ngIf="systemAdminModuleList?.length==0">
+                        <tr>
+                          <td colspan="7" class="text-center">No data found</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <span *ngIf="paginationObj.total>10">
+                    <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.currentPage" [rows]="paginationObj.limit"
+                      [totalRecords]="paginationObj.total" [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                  </span>
+                </div>
+              </div>
+              <!-- <div class="card__body">
+                <div class="card__body__container">
+                  <div class="datatable flow-rootX2">
+                    <div class="d-flex justify-content-between gap-3">
+                      <select class="dataTable-selector" [(ngModel)]="paginationObj.limit"
+                        (ngModelChange)="getSystemAdminModulesList()">
+                        <ng-container *ngFor="let item of itemPerPageDropdown">
+                          <option value="{{item}}">{{item}}</option>
+                        </ng-container>
+                      </select>
+                      <input type="text" class="search--filter" placeholder="Please type the module name to filter"
+                        [(ngModel)]="searchKeyword" (keyup)="updateFilter($event)" />
+
+                    </div>
+                    <ngx-datatable #table class="material " [rows]="systemAdminModuleList"
+                      [loadingIndicator]="showTableDataLoading" [columns]="columns" [columnMode]="ColumnMode.force"
+                      [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [reorderable]="true"
+                      [externalPaging]="true" [count]="paginationObj.total" [offset]="paginationObj.currentPage"
+                      [limit]="paginationObj.limit" [selected]="[]" [scrollbarH]="true" [selectAllRowsOnPage]="false">-->
+                      <!-- Row Detail Template -->
+                     <!--  <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow (toggle)="onDetailToggle($event)">
+                        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                          <div style="padding-left:35px;">
+                            <div><strong>Descriptions</strong></div>
+                            <div>{{ row.descriptions }}</div>
+                          </div>
+                        </ng-template>
+                      </ngx-datatable-row-detail> -->
+                      <!-- Column Templates -->
+                    <!--   <ngx-datatable-column [width]="10" [resizeable]="false" [sortable]="false" [draggable]="false"
+                        [canAutoResize]="false">
+                        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                          <a [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded"
+                            title="Expand/Collapse Row" (click)="toggleExpandRow(row)">
+                          </a>
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="#" [width]="20"  [resizeable]="false" [sortable]="false" [draggable]="false"
+                      [canAutoResize]="false">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">
+                          {{ rowIndex + 1 }}
+                        </ng-template>
+                      </ngx-datatable-column> 
+                      <ngx-datatable-column name="Action" [width]="150"   [resizeable]="false" [sortable]="false"
+                        [draggable]="false" [canAutoResize]="false">
+                        <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                          <div class="d-flex justify-content-start">
+                            <button (click)="openViewModuleModal(viewModules,row)" type="button"
+                              data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="View"
+                              class="btn btn-sm h-1"><i class="pi pi-eye"></i></button>
+                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                              data-bs-original-title="Edit" class="btn btn-sm h-1"><i
+                                (click)="openaddEditModuleModal(addEditModules,row)"
+                                class="pi pi-file-edit"></i></button>
+                             <button (click)="deleteModule(row)" type="button" data-bs-toggle="tooltip"
+                              data-bs-placement="top" title="" data-bs-original-title="Delete" class="btn btn-sm h-1"><i
+                                class="pi pi-trash"></i></button>
+                          </div>
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="Module Name" prop="module_name"[sortable]="false">
+                        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                          let-row="row">
+                          <span title="Double click to edit" (dblclick)="editInline(rowIndex,'moduleName')"
+                            *ngIf="!editing[rowIndex + '-module_name']">
+                            {{ value }}
+                          </span>
+                          <app-validation-error *ngIf="!editing[rowIndex + '-module_name']"
+                            [control]="f['moduleName']"></app-validation-error>
+                          <div class="inlineEditDiv" *ngIf="editing[rowIndex + '-module_name']">
+                            <input autofocus (blur)="updateInlineValue($event, 'moduleName', rowIndex)"
+                              [formControl]="moduleForm.get('moduleName')" name="moduleName_{{rowIndex}}" type="text"
+                              [value]="value" class="inlineInput" />
+                          </div>
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="Icon"[sortable]="false">
+                        <ng-template ngx-datatable-cell-template let-row="row">
+                          <i class="pi {{row?.icon}} text-2xl text-color-secondary"></i>
+                        </ng-template>
+                      </ngx-datatable-column>
+                      <ngx-datatable-column name="Sequence"[sortable]="false"></ngx-datatable-column>
+                      <ngx-datatable-column name="Status"[sortable]="false">
+                        <ng-template ngx-datatable-cell-template let-row="row">
+                          <div class="form-check form-switch form-switch-sm">
+                            <input class="form-check-input" type="checkbox" id="{{row.module_id}}-status"
+                              (change)="changeActivationStatus($event,row.module_id)" [checked]="row.active_status">
+                          </div>
+                        </ng-template>
+                      </ngx-datatable-column>
+                    </ngx-datatable>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================ ADD/EDIT MODULES  ==================== -->
+
+<ng-template #addEditModules>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Module</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeaddEditModuleModal()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="moduleForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="form-style">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="moduleName"
+                [ngClass]="{ 'is-invalid': submitted && f['moduleName'].errors }"  (keypress)="preventSpace($event)">
+              <label class="form-label">Module Name <span class="c--error">*</span></label>
+              <app-validation-error [control]="f['moduleName']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-floating">
+              <textarea class="form-control" formControlName="descriptions"
+                [ngClass]="{ 'is-invalid': submitted && f['descriptions'].errors }"></textarea>
+              <label class="form-label">Descriptions</label>
+              <app-validation-error [control]="f['descriptions']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="icon" readonly
+                [ngClass]="{ 'is-invalid': submitted && f['icon'].errors }" (click)="openViewIconsModal(viewIcons)">
+              <label class="form-label">Icon<span class="c--error">*</span></label>
+              <app-validation-error [control]="f['icon']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-floating">
+              <input type="number" class="form-control" formControlName="sequence"
+                [ngClass]="{ 'is-invalid': submitted && f['sequence'].errors }" min="0" max="999">
+              <label class="form-label">Sequence</label>
+              <app-validation-error [control]="f['sequence']"></app-validation-error>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" formControlName="route_path"
+                [ngClass]="{ 'is-invalid': submitted && f['route_path'].errors }" (keypress)="preventSpace($event)">
+              <label class="form-label">Route Name </label>
+              <app-validation-error [control]="f['route_path']"></app-validation-error>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <p>Status</p>
+            <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                  formControlName="activeStatus" value="1"><span class="checkmark"></span>
+                <p>Active</p>
+              </label><label><input type="radio" name="activeStatus" formControlName="activeStatus" value="0"><span
+                  class="checkmark"></span>
+                <p>Inactive</p>
+              </label></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer" *ngIf="!isView">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="closeaddEditModuleModal()">Close</button>
+      <button type="submit" class="btn btn-sm btn-primary">{{isEdit?'Update':'Add'}} Module</button>
+    </div>
+  </form>
+</ng-template>
+
+<!-- ================ VIEW MODULES  ==================== -->
+
+<ng-template #viewModules>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Module Details</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-style">
+      <div class="row">
+        <div class="col-12">
+          <p> <b>Name</b>: {{viewObj?.module_name}}</p>
+        </div>
+        <div class="col-12">
+          <p><b>Description</b>: {{viewObj?.descriptions}}</p>
+        </div>
+        <div class="col-12">
+          <p><b>Icon</b>: {{viewObj?.icon}}</p>
+        </div>
+        <div class="col-12">
+          <p><b>Sequence</b>: {{viewObj?.sequence}}</p>
+        </div>
+        <div class="col-12">
+          <p><b>Route Name</b>: {{viewObj?.route_path}}</p>
+        </div>
+        <div class="col-12">
+          <p><b>Status</b>: <span class="badge success" *ngIf="viewObj.active_status==1">Active</span> <span
+              class="badge danger" *ngIf="viewObj.active_status!==1">Inactive</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+    <button type="button" class="btn btn-sm btn-primary" (click)="openEditModuleModal(addEditModules,viewObj)"><i
+        class="pi pi-pencil"></i> Edit</button>
+
+  </div>
+</ng-template>
+
+<!-- ================ VIEW ICONS  ==================== -->
+<ng-template #viewIcons>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Select Icon</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewIconsModalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="card">
+      <div class="grid text-center">
+        <ng-container *ngFor="let item of primeIcons.icons">
+          <div class="col-3 md:col-2" (click)="selectIcon(item)"><i
+              class="pi  pt-1 pi-{{item.properties.name}} text-2xl text-color-secondary"></i>
+            <div>pi-{{item.properties.name}}</div>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="viewIconsModalRef?.hide()">Close</button>
+
+  </div>
+</ng-template>

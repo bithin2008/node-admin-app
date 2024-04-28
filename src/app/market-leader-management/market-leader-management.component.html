@@ -1,0 +1,239 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                <div class="col-lg-4 mb-0">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Manage Market Leaders</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 mb-0">
+                                    <div class="align-items-center">
+                                        <div class="d-flex justify-content-end">
+                                            <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                            [placeHolderText]="'Search...'"></app-search-input>
+                                            <div class="col-auto mb-0 ml-1">
+                                                <div class="btns-grp">
+                                                    <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add" (click)="openAddEditPostModal(addEditPost,'')">Add</button>
+                                                 </div>
+                           
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1">
+                                           
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" (click)="updateSorting('market_leader_id')"># <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col">Actions</th>
+                                                            <th scope="col" (click)="updateSorting('title')">Title <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col"(click)="updateSorting('created_at')">Created On <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col"(click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" class="w80" (click)="updateSorting('active_status')">
+                                                                Status <span class="pi pi-sort short-icon"></span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="marketLeadersList?.length>0">
+                                                        <tr *ngFor="let item of marketLeadersList; let i=index">
+                                                            <td>{{i+1}}</td>
+                                                            <td>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="View"
+                                                                    data-bs-original-title="View" class="btn btn-sm h-1 btn-view"
+                                                                    (click)="openViewOrgModal(viewOrg,item)">View
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Edit"
+                                                                    data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit"
+                                                                    (click)="openAddEditPostModal(addEditPost,item)">Edit
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Delete"
+                                                                    data-bs-original-title="Delete" (click)="deletePost(item)"
+                                                                    class="btn btn-sm h-1 btn-del">Delete</button>
+                                                            </td>
+                                                            <td> {{ (item?.title.length>40)? (item?.title |
+                                                                slice:0:40)+'...':(item?.title) }}</td>
+                                                           
+                                                            
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                    
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                            <td>
+                                                                <div class="form-check form-switch form-switch-sm">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="{{item.org_id}}-status"
+                                                                        (click)="changeActivationStatus($event,item)"
+                                                                        [checked]="item.active_status">
+                                                                </div>
+                                                            
+                                                            </td>
+                                                        </tr>
+        
+                                                    </tbody>
+                                                    <tbody *ngIf="marketLeadersList?.length==0">
+                                                        <tr>
+                                                            <td colspan="7" class="text-center">No data found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                        <span>
+    
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                                [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ================ ADD/EDIT ORGANIZATIONS  ==================== -->
+
+<ng-template #addEditPost>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Market Leader</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeOrgAddEditModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="marketLeaderForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-element">
+                            <!-- <label class="form-label" for="image">Market Leader Image<span class="c--error">*</span></label> -->
+                            <div class="drag-area">
+                                <div class="icon"><i class="pi pi-cloud-upload icon"></i></div>
+                                <p>Upload Image <span class="c--error">*</span></p>
+                                <img *ngIf="image?.objectUrl" src="{{image?.objectUrl}}"
+                                    class="drop-zoon__preview-image" alt="tinylogo">
+                                <img *ngIf="isEdit && editObj?.image" class="drop-zoon__preview-image"
+                                    src="{{editObj?.image}}" alt="blog image">
+                                <input type="file" formControlName="image" authorImage class="drop-zoon__file-input"
+                                    id="image" accept="image/*" (change)="fileChangeEvent($event,'image')">
+                            </div>
+                            <app-validation-error [control]="f['image']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="title"
+                                [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"
+                                >
+                            <label class="form-label">Market Leader Title <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['title']"></app-validation-error>
+                        </div>
+                    </div>
+                  
+        
+              
+                    
+                   
+                    <div class="col-6">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1"><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="modal-footer w-100 fl-left">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeOrgAddEditModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading"
+                    class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW ORGANIZATIONS  ==================== -->
+
+<ng-template #viewOrg>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Market Leader Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="fee-details leaders-details">
+                <ul>
+                    <li>Title :</li>
+                    <li>{{viewObj.title}}</li>
+                </ul>
+              
+                <ul *ngIf="viewObj.image">
+                    <li><img src="{{viewObj.image}}" width="250"></li>
+                </ul>
+               <div class="row">
+                <div class="col-6">
+                    <p><b>Created By</b>: <span
+                        *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                        {{viewObj?.create_info?.last_name}}</span> <span
+                        *ngIf="!viewObj?.create_info">N/A</span></p>
+                </div>
+                <div class="col-6">
+                    <p><b>Created On</b>: {{viewObj?.created_at|date:'MM-dd-YYYY'}}</p>
+                </div>
+                <div class="col-6">
+                    <p><b>Updated By</b>: <span  *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}} {{viewObj?.update_info?.last_name}}</span>
+                         <span  *ngIf="!viewObj?.update_info">N/A</span></p>
+                </div>
+                <div class="col-6">
+                    <p><b>Updated On</b>: {{viewObj?.updated_at|date:'MM-dd-YYYY'}}</p>
+                </div>
+            </div>
+                <ul>
+                    <li>Status: </li>
+                    <li>
+                        <span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+                            class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditOrgModal(addEditPost,viewObj)"><i
+                class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>

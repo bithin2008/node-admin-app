@@ -1,0 +1,23 @@
+<!-- table.component.html -->
+<div class="table-style table-style-1 table-layout-fixed">
+    <div class="">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th *ngFor="let header of tableHeaderData">{{ header }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of tableBodyData">
+                    <td *ngFor="let header of tableHeaderData">{{ row[header] }}</td>
+                  </tr>
+            </tbody>
+            <tbody *ngIf="tableBodyData?.length==0">
+                <tr>
+                    <td colspan="14" class="text-center">No data found</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+  

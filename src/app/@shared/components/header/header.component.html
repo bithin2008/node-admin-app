@@ -1,0 +1,326 @@
+<header id="head">
+    <div class="row">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="user--name">
+                <p class="h3 c--gry01">{{greetMsg}}
+                    <span class="fw--b c--blak" *ngIf="user?.is_system_admin==1">{{user?.name}} <ng-container
+                            *ngIf="user?.is_system_admin==1">(System Admin)</ng-container></span>
+                    <span class="fw--b c--blak" *ngIf="user?.is_system_admin!=1">{{user?.first_name}} </span>
+                </p>
+                <p class="h6 c--gry01"> </p>
+            </div>
+            <div  class="main_header_right">
+             
+                <div class="btns-grp">
+                    <button role="button" class="btn btn-primary ml-1 ng-star-inserted" *ngIf="showCreateClaimButton" routerLink="claim-management/create-claim" >ADD CLAIM</button>
+                    <button role="button" class="btn btn-success ml-1 ng-star-inserted" *ngIf="showCreatePolicyButton" routerLink="policy-management/create-policy" >ADD POLICY</button>
+                </div>
+                
+                <ul class="header-list" id="headerList">
+                    <!-- <li class="input-box" [ngClass]="searchstatus ? 'open' : ''">
+                        <div class="serch_wrap_box">
+                            <input type="text" placeholder="Search..." />
+                        </div>
+                        <span class="search" (click)="clickSearch()">
+                            <i class="pi pi-search search-icon"></i>
+                        </span>
+                        <i class="pi pi-times close-icon" (click)="closeSearch()"></i>
+                    </li>
+                    <li class="notification" id="message">
+                        <a href="javascript:" class="dropdown-noti" (click)="messages( )">
+                            <i class="pi pi-envelope"></i>
+                            <span class="message-alert"></span>
+                        </a>
+                        <div class="notification__box message__box" id="notificationDropdown"
+                            [ngClass]="messagestatus ? 'show' : ''">
+                            <div class="noti-header">
+                                <p class="h7">You have 4 new notifications</p>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="javascript:void">
+                                        <span>
+                                            <p class="c--blak">Application Error</p>
+                                            <p>Just Now</p>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void">
+                                        <span>
+                                            <p class="c--blak">Settings</p>
+                                            <p>Just Now</p>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void">
+                                        <span>
+                                            <p class="c--blak">New User Registration</p>
+                                            <p>2 days ago</p>
+                                        </span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="notification" id="notification">
+                        <a href="javascript:" class="dropdown-noti" (click)="messages2( )">
+                            <i class="pi pi-bell"></i>
+                        </a>
+                        <div class="notification__box" id="notificationDropdown" [ngClass]="messagestatus2 ? 'show' : ''">
+                            <div class="noti-header">
+                                <p class="h5">Notifications</p>
+                                <span class="badge primary">8 New</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="javascript:void">
+                                        <span>
+                                            <p>Congratulations Flora</p>
+                                            <p>Received Payment</p>
+                                        </span>
+                                        <span>11 Aug 2022</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void">
+                                        <span>
+                                            <p>Congratulations Flora</p>
+                                            <p>Received Payment</p>
+                                        </span>
+                                        <span>11 Aug 2022</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void">
+                                        <span>
+                                            <p>Congratulations Flora</p>
+                                            <p>Received Payment</p>
+                                        </span>
+                                        <span>11 Aug 2022</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void">
+                                        <span>
+                                            <p>Congratulations Flora</p>
+                                            <p>Received Payment</p>
+                                        </span>
+                                        <span>11 Aug 2022</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void">
+                                        <span>
+                                            <p>Congratulations Flora</p>
+                                            <p>Received Payment</p>
+                                        </span>
+                                        <span>11 Aug 2022</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="noti-footer">
+                                <a class="btn btn-outline-primary" href="javascript:void">Read All Notifications</a>
+                            </div>
+                        </div>
+                    </li> -->
+                    <li>
+                        <button type="button" (click)="tglFullScreenMode($event)">
+                            <i class="pi pi-window-maximize"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" (click)="openModalPrefrence(modalPrefrence)">
+                            <i class="pi pi-sliders-h"></i>
+                        </button>
+                    </li>
+                    <li class="profile" id="profile">
+                        <a href="javascript:" class="dropdown-profile" (click)="profile()">
+                            <i class="pi pi-user"></i>
+                        </a>
+                        <div id="profileDropdown" class="profile-dropdown" [ngClass]="profilestatus ? 'show' : ''">
+                            <div class="profile-block">
+                                <figure>
+                                    <img src="assets/img/profile.jpg" *ngIf="user?.is_system_admin==1">
+                                    <img src="{{user?.profile_image}}" onerror="this.onerror=null;this.src='assets/img/profile.jpg'"alt="profile_image" *ngIf="user?.is_system_admin!=1">
+                                </figure>
+                                <article>
+                                    <p class="h4 fw--sb" *ngIf="user?.is_system_admin==1">{{user?.name}}</p>
+                                    <p class="h4 fw--sb" *ngIf="user?.is_system_admin!=1">{{user?.first_name}} {{user?.last_name}}</p>
+                                    <p class="h7 c--place" *ngIf="user?.is_system_admin==1">System Admin</p>
+                                </article>
+                            </div>
+                            <div class="profile-link-block">
+                                <a routerLink="/profile" *ngIf="user?.is_system_admin!=1"><i class="pi pi-user-edit"></i>Edit Profile</a>
+                                <a *ngIf="user?.is_system_admin==1" (click)="openChangePasswordModal(changePasswordModal)"><i class="pi pi-user-edit"></i>Change Password</a>
+                                    <!-- <a href="javascript:void"><i class="pi pi-users"></i> Account Settings</a> -->
+                            </div>
+                            
+                            <div class="profile-link-block-secondary">
+    <!--                             <a href="javascript:void"><i class="pi pi-question-circle"></i> Help Center</a>
+        -->                            <a (click)="logout()" role="button"><i class="pi pi-power-off"></i> Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Modal Theme -->
+<ng-template #modalPrefrence>
+    <div class="modal-content">
+        <div class="modal-header" style="background-color: transparent;">
+            <h5 class="modal-title h4" id="modal-center">Set your preference</h5>
+            <button type="button" class="btn-close" (click)="closeModalPrefrence()"></button>
+        </div>
+        <div class="modal-body p-4 flow-rootX6">
+            <div class="preference-block color--mode">
+                <h5 class="h5 fw--m">Color Mode</h5>
+                <p>Choose a mode that fits your eyes</p>
+                <div class="btnss d-flex align-items-center gap-2">
+                    <button type="button" class="btn" data-mode="light">
+                        <i class="pi pi-sun"></i>
+                        <span>Light</span>
+                    </button>
+                    <button type="button" class="btn" data-mode="dark">
+                        <i class="pi pi-moon"></i>
+                        <span>Dark</span> <span class="badge bg-danger">BETA</span>
+                    </button>
+                </div>
+            </div>
+            <div class="preference-block theme--mode">
+                <h5 class="h5 fw--m">Theme Color</h5>
+                <p>Set a color of your choice</p>
+                <div class="btnss theme">
+                    <button type="button" data-theme="default"></button>
+                    <button type="button" data-theme="blue"></button>
+                    <button type="button" data-theme="yellow"></button>
+                    <button type="button" data-theme="teal"></button>
+                    <!-- <button type="button" data-theme="red"></button>
+                    <button type="button" data-theme="green"></button>
+                   -->
+                </div>
+            </div>
+            <!-- <div class="brightness-control flow-rootx2">
+                <p class="h7">Adjust Brightness</p>
+                <div class="brightness-box">
+                    <i class="pi pi-moon"></i>
+                    <input type="range" id="range" min="10" max="100" value="100">
+                    <i class="pi pi-sun"></i>
+                </div>
+            </div>
+            <div class="theme-control">
+                <p class="h7">Choose Theme</p>
+                <label id="switch" class="switch">
+                    <input type="checkbox" onchange="toggleTheme()" id="slider">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+        </div>
+        <!-- <div class="modal-footer d-flex justify-content-center p-0 m-0">
+            <button type="button" class="btn btn-primary w-100 m-0 p-2 rounded-0" data-bs-dismiss="modal">Apply
+                Settigs</button>
+        </div> -->
+    </div>
+</ng-template>
+
+<!-- ================ ADD/EDIT MODULES  ==================== -->
+
+<ng-template #changePasswordModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Change Password</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="closeChangePasswordModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="changePasswordForm" class="form-style flow-rootX app-form unauth-form-max-w"
+        (ngSubmit)="onChangePassword()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="{{oldPasswordType?'text':'password'}}" id="oldPassword" class="form-control"
+                                formControlName="oldPassword"
+                                [ngClass]="{ 'is-invalid': submitted && f['oldPassword'].errors }">
+                            <label for="oldPassword">Old Password<span class="c--error">*</span></label>
+                            <div class="password-eye">
+                                <i class="pi pi-eye text-2xl text-color-secondary" *ngIf="!oldPasswordType"
+                                    (click)="oldPasswordType=!oldPasswordType"></i>
+                                <i class="pi pi-eye-slash text-2xl text-color-secondary" *ngIf="oldPasswordType"
+                                    (click)="oldPasswordType=!oldPasswordType"></i>
+                            </div>
+                            <app-validation-error [control]="f['oldPassword']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="{{newPasswordType?'text':'password'}}" id="pass" name="pass"
+                                class="form-control" formControlName="newPassword"
+                                [ngClass]="{ 'is-invalid': submitted && f['newPassword'].errors }" autocomplete="off"
+                                (keyup)="checkPassword()" (focus)="onFocusPassword()" (blur)="onBlurPassword()">
+                            <label for="newPassword">New Password <span class="c--error">*</span></label>
+                            <div class="password-eye">
+                                <i class="pi pi-eye text-2xl text-color-secondary" *ngIf="!newPasswordType"
+                                    (click)="newPasswordType=!newPasswordType"></i>
+                                <i class="pi pi-eye-slash text-2xl text-color-secondary" *ngIf="newPasswordType"
+                                    (click)="newPasswordType=!newPasswordType"></i>
+                            </div>
+                            <app-validation-error [control]="f['newPassword']"></app-validation-error>
+                            <div class="password--validation" *ngIf="f['newPassword'].value && enablePasswordStrength">
+                                <div class="passfailSix" *ngIf="isEightDigitsValid">8 Characters <span
+                                        class="{{isEightDigitsValid=='Pass'?'pass':'fail'}}"> {{isEightDigitsValid
+                                        }}</span></div>
+                                <div class="passfailLower" *ngIf="isLowercaseValid">1 LowerCase <span
+                                        class="{{isLowercaseValid=='Pass'?'pass':'fail'}}">{{isLowercaseValid}}</span>
+                                </div>
+                                <div class="passfailUpper" *ngIf="isUppercaseValid">1 Uppercase <span
+                                        class="{{isUppercaseValid=='Pass'?'pass':'fail'}}">{{isUppercaseValid}}</span>
+                                </div>
+                                <div class="passfailNum" *ngIf="isNumberValid">1 Number <span
+                                        class="{{isNumberValid=='Pass'?'pass':'fail'}}">{{isNumberValid}}</span>
+                                </div>
+                                <div class="passfailSpecial" *ngIf="isSpecialValid">1 Special Character <span
+                                        class="{{isSpecialValid=='Pass'?'pass':'fail'}}">{{isSpecialValid}}</span>
+                                </div>
+                                <div class="passfailAll" *ngIf="isAllValid">Good Password <span
+                                        class="{{isAllValid=='Pass'?'pass':'fail'}}">{{isAllValid }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="{{confirmPasswordType?'text':'password'}}" id="confirmPassword"
+                                class="form-control" formControlName="confirmPassword"
+                                [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }">
+                            <label for="confirmPassword">Re-enter New Password<span class="c--error">*</span></label>
+                            <div class="password-eye">
+                                <i class="pi pi-eye text-2xl text-color-secondary" *ngIf="!confirmPasswordType"
+                                    (click)="confirmPasswordType=!confirmPasswordType"></i>
+                                <i class="pi pi-eye-slash text-2xl text-color-secondary" *ngIf="confirmPasswordType"
+                                    (click)="confirmPasswordType=!confirmPasswordType"></i>
+                            </div>
+                            <app-validation-error [control]="f['confirmPassword']"></app-validation-error>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeChangePasswordModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary"> Change</button>
+        </div>
+    </form>
+</ng-template>
+
+

@@ -1,0 +1,34 @@
+.date-filled,
+.indicator.date-filled {
+  color: #21b26f;
+  font-weight: bold;
+}
+
+.date-holiday-opt,
+.indicator.date-holiday-opt {
+  color: rgb(255, 183, 0);
+  font-weight: bold;
+}
+
+.date-holiday,
+.indicator.date-holiday {
+  color: rgb(194, 50, 40);
+  font-weight: bold;
+}
+
+.indicator .date-selected {
+  color: #1D4ED8;
+  background: #EFF6FF;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  transition: box-shadow 0.2s;
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}/*# sourceMappingURL=timesheet-form.component.css.map */

@@ -1,0 +1,269 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+            <div class="card-body">
+                <!-- <app-post></app-post> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                <div class="col-lg-4 mb-0">
+                                    <div class="card-heading">
+                                        <p class="h4 c--drkgry">Manage Plan Term Discount</p>
+                                    </div>
+                                </div>
+                                <div class="align-items-center col-lg-8 mb-0 pr-0">
+                                    <div class="d-flex justify-content-end">
+                                        <div class="col-lg-6 col-xxl-4 mb-0">
+                                            <div class="form--search d-flex align-items-center">   
+                                                <label class="form-label col-auto pl-0">Plan Terms<span class="c--error">*</span>
+                                                </label>
+                                                <select class="form-control form-select" 
+                                                (ngModelChange)="changeTenure($event)" [(ngModel)]="selectedTerm">
+                                                    <option value="">Select Plan Terms</option>
+                                                    <ng-container *ngFor="let tenure of tenureList">
+                                                        <option value="{{tenure.plan_term_month}}">{{tenure.plan_term}}</option>
+                                                    </ng-container>
+                                                </select>
+                                                <!--(change)="changeTenure($event)" <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                                    [placeHolderText]="'Search...'"></app-search-input> -->
+                                                    <!-- <div class="form-control form-control--search newSerch cuserch w-auto">
+                                                        <i class="pi pi-search search-icon mr-1"></i>
+                                                        <input type="search" placeholder="Type here to Search"
+                                                        [(ngModel)]="searchingvalue" (input)="search($event)">
+                                                    </div>
+                                                    <button class="btn btn-reset ml-1" role="button"(click)="resetAllFilter()">Reset</button> -->
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-reset mr-1 {{selectedTerm.length>0?'':'disabled-xl'}}" role="button"(click)="resetAllFilter()">Reset</button>
+                                            <div class="col-auto mb-0 ml-2 pr-0">
+                                                <button *ngIf="permissionObj?.add" class="btn btn-sm btn-success h-100" (click)="openaddEditPlanModal(addEditPlanTermDiscounts,'')"> Add
+                                                </button>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="w60" (click)="updateSorting('planterm_discount_id')">#
+                                                                <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" class="w200">Actions</th>
+                                                            <th (click)="updateSorting('plan_term')">Plan Term <span
+                                                                    class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" (click)="updateSorting('discount_value')">Discount value <span
+                                                                    class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col">Created By</th>
+                                                            <th scope="col"(click)="updateSorting('created_at')">Created On <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col">Updated By</th>
+                                                            <th scope="col"(click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" class="w80" (click)="updateSorting('active_status')">
+                                                                Status <span class="pi pi-sort short-icon"></span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="planTermDiscountList?.length>0">
+                                                        <tr *ngFor="let item of planTermDiscountList; let i=index">
+                                                            <td>{{i+1+(paginationObj.currentPage-1)*paginationObj.limit}}</td>
+                                                            <td>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Test"
+                                                                    data-bs-original-title="View" class="btn btn-sm btn-view h-1"
+                                                                    (click)="openViewPlanModal(viewPlans,item)">View
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title=""*ngIf="permissionObj?.edit"
+                                                                    data-bs-original-title="Edit" class="btn btn-sm btn-edit h-1"
+                                                                    (click)="openaddEditPlanModal(addEditPlanTermDiscounts,item)">Edit
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title=""*ngIf="permissionObj?.delete"
+                                                                    data-bs-original-title="Delete" class="btn btn-sm btn-del h-1"
+                                                                    (click)="deletePlanTermDiscount(item)">Delete</button>
+                                                            </td>
+                                                            <td *ngIf="item?.plan_term==1">Monthly</td>
+                                                            <td *ngIf="item?.plan_term==12">1 Year</td>
+                                                            <td *ngIf="item?.plan_term>12">{{item?.plan_term/12}} Years</td>
+                                                            <td  *ngIf="item?.price_percentage==0">{{item?.discount_value | currency:'USD'}}</td>
+                                                            <td  *ngIf="item?.price_percentage==1">{{item?.discount_value}}%</td>
+                                                            <td><span
+                                                                    *ngIf="item?.create_info">{{item?.create_info?.first_name}}
+                                                                    {{item?.create_info?.last_name}}</span> <span
+                                                                    *ngIf="!item?.create_info">N/A</span></td>
+                                                            <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                            <td><span *ngIf="item?.updated_by">{{item?.update_info?.first_name}}
+                                                                    {{item?.update_info?.last_name}}</span> <span
+                                                                    *ngIf="!item?.updated_by">N/A</span></td>
+                                                            <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                            <td>
+                                                                <div class="form-check form-switch form-switch-sm">
+                                                                    <input class="form-check-input" type="checkbox"  id="{{item.module_id}}-status"
+                                                                        (click)="changeActivationStatus($event,item)"
+                                                                        [checked]="item.active_status">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tbody *ngIf="planTermDiscountList?.length==0">
+                                                        <tr>
+                                                            <td colspan="7" class="text-center">No data found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <span *ngIf="paginationObj">
+                                            <p-paginator (onPageChange)="paginate($event)" [rows]="paginationObj.limit"
+                                                [first]="paginationObj.first" [totalRecords]="paginationObj.total"
+                                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================ ADD/EDIT Plans  ==================== -->
+
+<ng-template #addEditPlanTermDiscounts >
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Plan Term Discount</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeAddEditPlanModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="planTermDiscountForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <select id="planTerm" class="form-control form-select" formControlName="planTerm" [ngClass]="{ 'is-invalid': submitted && f['planTerm'].errors }">
+                              
+                                <ng-container *ngFor="let tenure of tenureList">
+                                    <option value="{{tenure.plan_term_month}}">{{tenure.plan_term}}</option>
+                                </ng-container>
+                        </select>
+                            <label class="form-label">Policy Terms <span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['planTerm']"></app-validation-error>
+                        </div>
+                    </div>
+                    <!-- <div class="col-6"></div> -->
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="pricePercentage"
+                                [ngClass]="{ 'is-invalid': submitted && f['pricePercentage'].errors }">
+                                <option value="0">Price</option>
+                                <option value="1">Percentage</option>
+                            </select>
+                            <label class="form-label">Price / Percentage<span class="c--error">*</span></label>
+                            <span *ngIf="submitted"> <app-validation-error [control]="f['pricePercentage']"></app-validation-error></span>
+    
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" formControlName="discountValue"
+                                [ngClass]="{ 'is-invalid': submitted && f['discountValue'].errors }" min="1">
+                            <label class="form-label">Discount Value ($)<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['discountValue']"></app-validation-error>
+                        </div>
+                    </div>
+             
+
+                    <div class="col-6">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1" checked><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeAddEditPlanModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary"[disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW Plans  ==================== -->
+
+<ng-template #viewPlans>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Coverage Plan Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="fee-details">
+             
+                <ul>
+                    <li>Plan Term :</li>
+                    <li>   <span *ngIf="viewObj?.plan_term==1">Monthly</span>
+                        <span *ngIf="viewObj?.plan_term==12">1 Year</span>
+                        <span *ngIf="viewObj?.plan_term>12">{{viewObj?.plan_term/12}} Years</span></li>
+                </ul>
+                <ul>
+                    <li>Discount value :</li>
+                    <li> <span *ngIf="viewObj?.price_percentage==0">{{viewObj?.discount_value | currency:'USD'}}</span>
+                        <span  *ngIf="viewObj?.price_percentage==1">{{viewObj?.discount_value}}%</span></li>
+                </ul>
+                <ul>
+                    <li>Created By :</li>
+                    <li> <span
+                        *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                        {{viewObj?.create_info?.last_name}}</span> <span
+                        *ngIf="!viewObj?.create_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Created On :</li>
+                    <li> {{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>
+                    <li>Updated By :</li>
+                    <li><span  *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}} {{viewObj?.update_info?.last_name}}</span>
+                         <span  *ngIf="!viewObj?.update_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Updated On :</li>
+                    <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>
+                    <li>Status :</li>
+                    <li> <span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+                            class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></li>
+                </ul>
+          
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditPlanTermDiscountModal(addEditPlanTermDiscounts,viewObj)" *ngIf="permissionObj?.edit"><i
+                class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>

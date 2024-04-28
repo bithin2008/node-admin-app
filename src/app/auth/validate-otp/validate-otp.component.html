@@ -1,0 +1,55 @@
+<div class="sds-product__admin">
+    <section class="login__wrapper">
+        <div class="login__block">
+            <div class="login-left">
+                <div class="left-img">
+                    <img src="./assets/img/login-logo.webp" alt="First Premier Home Warranty" title="First Premier Home Warranty" />
+                </div>
+              </div>
+
+            <div class="login-right">
+                <div class="login-container">
+                    <div class="login-inside">
+                        <div class="logos">
+                            <img class="logo-light" src="./assets/img/logo.webp" alt="First Premier Home Warranty" title="First Premier Home Warranty"/>
+                            <img class="logo-dark" src="./assets/img/logo-white.webp" alt="First Premier Home Warranty" title="First Premier Home Warranty"/>
+                          </div>
+
+                          <div class="log_form_hdng flow-root">
+                            <h4 class="h5">Enter the OTP</h4>
+                            <p>We sent the 4 digit OTP in your email</p>
+                          </div>
+                        <article class="flow-rootx">
+                            <form id="otp" (ngSubmit)="validateOTP()" class="otp--form form-style flow-rootx text-center">
+                                <div class="form-element fl-left w-100">
+                                    <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{length:4}">
+                                    </ng-otp-input>
+                                </div>
+                                
+                                <div class="form-element fl-left w-100">
+                                    <button type="submit" class="btn btn-primary" [disabled]="loading">
+                                        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                                        Validate OTP
+                                    </button>
+                                </div>
+
+                                <div class="form-element fl-left w-100">
+                                    <div class="text-center fl-left w-100 pb-1 pt-1 grid grid-auto-flow-row justify-content-center align-center flow-rootx2">
+                                        <div [hidden]="!isDisabledResendotp">
+                                            <span class="h6 mb-0">Didn't receive the OTP yet? <br/>Resend in </span>
+                                            <countdown  #cd 
+                                                [config]="{leftTime: 60,format: 'mm:ss'}" (event)="handleEvent($event)" >
+                                            </countdown>
+                                        </div>
+
+                                        <a href="javascript:" *ngIf="!isDisabledResendotp" title="Resend OTP" class="text-center pointer resendotp c2a-underline" (click)="resendOtp()">Resend OTP</a>
+                                    </div>    
+                                </div>
+                            </form>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

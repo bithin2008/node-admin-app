@@ -1,0 +1,395 @@
+<div class="row mb-4">
+    <div class="col card_wrapper">
+        <div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-1" id="table">
+                            <div class="card__head d-block">
+                                <div class="row d-flex align-items-center flex-wrap">
+                                    <div class="col-lg-4 mb-0">
+                                        <div class="card-heading">
+                                            <p class="h4 c--drkgry">Manage Blogs</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 mb-0">
+                                        <div class="align-items-center">
+                                            <div class="d-flex justify-content-end">
+                                                <app-search-input (inputValue)="getSearchInputVal($event)" [resetInput]="resetSearchInput"
+                                                [placeHolderText]="'Search...'"></app-search-input>
+                                                <div class="col-auto mb-0 ml-1 pr-0">
+                                                    <div class="btns-grp">
+                                                        <button class="btn btn-success ml-1" role="button" *ngIf="permissionObj?.add" (click)="openAddEditPostModal(addEditPost,'')">Add</button>
+                                                    </div>
+                                                    
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                            <div class="card-1">
+                                <div class="card__body">
+                                    <div class="card__body__container">
+                                        <div class="table-style table-style-1 table-layout-fixed">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" class="w80" (click)="updateSorting('blog_id')"># <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" class="w180">Actions</th>
+                                                            <th scope="col" (click)="updateSorting('blog_title')">Title <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col">Short Description</th>
+                                                            <th scope="col" (click)="updateSorting('publish_date')">Publish Date <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col"(click)="updateSorting('created_at')">Created On <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col"(click)="updateSorting('updated_at')">Updated On <span class="pi pi-sort short-icon"></span></th>
+                                                            <th scope="col" class="w80" (click)="updateSorting('active_status')">
+                                                                Status <span class="pi pi-sort short-icon"></span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="postList?.length>0">
+                                                        <tr *ngFor="let item of postList; let i=index">
+                                                            <td>{{i+1}}</td>
+                                                            <td>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="View"
+                                                                    data-bs-original-title="View" class="btn btn-sm h-1 btn-view"
+                                                                    *ngIf="permissionObj?.view"
+                                                                    (click)="openViewOrgModal(viewOrg,item)">View
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Edit"
+                                                                    *ngIf="permissionObj?.edit"
+                                                                    data-bs-original-title="Edit" class="btn btn-sm h-1 btn-edit"
+                                                                    (click)="openAddEditPostModal(addEditPost,item)">Edit
+                                                                </button>
+                                                                <button type="button" data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top" title="Delete"
+                                                                    *ngIf="permissionObj?.delete"
+                                                                    data-bs-original-title="Delete" (click)="deletePost(item)"
+                                                                    class="btn btn-sm h-1 btn-del">Delete</button>
+                                                            </td>
+                                                            <td> {{ (item?.blog_title.length>40)? (item?.blog_title |
+                                                                slice:0:40)+'...':(item?.blog_title) }}</td>
+                                                            <td> {{ (item?.short_description.length>50)?
+                                                                (item?.short_description |
+                                                                slice:0:50)+'...':(item?.short_description) }}</td>
+                                                            <td>{{item?.publish_date |date:'MM-dd-YYYY'}}</td>
+                                                            
+                                                        <td>{{item?.created_at|date:'MM-dd-YYYY'}}</td>
+                                                    
+                                                        <td>{{item?.updated_at|date:'MM-dd-YYYY'}}</td>
+                                                            <td>
+                                                                <div class="form-check form-switch form-switch-sm">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="{{item.org_id}}-status"
+                                                                        (click)="changeActivationStatus($event,item)"
+                                                                        [checked]="item.active_status">
+                                                                </div>
+                                                            
+                                                            </td>
+                                                        </tr>
+        
+                                                    </tbody>
+                                                    <tbody *ngIf="postList?.length==0">
+                                                        <tr>
+                                                            <td colspan="7" class="text-center">No data found</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <span>
+    
+                                            <p-paginator (onPageChange)="paginate($event)" [first]="paginationObj.first"
+                                                [rows]="paginationObj.limit" [totalRecords]="paginationObj.total"
+                                                [rowsPerPageOptions]="itemPerPageDropdown"></p-paginator>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ================ ADD/EDIT ORGANIZATIONS  ==================== -->
+
+<ng-template #addEditPost>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{isEdit?'Edit':'Add'}} Blog</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeOrgAddEditModal()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="postForm" class="form-style flow-rootX app-form unauth-form-max-w" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="form-style">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-element">
+                            <!-- <label class="form-label" for="blogImage">Blog Image<span class="c--error">*</span></label> -->
+                            <div class="drag-area">
+                                <div class="icon"><i class="pi pi-cloud-upload icon"></i></div>
+                                <p>Upload Blog Image <span class="c--error">*</span></p>
+                                <img *ngIf="blogImage?.objectUrl" src="{{blogImage?.objectUrl}}"
+                                    class="drop-zoon__preview-image" alt="tinylogo">
+                                <img *ngIf="isEdit && editObj?.image" class="drop-zoon__preview-image"
+                                    src="{{editObj?.image}}" alt="blog image">
+                                <input type="file" formControlName="blogImage" authorImage class="drop-zoon__file-input"
+                                    id="blogImage" accept="image/*" (change)="fileChangeEvent($event,'blogImage')">
+                            </div>
+                            <app-validation-error [control]="f['blogImage']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" formControlName="blogTitle"
+                                        [ngClass]="{ 'is-invalid': submitted && f['blogTitle'].errors }"
+                                        (keyup)="blogEnter($event)">
+                                    <label class="form-label">Blog Title <span class="c--error">*</span></label>
+                                    <app-validation-error [control]="f['blogTitle']"></app-validation-error>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" formControlName="slug"
+                                        [ngClass]="{ 'is-invalid': submitted && f['slug'].errors }">
+                                    <label class="form-label">Slug<span class="c--error">*</span></label>
+                                    <app-validation-error [control]="f['slug']"></app-validation-error>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <!-- <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="authorName"
+                                [ngClass]="{ 'is-invalid': submitted && f['authorName'].errors }">
+                            <label class="form-label">Author</label>
+                            <app-validation-error [control]="f['authorName']"></app-validation-error>
+                        </div>
+                    </div> -->
+
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="blogCategoryId"
+                                [ngClass]="{ 'is-invalid': submitted && f['blogCategoryId'].errors }">
+                                <ng-container *ngFor="let blog of blogCategoryList">
+                                    <option value="{{blog.blog_category_id}}">{{blog.blog_category_name}}</option>
+                                </ng-container>
+                            </select>
+                            <label class="form-label">Blog Category<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['blogCategoryId']"></app-validation-error>
+                        </div>
+                    </div>
+                   
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <select class="form-control form-select" formControlName="productId"
+                                [ngClass]="{ 'is-invalid': submitted && f['productId'].errors }">
+                                <ng-container *ngFor="let product of productList">
+                                    <option value="{{product.product_id}}">{{product.product_name}}</option>
+                                </ng-container>
+
+                            </select>
+                            <label class="form-label">Select Product</label>
+                            <app-validation-error [control]="f['productId']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="text" readonly placeholder="Datepicker" onkeydown="return false" class="form-control" id="publishDate"
+                                formControlName="publishDate" bsDatepicker (bsValueChange)="changePublishDate($event)"
+                                [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers: false}" onkeydown="return false"
+                              autocomplete="off"
+                                [ngClass]="{ 'is-invalid': submitted && f['publishDate'].errors }">
+                            <label class="form-label">Publish Date<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['publishDate']"></app-validation-error>
+                        </div>
+                    </div>
+
+
+
+
+                  
+
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" formControlName="shortDescription" rows="5"
+                                maxlength="150"></textarea>
+                            <label class="form-label">Short Description<span class="c--error">*</span></label>
+                            <app-validation-error [control]="f['shortDescription']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-35">
+                        <div>
+                            <label class="form-label">Description <span class="c--error">*</span></label>
+                            <editor #editor formControlName="description" style="position:relative;" apiKey="imsv6j62jb4nypm6d0ossb7mrmhnaryhre71dyttzxxpc65c"
+                                [init]="getInit()" [inline]="false"></editor>
+
+                                <!-- <ckeditor
+                                formControlName="description"
+      [config]="editorConfig"     
+    ></ckeditor> -->
+                            <app-validation-error [control]="f['description']"></app-validation-error>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="metaTitle"
+                                [ngClass]="{ 'is-invalid': submitted && f['metaTitle'].errors }">
+                            <label class="form-label">Meta Title</label>
+                            <app-validation-error [control]="f['metaTitle']"></app-validation-error>
+                        </div>
+                    </div>
+                    <!-- <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="metaKeyword"
+                                [ngClass]="{ 'is-invalid': submitted && f['metaKeyword'].errors }">
+                            <label class="form-label">Meta Keyword</label>
+                            <app-validation-error [control]="f['metaKeyword']"></app-validation-error>
+                        </div>
+                    </div> -->
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" formControlName="metaDescription"></textarea>
+                            <label class="form-label">Meta Description</label>
+                            <app-validation-error [control]="f['metaDescription']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" formControlName="trackingCode"
+                                [ngClass]="{ 'is-invalid': submitted && f['trackingCode'].errors }">
+                            <label class="form-label">Analytics/Tracking Code</label>
+                            <app-validation-error [control]="f['trackingCode']"></app-validation-error>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <p>Status</p>
+                        <div class="form-radio inline-style"><label><input type="radio" name="activeStatus"
+                                    formControlName="activeStatus" value="1"><span class="checkmark"></span>
+                                <p>Active</p>
+                            </label><label><input type="radio" name="activeStatus" formControlName="activeStatus"
+                                    value="0"><span class="checkmark"></span>
+                                <p>Inactive</p>
+                            </label></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="modal-footer w-100 fl-left">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="closeOrgAddEditModal()">Close</button>
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="loading">
+                <span *ngIf="loading"
+                    class="spinner-border spinner-border-sm me-1"></span>{{isEdit?'Update':'Add'}}</button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!-- ================ VIEW ORGANIZATIONS  ==================== -->
+
+<ng-template #viewOrg>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Blog Details</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="viewModalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-style">
+            <div class="fee-details blog-details">
+                <ul>
+                    <li>Title :</li>
+                    <li> {{viewObj.blog_title}}</li>
+                </ul>
+                <ul>
+                    <li> Publish Date : </li>
+                    <li>{{viewObj.publish_date | date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>
+                    <li> Slug : </li>
+                    <li>{{viewObj.slug}}</li>
+                </ul>
+                <ul>
+                    <li> Alt :</li>
+                    <li> {{viewObj.alt}}</li>
+                </ul>
+                <ul *ngIf="viewObj.image">
+                    <li>Blog Image :</li>
+                   <li> <img src="{{viewObj.image}}" width="250"></li>
+                </ul>
+                <ul *ngIf="viewObj.short_description">
+                    <li> Short Description :</li>
+                    <li>{{viewObj.short_description}}</li>
+                </ul>
+                <ul class="py-4" *ngIf="viewObj.description">
+                    <li> Description :</li>
+                    <li style="min-height: 150px; max-height: 300px; overflow: auto;padding-top: 5px;">
+                        <span class="flow-rootX" [innerHTML]="viewObj.description"></span>
+                    </li>
+                </ul>
+                <ul>
+                    <li> Meta title : </li>
+                    <li>{{viewObj.meta_title}}</li>
+                </ul>
+                <!-- <div>
+                    <p> Meta keyword : {{viewObj.meta_keyword}}</p>
+                </div> -->
+                <ul>
+                    <li>Meta description :</li>
+                    <li>  {{viewObj.meta_description}}</li>
+                </ul>
+                <ul>
+                    <li>Created By: </li>
+                    <li><span
+                        *ngIf="viewObj?.create_info">{{viewObj?.create_info?.first_name}}
+                        {{viewObj?.create_info?.last_name}}</span> <span
+                        *ngIf="!viewObj?.create_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Created On: </li>
+                    <li>{{viewObj?.created_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>
+                    <li>Updated By: </li>
+                    <li><span  *ngIf="viewObj?.update_info">{{viewObj?.update_info?.first_name}} {{viewObj?.update_info?.last_name}}</span>
+                        <span  *ngIf="!viewObj?.update_info">N/A</span></li>
+                </ul>
+                <ul>
+                    <li>Updated On: </li>
+                    <li>{{viewObj?.updated_at|date:'MM-dd-YYYY'}}</li>
+                </ul>
+                <ul>
+                    <li>Status:</li>
+                    <li> <span class="badge st-actv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status==1">Active</span> <span
+                        class="badge st-inactv radius:tiny size:tiny padding:tiny" *ngIf="viewObj.active_status!==1">Inactive</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="viewModalRef?.hide()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="openEditOrgModal(addEditPost,viewObj)"><i
+                class="pi pi-pencil"></i> Edit</button>
+
+    </div>
+</ng-template>

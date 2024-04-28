@@ -1,0 +1,151 @@
+
+<div class="sidebar-scroll">
+    <div class="logo-details">
+        <span class="logo_name"><a class="sds-product__logo max" routerLink="/dashboard"><img class="logo-light" src="./assets/img/logo.webp"><img class="logo-dark" src="./assets/img/logo-white.webp"></a></span>
+        <span class="logo_name_small"><a class="sds-product__logo max"><img src="./assets/img/logo-sm.webp"></a></span>
+        <i class='pi pi-arrow-left sd-menu' (click)="toggleSidebar()"></i>
+    </div>
+    <ng-container *ngIf="isSystemAdmin==1">
+        <div class="nav-links-contaner">
+            <ul class="nav-links">
+                <li routerLinkActive="active" >
+                    <a routerLink="/system-admin/dashboard">
+                        <i class='pi pi-th-large'></i>
+                        <span class="link_name">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item nav-item-cat-head">Management Tools</li>
+                <li routerLinkActive="active">
+                    <div class="iocn-link">
+                        <a>
+                            <i class='pi pi-cog'></i>
+                            <span class="link_name">Master Settings</span>
+                        </a>
+                        <i class='pi pi-chevron-down arrow'></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a routerLink="/system-admin/modules" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"> Manage Modules </a></li>
+                        <li><a routerLink="/system-admin/sub-modules" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"> Manage Sub Modules </a></li>
+                        <li><a routerLink="/system-admin/organization" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"> Manage Organizations </a></li>
+                        <li><a routerLink="/system-admin/organization-departments" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"> Manage Organization Departments </a></li>
+                        <li><a routerLink="/system-admin/organization-user-roles" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"> Manage Organization Roles </a></li>
+                        <li><a routerLink="/system-admin/organization-users" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"> Manage Organization Users </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </ng-container>
+    <ng-container *ngIf="isSystemAdmin==0">
+        <div class="navLinksContainer">
+            <perfect-scrollbar>            
+                <div class="nav-links-contaner" *ngIf="hasMenuItems">
+                    <ul class="nav-links" >
+                        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="dashboard-item active">
+                            <div class="iocn-link">
+                            <a routerLink="/dashboard">
+                                <i class='pi pi-th-large'></i>
+                                <span class="link_name">Dashboard</span>
+                            </a>
+                        </div>
+                        </li>
+                    
+                            <li routerLinkActive="active" class="menu-item"  
+                            *ngFor="let item of accessableModuleSubmodules" [routerLinkActiveOptions]="{ exact: true }">
+                            <div class="iocn-link"(click)="liClick($event)">
+                                <a *ngIf="item?.module_details?.route_path"
+                                    routerLink="/{{item?.module_details?.route_path}}">
+                                    <i class='pi  {{item?.module_details?.icon}}'></i>
+                                    <span class="link_name">{{item?.module_details?.org_module_name}}</span>
+                                    
+                                </a>
+                                <a class="w-100" *ngIf="!item?.module_details?.route_path">
+                                    <i class='pi  {{item?.module_details?.icon}}'></i>
+                                    <span class="link_name">{{item?.module_details?.org_module_name}} </span>
+                                    <i class='pi arrow ml-auto'></i>
+                                </a>
+                            
+                            </div>
+                            <ul class="sub-menu">
+                                <li *ngFor="let subItem of item?.submodules">
+                                    <a *ngIf="subItem?.route_path" class="{{subItem?.route_path=='N/A'?'no-link-available':''}}" routerLink="/{{subItem?.route_path}}" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{ exact: true }" [queryParamsHandling]="'merge'">
+                                    <!-- {{subItem.org_sub_module_slug=='my-sales'?isSuperAdmin==1?subItem?.org_sub_module_name:'My Sales':subItem?.org_sub_module_name}}  -->
+                                    {{subItem?.org_sub_module_name}}
+                                     </a>
+                                    <!-- <a  *ngIf="!subItem?.route_path">{{subItem?.org_sub_module_name}} {{subItem?.route_path}}</a> -->
+                                </li>                          
+                            </ul>
+                        </li>
+                    
+                    
+                    <!--  <li>
+                            <div class="iocn-link">
+                                <a><i class='pi pi-cog'></i> <span class="link_name">Policy Management</span></a><i class='pi pi-chevron-down arrow'></i>
+                            </div>
+                            <ul class="sub-menu">
+                                <li><a> Manage Policies </a></li>
+                                <li><a > Manage Renewals </a></li>
+                                <li><a > Manage Cancellation Requests </a></li>
+                                <li><a > Manage Payment History </a></li>
+                                <li><a > Manage Failed Payment </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="iocn-link">
+                                <a><i class='pi pi-cog'></i> <span class="link_name">Technician/Contractor Management</span></a><i class='pi pi-chevron-down arrow'></i>
+                            </div>
+                            <ul class="sub-menu">
+                                <li><a>Manage Technician Network Module </a></li>
+                                <li><a >Manage Claims </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="iocn-link">
+                                <a><i class='pi pi-cog'></i> <span class="link_name">Real Estate Agent Management</span></a><i class='pi pi-chevron-down arrow'></i>
+                            </div>
+                            <ul class="sub-menu">
+                                <li><a>	Manage Real Estate Agent</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="iocn-link">
+                                <a><i class='pi pi-cog'></i> <span class="link_name">Sales Representative Management
+                                    </span></a><i class='pi pi-chevron-down arrow'></i>
+                            </div>
+                            <ul class="sub-menu">
+                                <li><a>	Manage Commissions Master</a></li>
+                                <li><a> Manage Sales Report</a></li>
+                                <li><a>	Manage Sales Representative Commission </a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="iocn-link">
+                                <a><i class='pi pi-cog'></i> <span class="link_name">Affiliate Management </span></a><i class='pi pi-chevron-down arrow'></i>
+                            </div>
+                            <ul class="sub-menu">
+                                <li><a>	Manage Affiliates</a></li>
+                                <li><a> Manage Affiliate Invoices</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="iocn-link">
+                                <a><i class='pi pi-cog'></i> <span class="link_name">Enquiry Management</span></a><i class='pi pi-chevron-down arrow'></i>
+                            </div>
+                            <ul class="sub-menu">
+                                <li><a>Manage Enquiry</a></li>
+                            </ul>
+                        </li>-->
+                    </ul> 
+                </div>
+            </perfect-scrollbar>
+        </div>
+    </ng-container>
+
+</div>

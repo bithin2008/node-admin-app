@@ -1,0 +1,17 @@
+<div class="sds-product__admin close">
+  <section class="layout__wrapper" *ngIf="!verifying">
+    
+    <app-sidebar class="sidebar" id="panel" >
+      
+    </app-sidebar>
+
+    <div class="summary__container app--container">
+      <app-header></app-header>
+      <app-alert-message></app-alert-message>
+      <main class="layout-page-content"> <router-outlet></router-outlet></main>
+      <app-footer></app-footer>
+      <app-scroll-to-top></app-scroll-to-top>
+    </div>
+
+  </section>
+</div>

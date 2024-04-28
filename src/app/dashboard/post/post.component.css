@@ -1,0 +1,6 @@
+a.post-item {
+  text-decoration: none;
+}
+a.post-item:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=post.component.css.map */

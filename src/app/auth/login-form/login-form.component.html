@@ -1,0 +1,66 @@
+<div class="sds-product__admin">
+  <section class="login__wrapper">
+    <div class="login__block">
+      <div class="login-left">
+        <div class="left-img">
+          <img src="./assets/img/login-logo.webp" alt="First Premier Home Warranty" title="First Premier Home Warranty"/>
+        </div>
+      </div>
+      <div class="login-right">
+        <div class="login-container">
+          <div class="login-inside">
+            <div class="logos">
+              <img class="logo-light" src="./assets/img/logo.webp" alt="First Premier Home Warranty" title="First Premier Home Warranty"/>
+              <img class="logo-dark" src="./assets/img/logo-white.webp" alt="First Premier Home Warranty" title="First Premier Home Warranty"/>
+            </div>
+            <div class="log_form_hdng flow-rootx4">
+             
+              <h4 class="h5">Login to your account</h4>
+            </div>
+            <article class="flow-rootx">
+              <!-- <h2 class="h1">Welcome</h2>
+              <p class="h5">Please sign-in to your account and start the adventure</p> -->
+              <form [formGroup]="loginForm" class="form-style flow-rootX app-form unauth-form-max-w"
+                (ngSubmit)="onSubmit()">
+                <div class="form-floating">
+                  <input type="text" class="form-control" formControlName="email" #inputElement
+                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                  <label class="form-label">Email<span class="c--error">*</span></label>
+                  <app-validation-error [control]="f['email']"></app-validation-error>
+                </div>
+                <div class="form-floating">
+                  <input type="{{passwordType?'text':'password'}}" class="form-control" formControlName="password" #passwordElement
+                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                  <label class="form-label">Password<span class="c--error">*</span></label> 
+                  <div class="password-eye">
+                    <i class="pi pi-eye text-2xl text-color-secondary" *ngIf="!passwordType" (click)="passwordType=!passwordType"></i>
+                    <i class="pi pi-eye-slash text-2xl text-color-secondary"  *ngIf="passwordType" (click)="passwordType=!passwordType"></i>
+                  </div>
+                  <app-validation-error [control]="f['password']"></app-validation-error>
+                </div>
+                <div class="form-element forgot-password justify-content-end">
+                  <!-- <div class="form-checkbox">
+                    <label>
+                      <input type="checkbox" name="callback_request" value="1">
+                      <span class="checkmark"></span>
+                      <p>Remember Me</p>
+                    </label>
+                  </div> -->
+                  <a class="c2a-underline" routerLink="/auth/forgot-password">Forgot Password?</a>
+                </div>
+                <div class="form-element mb-0">
+                  <!-- <a (click)="redirectTo()" class="btn btn-primary w-100">Login</a> -->
+                  <button type="submit" class="btn btn-primary w-100 log-btn" [disabled]="loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Login
+                  </button>
+                </div>
+
+              </form>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,87 @@
+@use './../abstracts/mixin' as *;
+@use "sass:list" as *;
+@use "sass:math" as *;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+
+@font-face {
+  font-family: 'Material Icons Outlined';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v56/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUce.woff2) format('woff2');
+}
+
+.material-icons-outlined {
+  font-family: 'Material Icons Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
+:root{
+  --fs-root: 13px;
+  --bs-body-font-family: 'Poppins', sans-serif;
+  --bs-body-font-weight: 400;
+}
+
+@media(min-width: 1856px){
+  :root{
+    --fs-root: 13px;
+  }
+}
+
+
+$allFontWeight:(
+    l   :  300,  // light
+    r   :  400,  // regular
+    m   :  500,  // medium
+    sb  :  600,  // semi bold
+    b   :  700  // bold
+);
+
+@mixin fw($key) {
+    font-weight: map-get($allFontWeight, $key);
+}
+
+// //-- FONT WEIGHT CLASS --//
+@each $fwName, $fwValue in $allFontWeight{
+    .fw--#{$fwName}{
+        font-weight: $fwValue;
+    }
+}
+
+// $allFontSize:(
+//    1XL:  (70, 100),
+//    1MD:  (50, 70),
+//    1  :  (30, 40),
+//    2  :  (22, 30),
+//    3  :  (20, 24),
+//    4  :  (18, 20),
+//    5  :  (16, 18),
+//    6  :  (14, 16),
+//    7  :  (12, 14),
+//    8  :  (10, 12)
+// );
+
+// // //-- FONT SIZE CLASS --//
+// @each $fsClass, $fsValue in $allFontSize{
+//     .h#{$fsClass}{
+//       @include clamp('font-size', nth($fsValue, 1), (nth($fsValue, 2) * 1.25), 2560);
+//       //line-height: max(1.1, 1.0 + (div(($fsClass) - 1, 10)));
+//       line-height: inherit;
+//     }
+// }
+
+
